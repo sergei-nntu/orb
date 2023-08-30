@@ -1,9 +1,13 @@
 import React from 'react';
+import Main from "./pages/main/Main";
+import Layout from "./hoc/Layout/Layout";
 
 function App() {
-  return (
-    <div>Hello, world!</div>
-  );
+    return (
+        <Layout>
+            <Main />
+        </Layout>
+    );
 }
 
 export default App;
