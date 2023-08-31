@@ -1,11 +1,11 @@
 import React from 'react';
 import Main from "./pages/main/Main";
-import Layout from "./hoc/Layout/Layout";
 import {
     createBrowserRouter,
     RouterProvider,
 } from "react-router-dom";
 import ErrorPage from "./pages/error-page/ErrorPage";
+import MenuAppBar from "./components/AppBar/AppBar";
 
 const router = createBrowserRouter([
     {
@@ -17,9 +17,9 @@ const router = createBrowserRouter([
 
 function App() {
     return (
-        <Layout>
+        <MenuAppBar>
             <RouterProvider router={router} />
-        </Layout>
+        </MenuAppBar>
     );
 }
 

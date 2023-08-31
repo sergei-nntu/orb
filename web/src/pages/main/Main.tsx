@@ -2,7 +2,7 @@ import React from 'react';
 
 function Main() {
     return (
-        <h1>Hello world!</h1>
+        <h1>Blockly</h1>
     );
 }
 
