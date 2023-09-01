@@ -20,6 +20,7 @@ import NextPlanIcon from '@mui/icons-material/NextPlan';
 import NavigationIcon from '@mui/icons-material/Navigation';
 import {ReactElement} from "react";
 import {AppBar, Drawer, DrawerHeader} from "./StyledComponents/StyledComponents";
+import Footer from "../Footer/Footer";
 
 const data = [
     {
@@ -120,9 +121,18 @@ export default function MenuAppBar(props: MenuAppBarProps) {
                     ))}
                 </List>
             </Drawer>
-            <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+            <Box
+                component="main"
+                sx={{
+                    flexGrow: 1,
+                    minHeight: '100vh',
+                    display: 'flex',
+                    flexDirection: 'column'
+                }}
+            >
                 <DrawerHeader />
                 {props.children}
+                <Footer />
             </Box>
         </Box>
     );
