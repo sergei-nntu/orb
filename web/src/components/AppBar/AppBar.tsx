@@ -121,7 +121,15 @@ export default function MenuAppBar(props: MenuAppBarProps) {
                     ))}
                 </List>
             </Drawer>
-            <Box component="main" sx={{ flexGrow: 1 }}>
+            <Box
+                component="main"
+                sx={{
+                    flexGrow: 1,
+                    minHeight: '100vh',
+                    display: 'flex',
+                    flexDirection: 'column'
+                }}
+            >
                 <DrawerHeader />
                 {props.children}
                 <Footer />

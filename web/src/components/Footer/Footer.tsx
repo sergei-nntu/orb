@@ -7,7 +7,7 @@ export default function Footer() {
     return (
         <Box
             sx={{
-                p: 6,
+                p: 4,
                 mt: "auto"
             }}
             component="footer"
