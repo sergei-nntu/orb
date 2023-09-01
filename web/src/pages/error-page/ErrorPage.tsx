@@ -1,17 +1,25 @@
 import React from 'react';
 import { useRouteError } from "react-router-dom";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
 
 export default function ErrorPage() {
     const error = useRouteError();
     return (
-        <div id="error-page">
-            <h1>Oops!</h1>
-            <p>Sorry, an unexpected error has occurred.</p>
-            <p>
+        <Box sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            height: '100vh',
+            justifyContent: 'center'
+        }}>
+            <Typography variant="h2">Oops!</Typography>
+            <Typography variant="overline">Sorry, an unexpected error has occurred.</Typography>
+            <Typography variant="subtitle2">
                 {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment*/}
                 {/* @ts-ignore*/}
                 <i>{error.statusText || error.message}</i>
-            </p>
-        </div>
+            </Typography>
+        </Box>
     );
 }

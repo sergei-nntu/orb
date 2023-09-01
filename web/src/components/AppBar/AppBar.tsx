@@ -18,9 +18,10 @@ import QrCode2Icon from '@mui/icons-material/QrCode2';
 import PrecisionManufacturingIcon from '@mui/icons-material/PrecisionManufacturing';
 import NextPlanIcon from '@mui/icons-material/NextPlan';
 import NavigationIcon from '@mui/icons-material/Navigation';
-import {ReactElement} from "react";
 import {AppBar, Drawer, DrawerHeader} from "./StyledComponents/StyledComponents";
 import Footer from "../Footer/Footer";
+import {useRouter} from "../../hooks/Router/Router";
+import {Outlet} from "react-router-dom";
 
 const data = [
     {
@@ -41,10 +42,9 @@ const data = [
     },
 ];
 
-type MenuAppBarProps = { children: ReactElement; };
-
-export default function MenuAppBar(props: MenuAppBarProps) {
+export default function MenuAppBar() {
     const theme = useTheme();
+    const router = useRouter();
     const [open, setOpen] = React.useState(false);
     const [value, setValue] = React.useState("Navigation");
 
@@ -57,7 +57,9 @@ export default function MenuAppBar(props: MenuAppBarProps) {
     };
 
     const handleButtonClick = (event: React.MouseEvent<HTMLElement>) => {
-        setValue(event.currentTarget.getAttribute("data-text") || "");
+        const path = event.currentTarget.getAttribute("data-text") || "";
+        setValue(path);
+        router.push(path);
         handleDrawerClose();
     };
 
@@ -131,7 +133,7 @@ export default function MenuAppBar(props: MenuAppBarProps) {
                 }}
             >
                 <DrawerHeader />
-                {props.children}
+                <Outlet />
                 <Footer />
             </Box>
         </Box>
