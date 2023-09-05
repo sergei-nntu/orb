@@ -1,7 +1,9 @@
 import React from 'react';
+import BlocklyEditor from './BlocklyEditor/BlocklyEditor';
 
 export default function Planning() {
+    const toolboxXML = "<xml><block type='controls_if'></block></xml>";
     return (
-        <h1>Planning</h1>
+        <BlocklyEditor toolboxXML={toolboxXML} />
     );
 }
