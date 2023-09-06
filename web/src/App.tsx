@@ -9,6 +9,9 @@ import MenuAppBar from "./components/AppBar/AppBar";
 import Navigation from "./pages/navigation/Navigation";
 import Manipulator from "./pages/manipulator/Manipulator";
 import QRPage from "./pages/qr-page/QRPage";
+import useMediaQuery from '@mui/material/useMediaQuery';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
 
 const router = createBrowserRouter([
     {
@@ -37,8 +40,25 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
+    const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
+
+    const theme = React.useMemo(
+        () =>
+            createTheme({
+                palette: {
+                    mode: prefersDarkMode ? 'dark' : 'light',
+                },
+            }),
+        [prefersDarkMode],
+    );
+
     return (
-        <RouterProvider router={router} />
+        <ThemeProvider theme={theme}>
+            <CssBaseline />
+            <MenuAppBar>
+                <RouterProvider router={router} />
+            </MenuAppBar>
+        </ThemeProvider>
     );
 }
 
