@@ -1,11 +1,14 @@
 import React, { Component, RefObject } from 'react';
 import {javascriptGenerator} from 'blockly/javascript';
 import Blockly from 'blockly';
+import DarkTheme from '@blockly/theme-dark';
+import Box from "@mui/material/Box";
 
 interface BlocklyEditorProps {
     toolboxXML: string;
 }
 
+// TODO: when it will be time, this component should be rewritten as function component with using hooks
 class BlocklyEditor extends Component<BlocklyEditorProps> {
     private readonly blocklyDiv: RefObject<HTMLDivElement>;
     private workspace: Blockly.WorkspaceSvg | null = null;
@@ -17,7 +20,10 @@ class BlocklyEditor extends Component<BlocklyEditorProps> {
 
     componentDidMount() {
         if (typeof Blockly !== 'undefined' && this.blocklyDiv.current) {
+            const prefersDarkTheme = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            const theme = prefersDarkTheme ? DarkTheme : null;
             this.workspace = Blockly.inject(this.blocklyDiv.current, {
+                theme,
                 toolbox: this.props.toolboxXML,
             });
             this.workspace.addChangeListener(this.handleWorkspaceChange);
@@ -42,7 +48,7 @@ class BlocklyEditor extends Component<BlocklyEditorProps> {
 
     render() {
         return (
-            <div ref={this.blocklyDiv} style={{ height: '80%', width: '100%' }}></div>
+            <Box ref={this.blocklyDiv} sx={{ height: '80%', width: '100%' }} />
         );
     }
 }
