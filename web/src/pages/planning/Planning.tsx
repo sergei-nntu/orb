@@ -1,8 +1,20 @@
 import React from 'react';
 import BlocklyEditor from './BlocklyEditor/BlocklyEditor';
+import './CustomBlocks/CustomBlocks';
+
+const toolboxXML =
+    "<xml>" +
+        "<block type='controls_if'></block>" +
+        "<block type='logic_boolean'></block>" +
+        "<block type='math_number' gap='30'>" +
+            "<field name='NUM'>1</field>" +
+        "</block>" +
+        "<block type='controls_whileUntil'></block>" +
+        "<block type='controls_for'></block>" +
+        "<block type='math_change'></block>" +
+    "</xml>";
 
 export default function Planning() {
-    const toolboxXML = "<xml><block type='controls_if'></block></xml>";
     return (
         <BlocklyEditor toolboxXML={toolboxXML} />
     );
