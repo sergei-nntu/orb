@@ -18,8 +18,10 @@ class BlocklyEditor extends Component<BlocklyEditorProps> {
 
     componentDidMount() {
         if (typeof Blockly !== 'undefined' && this.blocklyDiv.current) {
+            const prefersDarkTheme = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            const theme = prefersDarkTheme ? DarkTheme : null;
             this.workspace = Blockly.inject(this.blocklyDiv.current, {
-                theme: DarkTheme,
+                theme,
                 toolbox: this.props.toolboxXML,
             });
             this.workspace.addChangeListener(this.handleWorkspaceChange);
