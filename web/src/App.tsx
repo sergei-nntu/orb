@@ -55,9 +55,7 @@ function App() {
     return (
         <ThemeProvider theme={theme}>
             <CssBaseline />
-            <MenuAppBar>
-                <RouterProvider router={router} />
-            </MenuAppBar>
+            <RouterProvider router={router} />
         </ThemeProvider>
     );
 }
