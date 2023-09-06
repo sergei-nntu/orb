@@ -1,6 +1,7 @@
 import React, { Component, RefObject } from 'react';
 import {javascriptGenerator} from 'blockly/javascript';
 import Blockly from 'blockly';
+import DarkTheme from '@blockly/theme-dark';
 
 interface BlocklyEditorProps {
     toolboxXML: string;
@@ -18,6 +19,7 @@ class BlocklyEditor extends Component<BlocklyEditorProps> {
     componentDidMount() {
         if (typeof Blockly !== 'undefined' && this.blocklyDiv.current) {
             this.workspace = Blockly.inject(this.blocklyDiv.current, {
+                theme: DarkTheme,
                 toolbox: this.props.toolboxXML,
             });
             this.workspace.addChangeListener(this.handleWorkspaceChange);
