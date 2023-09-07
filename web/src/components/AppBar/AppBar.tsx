@@ -57,10 +57,15 @@ export default function MenuAppBar() {
     };
 
     const handleButtonClick = (event: React.MouseEvent<HTMLElement>) => {
-        const path = event.currentTarget.getAttribute("data-text") || "";
-        setValue(path);
+        const title = event.currentTarget.getAttribute("data-text") || "";
+        const path = calculatePath(title);
+        setValue(title);
         router.push(path);
         handleDrawerClose();
+    };
+
+    const calculatePath = (value: string) => {
+        return value === "Navigation" ? "/" : value.toLowerCase();
     };
 
     return (
