@@ -11,7 +11,9 @@ const toolboxXML =
         "</block>" +
         "<block type='controls_whileUntil'></block>" +
         "<block type='controls_for'></block>" +
-        "<block type='math_change'></block>" +
+        "<block type='set_position'></block>" +
+        "<block type='delay'></block>" +
+        "<block type='set_gripper_step'></block>" +
     "</xml>";
 
 export default function Planning() {
