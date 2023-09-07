@@ -1,6 +1,5 @@
-import * as React from 'react';
+import React, {useEffect} from 'react';
 import {useTheme} from '@mui/material/styles';
-import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import List from '@mui/material/List';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -19,11 +18,9 @@ import PrecisionManufacturingIcon from '@mui/icons-material/PrecisionManufacturi
 import NextPlanIcon from '@mui/icons-material/NextPlan';
 import NavigationIcon from '@mui/icons-material/Navigation';
 import {AppBar, Drawer, DrawerHeader} from "./StyledComponents/StyledComponents";
-import Footer from "../Footer/Footer";
 import {useRouter} from "../../hooks/Router/Router";
-import {Outlet} from "react-router-dom";
 
-const data = [
+const drawerData = [
     {
         icon: <NavigationIcon />,
         text: "Navigation"
@@ -46,7 +43,29 @@ export default function MenuAppBar() {
     const theme = useTheme();
     const router = useRouter();
     const [open, setOpen] = React.useState(false);
-    const [value, setValue] = React.useState("Navigation");
+    const [title, setTitle] = React.useState("Navigation");
+
+    useEffect(() => {
+        calculateTitle();
+    }, []);
+
+    const handleButtonClick = (event: React.MouseEvent<HTMLElement>) => {
+        const value = event.currentTarget.getAttribute("data-text") || "";
+        setTitle(value);
+        const path = calculatePath(value);
+        router.push(path);
+        handleDrawerClose();
+    };
+
+    const calculateTitle = () => {
+        if (router.pathname === "/") return;
+        const pathname = router.pathname.replace("/", "");
+        setTitle(pathname.charAt(0).toUpperCase() + pathname.slice(1));
+    };
+
+    const calculatePath = (value: string) => {
+        return value === "Navigation" ? "/" : value.toLowerCase();
+    };
 
     const handleDrawerOpen = () => {
         setOpen(true);
@@ -56,15 +75,8 @@ export default function MenuAppBar() {
         setOpen(false);
     };
 
-    const handleButtonClick = (event: React.MouseEvent<HTMLElement>) => {
-        const path = event.currentTarget.getAttribute("data-text") || "";
-        setValue(path);
-        router.push(path);
-        handleDrawerClose();
-    };
-
     return (
-        <Box sx={{ display: 'flex' }}>
+        <>
             <CssBaseline />
             <AppBar position="fixed" open={open}>
                 <Toolbar>
@@ -81,7 +93,7 @@ export default function MenuAppBar() {
                         <MenuIcon />
                     </IconButton>
                     <Typography variant="h6" noWrap component="div">
-                        {value}
+                        {title}
                     </Typography>
                 </Toolbar>
             </AppBar>
@@ -93,7 +105,7 @@ export default function MenuAppBar() {
                 </DrawerHeader>
                 <Divider />
                 <List>
-                    {data.map((item) => (
+                    {drawerData.map((item) => (
                         <ListItem
                             key={item.text}
                             disablePadding
@@ -123,19 +135,6 @@ export default function MenuAppBar() {
                     ))}
                 </List>
             </Drawer>
-            <Box
-                component="main"
-                sx={{
-                    flexGrow: 1,
-                    minHeight: '100vh',
-                    display: 'flex',
-                    flexDirection: 'column'
-                }}
-            >
-                <DrawerHeader />
-                <Outlet />
-                <Footer />
-            </Box>
-        </Box>
+        </>
     );
 }
