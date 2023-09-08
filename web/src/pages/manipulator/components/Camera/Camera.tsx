@@ -4,16 +4,16 @@ import {Item} from "../StyledComponents/StyledComponents";
 
 export default function Camera() {
     return (
-        <Grid item xs={9}>
+        <Grid item xs={6}>
             <Item
                 sx={{
-                    minHeight: "400px",
+                    minHeight: "80vh",
                     display: "flex",
                     justifyContent: "center",
                     alignItems: "center"
                 }}
             >
-                Camera
+                Robot
             </Item>
         </Grid>
     );

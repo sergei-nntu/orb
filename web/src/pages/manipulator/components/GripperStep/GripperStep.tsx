@@ -4,10 +4,10 @@ import {Grid} from "@mui/material";
 
 export default function GripperStep() {
     return (
-        <Grid item xs={5}>
+        <Grid item xs={3}>
             <Item
                 sx={{
-                    minHeight: "200px",
+                    minHeight: "80vh",
                     display: "flex",
                     justifyContent: "center",
                     alignItems: "center"
