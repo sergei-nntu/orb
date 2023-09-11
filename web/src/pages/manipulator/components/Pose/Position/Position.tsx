@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import KeyboardArrowUpSharpIcon from '@mui/icons-material/KeyboardArrowUpSharp';
 import KeyboardArrowDownSharpIcon from '@mui/icons-material/KeyboardArrowDownSharp';
 import KeyboardArrowLeftSharpIcon from '@mui/icons-material/KeyboardArrowLeftSharp';
@@ -7,10 +7,36 @@ import KeyboardDoubleArrowDownSharpIcon from '@mui/icons-material/KeyboardDouble
 import KeyboardDoubleArrowUpSharpIcon from '@mui/icons-material/KeyboardDoubleArrowUpSharp';
 import { Box } from '@mui/material';
 
+const ArrowStyle = {
+    fontSize: '100px',
+};
+
 export default function Position() {
-    const ArrowStyle = {
-        fontSize: '100px',
+
+    const [isKeyPressed, setIsKeyPressed] = useState(false);
+
+    useEffect(() => {
+        window.addEventListener('keydown', handleKeyDown);
+        window.addEventListener('keyup', handleKeyUp);
+
+        return () => {
+            window.removeEventListener('keydown', handleKeyDown);
+            window.removeEventListener('keyup', handleKeyUp);
+        };
+    }, []);
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+        if (e.key === 'w') {
+            setIsKeyPressed(true);
+        }
     };
+
+    const handleKeyUp = (e: KeyboardEvent) => {
+        if (e.key === 'w') {
+            setIsKeyPressed(false);
+        }
+    };
+
     return (
         <>
             <Box
@@ -39,10 +65,10 @@ export default function Position() {
                     mb: -6
                 }}
             >
+                {/*secondary*/}
                 <KeyboardArrowUpSharpIcon
-                    color="primary"
+                    color={isKeyPressed ? "error" : "primary"}
                     style={ArrowStyle}
-                    onClick={() => console.log("Arrow Up")}
                 />
             </Box>
 
