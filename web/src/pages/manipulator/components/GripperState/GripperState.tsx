@@ -2,7 +2,7 @@ import React from 'react';
 import {Item} from "../StyledComponents/StyledComponents";
 import {Grid} from "@mui/material";
 
-export default function GripperStep() {
+export default function GripperState() {
     return (
         <Grid item xs={3}>
             <Item
@@ -13,7 +13,7 @@ export default function GripperStep() {
                     alignItems: "center"
                 }}
             >
-                Gripper step
+                Gripper state
             </Item>
         </Grid>
     );

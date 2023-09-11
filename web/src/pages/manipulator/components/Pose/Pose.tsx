@@ -1,6 +1,7 @@
 import React from 'react';
 import {Item, StyledTitleBox} from "../StyledComponents/StyledComponents";
-import {Box, Grid} from "@mui/material";
+import {Grid} from "@mui/material";
+import Position from "./Position/Position";
 
 export default function Pose() {
     return (
@@ -8,12 +9,14 @@ export default function Pose() {
             <Item
                 sx={{
                     minHeight: "80vh",
+                    display: "flex",
+                    flexDirection: "column"
                 }}
             >
                 <StyledTitleBox>
                     Position
                 </StyledTitleBox>
-                <Box sx={{height: "240px"}} />
+                <Position />
                 <StyledTitleBox>
                     Orientation
                 </StyledTitleBox>
