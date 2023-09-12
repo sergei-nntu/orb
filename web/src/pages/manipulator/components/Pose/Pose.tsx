@@ -1,7 +1,8 @@
 import React from 'react';
-import {Item, StyledTitleBox} from "../StyledComponents/StyledComponents";
+import {Item} from "../StyledComponents/StyledComponents";
 import {Grid} from "@mui/material";
 import Position from "./Position/Position";
+import Orientation from "./Orientation/Orientation";
 
 export default function Pose() {
     return (
@@ -14,9 +15,7 @@ export default function Pose() {
                 }}
             >
                 <Position />
-                <StyledTitleBox>
-                    Orientation
-                </StyledTitleBox>
+                <Orientation />
             </Item>
         </Grid>
     );
