@@ -11,7 +11,7 @@ export const Item = styled(Paper)(({ theme }) => ({
 }));
 
 export const StyledTitleBox = styled(Box)(({ theme }) => ({
-    backgroundColor: theme.palette.grey["500"],
+    backgroundColor: theme.palette.grey["600"],
     textAlign: 'center',
     padding: theme.spacing(1),
     color: theme.palette.primary.contrastText,
@@ -19,4 +19,5 @@ export const StyledTitleBox = styled(Box)(({ theme }) => ({
     fontSize: "20px",
     fontWeight: "500",
     minHeight: "10px",
+    userSelect: 'none'
 }));

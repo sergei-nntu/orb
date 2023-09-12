@@ -21,27 +21,27 @@ export default function Position() {
         e: false,
     });
 
+    const handleKeyDown = (e: KeyboardEvent) => {
+        const key = e.key.toLowerCase();
+        if (key in keyState) {
+            setKeyState((prevKeyState) => ({
+                ...prevKeyState,
+                [key]: true,
+            }));
+        }
+    };
+
+    const handleKeyUp = (e: KeyboardEvent) => {
+        const key = e.key.toLowerCase();
+        if (key in keyState) {
+            setKeyState((prevKeyState) => ({
+                ...prevKeyState,
+                [key]: false,
+            }));
+        }
+    };
+
     useEffect(() => {
-        const handleKeyDown = (e: KeyboardEvent) => {
-            const key = e.key.toLowerCase();
-            if (key in keyState) {
-                setKeyState((prevKeyState) => ({
-                    ...prevKeyState,
-                    [key]: true,
-                }));
-            }
-        };
-
-        const handleKeyUp = (e: KeyboardEvent) => {
-            const key = e.key.toLowerCase();
-            if (key in keyState) {
-                setKeyState((prevKeyState) => ({
-                    ...prevKeyState,
-                    [key]: false,
-                }));
-            }
-        };
-
         window.addEventListener('keydown', handleKeyDown);
         window.addEventListener('keyup', handleKeyUp);
 
@@ -49,7 +49,21 @@ export default function Position() {
             window.removeEventListener('keydown', handleKeyDown);
             window.removeEventListener('keyup', handleKeyUp);
         };
-    }, [keyState]);
+    }, []);
+
+    const handleArrowMouseDown = (key: string) => () => {
+        setKeyState((prevKeyState) => ({
+            ...prevKeyState,
+            [key]: true,
+        }));
+    };
+
+    const handleArrowMouseUp = (key: string) => () => {
+        setKeyState((prevKeyState) => ({
+            ...prevKeyState,
+            [key]: false,
+        }));
+    };
 
     return (
         <>
@@ -61,14 +75,18 @@ export default function Position() {
                 }}
             >
                 <KeyboardDoubleArrowDownSharpIcon
-                    color={keyState.q ? "error" : "primary"}
                     style={ArrowStyle}
-                    onClick={() => console.log("Arrow -z")}
+                    color={keyState.q ? "error" : "primary"}
+                    onMouseDown={handleArrowMouseDown("q")}
+                    onMouseUp={handleArrowMouseUp("q")}
+                    onMouseLeave={handleArrowMouseUp("q")}
                 />
                 <KeyboardDoubleArrowUpSharpIcon
                     style={ArrowStyle}
                     color={keyState.e ? "error" : "primary"}
-                    onClick={() => console.log("Arrow +z")}
+                    onMouseDown={handleArrowMouseDown("e")}
+                    onMouseUp={handleArrowMouseUp("e")}
+                    onMouseLeave={handleArrowMouseUp("e")}
                 />
             </Box>
 
@@ -83,6 +101,9 @@ export default function Position() {
                 <KeyboardArrowUpSharpIcon
                     color={keyState.w ? "error" : "primary"}
                     style={ArrowStyle}
+                    onMouseDown={handleArrowMouseDown("w")}
+                    onMouseUp={handleArrowMouseUp("w")}
+                    onMouseLeave={handleArrowMouseUp("w")}
                 />
             </Box>
 
@@ -94,14 +115,18 @@ export default function Position() {
                 }}
             >
                 <KeyboardArrowLeftSharpIcon
-                    color={keyState.a ? "error" : "primary"}
                     style={ArrowStyle}
-                    onClick={() => console.log("Arrow Left")}
+                    color={keyState.a ? "error" : "primary"}
+                    onMouseDown={handleArrowMouseDown("a")}
+                    onMouseUp={handleArrowMouseUp("a")}
+                    onMouseLeave={handleArrowMouseUp("a")}
                 />
                 <KeyboardArrowRightSharpIcon
                     color={keyState.d ? "error" : "primary"}
                     style={ArrowStyle}
-                    onClick={() => console.log("Arrow Right")}
+                    onMouseDown={handleArrowMouseDown("d")}
+                    onMouseUp={handleArrowMouseUp("d")}
+                    onMouseLeave={handleArrowMouseUp("d")}
                 />
             </Box>
 
@@ -115,7 +140,9 @@ export default function Position() {
                 <KeyboardArrowDownSharpIcon
                     color={keyState.s ? "error" : "primary"}
                     style={ArrowStyle}
-                    onClick={() => console.log("Arrow Down")}
+                    onMouseDown={handleArrowMouseDown("s")}
+                    onMouseUp={handleArrowMouseUp("s")}
+                    onMouseLeave={handleArrowMouseUp("s")}
                 />
             </Box>
         </>
