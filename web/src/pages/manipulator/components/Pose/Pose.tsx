@@ -13,9 +13,6 @@ export default function Pose() {
                     flexDirection: "column"
                 }}
             >
-                <StyledTitleBox>
-                    Position
-                </StyledTitleBox>
                 <Position />
                 <StyledTitleBox>
                     Orientation

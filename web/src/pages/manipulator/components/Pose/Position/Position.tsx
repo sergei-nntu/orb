@@ -6,6 +6,7 @@ import KeyboardArrowRightSharpIcon from '@mui/icons-material/KeyboardArrowRightS
 import KeyboardDoubleArrowDownSharpIcon from '@mui/icons-material/KeyboardDoubleArrowDownSharp';
 import KeyboardDoubleArrowUpSharpIcon from '@mui/icons-material/KeyboardDoubleArrowUpSharp';
 import { Box } from '@mui/material';
+import {StyledTitleBox} from "../../StyledComponents/StyledComponents";
 
 const ArrowStyle = {
     fontSize: '100px',
@@ -67,6 +68,10 @@ export default function Position() {
 
     return (
         <>
+            <StyledTitleBox>
+                Position
+            </StyledTitleBox>
+
             <Box
                 sx={{
                     display: "flex",
