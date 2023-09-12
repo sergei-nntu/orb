@@ -12,10 +12,36 @@ const ArrowStyle = {
 };
 
 export default function Position() {
-
-    const [isKeyPressed, setIsKeyPressed] = useState(false);
+    const [keyState, setKeyState] = useState({
+        w: false,
+        a: false,
+        s: false,
+        d: false,
+        q: false,
+        e: false,
+    });
 
     useEffect(() => {
+        const handleKeyDown = (e: KeyboardEvent) => {
+            const key = e.key.toLowerCase();
+            if (key in keyState) {
+                setKeyState((prevKeyState) => ({
+                    ...prevKeyState,
+                    [key]: true,
+                }));
+            }
+        };
+
+        const handleKeyUp = (e: KeyboardEvent) => {
+            const key = e.key.toLowerCase();
+            if (key in keyState) {
+                setKeyState((prevKeyState) => ({
+                    ...prevKeyState,
+                    [key]: false,
+                }));
+            }
+        };
+
         window.addEventListener('keydown', handleKeyDown);
         window.addEventListener('keyup', handleKeyUp);
 
@@ -23,19 +49,7 @@ export default function Position() {
             window.removeEventListener('keydown', handleKeyDown);
             window.removeEventListener('keyup', handleKeyUp);
         };
-    }, []);
-
-    const handleKeyDown = (e: KeyboardEvent) => {
-        if (e.key === 'w') {
-            setIsKeyPressed(true);
-        }
-    };
-
-    const handleKeyUp = (e: KeyboardEvent) => {
-        if (e.key === 'w') {
-            setIsKeyPressed(false);
-        }
-    };
+    }, [keyState]);
 
     return (
         <>
@@ -47,13 +61,13 @@ export default function Position() {
                 }}
             >
                 <KeyboardDoubleArrowDownSharpIcon
-                    color="primary"
+                    color={keyState.q ? "error" : "primary"}
                     style={ArrowStyle}
                     onClick={() => console.log("Arrow -z")}
                 />
                 <KeyboardDoubleArrowUpSharpIcon
                     style={ArrowStyle}
-                    color="primary"
+                    color={keyState.e ? "error" : "primary"}
                     onClick={() => console.log("Arrow +z")}
                 />
             </Box>
@@ -67,7 +81,7 @@ export default function Position() {
             >
                 {/*secondary*/}
                 <KeyboardArrowUpSharpIcon
-                    color={isKeyPressed ? "error" : "primary"}
+                    color={keyState.w ? "error" : "primary"}
                     style={ArrowStyle}
                 />
             </Box>
@@ -80,17 +94,16 @@ export default function Position() {
                 }}
             >
                 <KeyboardArrowLeftSharpIcon
-                    color="primary"
+                    color={keyState.a ? "error" : "primary"}
                     style={ArrowStyle}
                     onClick={() => console.log("Arrow Left")}
                 />
                 <KeyboardArrowRightSharpIcon
-                    color="primary"
+                    color={keyState.d ? "error" : "primary"}
                     style={ArrowStyle}
                     onClick={() => console.log("Arrow Right")}
                 />
             </Box>
-
 
             <Box
                 sx={{
@@ -100,7 +113,7 @@ export default function Position() {
                 }}
             >
                 <KeyboardArrowDownSharpIcon
-                    color="primary"
+                    color={keyState.s ? "error" : "primary"}
                     style={ArrowStyle}
                     onClick={() => console.log("Arrow Down")}
                 />
