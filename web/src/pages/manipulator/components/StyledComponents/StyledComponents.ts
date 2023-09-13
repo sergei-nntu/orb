@@ -10,10 +10,12 @@ export const Item = styled(Paper)(({ theme }) => ({
     color: theme.palette.text.secondary,
 }));
 
-export const StyledTitleBox = styled(Box)(({ theme }) => ({
+export const StyledBox = styled(Box)(({ theme }) => ({
+    backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
     textAlign: 'center',
     padding: theme.spacing(1),
     border: theme.palette.mode === 'dark' ? "1px solid grey" : "1px solid #dcdee0",
+    borderRadius: "3px",
     fontSize: "20px",
     fontWeight: "500",
     minHeight: "10px",

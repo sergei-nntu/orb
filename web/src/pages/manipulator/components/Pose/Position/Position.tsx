@@ -6,10 +6,10 @@ import KeyboardArrowRightSharpIcon from '@mui/icons-material/KeyboardArrowRightS
 import KeyboardDoubleArrowDownSharpIcon from '@mui/icons-material/KeyboardDoubleArrowDownSharp';
 import KeyboardDoubleArrowUpSharpIcon from '@mui/icons-material/KeyboardDoubleArrowUpSharp';
 import { Box } from '@mui/material';
-import {StyledTitleBox} from "../../StyledComponents/StyledComponents";
+import {StyledBox} from "../../StyledComponents/StyledComponents";
 
 const ArrowStyle = {
-    fontSize: '100px',
+    fontSize: '10vh',
 };
 
 export default function Position() {
@@ -68,88 +68,87 @@ export default function Position() {
 
     return (
         <>
-            <StyledTitleBox>
+            <StyledBox>
                 Position
-            </StyledTitleBox>
+                <Box
+                    sx={{
+                        display: "flex",
+                        justifyContent: "space-around",
+                        mb: -6
+                    }}
+                >
+                    <KeyboardDoubleArrowDownSharpIcon
+                        style={ArrowStyle}
+                        color={keyState.q ? "error" : "primary"}
+                        onMouseDown={handleArrowMouseDown("q")}
+                        onMouseUp={handleArrowMouseUp("q")}
+                        onMouseLeave={handleArrowMouseUp("q")}
+                    />
+                    <KeyboardDoubleArrowUpSharpIcon
+                        style={ArrowStyle}
+                        color={keyState.e ? "error" : "primary"}
+                        onMouseDown={handleArrowMouseDown("e")}
+                        onMouseUp={handleArrowMouseUp("e")}
+                        onMouseLeave={handleArrowMouseUp("e")}
+                    />
+                </Box>
 
-            <Box
-                sx={{
-                    display: "flex",
-                    justifyContent: "space-around",
-                    mb: -6
-                }}
-            >
-                <KeyboardDoubleArrowDownSharpIcon
-                    style={ArrowStyle}
-                    color={keyState.q ? "error" : "primary"}
-                    onMouseDown={handleArrowMouseDown("q")}
-                    onMouseUp={handleArrowMouseUp("q")}
-                    onMouseLeave={handleArrowMouseUp("q")}
-                />
-                <KeyboardDoubleArrowUpSharpIcon
-                    style={ArrowStyle}
-                    color={keyState.e ? "error" : "primary"}
-                    onMouseDown={handleArrowMouseDown("e")}
-                    onMouseUp={handleArrowMouseUp("e")}
-                    onMouseLeave={handleArrowMouseUp("e")}
-                />
-            </Box>
+                <Box
+                    sx={{
+                        display: "flex",
+                        justifyContent: "center",
+                        mb: -6
+                    }}
+                >
+                    {/*secondary*/}
+                    <KeyboardArrowUpSharpIcon
+                        color={keyState.w ? "error" : "primary"}
+                        style={ArrowStyle}
+                        onMouseDown={handleArrowMouseDown("w")}
+                        onMouseUp={handleArrowMouseUp("w")}
+                        onMouseLeave={handleArrowMouseUp("w")}
+                    />
+                </Box>
 
-            <Box
-                sx={{
-                    display: "flex",
-                    justifyContent: "center",
-                    mb: -6
-                }}
-            >
-                {/*secondary*/}
-                <KeyboardArrowUpSharpIcon
-                    color={keyState.w ? "error" : "primary"}
-                    style={ArrowStyle}
-                    onMouseDown={handleArrowMouseDown("w")}
-                    onMouseUp={handleArrowMouseUp("w")}
-                    onMouseLeave={handleArrowMouseUp("w")}
-                />
-            </Box>
+                <Box
+                    sx={{
+                        display: "flex",
+                        mb: -6,
+                        justifyContent: "center"
+                    }}
+                >
+                    <KeyboardArrowLeftSharpIcon
+                        style={ArrowStyle}
+                        color={keyState.a ? "error" : "primary"}
+                        onMouseDown={handleArrowMouseDown("a")}
+                        onMouseUp={handleArrowMouseUp("a")}
+                        onMouseLeave={handleArrowMouseUp("a")}
+                    />
+                    <KeyboardArrowRightSharpIcon
+                        color={keyState.d ? "error" : "primary"}
+                        style={ArrowStyle}
+                        onMouseDown={handleArrowMouseDown("d")}
+                        onMouseUp={handleArrowMouseUp("d")}
+                        onMouseLeave={handleArrowMouseUp("d")}
+                    />
+                </Box>
 
-            <Box
-                sx={{
-                    display: "flex",
-                    mb: -6,
-                    justifyContent: "center"
-                }}
-            >
-                <KeyboardArrowLeftSharpIcon
-                    style={ArrowStyle}
-                    color={keyState.a ? "error" : "primary"}
-                    onMouseDown={handleArrowMouseDown("a")}
-                    onMouseUp={handleArrowMouseUp("a")}
-                    onMouseLeave={handleArrowMouseUp("a")}
-                />
-                <KeyboardArrowRightSharpIcon
-                    color={keyState.d ? "error" : "primary"}
-                    style={ArrowStyle}
-                    onMouseDown={handleArrowMouseDown("d")}
-                    onMouseUp={handleArrowMouseUp("d")}
-                    onMouseLeave={handleArrowMouseUp("d")}
-                />
-            </Box>
-
-            <Box
-                sx={{
-                    display: "flex",
-                    justifyContent: "center",
-                    mb: -2
-                }}
-            >
-                <KeyboardArrowDownSharpIcon
-                    color={keyState.s ? "error" : "primary"}
-                    style={ArrowStyle}
-                    onMouseDown={handleArrowMouseDown("s")}
-                    onMouseUp={handleArrowMouseUp("s")}
-                    onMouseLeave={handleArrowMouseUp("s")}
-                />
-            </Box>
+                <Box
+                    sx={{
+                        display: "flex",
+                        justifyContent: "center",
+                        mb: -2
+                    }}
+                >
+                    <KeyboardArrowDownSharpIcon
+                        color={keyState.s ? "error" : "primary"}
+                        style={ArrowStyle}
+                        onMouseDown={handleArrowMouseDown("s")}
+                        onMouseUp={handleArrowMouseUp("s")}
+                        onMouseLeave={handleArrowMouseUp("s")}
+                    />
+                </Box>
+            </StyledBox>
         </>
     );
 }
