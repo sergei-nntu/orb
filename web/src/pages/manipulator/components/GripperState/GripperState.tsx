@@ -1,6 +1,7 @@
 import React from 'react';
 import {Item} from "../StyledComponents/StyledComponents";
 import {Grid} from "@mui/material";
+import JointsState from './JointsState/JointsState';
 
 export default function GripperState() {
     return (
@@ -9,11 +10,10 @@ export default function GripperState() {
                 sx={{
                     minHeight: "80vh",
                     display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center"
+                    alignItems: "flex-end"
                 }}
             >
-                Gripper state
+                <JointsState />
             </Item>
         </Grid>
     );

@@ -10,7 +10,7 @@ import Typography from "@mui/material/Typography";
 import {Box} from "@mui/material";
 
 const ArrowStyle = {
-    fontSize: '8vh',
+    fontSize: '7vh',
 };
 
 export default function Orientation() {
@@ -49,6 +49,7 @@ export default function Orientation() {
                     sx={{
                         display: "flex",
                         justifyContent: "space-around",
+                        mb: 1
                     }}
                 >
                     <RedoIcon style={ArrowStyle} color="primary" />
