@@ -1,19 +1,19 @@
 import React from 'react';
-import {Item} from "../StyledComponents/StyledComponents";
 import {Grid} from "@mui/material";
-import JointsState from './JointsState/JointsState';
+import {Item} from "../StyledComponents/StyledComponents";
 
-export default function GripperState() {
+export default function RobotCamera() {
     return (
-        <Grid item xs={3}>
+        <Grid item xs={6}>
             <Item
                 sx={{
                     minHeight: "80vh",
                     display: "flex",
-                    alignItems: "flex-end"
+                    justifyContent: "center",
+                    alignItems: "center"
                 }}
             >
-                <JointsState />
+                Robot
             </Item>
         </Grid>
     );

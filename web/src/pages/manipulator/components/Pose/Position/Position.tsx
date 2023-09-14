@@ -97,7 +97,7 @@ export default function Position() {
                     sx={{
                         display: "flex",
                         justifyContent: "center",
-                        mb: -6
+                        mb: -5
                     }}
                 >
                     {/*secondary*/}
@@ -113,7 +113,7 @@ export default function Position() {
                 <Box
                     sx={{
                         display: "flex",
-                        mb: -6,
+                        mb: -5,
                         justifyContent: "center"
                     }}
                 >
