@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {StyledBox} from "../../StyledComponents/StyledComponents";
 import RotateLeftIcon from '@mui/icons-material/RotateLeft';
 import RotateRightIcon from '@mui/icons-material/RotateRight';
@@ -14,6 +14,59 @@ const ArrowStyle = {
 };
 
 export default function Orientation() {
+    const [keyState, setKeyState] = useState({
+        1: false,
+        2: false,
+        3: false,
+        z: false,
+        x: false,
+        c: false,
+    });
+
+    const handleArrowMouseDown = (key: string) => () => {
+        setKeyState((prevKeyState) => ({
+            ...prevKeyState,
+            [key]: true,
+        }));
+    };
+
+    const handleArrowMouseUp = (key: string) => () => {
+        setKeyState((prevKeyState) => ({
+            ...prevKeyState,
+            [key]: false,
+        }));
+    };
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+        const key = e.key.toLowerCase();
+        if (key in keyState) {
+            setKeyState((prevKeyState) => ({
+                ...prevKeyState,
+                [key]: true,
+            }));
+        }
+    };
+
+    const handleKeyUp = (e: KeyboardEvent) => {
+        const key = e.key.toLowerCase();
+        if (key in keyState) {
+            setKeyState((prevKeyState) => ({
+                ...prevKeyState,
+                [key]: false,
+            }));
+        }
+    };
+
+    useEffect(() => {
+        window.addEventListener('keydown', handleKeyDown);
+        window.addEventListener('keyup', handleKeyUp);
+
+        return () => {
+            window.removeEventListener('keydown', handleKeyDown);
+            window.removeEventListener('keyup', handleKeyUp);
+        };
+    }, []);
+
     return (
         <>
             <StyledBox sx={{mt: 1}}>
@@ -25,9 +78,27 @@ export default function Orientation() {
                         mt: 1
                     }}
                 >
-                    <UndoIcon style={ArrowStyle} color="primary" />
-                    <CachedIcon style={ArrowStyle} color="primary" />
-                    <RotateLeftIcon style={ArrowStyle} color="primary" />
+                    <UndoIcon
+                        style={ArrowStyle}
+                        color={keyState["1"] ? "error" : "primary"}
+                        onMouseDown={handleArrowMouseDown("1")}
+                        onMouseUp={handleArrowMouseUp("1")}
+                        onMouseLeave={handleArrowMouseUp("1")}
+                    />
+                    <CachedIcon
+                        style={ArrowStyle}
+                        color={keyState["2"] ? "error" : "primary"}
+                        onMouseDown={handleArrowMouseDown("2")}
+                        onMouseUp={handleArrowMouseUp("2")}
+                        onMouseLeave={handleArrowMouseUp("2")}
+                    />
+                    <RotateLeftIcon
+                        style={ArrowStyle}
+                        color={keyState["3"] ? "error" : "primary"}
+                        onMouseDown={handleArrowMouseDown("3")}
+                        onMouseUp={handleArrowMouseUp("3")}
+                        onMouseLeave={handleArrowMouseUp("3")}
+                    />
                 </Box>
 
                 <Box
@@ -53,9 +124,27 @@ export default function Orientation() {
                         mb: 1
                     }}
                 >
-                    <RedoIcon style={ArrowStyle} color="primary" />
-                    <AutorenewIcon style={ArrowStyle} color="primary" />
-                    <RotateRightIcon style={ArrowStyle} color="primary" />
+                    <RedoIcon
+                        style={ArrowStyle}
+                        color={keyState.z ? "error" : "primary"}
+                        onMouseDown={handleArrowMouseDown("z")}
+                        onMouseUp={handleArrowMouseUp("z")}
+                        onMouseLeave={handleArrowMouseUp("z")}
+                    />
+                    <AutorenewIcon
+                        style={ArrowStyle}
+                        color={keyState.x ? "error" : "primary"}
+                        onMouseDown={handleArrowMouseDown("x")}
+                        onMouseUp={handleArrowMouseUp("x")}
+                        onMouseLeave={handleArrowMouseUp("x")}
+                    />
+                    <RotateRightIcon
+                        style={ArrowStyle}
+                        color={keyState.c ? "error" : "primary"}
+                        onMouseDown={handleArrowMouseDown("c")}
+                        onMouseUp={handleArrowMouseUp("c")}
+                        onMouseLeave={handleArrowMouseUp("c")}
+                    />
                 </Box>
             </StyledBox>
 
