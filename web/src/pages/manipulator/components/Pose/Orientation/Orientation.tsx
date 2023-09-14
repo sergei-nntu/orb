@@ -22,6 +22,7 @@ export default function Orientation() {
                     sx={{
                         display: "flex",
                         justifyContent: "space-around",
+                        mt: 1
                     }}
                 >
                     <UndoIcon style={ArrowStyle} color="primary" />
