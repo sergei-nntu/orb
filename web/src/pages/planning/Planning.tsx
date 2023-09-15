@@ -2,7 +2,7 @@ import React from 'react';
 import BlocklyEditor from './BlocklyEditor/BlocklyEditor';
 import "./CustomBlocks/DelayBlock/DelayBlock";
 import "./CustomBlocks/PositionBlock/PositionBlock";
-import "./CustomBlocks/GripperStepBlock/GripperStepBlock";
+import "./CustomBlocks/GripperStateBlock/GripperStateBlock";
 
 const toolboxXML =
     "<xml>" +
@@ -15,7 +15,7 @@ const toolboxXML =
         "<block type='controls_for'></block>" +
         "<block type='set_position'></block>" +
         "<block type='delay'></block>" +
-        "<block type='set_gripper_step'></block>" +
+        "<block type='set_gripper_state'></block>" +
     "</xml>";
 
 export default function Planning() {
