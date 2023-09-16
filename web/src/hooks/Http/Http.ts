@@ -2,7 +2,7 @@ export default function useHttp() {
     // FIXME: Function should be done with useCallback
     const request = async (url: string, options?: RequestInit | undefined) => {
         try {
-            // insertHeaders(options);
+            insertHeaders(options);
 
             const response = await fetch(url, options);
             const result = await response.json();
@@ -21,8 +21,7 @@ export default function useHttp() {
     return { request };
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-function insertHeaders(options?: RequestInit) {
+function insertHeaders(options?: RequestInit | undefined) {
     if (!options) {
         return;
     }
