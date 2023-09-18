@@ -27,8 +27,7 @@ export enum PoseChange {
     ORIENTATION_ROLL_DOWN = 'ORIENTATION_ROLL_DOWN',
     ORIENTATION_YAW_UP = 'ORIENTATION_YAW_UP',
     ORIENTATION_YAW_DOWN = 'ORIENTATION_YAW_DOWN',
-    GRIPPER_STATE_OPEN = 'GRIPPER_STATE_OPEN',
-    GRIPPER_STATE_CLOSE = 'GRIPPER_STATE_CLOSE',
+    SET_GRIPPER_STATE = 'SET_GRIPPER_STATE',
 }
 
 export type PoseActionType =
@@ -37,4 +36,11 @@ export type PoseActionType =
     | Action<PoseChange.POSITION_Y_UP>
     | Action<PoseChange.POSITION_Y_DOWN>
     | Action<PoseChange.POSITION_Z_UP>
-    | Action<PoseChange.POSITION_Z_DOWN>;
+    | Action<PoseChange.POSITION_Z_DOWN>
+    | Action<PoseChange.ORIENTATION_PITCH_UP>
+    | Action<PoseChange.ORIENTATION_PITCH_DOWN>
+    | Action<PoseChange.ORIENTATION_ROLL_UP>
+    | Action<PoseChange.ORIENTATION_ROLL_DOWN>
+    | Action<PoseChange.ORIENTATION_YAW_UP>
+    | Action<PoseChange.ORIENTATION_YAW_DOWN>
+    | Action<PoseChange.SET_GRIPPER_STATE>;

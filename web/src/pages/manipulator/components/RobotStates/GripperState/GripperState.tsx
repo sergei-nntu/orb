@@ -1,6 +1,8 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {StyledBox} from "../../StyledComponents/StyledComponents";
 import Slider from "@mui/material/Slider";
+import {PoseContext} from "../../../../../contexts/PoseContext/PoseContext";
+import {PoseChange} from "../../../../../types/appTypes";
 
 const marks = [
     {
@@ -18,10 +20,17 @@ function valuetext(value: number) {
 }
 
 export default function GripperState() {
+    const {dispatch} = useContext(PoseContext);
+
+    const handleChangeValue = () => {
+        dispatch({type: PoseChange.SET_GRIPPER_STATE});
+    };
+
     return (
         <StyledBox sx={{ width: '100%', mt: 1 }}>
             Gripper State
             <Slider
+                onChange={handleChangeValue}
                 aria-label="Gripper state"
                 defaultValue={80}
                 getAriaValueText={valuetext}

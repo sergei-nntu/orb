@@ -25,7 +25,7 @@ export default function EndEffectorState() {
                 </Grid>
                 <Grid item xs={6}>
                     <Typography noWrap variant="subtitle2">
-                        <StyledTag>pitch</StyledTag>: {state.orientation.roll}
+                        <StyledTag>pitch</StyledTag>: {state.orientation.pitch}
                     </Typography>
                 </Grid>
                 <Grid item xs={6}>

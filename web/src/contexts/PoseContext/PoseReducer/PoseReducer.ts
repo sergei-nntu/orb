@@ -50,6 +50,59 @@ function reducer(state: IPose, action: PoseActionType) {
                     z: +(state.position.z - 0.1).toFixed(2)
                 }
             };
+        case PoseChange.ORIENTATION_PITCH_UP:
+            return {
+                ...state,
+                orientation: {
+                    ...state.orientation,
+                    pitch: +(state.orientation.pitch + 0.1).toFixed(2)
+                }
+            };
+        case PoseChange.ORIENTATION_PITCH_DOWN:
+            return {
+                ...state,
+                orientation: {
+                    ...state.orientation,
+                    pitch: +(state.orientation.pitch - 0.1).toFixed(2)
+                }
+            };
+        case PoseChange.ORIENTATION_ROLL_UP:
+            return {
+                ...state,
+                orientation: {
+                    ...state.orientation,
+                    roll: +(state.orientation.roll + 0.1).toFixed(2)
+                }
+            };
+        case PoseChange.ORIENTATION_ROLL_DOWN:
+            return {
+                ...state,
+                orientation: {
+                    ...state.orientation,
+                    roll: +(state.orientation.roll - 0.1).toFixed(2)
+                }
+            };
+        case PoseChange.ORIENTATION_YAW_UP:
+            return {
+                ...state,
+                orientation: {
+                    ...state.orientation,
+                    yaw: +(state.orientation.yaw + 0.1).toFixed(2)
+                }
+            };
+        case PoseChange.ORIENTATION_YAW_DOWN:
+            return {
+                ...state,
+                orientation: {
+                    ...state.orientation,
+                    yaw: +(state.orientation.yaw - 0.1).toFixed(2)
+                }
+            };
+        case PoseChange.SET_GRIPPER_STATE:
+            return {
+                ...state,
+                gripper_state: 100
+            };
         default:
             return {};
     }

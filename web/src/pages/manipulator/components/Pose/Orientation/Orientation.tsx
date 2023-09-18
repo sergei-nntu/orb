@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {StyledBox} from "../../StyledComponents/StyledComponents";
 import RotateLeftIcon from '@mui/icons-material/RotateLeft';
 import RotateRightIcon from '@mui/icons-material/RotateRight';
@@ -8,12 +8,16 @@ import CachedIcon from '@mui/icons-material/Cached';
 import AutorenewIcon from '@mui/icons-material/Autorenew';
 import Typography from "@mui/material/Typography";
 import {Box} from "@mui/material";
+import {PoseContext} from "../../../../../contexts/PoseContext/PoseContext";
+import {PoseChange} from "../../../../../types/appTypes";
 
 const ArrowStyle = {
     fontSize: '7vh',
 };
 
 export default function Orientation() {
+    const {state, dispatch} = useContext(PoseContext);
+    console.log(state);
     const [keyState, setKeyState] = useState({
         1: false,
         2: false,
@@ -23,11 +27,13 @@ export default function Orientation() {
         c: false,
     });
 
-    const handleArrowMouseDown = (key: string) => () => {
+    const handleArrowMouseDown = (key: string, action: string) => () => {
         setKeyState((prevKeyState) => ({
             ...prevKeyState,
             [key]: true,
         }));
+
+        dispatch({type: action});
     };
 
     const handleArrowMouseUp = (key: string) => () => {
@@ -81,21 +87,21 @@ export default function Orientation() {
                     <UndoIcon
                         style={ArrowStyle}
                         color={keyState["1"] ? "error" : "primary"}
-                        onMouseDown={handleArrowMouseDown("1")}
+                        onMouseDown={handleArrowMouseDown("1", PoseChange.ORIENTATION_PITCH_UP)}
                         onMouseUp={handleArrowMouseUp("1")}
                         onMouseLeave={handleArrowMouseUp("1")}
                     />
                     <CachedIcon
                         style={ArrowStyle}
                         color={keyState["2"] ? "error" : "primary"}
-                        onMouseDown={handleArrowMouseDown("2")}
+                        onMouseDown={handleArrowMouseDown("2", PoseChange.ORIENTATION_ROLL_UP)}
                         onMouseUp={handleArrowMouseUp("2")}
                         onMouseLeave={handleArrowMouseUp("2")}
                     />
                     <RotateLeftIcon
                         style={ArrowStyle}
                         color={keyState["3"] ? "error" : "primary"}
-                        onMouseDown={handleArrowMouseDown("3")}
+                        onMouseDown={handleArrowMouseDown("3", PoseChange.ORIENTATION_YAW_UP)}
                         onMouseUp={handleArrowMouseUp("3")}
                         onMouseLeave={handleArrowMouseUp("3")}
                     />
@@ -127,21 +133,21 @@ export default function Orientation() {
                     <RedoIcon
                         style={ArrowStyle}
                         color={keyState.z ? "error" : "primary"}
-                        onMouseDown={handleArrowMouseDown("z")}
+                        onMouseDown={handleArrowMouseDown("z", PoseChange.ORIENTATION_PITCH_DOWN)}
                         onMouseUp={handleArrowMouseUp("z")}
                         onMouseLeave={handleArrowMouseUp("z")}
                     />
                     <AutorenewIcon
                         style={ArrowStyle}
                         color={keyState.x ? "error" : "primary"}
-                        onMouseDown={handleArrowMouseDown("x")}
+                        onMouseDown={handleArrowMouseDown("x", PoseChange.ORIENTATION_ROLL_DOWN)}
                         onMouseUp={handleArrowMouseUp("x")}
                         onMouseLeave={handleArrowMouseUp("x")}
                     />
                     <RotateRightIcon
                         style={ArrowStyle}
                         color={keyState.c ? "error" : "primary"}
-                        onMouseDown={handleArrowMouseDown("c")}
+                        onMouseDown={handleArrowMouseDown("c", PoseChange.ORIENTATION_YAW_DOWN)}
                         onMouseUp={handleArrowMouseUp("c")}
                         onMouseLeave={handleArrowMouseUp("c")}
                     />
