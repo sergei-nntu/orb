@@ -6,10 +6,23 @@ type PoseProviderProps = {
     children: React.ReactNode
 };
 
-function NotificationProvider(props: PoseProviderProps) {
+function PoseProvider(props: PoseProviderProps) {
+    const initialState = {
+        position: {
+            x: 0.0,
+            y: 0.0,
+            z: 0.0
+        },
+        orientation: {
+            pitch: 0.0,
+            roll: 0.0,
+            yaw: 0.0
+        },
+        gripper_state: 0.0
+    };
 
-    const initialState = {};
-
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     const [state, dispatch] = useReducer(reducer, initialState);
     const value = useMemo(() => ({state, dispatch}), [state]);
 
@@ -20,4 +33,4 @@ function NotificationProvider(props: PoseProviderProps) {
     );
 }
 
-export default NotificationProvider;
+export default PoseProvider;

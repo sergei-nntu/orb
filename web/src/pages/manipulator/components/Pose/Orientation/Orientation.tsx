@@ -8,14 +8,12 @@ import CachedIcon from '@mui/icons-material/Cached';
 import AutorenewIcon from '@mui/icons-material/Autorenew';
 import Typography from "@mui/material/Typography";
 import {Box} from "@mui/material";
-import useHttp from "../../../../../hooks/Http/Http";
 
 const ArrowStyle = {
     fontSize: '7vh',
 };
 
 export default function Orientation() {
-    const {request} = useHttp();
     const [keyState, setKeyState] = useState({
         1: false,
         2: false,
@@ -40,22 +38,6 @@ export default function Orientation() {
     };
 
     const handleKeyDown = async (e: KeyboardEvent) => {
-        // FIXME: it's just for testing, remove after that
-        const options = {
-            method: "POST",
-            body: JSON.stringify({
-                "x": 0.1,
-                "y": 0.20,
-                "z": 0.4,
-                "pitch": 0.0,
-                "roll": 0.0,
-                "yaw": 0.0
-            })
-        };
-
-        const result = await request("/convert_pose", options);
-        console.log(result);
-
         const key = e.key.toLowerCase();
         if (key in keyState) {
             setKeyState((prevKeyState) => ({

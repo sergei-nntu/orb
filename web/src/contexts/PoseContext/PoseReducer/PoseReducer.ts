@@ -1,11 +1,20 @@
+import {IPose, PoseActionType} from "../../../types/appTypes";
 // eslint-disable-next-line
-function reducer(state: any, action: any) {
+function reducer(state: IPose, action: PoseActionType) {
     switch (action.type) {
-        case "foo":
+        case "TEST":
             return {
-                open: true,
-                severity: "info",
-                message: "It's your pofile avatar, Dear User!"
+                position: {
+                    x: 1.0,
+                    y: 0.0,
+                    z: 0.0
+                },
+                orientation: {
+                    pitch: 0.0,
+                    roll: 0.0,
+                    yaw: 0.0
+                },
+                gripper_state: 0.0
             };
         default:
             return {};
