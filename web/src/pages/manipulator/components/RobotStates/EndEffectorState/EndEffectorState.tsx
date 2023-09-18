@@ -25,22 +25,22 @@ export default function EndEffectorState() {
                 </Grid>
                 <Grid item xs={6}>
                     <Typography noWrap variant="subtitle2">
-                        <StyledTag>pitch</StyledTag>: {state.position.y}
+                        <StyledTag>pitch</StyledTag>: {state.orientation.roll}
                     </Typography>
                 </Grid>
                 <Grid item xs={6}>
                     <Typography noWrap variant="subtitle2">
-                        <StyledTag>y</StyledTag>: {state.position.z}
+                        <StyledTag>y</StyledTag>: {state.position.y}
                     </Typography>
                 </Grid>
                 <Grid item xs={6}>
                     <Typography noWrap variant="subtitle2">
-                        <StyledTag>roll</StyledTag>: {state.orientation.pitch}
+                        <StyledTag>roll</StyledTag>: {state.orientation.roll}
                     </Typography>
                 </Grid>
                 <Grid item xs={6}>
                     <Typography noWrap variant="subtitle2">
-                        <StyledTag>z</StyledTag>: {state.orientation.roll}
+                        <StyledTag>z</StyledTag>: {state.position.z}
                     </Typography>
                 </Grid>
                 <Grid item xs={6}>
