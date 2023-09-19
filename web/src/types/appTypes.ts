@@ -43,4 +43,4 @@ export type PoseActionType =
     | Action<PoseChange.ORIENTATION_ROLL_DOWN>
     | Action<PoseChange.ORIENTATION_YAW_UP>
     | Action<PoseChange.ORIENTATION_YAW_DOWN>
-    | Action<PoseChange.SET_GRIPPER_STATE>;
+    | Action<PoseChange.SET_GRIPPER_STATE, { value: number }>;
