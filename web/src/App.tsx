@@ -13,6 +13,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import Layout from "./hoc/Layout/Layout";
 import PoseProvider from "./contexts/PoseContext/PoseProvider/PoseProvider";
+import NotificationProvider from "./contexts/NotificationContext/NotificationProvider/NotificationProvider";
 
 const router = createBrowserRouter([
     {
@@ -54,12 +55,14 @@ function App() {
     );
 
     return (
-        <PoseProvider>
-            <ThemeProvider theme={theme}>
-                <CssBaseline />
-                <RouterProvider router={router} />
-            </ThemeProvider>
-        </PoseProvider>
+        <NotificationProvider>
+            <PoseProvider>
+                <ThemeProvider theme={theme}>
+                    <CssBaseline />
+                    <RouterProvider router={router} />
+                </ThemeProvider>
+            </PoseProvider>
+        </NotificationProvider>
     );
 }
 
