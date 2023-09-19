@@ -32,19 +32,20 @@ function PoseProvider(props: PoseProviderProps) {
     const sendStateToServer = async (state: IPose) => {
         try {
             const options = {
-            method: "POST",
-            body: JSON.stringify({
+                method: "POST",
+                body: JSON.stringify({
                     "x": state.position.x,
                     "y": state.position.y,
                     "z": state.position.z,
                     "pitch": state.orientation.pitch,
                     "roll": state.orientation.roll,
-                    "yaw": state.orientation.yaw
+                    "yaw": state.orientation.yaw,
+                    "gripper": state.gripper_state
                 })
             };
 
             const result = await request("/convert_pose", options);
-            console.log(result);
+            console.log("Result: ", result);
         } catch (error) {
             console.error("Error: ", error);
         }
