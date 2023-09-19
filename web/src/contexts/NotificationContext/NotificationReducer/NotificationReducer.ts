@@ -1,8 +1,7 @@
 import {NOTIFICATION} from "../../../constants";
+import {INotification, NotificationActionType} from "../../../types/appTypes";
 
-// FIXME: write types in future
-// eslint-disable-next-line
-function reducer(state: any, action: any) {
+function reducer(state: INotification, action: NotificationActionType) {
     switch (action.type) {
         case NOTIFICATION.TEST:
             return {

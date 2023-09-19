@@ -1,3 +1,5 @@
+import {NOTIFICATION} from "../constants";
+
 type Action<K, V = void> = V extends void ? { type: K } : { type: K } & V;
 
 export interface IPose {
@@ -44,3 +46,13 @@ export type PoseActionType =
     | Action<PoseChange.ORIENTATION_YAW_UP>
     | Action<PoseChange.ORIENTATION_YAW_DOWN>
     | Action<PoseChange.SET_GRIPPER_STATE, { value: number }>;
+
+export interface INotification {
+    severity: "success" | "info" | "warning" | "error",
+    message: string,
+    open: boolean
+}
+
+export type NotificationActionType =
+    | Action<NOTIFICATION.TEST>
+    | Action<NOTIFICATION.HIDE>;
