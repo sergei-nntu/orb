@@ -33,3 +33,18 @@ function insertHeaders(options?: RequestInit | undefined) {
 
     return options;
 }
+
+// const options = {
+//             method: "POST",
+//             body: JSON.stringify({
+//                 "x": 0.1,
+//                 "y": 0.20,
+//                 "z": 0.4,
+//                 "pitch": 0.0,
+//                 "roll": 0.0,
+//                 "yaw": 0.0
+//             })
+//         };
+//
+//         const result = await request("/convert_pose", options);
+//         console.log(result);

@@ -1,5 +1,6 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {StyledBox} from "../../StyledComponents/StyledComponents";
+import {PoseContext} from "../../../../../contexts/PoseContext/PoseContext";
 import Typography from "@mui/material/Typography";
 import {Grid} from "@mui/material";
 import {styled} from "@mui/material/styles";
@@ -9,6 +10,7 @@ const StyledTag = styled("strong")(({ theme }) => ({
 }));
 
 export default function EndEffectorState() {
+    const {state} = useContext(PoseContext);
     return (
         <StyledBox sx={{mt: 1}}>
             End-Effector State
@@ -18,32 +20,32 @@ export default function EndEffectorState() {
             >
                 <Grid item xs={6}>
                     <Typography noWrap variant="subtitle2">
-                        <StyledTag>x</StyledTag>: 0.34350
+                        <StyledTag>x</StyledTag>: {state.position.x}
                     </Typography>
                 </Grid>
                 <Grid item xs={6}>
                     <Typography noWrap variant="subtitle2">
-                        <StyledTag>pitch</StyledTag>: 0.12532
+                        <StyledTag>pitch</StyledTag>: {state.orientation.pitch}
                     </Typography>
                 </Grid>
                 <Grid item xs={6}>
                     <Typography noWrap variant="subtitle2">
-                        <StyledTag>y</StyledTag>: -0.54359
+                        <StyledTag>y</StyledTag>: {state.position.y}
                     </Typography>
                 </Grid>
                 <Grid item xs={6}>
                     <Typography noWrap variant="subtitle2">
-                        <StyledTag>roll</StyledTag>: 0.4244
+                        <StyledTag>roll</StyledTag>: {state.orientation.roll}
                     </Typography>
                 </Grid>
                 <Grid item xs={6}>
                     <Typography noWrap variant="subtitle2">
-                        <StyledTag>z</StyledTag>: 0.24255
+                        <StyledTag>z</StyledTag>: {state.position.z}
                     </Typography>
                 </Grid>
                 <Grid item xs={6}>
                     <Typography noWrap variant="subtitle2">
-                        <StyledTag>yaw</StyledTag>: -0.32425
+                        <StyledTag>yaw</StyledTag>: {state.orientation.yaw}
                     </Typography>
                 </Grid>
             </Grid>

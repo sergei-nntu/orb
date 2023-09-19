@@ -12,6 +12,7 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import Layout from "./hoc/Layout/Layout";
+import PoseProvider from "./contexts/PoseContext/PoseProvider/PoseProvider";
 
 const router = createBrowserRouter([
     {
@@ -53,10 +54,12 @@ function App() {
     );
 
     return (
-        <ThemeProvider theme={theme}>
-            <CssBaseline />
-            <RouterProvider router={router} />
-        </ThemeProvider>
+        <PoseProvider>
+            <ThemeProvider theme={theme}>
+                <CssBaseline />
+                <RouterProvider router={router} />
+            </ThemeProvider>
+        </PoseProvider>
     );
 }
 
