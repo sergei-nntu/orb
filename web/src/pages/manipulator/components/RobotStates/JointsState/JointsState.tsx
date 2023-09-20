@@ -29,12 +29,12 @@ type HandleBlurFunction = (
 ) => void;
 
 export default function JointsState() {
-    const [joint0Value, setJoint0Value] = useState<SliderValue>(30);
-    const [joint1Value, setJoint1Value] = useState<SliderValue>(50);
-    const [joint2Value, setJoint2Value] = useState<SliderValue>(70);
-    const [joint3Value, setJoint3Value] = useState<SliderValue>(20);
-    const [joint4Value, setJoint4Value] = useState<SliderValue>(80);
-    const [joint5Value, setJoint5Value] = useState<SliderValue>(80);
+    const [joint0Value, setJoint0Value] = useState<SliderValue>(0);
+    const [joint1Value, setJoint1Value] = useState<SliderValue>(0);
+    const [joint2Value, setJoint2Value] = useState<SliderValue>(0);
+    const [joint3Value, setJoint3Value] = useState<SliderValue>(0);
+    const [joint4Value, setJoint4Value] = useState<SliderValue>(0);
+    const [joint5Value, setJoint5Value] = useState<SliderValue>(0);
 
     const handleJoint0Change: HandleChangeFunction = (event, newValue) => {
         setJoint0Value(newValue);

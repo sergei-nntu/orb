@@ -2,18 +2,10 @@ import React, {useContext, useEffect, useState} from 'react';
 import {StyledBox} from "../../StyledComponents/StyledComponents";
 import RotateLeftIcon from '@mui/icons-material/RotateLeft';
 import RotateRightIcon from '@mui/icons-material/RotateRight';
-import UndoIcon from '@mui/icons-material/Undo';
-import RedoIcon from '@mui/icons-material/Redo';
-import CachedIcon from '@mui/icons-material/Cached';
-import AutorenewIcon from '@mui/icons-material/Autorenew';
 import Typography from "@mui/material/Typography";
 import {Box} from "@mui/material";
 import {PoseContext} from "../../../../../contexts/PoseContext/PoseContext";
 import {PoseChange} from "../../../../../types/appTypes";
-
-const ArrowStyle = {
-    fontSize: '7vh',
-};
 
 export default function Orientation() {
     const {state, dispatch} = useContext(PoseContext);
@@ -84,22 +76,31 @@ export default function Orientation() {
                         mt: 1
                     }}
                 >
-                    <UndoIcon
-                        style={ArrowStyle}
+                    <RotateRightIcon
+                        style={{
+                            fontSize: '7vh',
+                            transform: 'rotate(50deg) skew(30deg, 0deg)'
+                        }}
                         color={keyState["1"] ? "error" : "primary"}
                         onMouseDown={handleArrowMouseDown("1", PoseChange.ORIENTATION_PITCH_UP)}
                         onMouseUp={handleArrowMouseUp("1")}
                         onMouseLeave={handleArrowMouseUp("1")}
                     />
-                    <CachedIcon
-                        style={ArrowStyle}
+                    <RotateLeftIcon
+                        style={{
+                            fontSize: '7vh',
+                            transform: 'scale(1.1)'
+                        }}
                         color={keyState["2"] ? "error" : "primary"}
                         onMouseDown={handleArrowMouseDown("2", PoseChange.ORIENTATION_ROLL_UP)}
                         onMouseUp={handleArrowMouseUp("2")}
                         onMouseLeave={handleArrowMouseUp("2")}
                     />
                     <RotateLeftIcon
-                        style={ArrowStyle}
+                        style={{
+                            fontSize: '7vh',
+                            transform: 'perspective(500px) rotateX(65deg) scale(1.5)'
+                        }}
                         color={keyState["3"] ? "error" : "primary"}
                         onMouseDown={handleArrowMouseDown("3", PoseChange.ORIENTATION_YAW_UP)}
                         onMouseUp={handleArrowMouseUp("3")}
@@ -130,22 +131,31 @@ export default function Orientation() {
                         mb: 1
                     }}
                 >
-                    <RedoIcon
-                        style={ArrowStyle}
+                    <RotateLeftIcon
+                        style={{
+                            fontSize: '7vh',
+                            transform: 'rotate(50deg) skew(30deg, 0deg)'
+                        }}
                         color={keyState.z ? "error" : "primary"}
                         onMouseDown={handleArrowMouseDown("z", PoseChange.ORIENTATION_PITCH_DOWN)}
                         onMouseUp={handleArrowMouseUp("z")}
                         onMouseLeave={handleArrowMouseUp("z")}
                     />
-                    <AutorenewIcon
-                        style={ArrowStyle}
+                    <RotateRightIcon
+                        style={{
+                            fontSize: '7vh',
+                            transform: 'scale(1.1)'
+                        }}
                         color={keyState.x ? "error" : "primary"}
                         onMouseDown={handleArrowMouseDown("x", PoseChange.ORIENTATION_ROLL_DOWN)}
                         onMouseUp={handleArrowMouseUp("x")}
                         onMouseLeave={handleArrowMouseUp("x")}
                     />
                     <RotateRightIcon
-                        style={ArrowStyle}
+                        style={{
+                            fontSize: '7vh',
+                            transform: 'perspective(500px) rotateX(65deg) scale(1.5)'
+                        }}
                         color={keyState.c ? "error" : "primary"}
                         onMouseDown={handleArrowMouseDown("c", PoseChange.ORIENTATION_YAW_DOWN)}
                         onMouseUp={handleArrowMouseUp("c")}
