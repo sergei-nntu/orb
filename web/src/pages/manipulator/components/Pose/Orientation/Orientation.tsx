@@ -42,6 +42,28 @@ export default function Orientation() {
                 ...prevKeyState,
                 [key]: true,
             }));
+
+            // FIXME: rewrite this piece of code
+            switch (key) {
+                case "1":
+                    dispatch({type: PoseChange.ORIENTATION_PITCH_UP});
+                    break;
+                case "2":
+                    dispatch({type: PoseChange.ORIENTATION_ROLL_UP});
+                    break;
+                case "3":
+                    dispatch({type: PoseChange.ORIENTATION_YAW_UP});
+                    break;
+                case "z":
+                    dispatch({type: PoseChange.ORIENTATION_PITCH_DOWN});
+                    break;
+                case "x":
+                    dispatch({type: PoseChange.ORIENTATION_ROLL_DOWN});
+                    break;
+                case "c":
+                    dispatch({type: PoseChange.ORIENTATION_YAW_DOWN});
+                    break;
+            }
         }
     };
 
