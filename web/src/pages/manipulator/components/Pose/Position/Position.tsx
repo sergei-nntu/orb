@@ -32,6 +32,28 @@ export default function Position() {
                 ...prevKeyState,
                 [key]: true,
             }));
+
+            // FIXME: rewrite this piece of code
+            switch (key) {
+                case "w":
+                    dispatch({type: PoseChange.POSITION_Y_UP});
+                    break;
+                case "a":
+                    dispatch({type: PoseChange.POSITION_X_DOWN});
+                    break;
+                case "s":
+                    dispatch({type: PoseChange.POSITION_Y_DOWN});
+                    break;
+                case "d":
+                    dispatch({type: PoseChange.POSITION_X_UP});
+                    break;
+                case "q":
+                    dispatch({type: PoseChange.POSITION_Z_DOWN});
+                    break;
+                case "e":
+                    dispatch({type: PoseChange.POSITION_Z_UP});
+                    break;
+            }
         }
     };
 
