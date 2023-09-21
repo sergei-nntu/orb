@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useMemo, useReducer} from 'react';
+import React, {useContext, useEffect, useMemo, useReducer, useState} from 'react';
 import reducer from "../PoseReducer/PoseReducer";
 import {PoseContext} from "../PoseContext";
 import useHttp from "../../../hooks/Http/Http";
@@ -30,6 +30,7 @@ function PoseProvider(props: PoseProviderProps) {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     const [state, dispatch] = useReducer(reducer, initialState);
+    const [prevState, setPrevState] = useState<IPose>(initialState);
     const {request} = useHttp();
     const value = useMemo(() => ({state, dispatch}), [state]);
 
@@ -50,8 +51,13 @@ function PoseProvider(props: PoseProviderProps) {
 
             const {execute} = await request("/convert_pose", options);
             
-            if (!execute) {
-                dispatchNotification({type: NOTIFICATION.NO_MOVE_TO_POSITION});                
+            if (execute) {
+                setPrevState(state);
+            }
+            else {
+                dispatchNotification({type: NOTIFICATION.NO_MOVE_TO_POSITION});
+                // There should be dispatch
+                console.log(prevState);
             }
 
         } catch (error) {

@@ -103,6 +103,10 @@ function reducer(state: IPose, action: PoseActionType) {
                 ...state,
                 gripper_state: +(action.value * Math.PI / 180).toFixed(2)
             };
+        case PoseChange.SET_PREV_STATE:
+            return {
+                ...action.prevState
+            };
         default:
             return {};
     }
