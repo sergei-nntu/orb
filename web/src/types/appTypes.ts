@@ -54,5 +54,5 @@ export interface INotification {
 }
 
 export type NotificationActionType =
-    | Action<NOTIFICATION.TEST>
+    | Action<NOTIFICATION.NO_MOVE_TO_POSITION>
     | Action<NOTIFICATION.HIDE>;
