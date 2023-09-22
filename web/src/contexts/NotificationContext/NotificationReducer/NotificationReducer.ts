@@ -3,11 +3,11 @@ import {INotification, NotificationActionType} from "../../../types/appTypes";
 
 function reducer(state: INotification, action: NotificationActionType) {
     switch (action.type) {
-        case NOTIFICATION.TEST:
+        case NOTIFICATION.NO_MOVE_TO_POSITION:
             return {
                 open: true,
                 severity: "warning",
-                message: "Test, notification!"
+                message: "The robot cannot move to this position!"
             };
         case NOTIFICATION.HIDE:
             return {

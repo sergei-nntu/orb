@@ -1,8 +1,10 @@
-import React, {useEffect, useMemo, useReducer} from 'react';
+import React, {useContext, useEffect, useMemo, useReducer} from 'react';
 import reducer from "../PoseReducer/PoseReducer";
 import {PoseContext} from "../PoseContext";
 import useHttp from "../../../hooks/Http/Http";
 import {IPose} from "../../../types/appTypes";
+import { NotificationContext } from '../../NotificationContext/NotificationContext';
+import { NOTIFICATION } from '../../../constants';
 
 type PoseProviderProps = {
     children: React.ReactNode
@@ -22,6 +24,8 @@ function PoseProvider(props: PoseProviderProps) {
         },
         gripper_state: 0.0
     };
+
+    const {dispatchNotification} = useContext(NotificationContext);
 
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
@@ -44,8 +48,13 @@ function PoseProvider(props: PoseProviderProps) {
                 })
             };
 
-            const result = await request("/convert_pose", options);
-            console.log("Result: ", result);
+            const {execute} = await request("/convert_pose", options);
+            
+            if (!execute) {
+                dispatchNotification({type: NOTIFICATION.NO_MOVE_TO_POSITION});
+
+            }
+
         } catch (error) {
             console.error("Error: ", error);
         }

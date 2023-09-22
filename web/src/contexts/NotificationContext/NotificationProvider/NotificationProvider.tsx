@@ -18,9 +18,9 @@ function NotificationProvider(props: NotificationProviderProps) {
 
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    const [state, dispatch] = useReducer(reducer, initialState);
+    const [state, dispatchNotification] = useReducer(reducer, initialState);
 
-    const value = useMemo(() => ({state, dispatch}), [state]);
+    const value = useMemo(() => ({state, dispatchNotification}), [state]);
     return (
         <NotificationContext.Provider value={value}>
             {props.children}
