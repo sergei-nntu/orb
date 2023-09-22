@@ -30,6 +30,7 @@ export enum PoseChange {
     ORIENTATION_YAW_UP = 'ORIENTATION_YAW_UP',
     ORIENTATION_YAW_DOWN = 'ORIENTATION_YAW_DOWN',
     SET_GRIPPER_STATE = 'SET_GRIPPER_STATE',
+    SET_PREV_STATE = 'SET_PREV_STATE',
 }
 
 export type PoseActionType =
@@ -45,7 +46,8 @@ export type PoseActionType =
     | Action<PoseChange.ORIENTATION_ROLL_DOWN>
     | Action<PoseChange.ORIENTATION_YAW_UP>
     | Action<PoseChange.ORIENTATION_YAW_DOWN>
-    | Action<PoseChange.SET_GRIPPER_STATE, { value: number }>;
+    | Action<PoseChange.SET_GRIPPER_STATE, { value: number }>
+    | Action<PoseChange.SET_PREV_STATE, { prevState: IPose }>;
 
 export interface INotification {
     severity: "success" | "info" | "warning" | "error",
@@ -54,5 +56,5 @@ export interface INotification {
 }
 
 export type NotificationActionType =
-    | Action<NOTIFICATION.TEST>
+    | Action<NOTIFICATION.NO_MOVE_TO_POSITION>
     | Action<NOTIFICATION.HIDE>;
