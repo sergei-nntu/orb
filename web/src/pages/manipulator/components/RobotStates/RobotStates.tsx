@@ -3,6 +3,7 @@ import {Item} from "../StyledComponents/StyledComponents";
 import JointsState from "./JointsState/JointsState";
 import React from "react";
 import GripperState from "./GripperState/GripperState";
+import UserConsole from "../UserConsole/UserConsole";
 
 export default function RobotStates() {
     return (
@@ -16,6 +17,7 @@ export default function RobotStates() {
                     justifyContent: "flex-end"
                 }}
             >
+                <UserConsole />
                 <JointsState />
                 <GripperState />
             </Item>
