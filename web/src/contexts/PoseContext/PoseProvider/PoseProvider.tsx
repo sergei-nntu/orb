@@ -50,9 +50,10 @@ function PoseProvider(props: PoseProviderProps) {
 
             const {execute} = await request("/convert_pose", options);
             
-            if (!execute) {
+            if (execute) {
+                dispatchNotification({type: NOTIFICATION.SUCCESS_PLANNING});
+            } else {
                 dispatchNotification({type: NOTIFICATION.NO_MOVE_TO_POSITION});
-
             }
 
         } catch (error) {

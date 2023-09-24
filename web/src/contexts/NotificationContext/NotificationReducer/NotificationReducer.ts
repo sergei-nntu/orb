@@ -1,5 +1,5 @@
 import {NOTIFICATION} from "../../../constants";
-import {INotification, NotificationActionType} from "../../../types/appTypes";
+import {ConsoleMessage, INotification, NotificationActionType} from "../../../types/appTypes";
 
 function reducer(state: INotification, action: NotificationActionType) {
     switch (action.type) {
@@ -7,7 +7,19 @@ function reducer(state: INotification, action: NotificationActionType) {
             return {
                 open: true,
                 severity: "warning",
-                message: "The robot cannot move to this position!"
+                message: "The robot cannot move to this position!",
+                console: {
+                    message: ConsoleMessage.NO_MOVE_TO_POSITION
+                }
+            };
+        case NOTIFICATION.SUCCESS_PLANNING:
+            return {
+                open: true,
+                severity: "success",
+                message: "Changed start state",
+                console: {
+                    message: ConsoleMessage.SUCCESS_PLANNING
+                }
             };
         case NOTIFICATION.HIDE:
             return {
