@@ -1,7 +1,7 @@
 import React, {useContext} from 'react';
 import {Alert, Snackbar} from "@mui/material";
 import {NotificationContext} from "../../contexts/NotificationContext/NotificationContext";
-import { NOTIFICATION } from '../../constants';
+import { NOTIFICATION } from '../../types/appTypes';
 
 export default function Notification() {
     const {notifyState, dispatchNotification} = useContext(NotificationContext);

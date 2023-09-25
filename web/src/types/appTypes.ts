@@ -1,5 +1,3 @@
-import {NOTIFICATION} from "../constants";
-
 type Action<K, V = void> = V extends void ? { type: K } : { type: K } & V;
 
 export interface IPose {
@@ -61,6 +59,12 @@ export interface INotification {
     console: {
         message: string
     }
+}
+
+export enum NOTIFICATION {
+    HIDE = "HIDE",
+    NO_MOVE_TO_POSITION = "NO_MOVE_TO_POSITION",
+    SUCCESS_PLANNING = "SUCCESS_PLANNING"
 }
 
 export type NotificationActionType =

@@ -4,7 +4,7 @@ import {PoseContext} from "../PoseContext";
 import useHttp from "../../../hooks/Http/Http";
 import {IPose} from "../../../types/appTypes";
 import { NotificationContext } from '../../NotificationContext/NotificationContext';
-import { NOTIFICATION } from '../../../constants';
+import { NOTIFICATION } from '../../../types/appTypes';
 
 type PoseProviderProps = {
     children: React.ReactNode
