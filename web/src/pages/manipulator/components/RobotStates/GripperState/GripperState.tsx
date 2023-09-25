@@ -2,7 +2,7 @@ import React, {useContext, useState} from 'react';
 import {StyledBox} from "../../StyledComponents/StyledComponents";
 import Slider from "@mui/material/Slider";
 import {PoseContext} from "../../../../../contexts/PoseContext/PoseContext";
-import {PoseChange} from "../../../../../types/appTypes";
+import {POSE} from "../../../../../types/appTypes";
 
 const marks = [
     {
@@ -25,7 +25,7 @@ export default function GripperState() {
 
     const handleChangeValue = (event: Event, newValue: number | number[]) => {
         setSliderValue(newValue as number);
-        dispatch({ type: PoseChange.SET_GRIPPER_STATE, value: newValue as number });
+        dispatch({ type: POSE.SET_GRIPPER_STATE, value: newValue as number });
     };
 
     return (

@@ -3,7 +3,7 @@ import { StyledBox } from '../StyledComponents/StyledComponents';
 import { CssBaseline, Typography } from '@mui/material';
 import { PoseContext } from '../../../../contexts/PoseContext/PoseContext';
 import { NotificationContext } from '../../../../contexts/NotificationContext/NotificationContext';
-import { ConsoleMessage } from '../../../../types/appTypes';
+import { CONSOLE_MESSAGE } from '../../../../types/appTypes';
 
 export default function UserConsole() {
     const {state} = useContext(PoseContext);
@@ -31,7 +31,7 @@ export default function UserConsole() {
             <CssBaseline />
             {messages.map((msg, index) => (
                 <Typography
-                    color={msg === ConsoleMessage.NO_MOVE_TO_POSITION ? "red" : "green"} 
+                    color={msg === CONSOLE_MESSAGE.NO_MOVE_TO_POSITION ? "red" : "green"} 
                     key={index}
                     align='left'
                     variant='caption'

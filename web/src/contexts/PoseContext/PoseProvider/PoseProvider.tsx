@@ -5,6 +5,7 @@ import useHttp from "../../../hooks/Http/Http";
 import {IPose} from "../../../types/appTypes";
 import { NotificationContext } from '../../NotificationContext/NotificationContext';
 import { NOTIFICATION } from '../../../types/appTypes';
+import { API_ROUTES } from '../../../constants';
 
 type PoseProviderProps = {
     children: React.ReactNode
@@ -48,7 +49,7 @@ function PoseProvider(props: PoseProviderProps) {
                 })
             };
 
-            const {execute} = await request("/convert_pose", options);
+            const {execute} = await request(API_ROUTES.CONVERT_POSE, options);
             
             if (execute) {
                 dispatchNotification({type: NOTIFICATION.SUCCESS_PLANNING, open: false});

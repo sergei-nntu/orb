@@ -8,7 +8,7 @@ import KeyboardDoubleArrowUpSharpIcon from '@mui/icons-material/KeyboardDoubleAr
 import { Box } from '@mui/material';
 import {StyledBox} from "../../StyledComponents/StyledComponents";
 import {PoseContext} from "../../../../../contexts/PoseContext/PoseContext";
-import {PoseChange} from "../../../../../types/appTypes";
+import {POSE} from "../../../../../types/appTypes";
 
 const ArrowStyle = {
     fontSize: '10vh',
@@ -36,22 +36,22 @@ export default function Position() {
             // FIXME: rewrite this piece of code
             switch (key) {
                 case "w":
-                    dispatch({type: PoseChange.POSITION_Y_UP});
+                    dispatch({type: POSE.POSITION_Y_UP});
                     break;
                 case "a":
-                    dispatch({type: PoseChange.POSITION_X_DOWN});
+                    dispatch({type: POSE.POSITION_X_DOWN});
                     break;
                 case "s":
-                    dispatch({type: PoseChange.POSITION_Y_DOWN});
+                    dispatch({type: POSE.POSITION_Y_DOWN});
                     break;
                 case "d":
-                    dispatch({type: PoseChange.POSITION_X_UP});
+                    dispatch({type: POSE.POSITION_X_UP});
                     break;
                 case "q":
-                    dispatch({type: PoseChange.POSITION_Z_DOWN});
+                    dispatch({type: POSE.POSITION_Z_DOWN});
                     break;
                 case "e":
-                    dispatch({type: PoseChange.POSITION_Z_UP});
+                    dispatch({type: POSE.POSITION_Z_UP});
                     break;
             }
         }
@@ -107,14 +107,14 @@ export default function Position() {
                     <KeyboardDoubleArrowDownSharpIcon
                         style={ArrowStyle}
                         color={keyState.q ? "error" : "primary"}
-                        onMouseDown={handleArrowMouseDown("q", PoseChange.POSITION_Z_DOWN)}
+                        onMouseDown={handleArrowMouseDown("q", POSE.POSITION_Z_DOWN)}
                         onMouseUp={handleArrowMouseUp("q")}
                         onMouseLeave={handleArrowMouseUp("q")}
                     />
                     <KeyboardDoubleArrowUpSharpIcon
                         style={ArrowStyle}
                         color={keyState.e ? "error" : "primary"}
-                        onMouseDown={handleArrowMouseDown("e", PoseChange.POSITION_Z_UP)}
+                        onMouseDown={handleArrowMouseDown("e", POSE.POSITION_Z_UP)}
                         onMouseUp={handleArrowMouseUp("e")}
                         onMouseLeave={handleArrowMouseUp("e")}
                     />
@@ -130,7 +130,7 @@ export default function Position() {
                     <KeyboardArrowUpSharpIcon
                         style={ArrowStyle}
                         color={keyState.w ? "error" : "primary"}
-                        onMouseDown={handleArrowMouseDown("w", PoseChange.POSITION_Y_UP)}
+                        onMouseDown={handleArrowMouseDown("w", POSE.POSITION_Y_UP)}
                         onMouseUp={handleArrowMouseUp("w")}
                         onMouseLeave={handleArrowMouseUp("w")}
                     />
@@ -146,14 +146,14 @@ export default function Position() {
                     <KeyboardArrowLeftSharpIcon
                         style={ArrowStyle}
                         color={keyState.a ? "error" : "primary"}
-                        onMouseDown={handleArrowMouseDown("a", PoseChange.POSITION_X_DOWN)}
+                        onMouseDown={handleArrowMouseDown("a", POSE.POSITION_X_DOWN)}
                         onMouseUp={handleArrowMouseUp("a")}
                         onMouseLeave={handleArrowMouseUp("a")}
                     />
                     <KeyboardArrowRightSharpIcon
                         style={ArrowStyle}
                         color={keyState.d ? "error" : "primary"}
-                        onMouseDown={handleArrowMouseDown("d", PoseChange.POSITION_X_UP)}
+                        onMouseDown={handleArrowMouseDown("d", POSE.POSITION_X_UP)}
                         onMouseUp={handleArrowMouseUp("d")}
                         onMouseLeave={handleArrowMouseUp("d")}
                     />
@@ -169,7 +169,7 @@ export default function Position() {
                     <KeyboardArrowDownSharpIcon
                         style={ArrowStyle}
                         color={keyState.s ? "error" : "primary"}
-                        onMouseDown={handleArrowMouseDown("s", PoseChange.POSITION_Y_DOWN)}
+                        onMouseDown={handleArrowMouseDown("s", POSE.POSITION_Y_DOWN)}
                         onMouseUp={handleArrowMouseUp("s")}
                         onMouseLeave={handleArrowMouseUp("s")}
                     />

@@ -1,8 +1,8 @@
-import {IPose, PoseActionType, PoseChange} from "../../../types/appTypes";
+import {IPose, PoseActionType, POSE} from "../../../types/appTypes";
 
 function reducer(state: IPose, action: PoseActionType) {
     switch (action.type) {
-        case PoseChange.POSITION_X_UP:
+        case POSE.POSITION_X_UP:
             return {
                 ...state,
                 position: {
@@ -10,7 +10,7 @@ function reducer(state: IPose, action: PoseActionType) {
                     x: +(state.position.x + 0.1).toFixed(2)
                 }
             };
-        case PoseChange.POSITION_X_DOWN:
+        case POSE.POSITION_X_DOWN:
             return {
                 ...state,
                 position: {
@@ -18,7 +18,7 @@ function reducer(state: IPose, action: PoseActionType) {
                     x: +(state.position.x - 0.1).toFixed(2)
                 }
             };
-        case PoseChange.POSITION_Y_UP:
+        case POSE.POSITION_Y_UP:
             return {
                 ...state,
                 position: {
@@ -26,7 +26,7 @@ function reducer(state: IPose, action: PoseActionType) {
                     y: +(state.position.y + 0.1).toFixed(2)
                 }
             };
-        case PoseChange.POSITION_Y_DOWN:
+        case POSE.POSITION_Y_DOWN:
             return {
                 ...state,
                 position: {
@@ -34,7 +34,7 @@ function reducer(state: IPose, action: PoseActionType) {
                     y: +(state.position.y - 0.1).toFixed(2)
                 }
             };
-        case PoseChange.POSITION_Z_UP:
+        case POSE.POSITION_Z_UP:
             return {
                 ...state,
                 position: {
@@ -42,7 +42,7 @@ function reducer(state: IPose, action: PoseActionType) {
                     z: +(state.position.z + 0.1).toFixed(2)
                 }
             };
-        case PoseChange.POSITION_Z_DOWN:
+        case POSE.POSITION_Z_DOWN:
             return {
                 ...state,
                 position: {
@@ -50,7 +50,7 @@ function reducer(state: IPose, action: PoseActionType) {
                     z: +(state.position.z - 0.1).toFixed(2)
                 }
             };
-        case PoseChange.ORIENTATION_PITCH_UP:
+        case POSE.ORIENTATION_PITCH_UP:
             return {
                 ...state,
                 orientation: {
@@ -58,7 +58,7 @@ function reducer(state: IPose, action: PoseActionType) {
                     pitch: +(state.orientation.pitch + 0.1).toFixed(2)
                 }
             };
-        case PoseChange.ORIENTATION_PITCH_DOWN:
+        case POSE.ORIENTATION_PITCH_DOWN:
             return {
                 ...state,
                 orientation: {
@@ -66,7 +66,7 @@ function reducer(state: IPose, action: PoseActionType) {
                     pitch: +(state.orientation.pitch - 0.1).toFixed(2)
                 }
             };
-        case PoseChange.ORIENTATION_ROLL_UP:
+        case POSE.ORIENTATION_ROLL_UP:
             return {
                 ...state,
                 orientation: {
@@ -74,7 +74,7 @@ function reducer(state: IPose, action: PoseActionType) {
                     roll: +(state.orientation.roll + 0.1).toFixed(2)
                 }
             };
-        case PoseChange.ORIENTATION_ROLL_DOWN:
+        case POSE.ORIENTATION_ROLL_DOWN:
             return {
                 ...state,
                 orientation: {
@@ -82,7 +82,7 @@ function reducer(state: IPose, action: PoseActionType) {
                     roll: +(state.orientation.roll - 0.1).toFixed(2)
                 }
             };
-        case PoseChange.ORIENTATION_YAW_UP:
+        case POSE.ORIENTATION_YAW_UP:
             return {
                 ...state,
                 orientation: {
@@ -90,7 +90,7 @@ function reducer(state: IPose, action: PoseActionType) {
                     yaw: +(state.orientation.yaw + 0.1).toFixed(2)
                 }
             };
-        case PoseChange.ORIENTATION_YAW_DOWN:
+        case POSE.ORIENTATION_YAW_DOWN:
             return {
                 ...state,
                 orientation: {
@@ -98,12 +98,12 @@ function reducer(state: IPose, action: PoseActionType) {
                     yaw: +(state.orientation.yaw - 0.1).toFixed(2)
                 }
             };
-        case PoseChange.SET_GRIPPER_STATE:
+        case POSE.SET_GRIPPER_STATE:
             return {
                 ...state,
                 gripper_state: +(action.value * Math.PI / 180).toFixed(2)
             };
-        case PoseChange.SET_PREV_STATE:
+        case POSE.SET_PREV_STATE:
             return {
                 ...action.prevState
             };
