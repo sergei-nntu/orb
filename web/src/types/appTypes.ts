@@ -49,12 +49,21 @@ export type PoseActionType =
     | Action<PoseChange.SET_GRIPPER_STATE, { value: number }>
     | Action<PoseChange.SET_PREV_STATE, { prevState: IPose }>;
 
+export enum ConsoleMessage {
+    NO_MOVE_TO_POSITION = "There is no move to this position. Previous state was returned",
+    SUCCESS_PLANNING = "Changed goal state"
+}
+
 export interface INotification {
     severity: "success" | "info" | "warning" | "error",
     message: string,
-    open: boolean
+    open: boolean,
+    console: {
+        message: string
+    }
 }
 
 export type NotificationActionType =
-    | Action<NOTIFICATION.NO_MOVE_TO_POSITION>
+    | Action<NOTIFICATION.NO_MOVE_TO_POSITION, {open: boolean}>
+    | Action<NOTIFICATION.SUCCESS_PLANNING, {open: boolean}>
     | Action<NOTIFICATION.HIDE>;
