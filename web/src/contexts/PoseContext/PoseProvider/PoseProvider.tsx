@@ -1,11 +1,6 @@
-import React, {useContext, useEffect, useMemo, useReducer} from 'react';
+import React, {useMemo, useReducer} from 'react';
 import reducer from "../PoseReducer/PoseReducer";
 import {PoseContext} from "../PoseContext";
-import useHttp from "../../../hooks/Http/Http";
-import {IPose} from "../../../types/appTypes";
-import { NotificationContext } from '../../NotificationContext/NotificationContext';
-import { NOTIFICATION } from '../../../types/appTypes';
-import { API_ROUTES } from '../../../constants';
 
 type PoseProviderProps = {
     children: React.ReactNode
@@ -26,43 +21,8 @@ function PoseProvider(props: PoseProviderProps) {
         gripper_state: 0.0
     };
 
-    const {request} = useHttp();
-    const {dispatchNotification} = useContext(NotificationContext);
-    
     const [state, dispatch] = useReducer(reducer, initialState);
     const value = useMemo(() => ({state, dispatch}), [state]);
-
-    const sendStateToServer = async (state: IPose) => {
-        try {
-            const options = {
-                method: "POST",
-                body: JSON.stringify({
-                    "x": state.position.x,
-                    "y": state.position.y,
-                    "z": state.position.z,
-                    "pitch": state.orientation.pitch,
-                    "roll": state.orientation.roll,
-                    "yaw": state.orientation.yaw,
-                    "gripper": state.gripper_state
-                })
-            };
-
-            const {execute} = await request(API_ROUTES.CONVERT_POSE, options);
-            
-            if (execute) {
-                dispatchNotification({type: NOTIFICATION.SUCCESS_PLANNING, open: false});
-            } else {
-                dispatchNotification({type: NOTIFICATION.NO_MOVE_TO_POSITION, open: false});
-            }
-
-        } catch (error) {
-            console.error("Error: ", error);
-        }
-    };
-
-    useEffect(() => {
-        sendStateToServer(state).then(r => console.log(r));
-    }, [state]);
 
     return (
         <PoseContext.Provider value={value}>
