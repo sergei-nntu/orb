@@ -4,7 +4,8 @@ import {PoseContext} from "../PoseContext";
 import useHttp from "../../../hooks/Http/Http";
 import {IPose} from "../../../types/appTypes";
 import { NotificationContext } from '../../NotificationContext/NotificationContext';
-import { NOTIFICATION } from '../../../constants';
+import { NOTIFICATION } from '../../../types/appTypes';
+import { API_ROUTES } from '../../../constants';
 
 type PoseProviderProps = {
     children: React.ReactNode
@@ -25,12 +26,10 @@ function PoseProvider(props: PoseProviderProps) {
         gripper_state: 0.0
     };
 
-    const {dispatchNotification} = useContext(NotificationContext);
-
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    const [state, dispatch] = useReducer(reducer, initialState);
     const {request} = useHttp();
+    const {dispatchNotification} = useContext(NotificationContext);
+    
+    const [state, dispatch] = useReducer(reducer, initialState);
     const value = useMemo(() => ({state, dispatch}), [state]);
 
     const sendStateToServer = async (state: IPose) => {
@@ -48,7 +47,7 @@ function PoseProvider(props: PoseProviderProps) {
                 })
             };
 
-            const {execute} = await request("/convert_pose", options);
+            const {execute} = await request(API_ROUTES.CONVERT_POSE, options);
             
             if (execute) {
                 dispatchNotification({type: NOTIFICATION.SUCCESS_PLANNING, open: false});

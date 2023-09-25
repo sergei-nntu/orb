@@ -1,5 +1,3 @@
-import {NOTIFICATION} from "../constants";
-
 type Action<K, V = void> = V extends void ? { type: K } : { type: K } & V;
 
 export interface IPose {
@@ -16,7 +14,7 @@ export interface IPose {
     gripper_state: number
 }
 
-export enum PoseChange {
+export enum POSE {
     POSITION_X_UP = 'POSITION_X_UP',
     POSITION_X_DOWN = 'POSITION_X_DOWN',
     POSITION_Y_UP = 'POSITION_Y_UP',
@@ -34,24 +32,24 @@ export enum PoseChange {
 }
 
 export type PoseActionType =
-    | Action<PoseChange.POSITION_X_UP>
-    | Action<PoseChange.POSITION_X_DOWN>
-    | Action<PoseChange.POSITION_Y_UP>
-    | Action<PoseChange.POSITION_Y_DOWN>
-    | Action<PoseChange.POSITION_Z_UP>
-    | Action<PoseChange.POSITION_Z_DOWN>
-    | Action<PoseChange.ORIENTATION_PITCH_UP>
-    | Action<PoseChange.ORIENTATION_PITCH_DOWN>
-    | Action<PoseChange.ORIENTATION_ROLL_UP>
-    | Action<PoseChange.ORIENTATION_ROLL_DOWN>
-    | Action<PoseChange.ORIENTATION_YAW_UP>
-    | Action<PoseChange.ORIENTATION_YAW_DOWN>
-    | Action<PoseChange.SET_GRIPPER_STATE, { value: number }>
-    | Action<PoseChange.SET_PREV_STATE, { prevState: IPose }>;
+    | Action<POSE.POSITION_X_UP>
+    | Action<POSE.POSITION_X_DOWN>
+    | Action<POSE.POSITION_Y_UP>
+    | Action<POSE.POSITION_Y_DOWN>
+    | Action<POSE.POSITION_Z_UP>
+    | Action<POSE.POSITION_Z_DOWN>
+    | Action<POSE.ORIENTATION_PITCH_UP>
+    | Action<POSE.ORIENTATION_PITCH_DOWN>
+    | Action<POSE.ORIENTATION_ROLL_UP>
+    | Action<POSE.ORIENTATION_ROLL_DOWN>
+    | Action<POSE.ORIENTATION_YAW_UP>
+    | Action<POSE.ORIENTATION_YAW_DOWN>
+    | Action<POSE.SET_GRIPPER_STATE, { value: number }>
+    | Action<POSE.SET_PREV_STATE, { prevState: IPose }>;
 
-export enum ConsoleMessage {
+export enum CONSOLE_MESSAGE {
     NO_MOVE_TO_POSITION = "There is no move to this position. Previous state was returned",
-    SUCCESS_PLANNING = "Changed goal state"
+    SUCCESS_PLANNING = "Changed goal state",
 }
 
 export interface INotification {
@@ -61,6 +59,12 @@ export interface INotification {
     console: {
         message: string
     }
+}
+
+export enum NOTIFICATION {
+    HIDE = "HIDE",
+    NO_MOVE_TO_POSITION = "NO_MOVE_TO_POSITION",
+    SUCCESS_PLANNING = "SUCCESS_PLANNING"
 }
 
 export type NotificationActionType =

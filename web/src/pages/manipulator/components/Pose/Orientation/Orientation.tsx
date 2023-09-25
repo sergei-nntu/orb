@@ -5,7 +5,7 @@ import RotateRightIcon from '@mui/icons-material/RotateRight';
 import Typography from "@mui/material/Typography";
 import {Box} from "@mui/material";
 import {PoseContext} from "../../../../../contexts/PoseContext/PoseContext";
-import {PoseChange} from "../../../../../types/appTypes";
+import {POSE} from "../../../../../types/appTypes";
 
 export default function Orientation() {
     const {state, dispatch} = useContext(PoseContext);
@@ -46,22 +46,22 @@ export default function Orientation() {
             // FIXME: rewrite this piece of code
             switch (key) {
                 case "1":
-                    dispatch({type: PoseChange.ORIENTATION_PITCH_UP});
+                    dispatch({type: POSE.ORIENTATION_PITCH_UP});
                     break;
                 case "2":
-                    dispatch({type: PoseChange.ORIENTATION_ROLL_UP});
+                    dispatch({type: POSE.ORIENTATION_ROLL_UP});
                     break;
                 case "3":
-                    dispatch({type: PoseChange.ORIENTATION_YAW_UP});
+                    dispatch({type: POSE.ORIENTATION_YAW_UP});
                     break;
                 case "z":
-                    dispatch({type: PoseChange.ORIENTATION_PITCH_DOWN});
+                    dispatch({type: POSE.ORIENTATION_PITCH_DOWN});
                     break;
                 case "x":
-                    dispatch({type: PoseChange.ORIENTATION_ROLL_DOWN});
+                    dispatch({type: POSE.ORIENTATION_ROLL_DOWN});
                     break;
                 case "c":
-                    dispatch({type: PoseChange.ORIENTATION_YAW_DOWN});
+                    dispatch({type: POSE.ORIENTATION_YAW_DOWN});
                     break;
             }
         }
@@ -104,7 +104,7 @@ export default function Orientation() {
                             transform: 'rotate(50deg) skew(30deg, 0deg)'
                         }}
                         color={keyState["1"] ? "error" : "primary"}
-                        onMouseDown={handleArrowMouseDown("1", PoseChange.ORIENTATION_PITCH_UP)}
+                        onMouseDown={handleArrowMouseDown("1", POSE.ORIENTATION_PITCH_UP)}
                         onMouseUp={handleArrowMouseUp("1")}
                         onMouseLeave={handleArrowMouseUp("1")}
                     />
@@ -114,7 +114,7 @@ export default function Orientation() {
                             transform: 'scale(1.1)'
                         }}
                         color={keyState["2"] ? "error" : "primary"}
-                        onMouseDown={handleArrowMouseDown("2", PoseChange.ORIENTATION_ROLL_UP)}
+                        onMouseDown={handleArrowMouseDown("2", POSE.ORIENTATION_ROLL_UP)}
                         onMouseUp={handleArrowMouseUp("2")}
                         onMouseLeave={handleArrowMouseUp("2")}
                     />
@@ -124,7 +124,7 @@ export default function Orientation() {
                             transform: 'perspective(500px) rotateX(65deg) scale(1.5)'
                         }}
                         color={keyState["3"] ? "error" : "primary"}
-                        onMouseDown={handleArrowMouseDown("3", PoseChange.ORIENTATION_YAW_UP)}
+                        onMouseDown={handleArrowMouseDown("3", POSE.ORIENTATION_YAW_UP)}
                         onMouseUp={handleArrowMouseUp("3")}
                         onMouseLeave={handleArrowMouseUp("3")}
                     />
@@ -159,7 +159,7 @@ export default function Orientation() {
                             transform: 'rotate(50deg) skew(30deg, 0deg)'
                         }}
                         color={keyState.z ? "error" : "primary"}
-                        onMouseDown={handleArrowMouseDown("z", PoseChange.ORIENTATION_PITCH_DOWN)}
+                        onMouseDown={handleArrowMouseDown("z", POSE.ORIENTATION_PITCH_DOWN)}
                         onMouseUp={handleArrowMouseUp("z")}
                         onMouseLeave={handleArrowMouseUp("z")}
                     />
@@ -169,7 +169,7 @@ export default function Orientation() {
                             transform: 'scale(1.1)'
                         }}
                         color={keyState.x ? "error" : "primary"}
-                        onMouseDown={handleArrowMouseDown("x", PoseChange.ORIENTATION_ROLL_DOWN)}
+                        onMouseDown={handleArrowMouseDown("x", POSE.ORIENTATION_ROLL_DOWN)}
                         onMouseUp={handleArrowMouseUp("x")}
                         onMouseLeave={handleArrowMouseUp("x")}
                     />
@@ -179,7 +179,7 @@ export default function Orientation() {
                             transform: 'perspective(500px) rotateX(65deg) scale(1.5)'
                         }}
                         color={keyState.c ? "error" : "primary"}
-                        onMouseDown={handleArrowMouseDown("c", PoseChange.ORIENTATION_YAW_DOWN)}
+                        onMouseDown={handleArrowMouseDown("c", POSE.ORIENTATION_YAW_DOWN)}
                         onMouseUp={handleArrowMouseUp("c")}
                         onMouseLeave={handleArrowMouseUp("c")}
                     />

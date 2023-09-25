@@ -1,24 +1,25 @@
-import {NOTIFICATION} from "../../../constants";
-import {ConsoleMessage, INotification, NotificationActionType} from "../../../types/appTypes";
+import { Reducer } from "react";
+import {NOTIFICATION} from "../../../types/appTypes";
+import {CONSOLE_MESSAGE, INotification, NotificationActionType} from "../../../types/appTypes";
 
-function reducer(state: INotification, action: NotificationActionType) {
+const reducer: Reducer<INotification, NotificationActionType> = function (state, action) {
     switch (action.type) {
         case NOTIFICATION.NO_MOVE_TO_POSITION:
             return {
-                open: state.open,
+                open: action.open,
                 severity: "warning",
                 message: "The robot cannot move to this position!",
                 console: {
-                    message: ConsoleMessage.NO_MOVE_TO_POSITION
+                    message: CONSOLE_MESSAGE.NO_MOVE_TO_POSITION
                 }
             };
         case NOTIFICATION.SUCCESS_PLANNING:
             return {
-                open: state.open,
+                open: action.open,
                 severity: "success",
                 message: "Changed start state",
                 console: {
-                    message: ConsoleMessage.SUCCESS_PLANNING
+                    message: CONSOLE_MESSAGE.SUCCESS_PLANNING
                 }
             };
         case NOTIFICATION.HIDE:
@@ -30,9 +31,12 @@ function reducer(state: INotification, action: NotificationActionType) {
             return {
                 open: true,
                 severity: "error",
-                message: "Ops, something went wrong! Please sorry!"
+                message: "Ops, something went wrong! Please sorry!",
+                console: {
+                    message: ""
+                }
             };
     }
-}
+};
 
 export default reducer;

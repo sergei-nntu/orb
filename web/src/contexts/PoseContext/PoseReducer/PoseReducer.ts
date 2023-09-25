@@ -1,115 +1,117 @@
-import {IPose, PoseActionType, PoseChange} from "../../../types/appTypes";
+import { Reducer } from "react";
+import { DEFAULT_OFFSET } from "../../../constants";
+import {IPose, PoseActionType, POSE} from "../../../types/appTypes";
 
-function reducer(state: IPose, action: PoseActionType) {
+const reducer: Reducer<IPose, PoseActionType> = function (state, action) {
     switch (action.type) {
-        case PoseChange.POSITION_X_UP:
+        case POSE.POSITION_X_UP:
             return {
                 ...state,
                 position: {
                     ...state.position,
-                    x: +(state.position.x + 0.1).toFixed(2)
+                    x: +(state.position.x + DEFAULT_OFFSET).toFixed(2)
                 }
             };
-        case PoseChange.POSITION_X_DOWN:
+        case POSE.POSITION_X_DOWN:
             return {
                 ...state,
                 position: {
                     ...state.position,
-                    x: +(state.position.x - 0.1).toFixed(2)
+                    x: +(state.position.x - DEFAULT_OFFSET).toFixed(2)
                 }
             };
-        case PoseChange.POSITION_Y_UP:
+        case POSE.POSITION_Y_UP:
             return {
                 ...state,
                 position: {
                     ...state.position,
-                    y: +(state.position.y + 0.1).toFixed(2)
+                    y: +(state.position.y + DEFAULT_OFFSET).toFixed(2)
                 }
             };
-        case PoseChange.POSITION_Y_DOWN:
+        case POSE.POSITION_Y_DOWN:
             return {
                 ...state,
                 position: {
                     ...state.position,
-                    y: +(state.position.y - 0.1).toFixed(2)
+                    y: +(state.position.y - DEFAULT_OFFSET).toFixed(2)
                 }
             };
-        case PoseChange.POSITION_Z_UP:
+        case POSE.POSITION_Z_UP:
             return {
                 ...state,
                 position: {
                     ...state.position,
-                    z: +(state.position.z + 0.1).toFixed(2)
+                    z: +(state.position.z + DEFAULT_OFFSET).toFixed(2)
                 }
             };
-        case PoseChange.POSITION_Z_DOWN:
+        case POSE.POSITION_Z_DOWN:
             return {
                 ...state,
                 position: {
                     ...state.position,
-                    z: +(state.position.z - 0.1).toFixed(2)
+                    z: +(state.position.z - DEFAULT_OFFSET).toFixed(2)
                 }
             };
-        case PoseChange.ORIENTATION_PITCH_UP:
+        case POSE.ORIENTATION_PITCH_UP:
             return {
                 ...state,
                 orientation: {
                     ...state.orientation,
-                    pitch: +(state.orientation.pitch + 0.1).toFixed(2)
+                    pitch: +(state.orientation.pitch + DEFAULT_OFFSET).toFixed(2)
                 }
             };
-        case PoseChange.ORIENTATION_PITCH_DOWN:
+        case POSE.ORIENTATION_PITCH_DOWN:
             return {
                 ...state,
                 orientation: {
                     ...state.orientation,
-                    pitch: +(state.orientation.pitch - 0.1).toFixed(2)
+                    pitch: +(state.orientation.pitch - DEFAULT_OFFSET).toFixed(2)
                 }
             };
-        case PoseChange.ORIENTATION_ROLL_UP:
+        case POSE.ORIENTATION_ROLL_UP:
             return {
                 ...state,
                 orientation: {
                     ...state.orientation,
-                    roll: +(state.orientation.roll + 0.1).toFixed(2)
+                    roll: +(state.orientation.roll + DEFAULT_OFFSET).toFixed(2)
                 }
             };
-        case PoseChange.ORIENTATION_ROLL_DOWN:
+        case POSE.ORIENTATION_ROLL_DOWN:
             return {
                 ...state,
                 orientation: {
                     ...state.orientation,
-                    roll: +(state.orientation.roll - 0.1).toFixed(2)
+                    roll: +(state.orientation.roll - DEFAULT_OFFSET).toFixed(2)
                 }
             };
-        case PoseChange.ORIENTATION_YAW_UP:
+        case POSE.ORIENTATION_YAW_UP:
             return {
                 ...state,
                 orientation: {
                     ...state.orientation,
-                    yaw: +(state.orientation.yaw + 0.1).toFixed(2)
+                    yaw: +(state.orientation.yaw + DEFAULT_OFFSET).toFixed(2)
                 }
             };
-        case PoseChange.ORIENTATION_YAW_DOWN:
+        case POSE.ORIENTATION_YAW_DOWN:
             return {
                 ...state,
                 orientation: {
                     ...state.orientation,
-                    yaw: +(state.orientation.yaw - 0.1).toFixed(2)
+                    yaw: +(state.orientation.yaw - DEFAULT_OFFSET).toFixed(2)
                 }
             };
-        case PoseChange.SET_GRIPPER_STATE:
+        case POSE.SET_GRIPPER_STATE:
             return {
                 ...state,
                 gripper_state: +(action.value * Math.PI / 180).toFixed(2)
             };
-        case PoseChange.SET_PREV_STATE:
+        case POSE.SET_PREV_STATE:
             return {
                 ...action.prevState
             };
         default:
-            return {};
+            return {...state};
     }
-}
+};
 
 export default reducer;
