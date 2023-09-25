@@ -7,7 +7,7 @@ import { CONSOLE_MESSAGE } from '../../../../types/appTypes';
 
 export default function UserConsole() {
     const {state} = useContext(PoseContext);
-    const {notifyState} = useContext(NotificationContext);
+    const {notificationState} = useContext(NotificationContext);
     const [messages, setMessages] = useState<string[]>(["Initialized."]);
     const messagesEndRef = useRef<HTMLDivElement | null>(null);
 
@@ -16,9 +16,9 @@ export default function UserConsole() {
     };
 
     useEffect(() => {
-        const message = notifyState.console.message;
+        const message = notificationState.console.message;
         addMessage(message);
-    }, [state, notifyState.console.message]);
+    }, [state, notificationState.console.message]);
 
     useEffect(() => {
         if (messagesEndRef.current) {

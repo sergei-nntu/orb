@@ -4,8 +4,8 @@ import {NotificationContext} from "../../contexts/NotificationContext/Notificati
 import { NOTIFICATION } from '../../types/appTypes';
 
 export default function Notification() {
-    const {notifyState, dispatchNotification} = useContext(NotificationContext);
-    const {open, severity, message} = notifyState;
+    const {notificationState, dispatchNotification} = useContext(NotificationContext);
+    const {open, severity, message} = notificationState;
 
     const handleClose = () => {
         dispatchNotification({type: NOTIFICATION.HIDE});

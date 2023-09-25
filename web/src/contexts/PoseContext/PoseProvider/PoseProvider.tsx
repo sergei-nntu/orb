@@ -26,12 +26,10 @@ function PoseProvider(props: PoseProviderProps) {
         gripper_state: 0.0
     };
 
-    const {dispatchNotification} = useContext(NotificationContext);
-
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    const [state, dispatch] = useReducer(reducer, initialState);
     const {request} = useHttp();
+    const {dispatchNotification} = useContext(NotificationContext);
+    
+    const [state, dispatch] = useReducer(reducer, initialState);
     const value = useMemo(() => ({state, dispatch}), [state]);
 
     const sendStateToServer = async (state: IPose) => {

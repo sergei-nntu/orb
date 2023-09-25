@@ -1,7 +1,8 @@
+import { Reducer } from "react";
 import { DEFAULT_OFFSET } from "../../../constants";
 import {IPose, PoseActionType, POSE} from "../../../types/appTypes";
 
-function reducer(state: IPose, action: PoseActionType) {
+const reducer: Reducer<IPose, PoseActionType> = function (state, action) {
     switch (action.type) {
         case POSE.POSITION_X_UP:
             return {
@@ -109,8 +110,8 @@ function reducer(state: IPose, action: PoseActionType) {
                 ...action.prevState
             };
         default:
-            return {};
+            return {...state};
     }
-}
+};
 
 export default reducer;
