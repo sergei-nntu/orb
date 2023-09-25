@@ -5,7 +5,7 @@ function reducer(state: INotification, action: NotificationActionType) {
     switch (action.type) {
         case NOTIFICATION.NO_MOVE_TO_POSITION:
             return {
-                open: true,
+                open: state.open,
                 severity: "warning",
                 message: "The robot cannot move to this position!",
                 console: {
@@ -14,7 +14,7 @@ function reducer(state: INotification, action: NotificationActionType) {
             };
         case NOTIFICATION.SUCCESS_PLANNING:
             return {
-                open: true,
+                open: state.open,
                 severity: "success",
                 message: "Changed start state",
                 console: {

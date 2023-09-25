@@ -14,8 +14,8 @@ function PoseProvider(props: PoseProviderProps) {
     const initialState = {
         position: {
             x: 0.0,
-            y: 0.0,
-            z: 0.0
+            y: 0.1,
+            z: 0.4
         },
         orientation: {
             pitch: 0.0,
@@ -51,9 +51,9 @@ function PoseProvider(props: PoseProviderProps) {
             const {execute} = await request("/convert_pose", options);
             
             if (execute) {
-                dispatchNotification({type: NOTIFICATION.SUCCESS_PLANNING});
+                dispatchNotification({type: NOTIFICATION.SUCCESS_PLANNING, open: false});
             } else {
-                dispatchNotification({type: NOTIFICATION.NO_MOVE_TO_POSITION});
+                dispatchNotification({type: NOTIFICATION.NO_MOVE_TO_POSITION, open: false});
             }
 
         } catch (error) {

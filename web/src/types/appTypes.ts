@@ -64,6 +64,6 @@ export interface INotification {
 }
 
 export type NotificationActionType =
-    | Action<NOTIFICATION.NO_MOVE_TO_POSITION>
-    | Action<NOTIFICATION.SUCCESS_PLANNING>
+    | Action<NOTIFICATION.NO_MOVE_TO_POSITION, {open: boolean}>
+    | Action<NOTIFICATION.SUCCESS_PLANNING, {open: boolean}>
     | Action<NOTIFICATION.HIDE>;
