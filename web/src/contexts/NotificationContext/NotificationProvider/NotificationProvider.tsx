@@ -13,14 +13,17 @@ function NotificationProvider(props: NotificationProviderProps) {
     const initialState: INotification = {
         severity: "success",
         message: "",
-        open: false
+        open: false,
+        console: {
+            message: ""
+        }
     };
 
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    const [state, dispatchNotification] = useReducer(reducer, initialState);
+    const [notifyState, dispatchNotification] = useReducer(reducer, initialState);
 
-    const value = useMemo(() => ({state, dispatchNotification}), [state]);
+    const value = useMemo(() => ({notifyState, dispatchNotification}), [notifyState]);
     return (
         <NotificationContext.Provider value={value}>
             {props.children}
