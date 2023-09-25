@@ -3,11 +3,11 @@ import { StyledBox } from '../StyledComponents/StyledComponents';
 import { CssBaseline, Typography } from '@mui/material';
 import { PoseContext } from '../../../../contexts/PoseContext/PoseContext';
 import { NotificationContext } from '../../../../contexts/NotificationContext/NotificationContext';
-import { ConsoleMessage } from '../../../../types/appTypes';
+import { CONSOLE_MESSAGE } from '../../../../types/appTypes';
 
 export default function UserConsole() {
     const {state} = useContext(PoseContext);
-    const {notifyState} = useContext(NotificationContext);
+    const {notificationState} = useContext(NotificationContext);
     const [messages, setMessages] = useState<string[]>(["Initialized."]);
     const messagesEndRef = useRef<HTMLDivElement | null>(null);
 
@@ -16,9 +16,9 @@ export default function UserConsole() {
     };
 
     useEffect(() => {
-        const message = notifyState.console.message;
+        const message = notificationState.console.message;
         addMessage(message);
-    }, [state, notifyState.console.message]);
+    }, [state, notificationState.console.message]);
 
     useEffect(() => {
         if (messagesEndRef.current) {
@@ -31,7 +31,7 @@ export default function UserConsole() {
             <CssBaseline />
             {messages.map((msg, index) => (
                 <Typography
-                    color={msg === ConsoleMessage.NO_MOVE_TO_POSITION ? "red" : "green"} 
+                    color={msg === CONSOLE_MESSAGE.NO_MOVE_TO_POSITION ? "red" : "green"} 
                     key={index}
                     align='left'
                     variant='caption'
