@@ -42,6 +42,12 @@ class BlocklyEditor extends Component<BlocklyEditorProps> {
             const code = javascriptGenerator.workspaceToCode(
                 this.workspace
             );
+            try {
+                // FIXME: this is not security
+                eval(code);
+            } catch (e) {
+                alert(e);
+            }
             console.log(code);
         }
     };
