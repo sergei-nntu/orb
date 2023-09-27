@@ -21,5 +21,6 @@ Blockly.Blocks['delay'] = {
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 javascriptGenerator.forBlock['delay'] = function(block) {
-    return `delay(${block.getFieldValue("DELAY")});\n`;
+    const delayValue = block.getFieldValue("DELAY");
+    return `delay(${delayValue});\n`;
 };
