@@ -44,7 +44,7 @@ class BlocklyEditor extends Component<BlocklyEditorProps> {
             );
             try {
                 // FIXME: this is not security
-                eval(code);
+                // eval(code);
             } catch (e) {
                 alert(e);
             }

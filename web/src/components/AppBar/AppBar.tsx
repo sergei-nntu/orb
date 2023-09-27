@@ -19,6 +19,8 @@ import NextPlanIcon from '@mui/icons-material/NextPlan';
 import NavigationIcon from '@mui/icons-material/Navigation';
 import {AppBar, Drawer, DrawerHeader} from "./StyledComponents/StyledComponents";
 import {useRouter} from "../../hooks/Router/Router";
+import PlayArrowIcon from '@mui/icons-material/PlayArrow';
+import StopIcon from '@mui/icons-material/Stop';
 
 const drawerData = [
     {
@@ -95,6 +97,12 @@ export default function MenuAppBar() {
                     <Typography variant="h6" noWrap component="div">
                         {title}
                     </Typography>
+                    {router.pathname === "/planning" &&
+                        <>
+                            <PlayArrowIcon sx={{ml: 2}} fontSize="medium" />
+                            <StopIcon sx={{ml: 1}} fontSize="medium" />
+                        </>
+                    }
                 </Toolbar>
             </AppBar>
             <Drawer variant="permanent" open={open}>
