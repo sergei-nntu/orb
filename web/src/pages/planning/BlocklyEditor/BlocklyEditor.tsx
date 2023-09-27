@@ -3,15 +3,10 @@ import {javascriptGenerator} from 'blockly/javascript';
 import Blockly from 'blockly';
 import DarkTheme from '@blockly/theme-dark';
 import Box from "@mui/material/Box";
+import {KEY} from "../../../constants";
 
 interface BlocklyEditorProps {
     toolboxXML: string;
-}
-// There is no option to call those functions other way
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-function delay() {
-    // Ваш код функции здесь
-    console.log("This is work");
 }
 
 // TODO: when it will be time, this component should be rewritten as function component with using hooks
@@ -48,12 +43,7 @@ class BlocklyEditor extends Component<BlocklyEditorProps> {
             const code = javascriptGenerator.workspaceToCode(
                 this.workspace
             );
-            try {
-                // FIXME: this is not security
-                eval(code);
-            } catch (e) {
-                alert(e);
-            }
+            localStorage.setItem(KEY.BLOCKLY_CODE, code);
         }
     };
 

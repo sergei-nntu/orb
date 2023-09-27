@@ -5,3 +5,7 @@ export const DEFAULT_OFFSET = 0.05;
 export enum API_ROUTES {
     CONVERT_POSE = "/convert_pose"
 }
+
+export enum KEY {
+    BLOCKLY_CODE = "BLOCKLY_CODE",
+}

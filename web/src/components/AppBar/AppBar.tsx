@@ -21,6 +21,7 @@ import {AppBar, Drawer, DrawerHeader} from "./StyledComponents/StyledComponents"
 import {useRouter} from "../../hooks/Router/Router";
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import StopIcon from '@mui/icons-material/Stop';
+import {ExecuteBlockly, StopBlockly} from "../../pages/planning/Blockly/launch";
 
 const drawerData = [
     {
@@ -99,8 +100,16 @@ export default function MenuAppBar() {
                     </Typography>
                     {router.pathname === "/planning" &&
                         <>
-                            <PlayArrowIcon sx={{ml: 2, cursor: "pointer"}} fontSize="medium" />
-                            <StopIcon sx={{ml: 1, cursor: "pointer"}} fontSize="medium" />
+                            <PlayArrowIcon
+                                onClick={ExecuteBlockly}
+                                sx={{ml: 2, cursor: "pointer"}}
+                                fontSize="medium"
+                            />
+                            <StopIcon
+                                onClick={StopBlockly}
+                                sx={{ml: 1, cursor: "pointer"}}
+                                fontSize="medium"
+                            />
                         </>
                     }
                 </Toolbar>
