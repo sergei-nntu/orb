@@ -99,8 +99,8 @@ export default function MenuAppBar() {
                     </Typography>
                     {router.pathname === "/planning" &&
                         <>
-                            <PlayArrowIcon sx={{ml: 2}} fontSize="medium" />
-                            <StopIcon sx={{ml: 1}} fontSize="medium" />
+                            <PlayArrowIcon sx={{ml: 2, cursor: "pointer"}} fontSize="medium" />
+                            <StopIcon sx={{ml: 1, cursor: "pointer"}} fontSize="medium" />
                         </>
                     }
                 </Toolbar>
