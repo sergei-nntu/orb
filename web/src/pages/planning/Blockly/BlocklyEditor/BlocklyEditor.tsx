@@ -3,7 +3,7 @@ import {javascriptGenerator} from 'blockly/javascript';
 import Blockly from 'blockly';
 import DarkTheme from '@blockly/theme-dark';
 import Box from "@mui/material/Box";
-import {KEY} from "../../../constants";
+import {KEY} from "../../../../constants";
 
 interface BlocklyEditorProps {
     toolboxXML: string;

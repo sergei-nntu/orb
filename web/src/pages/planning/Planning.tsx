@@ -1,8 +1,8 @@
 import React from 'react';
-import BlocklyEditor from './BlocklyEditor/BlocklyEditor';
-import "./CustomBlocks/DelayBlock/DelayBlock";
-import "./CustomBlocks/PositionBlock/PositionBlock";
-import "./CustomBlocks/GripperStateBlock/GripperStateBlock";
+import BlocklyEditor from './Blockly/BlocklyEditor/BlocklyEditor';
+import "./Blockly/CustomBlocks/DelayBlock/DelayBlock";
+import "./Blockly/CustomBlocks/PositionBlock/PositionBlock";
+import "./Blockly/CustomBlocks/GripperStateBlock/GripperStateBlock";
 
 const toolboxXML =
     "<xml>" +
