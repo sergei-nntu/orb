@@ -2,18 +2,18 @@ import {KEY} from "../../../constants";
 
 // There is no option to call those functions other way
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-function delay(value: number) {
-    alert(value);
+function orm_blockly_delay(value: number) {
+    alert(`orm_blockly_delay: ${value}`);
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-function setGripperState(value: number) {
-    alert(`setGripperState:${value}`);
+function orm_blockly_set_gripper_state(value: number) {
+    alert(`orm_blockly_set_gripper_state: ${value}`);
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-function setPosition(x: number, y: number, z: number, pitch: number, roll: number, yaw: number) {
-    alert(`setPosition(${x}, ${y}, ${z}, ${pitch}, ${roll}, ${yaw})`);
+function orm_blockly_set_position(x: number, y: number, z: number, pitch: number, roll: number, yaw: number) {
+    alert(`orm_blockly_set_position(${x}, ${y}, ${z}, ${pitch}, ${roll}, ${yaw})`);
 }
 
 export const ExecuteBlockly = () => {

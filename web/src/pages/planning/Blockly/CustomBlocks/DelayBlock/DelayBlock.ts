@@ -22,5 +22,5 @@ Blockly.Blocks['delay'] = {
 // @ts-ignore
 javascriptGenerator.forBlock['delay'] = function(block) {
     const delayValue = block.getFieldValue("DELAY");
-    return `delay(${delayValue});\n`;
+    return `orm_blockly_delay(${delayValue});\n`;
 };

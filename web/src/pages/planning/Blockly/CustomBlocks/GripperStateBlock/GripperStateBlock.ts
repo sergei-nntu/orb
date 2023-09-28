@@ -22,5 +22,5 @@ Blockly.Blocks['set_gripper_state'] = {
 // @ts-ignore
 javascriptGenerator.forBlock['set_gripper_state'] = function(block) {
     const stateValue = block.getFieldValue("STATE");
-    return `setGripperState(${stateValue});\n`;
+    return `orm_blockly_set_gripper_state(${stateValue});\n`;
 };

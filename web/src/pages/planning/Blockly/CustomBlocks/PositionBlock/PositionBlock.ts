@@ -33,5 +33,5 @@ javascriptGenerator.forBlock['set_position'] = function(block) {
     const rollValue = block.getFieldValue("ROLL");
     const yawValue = block.getFieldValue("YAW");
 
-    return `setPosition(${xValue}, ${yValue}, ${zValue}, ${pitchValue}, ${rollValue}, ${yawValue});\n`;
+    return `orm_blockly_set_position(${xValue}, ${yValue}, ${zValue}, ${pitchValue}, ${rollValue}, ${yawValue});\n`;
 };
