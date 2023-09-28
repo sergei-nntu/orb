@@ -26,8 +26,7 @@ export default function Pose() {
                     "z": state.position.z,
                     "pitch": state.orientation.pitch,
                     "roll": state.orientation.roll,
-                    "yaw": state.orientation.yaw,
-                    "gripper": state.gripper_state
+                    "yaw": state.orientation.yaw
                 })
             };
 

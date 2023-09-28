@@ -18,8 +18,13 @@ function orm_blockly_delay(value: number) {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-function orm_blockly_set_gripper_state(value: number) {
-    alert(`orm_blockly_set_gripper_state: ${value}`);
+async function orm_blockly_set_gripper_state(value: number) {
+    const options = {
+        method: "POST",
+        body: JSON.stringify({"gripper": value})
+    };
+    const {execute} = await request(API_ROUTES.SET_GRIPPER_STATE, options);
+    console.log("orm_blockly_set_gripper_state:", execute);
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -32,12 +37,11 @@ async function orm_blockly_set_position(x: number, y: number, z: number, pitch: 
             "z": z,
             "pitch": pitch,
             "roll": roll,
-            "yaw": yaw,
-            "gripper": 0.1
+            "yaw": yaw
         })
     };
     const {execute} = await request(API_ROUTES.CONVERT_POSE, options);
-    console.log(execute);
+    console.log("orm_blockly_set_position:", execute);
 }
 
 export const ExecuteBlockly = () => {
