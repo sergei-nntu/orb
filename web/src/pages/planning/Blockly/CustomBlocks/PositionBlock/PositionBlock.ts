@@ -1,5 +1,5 @@
 import Blockly from 'blockly';
-import {javascriptGenerator} from "blockly/javascript";
+import {pythonGenerator} from 'blockly/python';
 
 Blockly.Blocks['set_position'] = {
     init: function() {
@@ -25,7 +25,7 @@ Blockly.Blocks['set_position'] = {
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-javascriptGenerator.forBlock['set_position'] = function(block) {
+pythonGenerator.forBlock['set_position'] = function(block) {
     const xValue = block.getFieldValue("X");
     const yValue = block.getFieldValue("Y");
     const zValue = block.getFieldValue("Z");

@@ -1,5 +1,5 @@
 import Blockly from 'blockly';
-import {javascriptGenerator} from 'blockly/javascript';
+import {pythonGenerator} from 'blockly/python';
 
 const setGripperStateJson = {
     "message0": "SetGripperState %1°",
@@ -20,7 +20,7 @@ Blockly.Blocks['set_gripper_state'] = {
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-javascriptGenerator.forBlock['set_gripper_state'] = function(block) {
+pythonGenerator.forBlock['set_gripper_state'] = function(block) {
     const stateValue = block.getFieldValue("STATE");
     return `orm_blockly_set_gripper_state(${stateValue});\n`;
 };

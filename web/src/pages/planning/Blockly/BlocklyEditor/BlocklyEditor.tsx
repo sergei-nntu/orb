@@ -1,5 +1,5 @@
 import React, { Component, RefObject } from 'react';
-import {javascriptGenerator} from 'blockly/javascript';
+import {pythonGenerator} from 'blockly/python';
 import Blockly from 'blockly';
 import DarkTheme from '@blockly/theme-dark';
 import Box from "@mui/material/Box";
@@ -40,10 +40,11 @@ class BlocklyEditor extends Component<BlocklyEditorProps> {
 
     handleWorkspaceChange = () => {
         if (this.workspace) {
-            const code = javascriptGenerator.workspaceToCode(
+            const code = pythonGenerator.workspaceToCode(
                 this.workspace
             );
             localStorage.setItem(KEY.BLOCKLY_CODE, code);
+            console.log(code);
         }
     };
 
