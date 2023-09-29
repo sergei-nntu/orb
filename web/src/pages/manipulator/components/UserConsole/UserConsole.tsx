@@ -22,7 +22,7 @@ export default function UserConsole() {
 
     useEffect(() => {
         if (messagesEndRef.current) {
-          messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
+          messagesEndRef.current.scrollIntoView({ behavior: 'smooth',block: "end", inline:"nearest" });
         }
       }, [messages]);
 
@@ -31,7 +31,7 @@ export default function UserConsole() {
             <CssBaseline />
             {messages.map((msg, index) => (
                 <Typography
-                    color={msg === CONSOLE_MESSAGE.NO_MOVE_TO_POSITION ? "red" : "green"} 
+                    color={msg === CONSOLE_MESSAGE.NO_MOVE_TO_POSITION ? "red" : "green"}
                     key={index}
                     align='left'
                     variant='caption'
