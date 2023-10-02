@@ -91,7 +91,9 @@ export default function MenuAppBar() {
         await request(API_ROUTES.START_PROGRAM);
     };
 
-    const StopBlockly = () => {};
+    const StopBlockly = async () => {
+        await request(API_ROUTES.STOP_PROGRAM);
+    };
 
     return (
         <>
