@@ -17,8 +17,7 @@ function PoseProvider(props: PoseProviderProps) {
             pitch: 0.0,
             roll: 0.0,
             yaw: 0.0
-        },
-        gripper_state: 0.0
+        }
     };
 
     const [state, dispatch] = useReducer(reducer, initialState);

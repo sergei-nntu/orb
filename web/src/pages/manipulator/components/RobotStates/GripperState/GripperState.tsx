@@ -1,8 +1,8 @@
-import React, {useContext, useState} from 'react';
+import React from 'react';
 import {StyledBox} from "../../StyledComponents/StyledComponents";
 import Slider from "@mui/material/Slider";
-import {PoseContext} from "../../../../../contexts/PoseContext/PoseContext";
-import {POSE} from "../../../../../types/appTypes";
+import useHttp from "../../../../../hooks/Http/Http";
+import {API_ROUTES} from "../../../../../constants";
 
 const marks = [
     {
@@ -20,19 +20,18 @@ function valuetext(value: number) {
 }
 
 export default function GripperState() {
-    const { dispatch } = useContext(PoseContext);
-    const [sliderValue, setSliderValue] = useState<number>(80);
+    const {request} = useHttp();
 
-    const handleChangeValue = (event: Event, newValue: number | number[]) => {
-        setSliderValue(newValue as number);
-        dispatch({ type: POSE.SET_GRIPPER_STATE, value: newValue as number });
+    const handleChangeValue = async (event: Event, value: number | number[]) => {
+        const gripper_state = +((value as number) * Math.PI / 180).toFixed(2);
+        await request(API_ROUTES.SET_GRIPPER_STATE, { method: "POST", body: JSON.stringify({"gripper": gripper_state})});
     };
 
     return (
         <StyledBox sx={{ width: '100%', mt: 1 }}>
             Gripper State
             <Slider
-                value={sliderValue}
+                defaultValue={80}
                 onChange={handleChangeValue}
                 aria-label="Gripper state"
                 getAriaValueText={valuetext}
