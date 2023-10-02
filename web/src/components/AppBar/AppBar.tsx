@@ -21,7 +21,8 @@ import {AppBar, Drawer, DrawerHeader} from "./StyledComponents/StyledComponents"
 import {useRouter} from "../../hooks/Router/Router";
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import StopIcon from '@mui/icons-material/Stop';
-import {ExecuteBlockly, StopBlockly} from "../../pages/planning/Blockly/launch";
+import useHttp from '../../hooks/Http/Http';
+import { API_ROUTES, KEY } from '../../constants';
 
 const drawerData = [
     {
@@ -45,6 +46,7 @@ const drawerData = [
 export default function MenuAppBar() {
     const theme = useTheme();
     const router = useRouter();
+    const {request} = useHttp();
     const [open, setOpen] = React.useState(false);
     const [title, setTitle] = React.useState("Navigation");
 
@@ -77,6 +79,19 @@ export default function MenuAppBar() {
     const handleDrawerClose = () => {
         setOpen(false);
     };
+
+    const ExecuteBlockly = async () => {
+        const options = {
+            method: "POST",
+            body: JSON.stringify({
+                source: localStorage.getItem(KEY.BLOCKLY_CODE)
+            })
+        };
+        await request(API_ROUTES.SET_ACTIVE_PROGRAM, options);
+        await request(API_ROUTES.START_PROGRAM);
+    };
+
+    const StopBlockly = () => {};
 
     return (
         <>
