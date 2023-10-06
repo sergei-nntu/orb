@@ -21,6 +21,7 @@ Blockly.Blocks['set_gripper_state'] = {
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 pythonGenerator.forBlock['set_gripper_state'] = function(block) {
+    const blockId = block.id;
     const stateValue = block.getFieldValue("STATE");
-    return `orm_blockly_set_gripper_state(${stateValue});\nif should_terminate_function(): return\n`;
+    return `set_active_block_id('${blockId}')\norm_blockly_set_gripper_state(${stateValue})\nif should_terminate_function(): return\n`;
 };

@@ -8,8 +8,7 @@ import {PoseContext} from "../../../../../contexts/PoseContext/PoseContext";
 import {POSE} from "../../../../../types/appTypes";
 
 export default function Orientation() {
-    const {state, dispatch} = useContext(PoseContext);
-    console.log(state);
+    const {dispatch} = useContext(PoseContext);
     const [keyState, setKeyState] = useState({
         1: false,
         2: false,

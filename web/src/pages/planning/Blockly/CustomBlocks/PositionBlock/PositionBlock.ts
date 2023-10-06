@@ -26,6 +26,7 @@ Blockly.Blocks['set_position'] = {
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 pythonGenerator.forBlock['set_position'] = function(block) {
+    const blockId = block.id;
     const xValue = block.getFieldValue("X");
     const yValue = block.getFieldValue("Y");
     const zValue = block.getFieldValue("Z");
@@ -33,5 +34,5 @@ pythonGenerator.forBlock['set_position'] = function(block) {
     const rollValue = block.getFieldValue("ROLL");
     const yawValue = block.getFieldValue("YAW");
 
-    return `orm_blockly_set_position(${xValue}, ${yValue}, ${zValue}, ${pitchValue}, ${rollValue}, ${yawValue});\nif should_terminate_function(): return\n`;
+    return `set_active_block_id('${blockId}')\norm_blockly_set_position(${xValue}, ${yValue}, ${zValue}, ${pitchValue}, ${rollValue}, ${yawValue})\nif should_terminate_function(): return\n`;
 };

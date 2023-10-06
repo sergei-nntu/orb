@@ -3,7 +3,7 @@ import {pythonGenerator} from 'blockly/python';
 import Blockly from 'blockly';
 import DarkTheme from '@blockly/theme-dark';
 import Box from "@mui/material/Box";
-import {KEY} from "../../../../constants";
+import {API_ROUTES, KEY} from "../../../../constants";
 
 interface BlocklyEditorProps {
     toolboxXML: string;
@@ -13,6 +13,8 @@ interface BlocklyEditorProps {
 class BlocklyEditor extends Component<BlocklyEditorProps> {
     private readonly blocklyDiv: RefObject<HTMLDivElement>;
     private workspace: Blockly.WorkspaceSvg | null = null;
+    private interval: string | number | NodeJS.Timeout | undefined;
+    private highlightedBlockId: string | undefined;
 
     constructor(props: BlocklyEditorProps) {
         super(props);
@@ -29,14 +31,40 @@ class BlocklyEditor extends Component<BlocklyEditorProps> {
             });
             this.workspace.addChangeListener(this.handleWorkspaceChange);
         }
+        this.interval = setInterval(this.requestAndHighlightBlock, 200);
     }
 
     componentWillUnmount() {
+        clearInterval(this.interval);
         if (this.workspace) {
             this.workspace.removeChangeListener(this.handleWorkspaceChange);
             this.workspace.dispose();
         }
     }
+
+    highlightBlock() {
+        if (this.highlightedBlockId) {
+            this.workspace!.highlightBlock(this.highlightedBlockId);
+        }
+    }
+
+    requestAndHighlightBlock = () => {
+        fetch(API_ROUTES.GET_PROGRAM_STATE, {
+            method: "GET",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json;charset=utf-8',
+            }
+        })
+            .then(response => response.json())
+            .then(data => {
+                this.highlightedBlockId = data.id;
+                this.highlightBlock();
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    };
 
     handleWorkspaceChange = () => {
         if (this.workspace) {
@@ -44,7 +72,6 @@ class BlocklyEditor extends Component<BlocklyEditorProps> {
                 this.workspace
             );
             localStorage.setItem(KEY.BLOCKLY_CODE, code);
-            console.log(code);
         }
     };
 

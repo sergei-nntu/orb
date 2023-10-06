@@ -7,7 +7,8 @@ export enum API_ROUTES {
     SET_GRIPPER_STATE = "/set_gripper_state",
     SET_ACTIVE_PROGRAM = "/set_active_program",
     START_PROGRAM = "/start_program",
-    STOP_PROGRAM = "/stop_program"
+    STOP_PROGRAM = "/stop_program",
+    GET_PROGRAM_STATE = "/get_program_state"
 }
 
 export enum KEY {

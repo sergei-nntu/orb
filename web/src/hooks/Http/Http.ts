@@ -3,10 +3,8 @@ export default function useHttp() {
     const request = async (url: string, options?: RequestInit | undefined) => {
         try {
             insertHeaders(options);
-
             const response = await fetch(url, options);
             const result = await response.json();
-
             if (response.ok) {
                 return result;
             } else {
