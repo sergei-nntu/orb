@@ -84,7 +84,8 @@ export default function MenuAppBar() {
         const options = {
             method: "POST",
             body: JSON.stringify({
-                source: localStorage.getItem(KEY.BLOCKLY_CODE)
+                source: localStorage.getItem(KEY.BLOCKLY_CODE),
+                structure: localStorage.getItem(KEY.BLOCKLY_STRUCTURE)
             })
         };
         await request(API_ROUTES.SET_ACTIVE_PROGRAM, options);

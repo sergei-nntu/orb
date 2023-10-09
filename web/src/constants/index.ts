@@ -8,9 +8,11 @@ export enum API_ROUTES {
     SET_ACTIVE_PROGRAM = "/set_active_program",
     START_PROGRAM = "/start_program",
     STOP_PROGRAM = "/stop_program",
-    GET_PROGRAM_STATE = "/get_program_state"
+    GET_PROGRAM_STATE = "/get_program_state",
+    GET_ACTIVE_PROGRAM = "/get_active_program" 
 }
 
 export enum KEY {
     BLOCKLY_CODE = "BLOCKLY_CODE",
+    BLOCKLY_STRUCTURE = "BLOCKLY_STRUCTURE"
 }
