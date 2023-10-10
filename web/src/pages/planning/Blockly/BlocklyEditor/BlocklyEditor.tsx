@@ -19,7 +19,6 @@ class BlocklyEditor extends Component<BlocklyEditorProps> {
     constructor(props: BlocklyEditorProps) {
         super(props);
         this.blocklyDiv = React.createRef();
-        this.state = {};
     }
 
     componentDidMount() {
@@ -40,10 +39,14 @@ class BlocklyEditor extends Component<BlocklyEditorProps> {
             })
                 .then(response => response.json())
                 .then(data => {
-                    console.log(data.structure);
-                    console.log("RESPONSE", JSON.parse(data.structure));
-                    if (this.workspace) {
-                        Blockly.serialization.workspaces.load(JSON.parse(data.structure), this.workspace);
+                    console.log("res from server", data.structure);
+                    if (data.structure) {
+                        const structure = JSON.parse(data.structure);
+                        if (this.workspace) {
+                            Blockly.serialization.workspaces.load(structure, this.workspace);
+                        }
+                    } else {
+                        // TODO: if structure is null we have to change value in localStoroge and check this on server side  
                     }
                 })
                 .catch(error => {
@@ -57,23 +60,10 @@ class BlocklyEditor extends Component<BlocklyEditorProps> {
 
     componentWillUnmount() {
         clearInterval(this.interval);
-
         if (this.workspace) {
             this.workspace.removeChangeListener(this.handleWorkspaceChange);
             this.workspace.dispose();
         }
-
-        fetch(API_ROUTES.SET_ACTIVE_PROGRAM, {
-            method: "POST",
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json;charset=utf-8',
-            },
-            body: JSON.stringify({
-                source: localStorage.getItem(KEY.BLOCKLY_CODE),
-                structure: localStorage.getItem(KEY.BLOCKLY_STRUCTURE)
-            })
-        });
     }
 
     highlightBlock() {
@@ -106,8 +96,8 @@ class BlocklyEditor extends Component<BlocklyEditorProps> {
                 this.workspace
             );
             localStorage.setItem(KEY.BLOCKLY_CODE, code);
-            this.setState(Blockly.serialization.workspaces.save(this.workspace));
-            localStorage.setItem(KEY.BLOCKLY_STRUCTURE, JSON.stringify(this.state));
+            localStorage.setItem(KEY.BLOCKLY_STRUCTURE, 
+                JSON.stringify(Blockly.serialization.workspaces.save(this.workspace)));
         }
     };
 

@@ -23,6 +23,7 @@ import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import StopIcon from '@mui/icons-material/Stop';
 import useHttp from '../../hooks/Http/Http';
 import { API_ROUTES, KEY } from '../../constants';
+import { Box, Button } from '@mui/material';
 
 const drawerData = [
     {
@@ -96,6 +97,17 @@ export default function MenuAppBar() {
         await request(API_ROUTES.STOP_PROGRAM);
     };
 
+    const SaveBlockly = async () => {
+        const options = {
+            method: "POST",
+            body: JSON.stringify({
+                source: localStorage.getItem(KEY.BLOCKLY_CODE),
+                structure: localStorage.getItem(KEY.BLOCKLY_STRUCTURE)
+            })
+        };
+        await request(API_ROUTES.SET_ACTIVE_PROGRAM, options);
+    };
+
     return (
         <>
             <CssBaseline />
@@ -118,16 +130,26 @@ export default function MenuAppBar() {
                     </Typography>
                     {router.pathname === "/planning" &&
                         <>
-                            <PlayArrowIcon
-                                onClick={ExecuteBlockly}
-                                sx={{ml: 2, cursor: "pointer"}}
-                                fontSize="medium"
-                            />
-                            <StopIcon
-                                onClick={StopBlockly}
-                                sx={{ml: 1, cursor: "pointer"}}
-                                fontSize="medium"
-                            />
+                            <Box sx={{flexGrow: 1, display: "flex"}}>
+                                <PlayArrowIcon
+                                    onClick={ExecuteBlockly}
+                                    sx={{ml: 2, cursor: "pointer"}}
+                                    fontSize="medium"
+                                />
+                                <StopIcon
+                                    onClick={StopBlockly}
+                                    sx={{ml: 1, cursor: "pointer"}}
+                                    fontSize="medium"
+                                />
+                            </Box>
+                            <Button
+                                sx={{ml: 1}}
+                                onClick={SaveBlockly}
+                                variant="text"
+                                color="inherit"
+                            >
+                                SAVE
+                            </Button>
                         </>
                     }
                 </Toolbar>
