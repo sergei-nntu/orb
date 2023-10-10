@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useContext, useEffect} from 'react';
 import {useTheme} from '@mui/material/styles';
 import Toolbar from '@mui/material/Toolbar';
 import List from '@mui/material/List';
@@ -24,6 +24,8 @@ import StopIcon from '@mui/icons-material/Stop';
 import useHttp from '../../hooks/Http/Http';
 import { API_ROUTES, KEY } from '../../constants';
 import { Box, Button } from '@mui/material';
+import { NotificationContext } from '../../contexts/NotificationContext/NotificationContext';
+import { NOTIFICATION } from '../../types/appTypes';
 
 const drawerData = [
     {
@@ -48,6 +50,7 @@ export default function MenuAppBar() {
     const theme = useTheme();
     const router = useRouter();
     const {request} = useHttp();
+    const {dispatchNotification} = useContext(NotificationContext);
     const [open, setOpen] = React.useState(false);
     const [title, setTitle] = React.useState("Navigation");
 
@@ -82,6 +85,13 @@ export default function MenuAppBar() {
     };
 
     const ExecuteBlockly = async () => {
+
+        if (!localStorage.getItem(KEY.BLOCKLY_CODE) || !localStorage.getItem(KEY.BLOCKLY_STRUCTURE)) {
+            console.error("There is no blockly code and/or blockly structure");
+            dispatchNotification({type: NOTIFICATION.NO_BLOCKLY_CODE_OR_STRUCTURE, open: true});
+            return;
+        }
+
         const options = {
             method: "POST",
             body: JSON.stringify({
@@ -98,6 +108,13 @@ export default function MenuAppBar() {
     };
 
     const SaveBlockly = async () => {
+        // FIXME: there are so much repeated code into those functions, fix it!
+        if (!localStorage.getItem(KEY.BLOCKLY_CODE) || !localStorage.getItem(KEY.BLOCKLY_STRUCTURE)) {
+            console.error("There is no blockly code and/or blockly structure");
+            dispatchNotification({type: NOTIFICATION.NO_BLOCKLY_CODE_OR_STRUCTURE, open: true});
+            return;
+        }
+
         const options = {
             method: "POST",
             body: JSON.stringify({

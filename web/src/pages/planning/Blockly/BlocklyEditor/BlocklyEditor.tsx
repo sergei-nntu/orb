@@ -46,7 +46,8 @@ class BlocklyEditor extends Component<BlocklyEditorProps> {
                             Blockly.serialization.workspaces.load(structure, this.workspace);
                         }
                     } else {
-                        // TODO: if structure is null we have to change value in localStoroge and check this on server side  
+                        console.log("localStoroge was cleaned");
+                        localStorage.clear();
                     }
                 })
                 .catch(error => {

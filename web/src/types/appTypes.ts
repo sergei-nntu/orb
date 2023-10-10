@@ -61,10 +61,12 @@ export interface INotification {
 export enum NOTIFICATION {
     HIDE = "HIDE",
     NO_MOVE_TO_POSITION = "NO_MOVE_TO_POSITION",
-    SUCCESS_PLANNING = "SUCCESS_PLANNING"
+    SUCCESS_PLANNING = "SUCCESS_PLANNING",
+    NO_BLOCKLY_CODE_OR_STRUCTURE  = "NO_BLOCKLY_CODE_OR_STRUCTURE"
 }
 
 export type NotificationActionType =
     | Action<NOTIFICATION.NO_MOVE_TO_POSITION, {open: boolean}>
     | Action<NOTIFICATION.SUCCESS_PLANNING, {open: boolean}>
+    | Action<NOTIFICATION.NO_BLOCKLY_CODE_OR_STRUCTURE, {open: boolean}>
     | Action<NOTIFICATION.HIDE>;
