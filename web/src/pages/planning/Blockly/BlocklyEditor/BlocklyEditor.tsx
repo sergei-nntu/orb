@@ -4,6 +4,7 @@ import Blockly, {Workspace} from 'blockly';
 import DarkTheme from '@blockly/theme-dark';
 import Box from '@mui/material/Box';
 import { API_ROUTES, KEY } from '../../../../constants';
+import useHttp from '../../../../hooks/Http/Http';
 
 type BlocklyEditorProps = {
     toolboxXML: string
@@ -11,6 +12,7 @@ type BlocklyEditorProps = {
 
 const BlocklyEditor = (props: BlocklyEditorProps) => {
     const {toolboxXML} = props;
+    const {request} = useHttp();
     const blocklyDiv = useRef<string | Element>(null);
     const workspace = useRef<Workspace | undefined>(undefined);
     const interval = useRef<string | number | NodeJS.Timeout | undefined>(undefined);
@@ -24,28 +26,20 @@ const BlocklyEditor = (props: BlocklyEditorProps) => {
                 toolbox: toolboxXML,
             });
 
-            fetch(API_ROUTES.GET_ACTIVE_PROGRAM, {
-                method: 'GET',
-                headers: {
-                    Accept: 'application/json',
-                    'Content-Type': 'application/json;charset=utf-8',
-                },
-            })
-                .then((response) => response.json())
-                .then((data) => {
-                    if (data.structure) {
-                        const structure = JSON.parse(data.structure);
-                        if (workspace.current) {
-                            Blockly.serialization.workspaces.load(structure, workspace.current);
-                        }
-                    } else {
-                        console.log('localStorage was cleaned');
-                        localStorage.clear();
+            (async () => {
+                const data = await request(API_ROUTES.GET_ACTIVE_PROGRAM);
+                
+                if (data.structure) {
+                    const structure = JSON.parse(data.structure);
+                    if (workspace.current) {
+                        Blockly.serialization.workspaces.load(structure, workspace.current);
                     }
-                })
-                .catch((error) => {
-                    console.error('Error:', error);
-                });
+                    return;
+                }
+
+                console.log('localStorage was cleaned');
+                localStorage.clear();
+            })();
 
             workspace.current.addChangeListener(handleWorkspaceChange);
         }
@@ -69,21 +63,9 @@ const BlocklyEditor = (props: BlocklyEditorProps) => {
         }
     };
 
-    const requestAndHighlightBlock = () => {
-        fetch(API_ROUTES.GET_PROGRAM_STATE, {
-            method: 'GET',
-            headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json;charset=utf-8',
-            },
-        })
-            .then((response) => response.json())
-            .then((data) => {
-                highlightBlock(data.id);
-            })
-            .catch((error) => {
-                console.error('Error:', error);
-            });
+    const requestAndHighlightBlock = async () => {
+        const data = await request(API_ROUTES.GET_PROGRAM_STATE);
+        highlightBlock(data.id);
     };
 
     const handleWorkspaceChange = () => {
