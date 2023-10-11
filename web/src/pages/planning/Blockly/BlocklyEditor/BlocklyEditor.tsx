@@ -1,4 +1,4 @@
-import React, {RefObject, useEffect, useRef, useState} from 'react';
+import React, {useEffect, useRef} from 'react';
 import { pythonGenerator } from 'blockly/python';
 import Blockly, {Workspace} from 'blockly';
 import DarkTheme from '@blockly/theme-dark';
@@ -11,17 +11,14 @@ type BlocklyEditorProps = {
 
 const BlocklyEditor = (props: BlocklyEditorProps) => {
     const {toolboxXML} = props;
-    const blocklyDiv = useRef<RefObject<HTMLDivElement>>(null);
+    const blocklyDiv = useRef<string | Element>(null);
     const workspace = useRef<Workspace | undefined>(undefined);
     const interval = useRef<string | number | NodeJS.Timeout | undefined>(undefined);
-    const [highlightedBlockId, setHighlightedBlockId] = useState<string | undefined>(undefined);
 
     useEffect(() => {
         if (typeof Blockly !== 'undefined' && blocklyDiv.current) {
             const prefersDarkTheme = window.matchMedia('(prefers-color-scheme: dark)').matches;
             const theme = prefersDarkTheme ? DarkTheme : null;
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-ignore
             workspace.current = Blockly.inject(blocklyDiv.current, {
                 theme,
                 toolbox: toolboxXML,
@@ -65,8 +62,8 @@ const BlocklyEditor = (props: BlocklyEditorProps) => {
         };
     }, [toolboxXML]);
 
-    const highlightBlock = () => {
-        if (highlightedBlockId && workspace.current) {
+    const highlightBlock = (highlightedBlockId: string) => {
+        if (workspace.current) {
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-ignore
             workspace.current.highlightBlock(highlightedBlockId);
@@ -83,8 +80,7 @@ const BlocklyEditor = (props: BlocklyEditorProps) => {
         })
             .then((response) => response.json())
             .then((data) => {
-                setHighlightedBlockId(data.id);
-                highlightBlock();
+                highlightBlock(data.id);
             })
             .catch((error) => {
                 console.error('Error:', error);
