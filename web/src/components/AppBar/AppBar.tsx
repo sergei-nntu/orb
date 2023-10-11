@@ -85,10 +85,11 @@ export default function MenuAppBar() {
     };
 
     const ExecuteBlockly = async () => {
+        const blocklyCode = localStorage.getItem(KEY.BLOCKLY_CODE);
 
-        if (!localStorage.getItem(KEY.BLOCKLY_CODE) || !localStorage.getItem(KEY.BLOCKLY_STRUCTURE)) {
+        if (!blocklyCode) {
             console.error("There is no blockly code and/or blockly structure");
-            dispatchNotification({type: NOTIFICATION.NO_BLOCKLY_CODE_OR_STRUCTURE, open: true});
+            dispatchNotification({type: NOTIFICATION.NO_BLOCKLY_PROGRAM, open: true});
             return;
         }
 
@@ -99,6 +100,7 @@ export default function MenuAppBar() {
                 structure: localStorage.getItem(KEY.BLOCKLY_STRUCTURE)
             })
         };
+
         await request(API_ROUTES.SET_ACTIVE_PROGRAM, options);
         await request(API_ROUTES.START_PROGRAM);
     };
@@ -108,20 +110,22 @@ export default function MenuAppBar() {
     };
 
     const SaveBlockly = async () => {
-        // FIXME: there are so much repeated code into those functions, fix it!
-        if (!localStorage.getItem(KEY.BLOCKLY_CODE) || !localStorage.getItem(KEY.BLOCKLY_STRUCTURE)) {
-            console.error("There is no blockly code and/or blockly structure");
-            dispatchNotification({type: NOTIFICATION.NO_BLOCKLY_CODE_OR_STRUCTURE, open: true});
-            return;
+        let blocklyCode = localStorage.getItem(KEY.BLOCKLY_CODE);
+        let blocklyStructure = localStorage.getItem(KEY.BLOCKLY_STRUCTURE);
+
+        if (!blocklyCode) {
+            blocklyCode = "pass";
+            blocklyStructure = "{}";
         }
 
         const options = {
             method: "POST",
             body: JSON.stringify({
-                source: localStorage.getItem(KEY.BLOCKLY_CODE),
-                structure: localStorage.getItem(KEY.BLOCKLY_STRUCTURE)
+                source: blocklyCode,
+                structure: blocklyStructure
             })
         };
+
         await request(API_ROUTES.SET_ACTIVE_PROGRAM, options);
     };
 

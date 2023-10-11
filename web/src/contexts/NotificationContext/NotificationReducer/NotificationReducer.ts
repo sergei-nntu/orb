@@ -22,11 +22,11 @@ const reducer: Reducer<INotification, NotificationActionType> = function (state,
                     message: CONSOLE_MESSAGE.SUCCESS_PLANNING
                 }
             };
-        case NOTIFICATION.NO_BLOCKLY_CODE_OR_STRUCTURE:
+        case NOTIFICATION.NO_BLOCKLY_PROGRAM:
             return {
                 open: action.open,
                 severity: "warning",
-                message: "Please, build program by putting blocks into workspace to save or run it!",
+                message: "Please, build program by putting blocks into workspace to run it!",
                 // FIXME: the console shouldn't be necessary property
                 console: {
                     message: ""
