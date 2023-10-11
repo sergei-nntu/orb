@@ -33,7 +33,6 @@ const BlocklyEditor = (props: BlocklyEditorProps) => {
             })
                 .then((response) => response.json())
                 .then((data) => {
-                    console.log('res from server', data.structure);
                     if (data.structure) {
                         const structure = JSON.parse(data.structure);
                         if (workspace.current) {

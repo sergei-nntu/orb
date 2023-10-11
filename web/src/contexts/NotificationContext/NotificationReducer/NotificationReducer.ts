@@ -32,6 +32,51 @@ const reducer: Reducer<INotification, NotificationActionType> = function (state,
                     message: ""
                 }
             };
+        case NOTIFICATION.SAVE_BLOCKLY:
+            return {
+                open: action.open,
+                severity: "success",
+                message: "The program state has been saved!",
+                console: {
+                    message: ""
+                }
+            };
+        case NOTIFICATION.RUN_BLOCKLY:
+            return {
+                open: action.open,
+                severity: "success",
+                message: "The program has been running!",
+                console: {
+                    message: ""
+                }
+            };
+        case NOTIFICATION.STOP_BLOCKLY:
+            return {
+                open: action.open,
+                severity: "success",
+                message: "The program has been stopped!",
+                console: {
+                    message: ""
+                }
+            };
+        case NOTIFICATION.BLOCKLY_IS_ALREADY_RUNNING:
+            return {
+                open: action.open,
+                severity: "warning",
+                message: "The program is already running!",
+                console: {
+                    message: ""
+                }
+            };
+        case NOTIFICATION.BLOCKLY_IS_STOPPED:
+            return {
+                open: action.open,
+                severity: "warning",
+                message: "The program isn't running now!",
+                console: {
+                    message: ""
+                }
+            };
         case NOTIFICATION.HIDE:
             return {
                 ...state,

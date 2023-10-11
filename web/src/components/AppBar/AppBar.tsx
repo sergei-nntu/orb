@@ -102,11 +102,21 @@ export default function MenuAppBar() {
         };
 
         await request(API_ROUTES.SET_ACTIVE_PROGRAM, options);
-        await request(API_ROUTES.START_PROGRAM);
+        const res = await request(API_ROUTES.START_PROGRAM);
+        if (res.success) {
+            dispatchNotification({type: NOTIFICATION.RUN_BLOCKLY, open: true});
+        } else {
+            dispatchNotification({type: NOTIFICATION.BLOCKLY_IS_ALREADY_RUNNING, open: true});
+        }
     };
 
     const StopBlockly = async () => {
-        await request(API_ROUTES.STOP_PROGRAM);
+        const res = await request(API_ROUTES.STOP_PROGRAM);
+        if (res.success) {
+            dispatchNotification({type: NOTIFICATION.STOP_BLOCKLY, open: true});
+            return;
+        }
+        dispatchNotification({type: NOTIFICATION.BLOCKLY_IS_STOPPED, open: true});
     };
 
     const SaveBlockly = async () => {
@@ -126,7 +136,10 @@ export default function MenuAppBar() {
             })
         };
 
-        await request(API_ROUTES.SET_ACTIVE_PROGRAM, options);
+        const res = await request(API_ROUTES.SET_ACTIVE_PROGRAM, options);
+        if (res.success) {
+            dispatchNotification({type: NOTIFICATION.SAVE_BLOCKLY, open: true});
+        }
     };
 
     return (
