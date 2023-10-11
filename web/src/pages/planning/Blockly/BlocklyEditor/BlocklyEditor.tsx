@@ -1,112 +1,105 @@
-import React, { Component, RefObject } from 'react';
-import {pythonGenerator} from 'blockly/python';
-import Blockly from 'blockly';
+import React, {RefObject, useEffect, useRef, useState} from 'react';
+import { pythonGenerator } from 'blockly/python';
+import Blockly, {Workspace} from 'blockly';
 import DarkTheme from '@blockly/theme-dark';
-import Box from "@mui/material/Box";
-import {API_ROUTES, KEY} from "../../../../constants";
+import Box from '@mui/material/Box';
+import { API_ROUTES, KEY } from '../../../../constants';
 
-interface BlocklyEditorProps {
-    toolboxXML: string;
-}
+type BlocklyEditorProps = {
+    toolboxXML: string
+};
 
-// TODO: when it will be time, this component should be rewritten as function component with using hooks
-class BlocklyEditor extends Component<BlocklyEditorProps> {
-    private readonly blocklyDiv: RefObject<HTMLDivElement>;
-    private workspace: Blockly.WorkspaceSvg | null = null;
-    private interval: string | number | NodeJS.Timeout | undefined;
-    private highlightedBlockId: string | undefined;
+const BlocklyEditor = (props: BlocklyEditorProps) => {
+    const {toolboxXML} = props;
+    const blocklyDiv = useRef<RefObject<HTMLDivElement>>(null);
+    const workspace = useRef<Workspace | undefined>(undefined);
+    const interval = useRef<string | number | NodeJS.Timeout | undefined>(undefined);
+    const [highlightedBlockId, setHighlightedBlockId] = useState<string | undefined>(undefined);
 
-    constructor(props: BlocklyEditorProps) {
-        super(props);
-        this.blocklyDiv = React.createRef();
-    }
-
-    componentDidMount() {
-        if (typeof Blockly !== 'undefined' && this.blocklyDiv.current) {
+    useEffect(() => {
+        if (typeof Blockly !== 'undefined' && blocklyDiv.current) {
             const prefersDarkTheme = window.matchMedia('(prefers-color-scheme: dark)').matches;
             const theme = prefersDarkTheme ? DarkTheme : null;
-            this.workspace = Blockly.inject(this.blocklyDiv.current, {
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
+            workspace.current = Blockly.inject(blocklyDiv.current, {
                 theme,
-                toolbox: this.props.toolboxXML,
+                toolbox: toolboxXML,
             });
 
             fetch(API_ROUTES.GET_ACTIVE_PROGRAM, {
-                method: "GET",
+                method: 'GET',
                 headers: {
-                    'Accept': 'application/json',
+                    Accept: 'application/json',
                     'Content-Type': 'application/json;charset=utf-8',
-                }
+                },
             })
-                .then(response => response.json())
-                .then(data => {
-                    console.log("res from server", data.structure);
+                .then((response) => response.json())
+                .then((data) => {
+                    console.log('res from server', data.structure);
                     if (data.structure) {
                         const structure = JSON.parse(data.structure);
-                        if (this.workspace) {
-                            Blockly.serialization.workspaces.load(structure, this.workspace);
+                        if (workspace.current) {
+                            Blockly.serialization.workspaces.load(structure, workspace.current);
                         }
                     } else {
-                        console.log("localStoroge was cleaned");
+                        console.log('localStorage was cleaned');
                         localStorage.clear();
                     }
                 })
-                .catch(error => {
+                .catch((error) => {
                     console.error('Error:', error);
                 });
 
-            this.workspace.addChangeListener(this.handleWorkspaceChange);
+            workspace.current.addChangeListener(handleWorkspaceChange);
         }
-        this.interval = setInterval(this.requestAndHighlightBlock, 200);
-    }
 
-    componentWillUnmount() {
-        clearInterval(this.interval);
-        if (this.workspace) {
-            this.workspace.removeChangeListener(this.handleWorkspaceChange);
-            this.workspace.dispose();
-        }
-    }
+        interval.current = setInterval(requestAndHighlightBlock, 200);
 
-    highlightBlock() {
-        if (this.highlightedBlockId) {
-            this.workspace!.highlightBlock(this.highlightedBlockId);
-        }
-    }
-
-    requestAndHighlightBlock = () => {
-        fetch(API_ROUTES.GET_PROGRAM_STATE, {
-            method: "GET",
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json;charset=utf-8',
+        return () => {
+            clearInterval(interval.current);
+            if (workspace.current) {
+                workspace.current.removeChangeListener(handleWorkspaceChange);
+                workspace.current.dispose();
             }
+        };
+    }, [toolboxXML]);
+
+    const highlightBlock = () => {
+        if (highlightedBlockId && workspace.current) {
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
+            workspace.current.highlightBlock(highlightedBlockId);
+        }
+    };
+
+    const requestAndHighlightBlock = () => {
+        fetch(API_ROUTES.GET_PROGRAM_STATE, {
+            method: 'GET',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json;charset=utf-8',
+            },
         })
-            .then(response => response.json())
-            .then(data => {
-                this.highlightedBlockId = data.id;
-                this.highlightBlock();
+            .then((response) => response.json())
+            .then((data) => {
+                setHighlightedBlockId(data.id);
+                highlightBlock();
             })
-            .catch(error => {
+            .catch((error) => {
                 console.error('Error:', error);
             });
     };
 
-    handleWorkspaceChange = () => {
-        if (this.workspace) {
-            const code = pythonGenerator.workspaceToCode(
-                this.workspace
-            );
+    const handleWorkspaceChange = () => {
+        if (workspace.current) {
+            const code = pythonGenerator.workspaceToCode(workspace.current);
             localStorage.setItem(KEY.BLOCKLY_CODE, code);
-            localStorage.setItem(KEY.BLOCKLY_STRUCTURE, 
-                JSON.stringify(Blockly.serialization.workspaces.save(this.workspace)));
+            localStorage.setItem(KEY.BLOCKLY_STRUCTURE, JSON.stringify(Blockly.serialization.workspaces.save(workspace.current)));
         }
     };
 
-    render() {
-        return (
-            <Box ref={this.blocklyDiv} sx={{ height: '80%', width: '100%' }} />
-        );
-    }
-}
+    return <Box ref={blocklyDiv} sx={{ height: '80%', width: '100%' }} />;
+};
 
 export default BlocklyEditor;
