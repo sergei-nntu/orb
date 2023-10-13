@@ -23,5 +23,5 @@ Blockly.Blocks['set_gripper_state'] = {
 pythonGenerator.forBlock['set_gripper_state'] = function(block) {
     const blockId = block.id;
     const stateValue = block.getFieldValue("STATE");
-    return `set_active_block_id('${blockId}')\norm_blockly_set_gripper_state(${stateValue})\nif should_terminate_function(): return\n`;
+    return `set_active_block_id('${blockId}')\nstate = orm_blockly_set_gripper_state(${stateValue})\npublish_grip_state(state)\nif should_terminate_function(): return\n`;
 };
