@@ -1,41 +1,42 @@
-import React, {useEffect} from 'react';
-import {useTheme} from '@mui/material/styles';
-import Toolbar from '@mui/material/Toolbar';
-import List from '@mui/material/List';
-import CssBaseline from '@mui/material/CssBaseline';
-import Typography from '@mui/material/Typography';
-import Divider from '@mui/material/Divider';
-import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import MenuIcon from '@mui/icons-material/Menu';
+import NavigationIcon from '@mui/icons-material/Navigation';
+import NextPlanIcon from '@mui/icons-material/NextPlan';
+import PrecisionManufacturingIcon from '@mui/icons-material/PrecisionManufacturing';
+import QrCode2Icon from '@mui/icons-material/QrCode2';
+import CssBaseline from '@mui/material/CssBaseline';
+import Divider from '@mui/material/Divider';
+import IconButton from '@mui/material/IconButton';
+import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import QrCode2Icon from '@mui/icons-material/QrCode2';
-import PrecisionManufacturingIcon from '@mui/icons-material/PrecisionManufacturing';
-import NextPlanIcon from '@mui/icons-material/NextPlan';
-import NavigationIcon from '@mui/icons-material/Navigation';
-import {AppBar, Drawer, DrawerHeader} from "./StyledComponents/StyledComponents";
-import {useRouter} from "../../hooks/Router/Router";
+import { useTheme } from '@mui/material/styles';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
+import React, { useEffect } from 'react';
+
+import { useRouter } from '../../hooks/Router/Router';
+import { AppBar, Drawer, DrawerHeader } from './StyledComponents/StyledComponents';
 
 const drawerData = [
     {
         icon: <NavigationIcon />,
-        text: "Navigation"
+        text: 'Navigation',
     },
     {
         icon: <PrecisionManufacturingIcon />,
-        text: "Manipulator"
+        text: 'Manipulator',
     },
     {
         icon: <NextPlanIcon />,
-        text: "Planning"
+        text: 'Planning',
     },
     {
         icon: <QrCode2Icon />,
-        text: "QR"
+        text: 'QR',
     },
 ];
 
@@ -43,14 +44,14 @@ export default function MenuAppBar() {
     const theme = useTheme();
     const router = useRouter();
     const [open, setOpen] = React.useState(false);
-    const [title, setTitle] = React.useState("Navigation");
+    const [title, setTitle] = React.useState('Navigation');
 
     useEffect(() => {
         calculateTitle();
     }, []);
 
     const handleButtonClick = (event: React.MouseEvent<HTMLElement>) => {
-        const value = event.currentTarget.getAttribute("data-text") || "";
+        const value = event.currentTarget.getAttribute('data-text') || '';
         setTitle(value);
         const path = calculatePath(value);
         router.push(path);
@@ -58,13 +59,13 @@ export default function MenuAppBar() {
     };
 
     const calculateTitle = () => {
-        if (router.pathname === "/") return;
-        const pathname = router.pathname.replace("/", "");
+        if (router.pathname === '/') return;
+        const pathname = router.pathname.replace('/', '');
         setTitle(pathname.charAt(0).toUpperCase() + pathname.slice(1));
     };
 
     const calculatePath = (value: string) => {
-        return value === "Navigation" ? "/" : value.toLowerCase();
+        return value === 'Navigation' ? '/' : value.toLowerCase();
     };
 
     const handleDrawerOpen = () => {

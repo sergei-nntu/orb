@@ -13,7 +13,7 @@ export default function useHttp() {
                 console.log(response.status);
                 return;
             }
-        } catch (e){
+        } catch (e) {
             console.log((e as Error).message);
         }
     };
@@ -27,7 +27,7 @@ function insertHeaders(options?: RequestInit | undefined) {
     }
 
     options.headers = {
-        'Accept': 'application/json',
+        Accept: 'application/json',
         'Content-Type': 'application/json;charset=utf-8',
     };
 

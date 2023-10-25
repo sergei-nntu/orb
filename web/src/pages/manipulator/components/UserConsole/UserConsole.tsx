@@ -1,14 +1,15 @@
-import React, {useContext, useEffect, useRef, useState} from 'react';
-import { StyledBox } from '../StyledComponents/StyledComponents';
 import { CssBaseline, Typography } from '@mui/material';
-import { PoseContext } from '../../../../contexts/PoseContext/PoseContext';
+import React, { useContext, useEffect, useRef, useState } from 'react';
+
 import { NotificationContext } from '../../../../contexts/NotificationContext/NotificationContext';
+import { PoseContext } from '../../../../contexts/PoseContext/PoseContext';
 import { CONSOLE_MESSAGE } from '../../../../types/appTypes';
+import { StyledBox } from '../StyledComponents/StyledComponents';
 
 export default function UserConsole() {
-    const {state} = useContext(PoseContext);
-    const {notificationState} = useContext(NotificationContext);
-    const [messages, setMessages] = useState<string[]>(["Initialized."]);
+    const { state } = useContext(PoseContext);
+    const { notificationState } = useContext(NotificationContext);
+    const [messages, setMessages] = useState<string[]>(['Initialized.']);
     const messagesEndRef = useRef<HTMLDivElement | null>(null);
 
     const addMessage = (messageText: string) => {
@@ -22,21 +23,21 @@ export default function UserConsole() {
 
     useEffect(() => {
         if (messagesEndRef.current) {
-          messagesEndRef.current.scrollIntoView({ behavior: 'smooth',block: "end", inline:"nearest" });
+            messagesEndRef.current.scrollIntoView({ behavior: 'smooth', block: 'end', inline: 'nearest' });
         }
-      }, [messages]);
+    }, [messages]);
 
     return (
         <StyledBox sx={{ width: '100%', height: '22vh', mb: 1, overflowY: 'auto' }}>
             <CssBaseline />
             {messages.map((msg, index) => (
                 <Typography
-                    color={msg === CONSOLE_MESSAGE.NO_MOVE_TO_POSITION ? "red" : "green"}
+                    color={msg === CONSOLE_MESSAGE.NO_MOVE_TO_POSITION ? 'red' : 'green'}
                     key={index}
-                    align='left'
-                    variant='caption'
+                    align="left"
+                    variant="caption"
                     component={'div'}
-                    sx={{lineHeight: 1.2}}
+                    sx={{ lineHeight: 1.2 }}
                 >
                     {msg}
                 </Typography>

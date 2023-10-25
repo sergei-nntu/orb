@@ -1,8 +1,9 @@
-import {CSSObject, styled, Theme} from "@mui/material/styles";
-import {AppBarProps as MuiAppBarProps} from "@mui/material/AppBar/AppBar";
-import MuiAppBar from "@mui/material/AppBar";
-import {drawerWidth} from "../../../constants";
-import MuiDrawer from "@mui/material/Drawer";
+import MuiAppBar from '@mui/material/AppBar';
+import { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar/AppBar';
+import MuiDrawer from '@mui/material/Drawer';
+import { CSSObject, styled, Theme } from '@mui/material/styles';
+
+import { drawerWidth } from '../../../constants';
 
 const openedMixin = (theme: Theme): CSSObject => ({
     width: drawerWidth,
@@ -56,21 +57,19 @@ const AppBar = styled(MuiAppBar, {
     }),
 }));
 
-const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
-    ({ theme, open }) => ({
-        width: drawerWidth,
-        flexShrink: 0,
-        whiteSpace: 'nowrap',
-        boxSizing: 'border-box',
-        ...(open && {
-            ...openedMixin(theme),
-            '& .MuiDrawer-paper': openedMixin(theme),
-        }),
-        ...(!open && {
-            ...closedMixin(theme),
-            '& .MuiDrawer-paper': closedMixin(theme),
-        }),
+const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(({ theme, open }) => ({
+    width: drawerWidth,
+    flexShrink: 0,
+    whiteSpace: 'nowrap',
+    boxSizing: 'border-box',
+    ...(open && {
+        ...openedMixin(theme),
+        '& .MuiDrawer-paper': openedMixin(theme),
     }),
-);
+    ...(!open && {
+        ...closedMixin(theme),
+        '& .MuiDrawer-paper': closedMixin(theme),
+    }),
+}));
 
-export {DrawerHeader, AppBar, Drawer};
+export { AppBar, Drawer, DrawerHeader };

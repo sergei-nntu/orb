@@ -1,13 +1,14 @@
+import Box from '@mui/material/Box';
 import React from 'react';
-import Box from "@mui/material/Box";
-import {DrawerHeader} from "../../components/AppBar/StyledComponents/StyledComponents";
-import {Outlet} from "react-router-dom";
-import Footer from "../../components/Footer/Footer";
-import MenuAppBar from "../../components/AppBar/AppBar";
+import { Outlet } from 'react-router-dom';
+
+import MenuAppBar from '../../components/AppBar/AppBar';
+import { DrawerHeader } from '../../components/AppBar/StyledComponents/StyledComponents';
+import Footer from '../../components/Footer/Footer';
 
 export default function Layout() {
     return (
-        <Box sx={{ display: 'flex' }}>
+        <Box component="div" sx={{ display: 'flex' }}>
             <MenuAppBar />
             <Box
                 component="main"
@@ -15,7 +16,7 @@ export default function Layout() {
                     flexGrow: 1,
                     minHeight: '100vh',
                     display: 'flex',
-                    flexDirection: 'column'
+                    flexDirection: 'column',
                 }}
             >
                 <DrawerHeader />

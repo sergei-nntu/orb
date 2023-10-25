@@ -1,8 +1,8 @@
-import React, { Component, RefObject } from 'react';
-import {javascriptGenerator} from 'blockly/javascript';
-import Blockly from 'blockly';
 import DarkTheme from '@blockly/theme-dark';
-import Box from "@mui/material/Box";
+import Box from '@mui/material/Box';
+import Blockly from 'blockly';
+import { javascriptGenerator } from 'blockly/javascript';
+import React, { Component, RefObject } from 'react';
 
 interface BlocklyEditorProps {
     toolboxXML: string;
@@ -39,17 +39,13 @@ class BlocklyEditor extends Component<BlocklyEditorProps> {
 
     handleWorkspaceChange = () => {
         if (this.workspace) {
-            const code = javascriptGenerator.workspaceToCode(
-                this.workspace
-            );
+            const code = javascriptGenerator.workspaceToCode(this.workspace);
             console.log(code);
         }
     };
 
     render() {
-        return (
-            <Box ref={this.blocklyDiv} sx={{ height: '80%', width: '100%' }} />
-        );
+        return <Box component="div" ref={this.blocklyDiv} sx={{ height: '80%', width: '100%' }} />;
     }
 }
 

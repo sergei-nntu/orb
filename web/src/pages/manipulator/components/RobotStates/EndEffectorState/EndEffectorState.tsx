@@ -1,23 +1,21 @@
-import React, {useContext} from 'react';
-import {StyledBox} from "../../StyledComponents/StyledComponents";
-import {PoseContext} from "../../../../../contexts/PoseContext/PoseContext";
-import Typography from "@mui/material/Typography";
-import {Grid} from "@mui/material";
-import {styled} from "@mui/material/styles";
+import { Grid } from '@mui/material';
+import { styled } from '@mui/material/styles';
+import Typography from '@mui/material/Typography';
+import React, { useContext } from 'react';
 
-const StyledTag = styled("strong")(({ theme }) => ({
+import { PoseContext } from '../../../../../contexts/PoseContext/PoseContext';
+import { StyledBox } from '../../StyledComponents/StyledComponents';
+
+const StyledTag = styled('strong')(({ theme }) => ({
     color: theme.palette.primary.main,
 }));
 
 export default function EndEffectorState() {
-    const {state} = useContext(PoseContext);
+    const { state } = useContext(PoseContext);
     return (
-        <StyledBox sx={{mt: 1}}>
+        <StyledBox sx={{ mt: 1 }}>
             End-Effector State
-            <Grid
-                container
-                sx={{mt: 1, mb: 1}}
-            >
+            <Grid container sx={{ mt: 1, mb: 1 }}>
                 <Grid item xs={6}>
                     <Typography noWrap variant="subtitle2">
                         <StyledTag>x</StyledTag>: {state.position.x}

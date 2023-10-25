@@ -1,23 +1,21 @@
-import React from 'react';
-import {
-    createBrowserRouter,
-    RouterProvider,
-} from "react-router-dom";
-import ErrorPage from "./pages/error-page/ErrorPage";
-import Planning from "./pages/planning/Planning";
-import Navigation from "./pages/navigation/Navigation";
-import Manipulator from "./pages/manipulator/Manipulator";
-import QRPage from "./pages/qr-page/QRPage";
-import useMediaQuery from '@mui/material/useMediaQuery';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
-import Layout from "./hoc/Layout/Layout";
-import PoseProvider from "./contexts/PoseContext/PoseProvider/PoseProvider";
-import NotificationProvider from "./contexts/NotificationContext/NotificationProvider/NotificationProvider";
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import React from 'react';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+
+import NotificationProvider from './contexts/NotificationContext/NotificationProvider/NotificationProvider';
+import PoseProvider from './contexts/PoseContext/PoseProvider/PoseProvider';
+import Layout from './hoc/Layout/Layout';
+import ErrorPage from './pages/error-page/ErrorPage';
+import Manipulator from './pages/manipulator/Manipulator';
+import Navigation from './pages/navigation/Navigation';
+import Planning from './pages/planning/Planning';
+import QRPage from './pages/qr-page/QRPage';
 
 const router = createBrowserRouter([
     {
-        path: "/",
+        path: '/',
         element: <Layout />,
         errorElement: <ErrorPage />,
         children: [
@@ -26,15 +24,15 @@ const router = createBrowserRouter([
                 element: <Navigation />,
             },
             {
-                path: "/manipulator",
+                path: '/manipulator',
                 element: <Manipulator />,
             },
             {
-                path: "/planning",
+                path: '/planning',
                 element: <Planning />,
             },
             {
-                path: "/qr",
+                path: '/qr',
                 element: <QRPage />,
             },
         ],

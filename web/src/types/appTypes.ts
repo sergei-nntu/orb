@@ -2,16 +2,16 @@ type Action<K, V = void> = V extends void ? { type: K } : { type: K } & V;
 
 export interface IPose {
     position: {
-        x: number,
-        y: number,
-        z: number
-    },
+        x: number;
+        y: number;
+        z: number;
+    };
     orientation: {
-        pitch: number,
-        roll: number,
-        yaw: number
-    },
-    gripper_state: number
+        pitch: number;
+        roll: number;
+        yaw: number;
+    };
+    gripper_state: number;
 }
 
 export enum POSE {
@@ -48,26 +48,26 @@ export type PoseActionType =
     | Action<POSE.SET_PREV_STATE, { prevState: IPose }>;
 
 export enum CONSOLE_MESSAGE {
-    NO_MOVE_TO_POSITION = "There is no move to this position. Previous state was returned",
-    SUCCESS_PLANNING = "Changed goal state",
+    NO_MOVE_TO_POSITION = 'There is no move to this position. Previous state was returned',
+    SUCCESS_PLANNING = 'Changed goal state',
 }
 
 export interface INotification {
-    severity: "success" | "info" | "warning" | "error",
-    message: string,
-    open: boolean,
+    severity: 'success' | 'info' | 'warning' | 'error';
+    message: string;
+    open: boolean;
     console: {
-        message: string
-    }
+        message: string;
+    };
 }
 
 export enum NOTIFICATION {
-    HIDE = "HIDE",
-    NO_MOVE_TO_POSITION = "NO_MOVE_TO_POSITION",
-    SUCCESS_PLANNING = "SUCCESS_PLANNING"
+    HIDE = 'HIDE',
+    NO_MOVE_TO_POSITION = 'NO_MOVE_TO_POSITION',
+    SUCCESS_PLANNING = 'SUCCESS_PLANNING',
 }
 
 export type NotificationActionType =
-    | Action<NOTIFICATION.NO_MOVE_TO_POSITION, {open: boolean}>
-    | Action<NOTIFICATION.SUCCESS_PLANNING, {open: boolean}>
+    | Action<NOTIFICATION.NO_MOVE_TO_POSITION, { open: boolean }>
+    | Action<NOTIFICATION.SUCCESS_PLANNING, { open: boolean }>
     | Action<NOTIFICATION.HIDE>;

@@ -10,7 +10,9 @@
         "plugin:@typescript-eslint/eslint-recommended",
         "plugin:@typescript-eslint/recommended",
         "plugin:jsx-a11y/recommended",
-        "plugin:react/recommended"
+        "plugin:react/recommended",
+        "plugin:prettier/recommended",
+        "plugin:@react-three/recommended"
     ],
     "parserOptions": {
         "ecmaVersion": "latest",
@@ -18,10 +20,14 @@
     },
     "plugins": [
         "react",
-        "@typescript-eslint",
-        "jsx-a11y"
+        "jsx-a11y",
+        "@typescript-eslint/eslint-plugin",
+        "simple-import-sort",
+        "@react-three"
     ],
     "rules": {
+        "simple-import-sort/imports": "warn",
+        "simple-import-sort/exports": "warn",
         "semi": "off",
         "@typescript-eslint/semi": [
             "warn"

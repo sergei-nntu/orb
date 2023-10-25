@@ -1,8 +1,9 @@
-import React, {useContext, useState} from 'react';
-import {StyledBox} from "../../StyledComponents/StyledComponents";
-import Slider from "@mui/material/Slider";
-import {PoseContext} from "../../../../../contexts/PoseContext/PoseContext";
-import {POSE} from "../../../../../types/appTypes";
+import Slider from '@mui/material/Slider';
+import React, { useContext, useState } from 'react';
+
+import { PoseContext } from '../../../../../contexts/PoseContext/PoseContext';
+import { POSE } from '../../../../../types/appTypes';
+import { StyledBox } from '../../StyledComponents/StyledComponents';
 
 const marks = [
     {

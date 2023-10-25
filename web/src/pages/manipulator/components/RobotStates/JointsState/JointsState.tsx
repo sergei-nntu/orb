@@ -1,32 +1,27 @@
-import React, {ChangeEvent, useState} from 'react';
-import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
-import Typography from '@mui/material/Typography';
-import Slider from '@mui/material/Slider';
 import MuiInput from '@mui/material/Input';
+import Slider from '@mui/material/Slider';
+import { styled } from '@mui/material/styles';
+import Typography from '@mui/material/Typography';
+import React, { ChangeEvent, useState } from 'react';
+
 import { StyledBox } from '../../StyledComponents/StyledComponents';
 
 const Input = styled(MuiInput)`
-  width: 42px;
+    width: 42px;
 `;
 
 type SliderValue = number | number[];
 
-type HandleChangeFunction = (
-    event: Event | ChangeEvent<object>,
-    newValue: SliderValue
-) => void;
+type HandleChangeFunction = (event: Event | ChangeEvent<object>, newValue: SliderValue) => void;
 
 type HandleInputChangeFunction = (
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-    setValue: React.Dispatch<React.SetStateAction<SliderValue>>
+    setValue: React.Dispatch<React.SetStateAction<SliderValue>>,
 ) => void;
 
-type HandleBlurFunction = (
-    value: SliderValue,
-    setValue: React.Dispatch<React.SetStateAction<SliderValue>>
-) => void;
+type HandleBlurFunction = (value: SliderValue, setValue: React.Dispatch<React.SetStateAction<SliderValue>>) => void;
 
 export default function JointsState() {
     const [joint0Value, setJoint0Value] = useState<SliderValue>(0);
@@ -60,7 +55,7 @@ export default function JointsState() {
         setJoint5Value(newValue);
     };
 
-    const handleInputChange: HandleInputChangeFunction  = (event, setValue) => {
+    const handleInputChange: HandleInputChangeFunction = (event, setValue) => {
         const newValue = event.target.value === '' ? 0 : Number(event.target.value);
         setValue(newValue);
     };
@@ -80,7 +75,7 @@ export default function JointsState() {
     return (
         <StyledBox sx={{ width: '100%' }}>
             Joints Position
-            <Box sx={{ width: '100%', mt: 1 }}>
+            <Box component="div" sx={{ width: '100%', mt: 1 }}>
                 <Grid container spacing={2} alignItems="center">
                     <Grid item>
                         <Typography id="input-slider">Joint0</Typography>
@@ -96,10 +91,12 @@ export default function JointsState() {
                     </Grid>
                     <Grid item>
                         <Input
-                            sx={{minWidth: "50px"}}
+                            sx={{ minWidth: '50px' }}
                             value={joint0Value}
                             size="small"
-                            onChange={(e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => handleInputChange(e, setJoint0Value)}
+                            onChange={(e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+                                handleInputChange(e, setJoint0Value)
+                            }
                             onBlur={() => handleBlur(joint0Value, setJoint0Value)}
                             inputProps={{
                                 step: 1,
@@ -126,10 +123,12 @@ export default function JointsState() {
                     </Grid>
                     <Grid item>
                         <Input
-                            sx={{minWidth: "50px"}}
+                            sx={{ minWidth: '50px' }}
                             value={joint1Value}
                             size="small"
-                            onChange={(e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => handleInputChange(e, setJoint1Value)}
+                            onChange={(e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+                                handleInputChange(e, setJoint1Value)
+                            }
                             onBlur={() => handleBlur(joint1Value, setJoint1Value)}
                             inputProps={{
                                 step: 1,
@@ -156,10 +155,12 @@ export default function JointsState() {
                     </Grid>
                     <Grid item>
                         <Input
-                            sx={{minWidth: "50px"}}
+                            sx={{ minWidth: '50px' }}
                             value={joint2Value}
                             size="small"
-                            onChange={(e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => handleInputChange(e, setJoint2Value)}
+                            onChange={(e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+                                handleInputChange(e, setJoint2Value)
+                            }
                             onBlur={() => handleBlur(joint2Value, setJoint2Value)}
                             inputProps={{
                                 step: 1,
@@ -186,10 +187,12 @@ export default function JointsState() {
                     </Grid>
                     <Grid item>
                         <Input
-                            sx={{minWidth: "50px"}}
+                            sx={{ minWidth: '50px' }}
                             value={joint3Value}
                             size="small"
-                            onChange={(e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => handleInputChange(e, setJoint3Value)}
+                            onChange={(e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+                                handleInputChange(e, setJoint3Value)
+                            }
                             onBlur={() => handleBlur(joint3Value, setJoint3Value)}
                             inputProps={{
                                 step: 1,
@@ -216,10 +219,12 @@ export default function JointsState() {
                     </Grid>
                     <Grid item>
                         <Input
-                            sx={{minWidth: "50px"}}
+                            sx={{ minWidth: '50px' }}
                             value={joint4Value}
                             size="small"
-                            onChange={(e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => handleInputChange(e, setJoint4Value)}
+                            onChange={(e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+                                handleInputChange(e, setJoint4Value)
+                            }
                             onBlur={() => handleBlur(joint4Value, setJoint4Value)}
                             inputProps={{
                                 step: 1,
@@ -246,10 +251,12 @@ export default function JointsState() {
                     </Grid>
                     <Grid item>
                         <Input
-                            sx={{minWidth: "50px"}}
+                            sx={{ minWidth: '50px' }}
                             value={joint5Value}
                             size="small"
-                            onChange={(e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => handleInputChange(e, setJoint5Value)}
+                            onChange={(e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+                                handleInputChange(e, setJoint5Value)
+                            }
                             onBlur={() => handleBlur(joint5Value, setJoint5Value)}
                             inputProps={{
                                 step: 1,
