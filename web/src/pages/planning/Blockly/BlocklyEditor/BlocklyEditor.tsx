@@ -1,18 +1,19 @@
-import React, {useEffect, useRef} from 'react';
-import { pythonGenerator } from 'blockly/python';
-import Blockly, {Workspace} from 'blockly';
 import DarkTheme from '@blockly/theme-dark';
 import Box from '@mui/material/Box';
+import Blockly, { Workspace } from 'blockly';
+import { pythonGenerator } from 'blockly/python';
+import React, { useEffect, useRef } from 'react';
+
 import { API_ROUTES, KEY } from '../../../../constants';
 import useHttp from '../../../../hooks/Http/Http';
 
 type BlocklyEditorProps = {
-    toolboxXML: string
+    toolboxXML: string;
 };
 
 const BlocklyEditor = (props: BlocklyEditorProps) => {
-    const {toolboxXML} = props;
-    const {request} = useHttp();
+    const { toolboxXML } = props;
+    const { request } = useHttp();
     const blocklyDiv = useRef<string | Element>(null);
     const workspace = useRef<Workspace | undefined>(undefined);
     const interval = useRef<string | number | NodeJS.Timeout | undefined>(undefined);
@@ -28,7 +29,7 @@ const BlocklyEditor = (props: BlocklyEditorProps) => {
 
             (async () => {
                 const data = await request(API_ROUTES.GET_ACTIVE_PROGRAM);
-                
+
                 if (data.structure) {
                     const structure = JSON.parse(data.structure);
                     if (workspace.current) {
@@ -72,10 +73,14 @@ const BlocklyEditor = (props: BlocklyEditorProps) => {
         if (workspace.current) {
             const code = pythonGenerator.workspaceToCode(workspace.current);
             localStorage.setItem(KEY.BLOCKLY_CODE, code);
-            localStorage.setItem(KEY.BLOCKLY_STRUCTURE, JSON.stringify(Blockly.serialization.workspaces.save(workspace.current)));
+            localStorage.setItem(
+                KEY.BLOCKLY_STRUCTURE,
+                JSON.stringify(Blockly.serialization.workspaces.save(workspace.current)),
+            );
         }
     };
 
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     return <Box ref={blocklyDiv} sx={{ height: '80%', width: '100%' }} />;
 };
