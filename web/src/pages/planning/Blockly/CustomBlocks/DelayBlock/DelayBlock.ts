@@ -1,5 +1,5 @@
 import Blockly from 'blockly';
-import { javascriptGenerator } from 'blockly/javascript';
+import { pythonGenerator } from 'blockly/python';
 
 const delayJson = {
     message0: 'Delay %1 ms',
@@ -18,6 +18,8 @@ Blockly.Blocks['delay'] = {
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-javascriptGenerator.forBlock['delay'] = function (block) {
-    return `delay(${block.getFieldValue('DELAY')});\n`;
+pythonGenerator.forBlock['delay'] = function (block) {
+    const blockId = block.id;
+    const delayValue = block.getFieldValue('DELAY');
+    return `set_active_block_id('${blockId}')\norm_blockly_delay(${delayValue})\nif should_terminate_function(): return\n`;
 };

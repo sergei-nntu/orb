@@ -3,8 +3,11 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import MenuIcon from '@mui/icons-material/Menu';
 import NavigationIcon from '@mui/icons-material/Navigation';
 import NextPlanIcon from '@mui/icons-material/NextPlan';
+import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import PrecisionManufacturingIcon from '@mui/icons-material/PrecisionManufacturing';
 import QrCode2Icon from '@mui/icons-material/QrCode2';
+import StopIcon from '@mui/icons-material/Stop';
+import { Box, Button } from '@mui/material';
 import CssBaseline from '@mui/material/CssBaseline';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
@@ -16,9 +19,13 @@ import ListItemText from '@mui/material/ListItemText';
 import { useTheme } from '@mui/material/styles';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 
+import { API_ROUTES, KEY } from '../../constants';
+import { NotificationContext } from '../../contexts/NotificationContext/NotificationContext';
+import useHttp from '../../hooks/Http/Http';
 import { useRouter } from '../../hooks/Router/Router';
+import { NOTIFICATION } from '../../types/appTypes';
 import { AppBar, Drawer, DrawerHeader } from './StyledComponents/StyledComponents';
 
 const drawerData = [
@@ -43,6 +50,8 @@ const drawerData = [
 export default function MenuAppBar() {
     const theme = useTheme();
     const router = useRouter();
+    const { request } = useHttp();
+    const { dispatchNotification } = useContext(NotificationContext);
     const [open, setOpen] = React.useState(false);
     const [title, setTitle] = React.useState('Navigation');
 
@@ -76,6 +85,64 @@ export default function MenuAppBar() {
         setOpen(false);
     };
 
+    const ExecuteBlockly = async () => {
+        const blocklyCode = localStorage.getItem(KEY.BLOCKLY_CODE);
+
+        if (!blocklyCode) {
+            console.error('There is no blockly code and/or blockly structure');
+            dispatchNotification({ type: NOTIFICATION.NO_BLOCKLY_PROGRAM, open: true });
+            return;
+        }
+
+        const options = {
+            method: 'POST',
+            body: JSON.stringify({
+                source: localStorage.getItem(KEY.BLOCKLY_CODE),
+                structure: localStorage.getItem(KEY.BLOCKLY_STRUCTURE),
+            }),
+        };
+
+        await request(API_ROUTES.SET_ACTIVE_PROGRAM, options);
+        const res = await request(API_ROUTES.START_PROGRAM);
+        if (res.success) {
+            dispatchNotification({ type: NOTIFICATION.RUN_BLOCKLY, open: true });
+        } else {
+            dispatchNotification({ type: NOTIFICATION.BLOCKLY_IS_ALREADY_RUNNING, open: true });
+        }
+    };
+
+    const StopBlockly = async () => {
+        const res = await request(API_ROUTES.STOP_PROGRAM);
+        if (res.success) {
+            dispatchNotification({ type: NOTIFICATION.STOP_BLOCKLY, open: true });
+            return;
+        }
+        dispatchNotification({ type: NOTIFICATION.BLOCKLY_IS_STOPPED, open: true });
+    };
+
+    const SaveBlockly = async () => {
+        let blocklyCode = localStorage.getItem(KEY.BLOCKLY_CODE);
+        let blocklyStructure = localStorage.getItem(KEY.BLOCKLY_STRUCTURE);
+
+        if (!blocklyCode) {
+            blocklyCode = 'pass';
+            blocklyStructure = '{}';
+        }
+
+        const options = {
+            method: 'POST',
+            body: JSON.stringify({
+                source: blocklyCode,
+                structure: blocklyStructure,
+            }),
+        };
+
+        const res = await request(API_ROUTES.SET_ACTIVE_PROGRAM, options);
+        if (res.success) {
+            dispatchNotification({ type: NOTIFICATION.SAVE_BLOCKLY, open: true });
+        }
+    };
+
     return (
         <>
             <CssBaseline />
@@ -96,6 +163,23 @@ export default function MenuAppBar() {
                     <Typography variant="h6" noWrap component="div">
                         {title}
                     </Typography>
+                    {router.pathname === '/planning' && (
+                        <>
+                            {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
+                            {/*// @ts-ignore*/}
+                            <Box sx={{ flexGrow: 1, display: 'flex' }}>
+                                <PlayArrowIcon
+                                    onClick={ExecuteBlockly}
+                                    sx={{ ml: 2, cursor: 'pointer' }}
+                                    fontSize="medium"
+                                />
+                                <StopIcon onClick={StopBlockly} sx={{ ml: 1, cursor: 'pointer' }} fontSize="medium" />
+                            </Box>
+                            <Button sx={{ ml: 1 }} onClick={SaveBlockly} variant="text" color="inherit">
+                                SAVE
+                            </Button>
+                        </>
+                    )}
                 </Toolbar>
             </AppBar>
             <Drawer variant="permanent" open={open}>

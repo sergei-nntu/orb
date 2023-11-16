@@ -65,9 +65,22 @@ export enum NOTIFICATION {
     HIDE = 'HIDE',
     NO_MOVE_TO_POSITION = 'NO_MOVE_TO_POSITION',
     SUCCESS_PLANNING = 'SUCCESS_PLANNING',
+    NO_BLOCKLY_PROGRAM = 'NO_BLOCKLY_PROGRAM',
+    SAVE_BLOCKLY = 'SAVE_BLOCKLY',
+    STOP_BLOCKLY = 'STOP_BLOCKLY',
+    RUN_BLOCKLY = 'RUN_BLOCKLY',
+    BLOCKLY_IS_ALREADY_RUNNING = 'BLOCKLY_IS_ALREADY_RUNNING',
+    BLOCKLY_IS_STOPPED = 'BLOCKLY_IS_STOPPED',
 }
 
 export type NotificationActionType =
     | Action<NOTIFICATION.NO_MOVE_TO_POSITION, { open: boolean }>
     | Action<NOTIFICATION.SUCCESS_PLANNING, { open: boolean }>
-    | Action<NOTIFICATION.HIDE>;
+    | Action<NOTIFICATION.NO_BLOCKLY_PROGRAM, { open: boolean }>
+    | Action<NOTIFICATION.SAVE_BLOCKLY, { open: boolean }>
+    | Action<NOTIFICATION.STOP_BLOCKLY, { open: boolean }>
+    | Action<NOTIFICATION.RUN_BLOCKLY, { open: boolean }>
+    | Action<NOTIFICATION.BLOCKLY_IS_ALREADY_RUNNING, { open: boolean }>
+    | Action<NOTIFICATION.BLOCKLY_IS_STOPPED, { open: boolean }>
+    | Action<NOTIFICATION.HIDE>
+    | Action<POSE.SET_PREV_STATE, { prevState: IPose }>;

@@ -1,5 +1,5 @@
 import Blockly from 'blockly';
-import { javascriptGenerator } from 'blockly/javascript';
+import { pythonGenerator } from 'blockly/python';
 
 Blockly.Blocks['set_position'] = {
     init: function () {
@@ -25,8 +25,14 @@ Blockly.Blocks['set_position'] = {
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-javascriptGenerator.forBlock['set_position'] = function (block) {
-    return `setPosition(${block.getFieldValue('X')}, ${block.getFieldValue('Y')}, ${block.getFieldValue(
-        'Z',
-    )}, ${block.getFieldValue('PITCH')}, ${block.getFieldValue('ROLL')}, ${block.getFieldValue('YAW')})\n`;
+pythonGenerator.forBlock['set_position'] = function (block) {
+    const blockId = block.id;
+    const xValue = block.getFieldValue('X');
+    const yValue = block.getFieldValue('Y');
+    const zValue = block.getFieldValue('Z');
+    const pitchValue = block.getFieldValue('PITCH');
+    const rollValue = block.getFieldValue('ROLL');
+    const yawValue = block.getFieldValue('YAW');
+
+    return `set_active_block_id('${blockId}')\norm_blockly_set_position(${xValue}, ${yValue}, ${zValue}, ${pitchValue}, ${rollValue}, ${yawValue})\nif should_terminate_function(): return\n`;
 };
