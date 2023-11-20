@@ -29,6 +29,7 @@ export enum POSE {
     ORIENTATION_YAW_DOWN = 'ORIENTATION_YAW_DOWN',
     SET_GRIPPER_STATE = 'SET_GRIPPER_STATE',
     SET_PREV_STATE = 'SET_PREV_STATE',
+    RERENDER = 'RERENDER',
 }
 
 export type PoseActionType =

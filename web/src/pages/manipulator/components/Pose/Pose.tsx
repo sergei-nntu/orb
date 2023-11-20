@@ -37,6 +37,8 @@ export default function Pose() {
             if (execute) {
                 dispatchNotification({ type: NOTIFICATION.SUCCESS_PLANNING, open: false });
                 prevStateRef.current = { ...state };
+            } else if (!prevStateRef.current) {
+                dispatch({ type: POSE.RERENDER });
             } else {
                 dispatchNotification({ type: NOTIFICATION.NO_MOVE_TO_POSITION, open: false });
                 dispatch({ type: POSE.SET_PREV_STATE, prevState: prevStateRef.current });
