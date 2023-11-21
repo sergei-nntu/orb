@@ -8,7 +8,7 @@ import { BufferGeometry, Mesh, NormalBufferAttributes, Vector3 } from 'three';
 import { STLLoader } from 'three/examples/jsm/loaders/STLLoader';
 import * as THREE from 'three';
 // const StyledPaper = styled(Paper)(({ theme }) => ({
-//     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff5d4',
+//     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fffFFF',
 // }));
 
 export default function Dog() {
@@ -56,29 +56,47 @@ export default function Dog() {
         return (
             <>
                 {/* eslint-disable-next-line react/no-unknown-property */}
-                <ambientLight visible color="#FFF5D4" intensity={0.5} />
+                <ambientLight visible color="#FFFFFF" intensity={0.5} />
                 {/* eslint-disable-next-line react/no-unknown-property */}
-                <directionalLight visible castShadow position={[-1, 3, -1]} color="#FFF5D4" intensity={0.5} />
+                <directionalLight visible castShadow position={[-1, 3, -1]} color="#FFFFFF" intensity={0.5} />
                 {/* eslint-disable-next-line react/no-unknown-property */}
-                <pointLight visible castShadow position={[-1, 3, -1]} color="#FFF5D4" intensity={5} />
+                <pointLight visible castShadow position={[-1, 3, -1]} color="#FFFFFF" intensity={5} />
                 {/* eslint-disable-next-line react/no-unknown-property */}
-                <spotLight visible castShadow position={[-1, 3, -1]} color="#FFF5D4" intensity={5} />
+                <spotLight visible castShadow position={[-1, 3, -1]} color="#FFFFFF" intensity={5} />
             </>
         );
     }
 
     return (
-        <Canvas shadows>
+        <Canvas>
             <Lights />
+            <ambientLight />
             <Suspense>
                 {/* eslint-disable-next-line react/no-unknown-property */}
-                <group rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, 0]}>
+                <group rotation={[0, 0, 1.6]} position={[0, 3, 0]} scale={[0.01, 0.01, 0.01]}>
                     <Model
-                        url={'models/base_link_m-binary.stl'}
+                        url={'models/dog_foot_simple.stl'}
                         point={new THREE.Vector3(1, 1, 1)}
                         axis={new THREE.Vector3(20, 0, 1)}
-                        // theta={(Math.PI * shoulder) / 180}
-                    ></Model>
+                    >
+                        <Model
+                            url={'models/dog_shin_simple.stl'}
+                            point={new THREE.Vector3(1, 1, 1)}
+                            axis={new THREE.Vector3(20, 0, 1)}
+                        >
+                            <Model
+                                url={'models/dog_knee_simple.stl'}
+                                point={new THREE.Vector3(1, 1, 1)}
+                                axis={new THREE.Vector3(20, 0, 1)}
+                            >
+                                <Model
+                                    url={'models/dog_leg_simple.stl'}
+                                    point={new THREE.Vector3(1, 1, 1)}
+                                    axis={new THREE.Vector3(20, 0, 1)}
+                                ></Model>
+                            </Model>
+                        </Model>
+                    </Model>
                 </group>
             </Suspense>
             {/* eslint-disable-next-line react/no-unknown-property */}
