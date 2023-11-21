@@ -18,32 +18,32 @@ export default function EndEffectorState() {
             <Grid container sx={{ mt: 1, mb: 1 }}>
                 <Grid item xs={6}>
                     <Typography noWrap variant="subtitle2">
-                        <StyledTag>x</StyledTag>: {state.position.x}
+                        <StyledTag>x</StyledTag>: {state?.position?.x || '0'}
                     </Typography>
                 </Grid>
                 <Grid item xs={6}>
                     <Typography noWrap variant="subtitle2">
-                        <StyledTag>pitch</StyledTag>: {state.orientation.pitch}
+                        <StyledTag>pitch</StyledTag>: {state?.orientation?.pitch || '0'}
                     </Typography>
                 </Grid>
                 <Grid item xs={6}>
                     <Typography noWrap variant="subtitle2">
-                        <StyledTag>y</StyledTag>: {state.position.y}
+                        <StyledTag>y</StyledTag>: {state?.position?.y || '0'}
                     </Typography>
                 </Grid>
                 <Grid item xs={6}>
                     <Typography noWrap variant="subtitle2">
-                        <StyledTag>roll</StyledTag>: {state.orientation.roll}
+                        <StyledTag>roll</StyledTag>: {state?.orientation?.roll || '0'}
                     </Typography>
                 </Grid>
                 <Grid item xs={6}>
                     <Typography noWrap variant="subtitle2">
-                        <StyledTag>z</StyledTag>: {state.position.z}
+                        <StyledTag>z</StyledTag>: {state?.position?.z || '0'}
                     </Typography>
                 </Grid>
                 <Grid item xs={6}>
                     <Typography noWrap variant="subtitle2">
-                        <StyledTag>yaw</StyledTag>: {state.orientation.yaw}
+                        <StyledTag>yaw</StyledTag>: {state?.orientation?.yaw || '0'}
                     </Typography>
                 </Grid>
             </Grid>
