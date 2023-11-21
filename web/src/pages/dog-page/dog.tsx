@@ -1,0 +1,94 @@
+// import styled from '@emotion/styled';
+// import { Paper } from '@mui/material';
+// import Box from '@mui/material/Box';
+import { Canvas, useLoader } from '@react-three/fiber';
+import React, { ReactNode, Suspense, useEffect, useRef } from 'react';
+import { CameraControls, OrbitControls } from '@react-three/drei';
+import { BufferGeometry, Mesh, NormalBufferAttributes, Vector3 } from 'three';
+import { STLLoader } from 'three/examples/jsm/loaders/STLLoader';
+import * as THREE from 'three';
+// const StyledPaper = styled(Paper)(({ theme }) => ({
+//     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff5d4',
+// }));
+
+export default function Dog() {
+    const Model = ({
+        url,
+        color,
+        point,
+        axis,
+        theta,
+        children,
+    }: {
+        url: string;
+        color?: string;
+        point?: Vector3;
+        axis?: Vector3;
+        theta?: number;
+        children?: ReactNode;
+    }) => {
+        const geometry = useLoader(STLLoader, url);
+        const ref = useRef<Mesh<BufferGeometry<NormalBufferAttributes>> | null>(null);
+        useEffect(() => {
+            if (ref.current && !!theta && !!point && !!axis) {
+                ref.current.position.sub(point); // remove the offset
+                ref.current.position.applyAxisAngle(axis, theta); // rotate the POSITION
+                ref.current.position.add(point); // re-add the offset
+                ref.current.rotateOnAxis(axis, theta); // rotate the OBJECT
+            }
+        }, [ref.current, theta, axis, point]);
+
+        return (
+            <>
+                {/* eslint-disable-next-line react/no-unknown-property */}
+                <mesh ref={ref} castShadow>
+                    {/* eslint-disable-next-line react/no-unknown-property */}
+                    <primitive object={geometry} attach="geometry" />;
+                    {/* eslint-disable-next-line react/no-unknown-property */}
+                    <meshStandardMaterial color={color ?? '#00d0ff'} metalness={0.5} />
+                    {children}
+                </mesh>
+            </>
+        );
+    };
+
+    function Lights() {
+        return (
+            <>
+                {/* eslint-disable-next-line react/no-unknown-property */}
+                <ambientLight visible color="#FFF5D4" intensity={0.5} />
+                {/* eslint-disable-next-line react/no-unknown-property */}
+                <directionalLight visible castShadow position={[-1, 3, -1]} color="#FFF5D4" intensity={0.5} />
+                {/* eslint-disable-next-line react/no-unknown-property */}
+                <pointLight visible castShadow position={[-1, 3, -1]} color="#FFF5D4" intensity={5} />
+                {/* eslint-disable-next-line react/no-unknown-property */}
+                <spotLight visible castShadow position={[-1, 3, -1]} color="#FFF5D4" intensity={5} />
+            </>
+        );
+    }
+
+    return (
+        <Canvas shadows>
+            <Lights />
+            <Suspense>
+                {/* eslint-disable-next-line react/no-unknown-property */}
+                <group rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, 0]}>
+                    <Model
+                        url={'models/base_link_m-binary.stl'}
+                        point={new THREE.Vector3(1, 1, 1)}
+                        axis={new THREE.Vector3(20, 0, 1)}
+                        // theta={(Math.PI * shoulder) / 180}
+                    ></Model>
+                </group>
+            </Suspense>
+            {/* eslint-disable-next-line react/no-unknown-property */}
+            <mesh position={[0, 0, 0]} rotation-x={-Math.PI / 2} receiveShadow castShadow>
+                {/* eslint-disable-next-line react/no-unknown-property */}
+                <planeGeometry args={[500, 500]} />
+                <meshStandardMaterial color="white" />
+            </mesh>
+            <OrbitControls />
+            <CameraControls makeDefault />
+        </Canvas>
+    );
+}

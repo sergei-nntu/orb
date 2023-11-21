@@ -12,6 +12,7 @@ import Manipulator from './pages/manipulator/Manipulator';
 import Navigation from './pages/navigation/Navigation';
 import Planning from './pages/planning/Planning';
 import QRPage from './pages/qr-page/QRPage';
+import Dog from './pages/dog-page/dog';
 
 const router = createBrowserRouter([
     {
@@ -34,6 +35,10 @@ const router = createBrowserRouter([
             {
                 path: '/qr',
                 element: <QRPage />,
+            },
+            {
+                path: '/dog',
+                element: <Dog />,
             },
         ],
     },

@@ -3,6 +3,7 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import MenuIcon from '@mui/icons-material/Menu';
 import NavigationIcon from '@mui/icons-material/Navigation';
 import NextPlanIcon from '@mui/icons-material/NextPlan';
+import SmartToyIcon from '@mui/icons-material/SmartToy';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import PrecisionManufacturingIcon from '@mui/icons-material/PrecisionManufacturing';
 import QrCode2Icon from '@mui/icons-material/QrCode2';
@@ -44,6 +45,10 @@ const drawerData = [
     {
         icon: <QrCode2Icon />,
         text: 'QR',
+    },
+    {
+        icon: <SmartToyIcon />,
+        text: 'Dog',
     },
 ];
 
