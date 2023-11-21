@@ -11,7 +11,14 @@ import * as THREE from 'three';
 //     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fffFFF',
 // }));
 
-export default function Dog() {
+interface IProps {
+    shoulder: number;
+    upperArm: number;
+    forearm: number;
+    wrist1: number;
+}
+
+export default function Dog({ shoulder, upperArm, forearm, wrist1 }: IProps) {
     const Model = ({
         url,
         color,
@@ -70,7 +77,6 @@ export default function Dog() {
     return (
         <Canvas>
             <Lights />
-            <ambientLight />
             <Suspense>
                 {/* eslint-disable-next-line react/no-unknown-property */}
                 <group rotation={[0, 0, 1.6]} position={[0, 3, 0]} scale={[0.01, 0.01, 0.01]}>
@@ -78,21 +84,25 @@ export default function Dog() {
                         url={'models/dog_foot_simple.stl'}
                         point={new THREE.Vector3(1, 1, 1)}
                         axis={new THREE.Vector3(20, 0, 1)}
+                        theta={(Math.PI * shoulder) / 180}
                     >
                         <Model
                             url={'models/dog_shin_simple.stl'}
                             point={new THREE.Vector3(1, 1, 1)}
                             axis={new THREE.Vector3(20, 0, 1)}
+                            theta={(Math.PI * upperArm) / 180}
                         >
                             <Model
                                 url={'models/dog_knee_simple.stl'}
                                 point={new THREE.Vector3(1, 1, 1)}
                                 axis={new THREE.Vector3(20, 0, 1)}
+                                theta={(Math.PI * forearm) / 180}
                             >
                                 <Model
                                     url={'models/dog_leg_simple.stl'}
                                     point={new THREE.Vector3(1, 1, 1)}
                                     axis={new THREE.Vector3(20, 0, 1)}
+                                    theta={(Math.PI * wrist1) / 180}
                                 ></Model>
                             </Model>
                         </Model>
