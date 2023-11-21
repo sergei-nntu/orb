@@ -12,13 +12,10 @@ import * as THREE from 'three';
 // }));
 
 interface IProps {
-    shoulder: number;
-    upperArm: number;
-    forearm: number;
-    wrist1: number;
+    leg: number;
 }
 
-export default function Dog({ shoulder, upperArm, forearm, wrist1 }: IProps) {
+export default function Dog({ leg }: IProps) {
     const Model = ({
         url,
         color,
@@ -69,40 +66,25 @@ export default function Dog({ shoulder, upperArm, forearm, wrist1 }: IProps) {
                 {/* eslint-disable-next-line react/no-unknown-property */}
                 <pointLight visible castShadow position={[-1, 3, -1]} color="#FFFFFF" intensity={5} />
                 {/* eslint-disable-next-line react/no-unknown-property */}
-                <spotLight visible castShadow position={[-1, 3, -1]} color="#FFFFFF" intensity={5} />
+                <spotLight visible castShadow position={[-1, 5, -1]} color="#FFFFFF" intensity={5} />
             </>
         );
     }
 
     return (
-        <Canvas>
+        <Canvas camera={{ position: [5, 5, -1] }}>
             <Lights />
             <Suspense>
                 {/* eslint-disable-next-line react/no-unknown-property */}
-                <group rotation={[0, 0, 1.6]} position={[0, 3, 0]} scale={[0.01, 0.01, 0.01]}>
-                    <Model
-                        url={'models/dog_foot_simple.stl'}
-                        point={new THREE.Vector3(1, 1, 1)}
-                        axis={new THREE.Vector3(20, 0, 1)}
-                        theta={(Math.PI * shoulder) / 180}
-                    >
-                        <Model
-                            url={'models/dog_shin_simple.stl'}
-                            point={new THREE.Vector3(1, 1, 1)}
-                            axis={new THREE.Vector3(20, 0, 1)}
-                            theta={(Math.PI * upperArm) / 180}
-                        >
-                            <Model
-                                url={'models/dog_knee_simple.stl'}
-                                point={new THREE.Vector3(1, 1, 1)}
-                                axis={new THREE.Vector3(20, 0, 1)}
-                                theta={(Math.PI * forearm) / 180}
-                            >
+                <group rotation={[0, 0, 1.58]} position={[0, 3, 0]} scale={[0.01, 0.01, 0.01]}>
+                    <Model url={'models/dog_foot_simple.stl'}>
+                        <Model url={'models/dog_shin_simple.stl'}>
+                            <Model url={'models/dog_knee_simple.stl'}>
                                 <Model
                                     url={'models/dog_leg_simple.stl'}
-                                    point={new THREE.Vector3(1, 1, 1)}
-                                    axis={new THREE.Vector3(20, 0, 1)}
-                                    theta={(Math.PI * wrist1) / 180}
+                                    point={new THREE.Vector3(0, -0.075, 0.5448)}
+                                    axis={new THREE.Vector3(0, 0, 1)}
+                                    theta={(Math.PI * leg) / 180}
                                 ></Model>
                             </Model>
                         </Model>
