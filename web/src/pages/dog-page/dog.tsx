@@ -6,16 +6,16 @@ import React, { ReactNode, Suspense, useEffect, useRef } from 'react';
 import { CameraControls, OrbitControls } from '@react-three/drei';
 import { BufferGeometry, Mesh, NormalBufferAttributes, Vector3 } from 'three';
 import { STLLoader } from 'three/examples/jsm/loaders/STLLoader';
-import * as THREE from 'three';
+// import * as THREE from 'three';
 // const StyledPaper = styled(Paper)(({ theme }) => ({
 //     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fffFFF',
 // }));
 
-interface IProps {
-    leg: number;
-}
+// interface IProps {
+//     leg: number;
+// }
 
-export default function Dog({ leg }: IProps) {
+export default function Dog() {
     const Model = ({
         url,
         color,
@@ -76,7 +76,14 @@ export default function Dog({ leg }: IProps) {
             <Lights />
             <Suspense>
                 {/* eslint-disable-next-line react/no-unknown-property */}
-                <group rotation={[0, 0, 1.58]} position={[0, 3, 0]} scale={[0.01, 0.01, 0.01]}>
+                <group position={[0, 1, 0]} scale={[0.01, 0.01, 0.01]}>
+                    <Model url={'models/dog_body/dog_front_simple.stl'}>
+                        <Model url={'models/dog_body/dog_middle_simple.stl'}>
+                            <Model url={'models/dog_body/dog_sidewall_simple.stl'}></Model>
+                        </Model>
+                    </Model>
+                </group>
+                {/* <group rotation={[0, 0, 1.58]} position={[0, 3, 0]} scale={[0.01, 0.01, 0.01]}>
                     <Model url={'models/dog_foot_simple.stl'}>
                         <Model url={'models/dog_shin_simple.stl'}>
                             <Model url={'models/dog_knee_simple.stl'}>
@@ -89,7 +96,7 @@ export default function Dog({ leg }: IProps) {
                             </Model>
                         </Model>
                     </Model>
-                </group>
+                </group> */}
             </Suspense>
             {/* eslint-disable-next-line react/no-unknown-property */}
             <mesh position={[0, 0, 0]} rotation-x={-Math.PI / 2} receiveShadow castShadow>
