@@ -79,7 +79,23 @@ export default function Dog() {
                 <group position={[0, 1, 0]} scale={[0.01, 0.01, 0.01]}>
                     <Model url={'models/dog_body/dog_front_simple.stl'}>
                         <Model url={'models/dog_body/dog_middle_simple.stl'}>
-                            <Model url={'models/dog_body/dog_sidewall_simple.stl'}></Model>
+                            <Model url={'models/dog_body/dog_sidewall_simple.stl'}>
+                                <Model url={'models/dog_body/dog_back.stl'}>
+                                    <Model url={'models/dog_body/dog_sidewall_2.stl'}>
+                                        <Model url={'models/dog_body/dog_sidewall_3.stl'}>
+                                            <Model url={'models/dog_body/dog_sidewall_4.stl'}>
+                                                <Model url={'models/dog_body/dog_shoulder.stl'}>
+                                                    <Model url={'models/dog_body/dog_shoulder_2.stl'}>
+                                                        <Model url={'models/dog_body/dog_shoulder_3.stl'}>
+                                                            <Model url={'models/dog_body/dog_shoulder_4.stl'}></Model>
+                                                        </Model>
+                                                    </Model>
+                                                </Model>
+                                            </Model>
+                                        </Model>
+                                    </Model>
+                                </Model>
+                            </Model>
                         </Model>
                     </Model>
                 </group>
