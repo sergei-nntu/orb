@@ -90,7 +90,7 @@ export default function Orientation() {
 
     return (
         <>
-            <StyledBox sx={{ mt: 1 }}>
+            <StyledBox sx={{ mt: { md: 1, sm: 0 }, mr: { md: 0, xs: 1 } }}>
                 Orientation
                 <Box
                     component="div"

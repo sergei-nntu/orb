@@ -8,18 +8,19 @@ import JointsState from './JointsState/JointsState';
 
 export default function RobotStates() {
     return (
-        <Grid item xs={3}>
+        <Grid item xs={12} md={4} lg={3}>
             <Item
                 sx={{
-                    minHeight: '80vh',
+                    minHeight: { md: '80vh', xs: '0' },
                     display: 'flex',
-                    alignItems: 'flex-end',
-                    flexDirection: 'column',
+                    flexDirection: { md: 'column', xs: 'row' },
                     justifyContent: 'flex-end',
                 }}
             >
                 <UserConsole />
+
                 <JointsState />
+
                 <GripperState />
             </Item>
         </Grid>

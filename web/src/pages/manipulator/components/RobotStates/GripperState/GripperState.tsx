@@ -30,7 +30,7 @@ export default function GripperState() {
     };
 
     return (
-        <StyledBox sx={{ width: '100%', mt: 1 }}>
+        <StyledBox sx={{ width: '100%', mt: { md: 1 }, ml: { xs: 1, md: 0 }, height: '120px' }}>
             Gripper State
             <Slider
                 value={sliderValue}

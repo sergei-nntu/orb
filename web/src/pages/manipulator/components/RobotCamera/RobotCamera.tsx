@@ -1,3 +1,4 @@
+import { Grid } from '@mui/material';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import { styled } from '@mui/material/styles';
@@ -87,79 +88,81 @@ export default function RobotCamera({ shoulder, upperArm, forearm, wrist1, wrist
     }
 
     return (
-        <Box component="div" sx={{ flex: 1, marginTop: '8px' }}>
-            <StyledPaper elevation={1}>
-                <Item
-                    sx={{
-                        minHeight: '80vh',
-                        height: '100px',
-                        display: 'flex',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                    }}
-                >
-                    <Canvas shadows camera={{ position: [1, 1.5, -1] }}>
-                        <Lights />
-                        <Suspense fallback={<Loader />}>
-                            {/* eslint-disable-next-line react/no-unknown-property */}
-                            <group rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, 0]}>
-                                <Model url={'models/base_link_m-binary.stl'} color="#ffffaa">
-                                    <Model
-                                        url={'models/shoulder__1_m-binary.stl'}
-                                        point={new THREE.Vector3(0.000666, -0.07459, 0.106659)}
-                                        axis={new THREE.Vector3(0, 0, 1)}
-                                        theta={(Math.PI * shoulder) / 180}
-                                    >
+        <Grid item sm={12} md={4} lg={6}>
+            <Box component="div" sx={{ flex: 1 }}>
+                <StyledPaper elevation={1}>
+                    <Item
+                        sx={{
+                            minHeight: { md: '80vh', sm: '50vh', xs: '70vh' },
+                            height: '100px',
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                        }}
+                    >
+                        <Canvas shadows camera={{ position: [1, 1.5, -1] }}>
+                            <Lights />
+                            <Suspense fallback={<Loader />}>
+                                {/* eslint-disable-next-line react/no-unknown-property */}
+                                <group rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, 0]}>
+                                    <Model url={'models/base_link_m-binary.stl'} color="#ffffaa">
                                         <Model
-                                            url={'models/upper_arm__1_m-binary.stl'}
-                                            point={new THREE.Vector3(0, -0.0745, 0.16385)}
-                                            axis={new THREE.Vector3(1, 0, 0)}
-                                            theta={(Math.PI * upperArm) / 180}
+                                            url={'models/shoulder__1_m-binary.stl'}
+                                            point={new THREE.Vector3(0.000666, -0.07459, 0.106659)}
+                                            axis={new THREE.Vector3(0, 0, 1)}
+                                            theta={(Math.PI * shoulder) / 180}
                                         >
                                             <Model
-                                                url={'models/Forearm__1_m-binary.stl'}
-                                                point={new THREE.Vector3(0, -0.0745, 0.36699)}
+                                                url={'models/upper_arm__1_m-binary.stl'}
+                                                point={new THREE.Vector3(0, -0.0745, 0.16385)}
                                                 axis={new THREE.Vector3(1, 0, 0)}
-                                                theta={(Math.PI * forearm) / 180}
+                                                theta={(Math.PI * upperArm) / 180}
                                             >
                                                 <Model
-                                                    url={'models/wrist_1__1_m-binary.stl'}
-                                                    point={new THREE.Vector3(0, -0.075, 0.5448)}
+                                                    url={'models/Forearm__1_m-binary.stl'}
+                                                    point={new THREE.Vector3(0, -0.0745, 0.36699)}
                                                     axis={new THREE.Vector3(1, 0, 0)}
-                                                    theta={(Math.PI * wrist1) / 180}
+                                                    theta={(Math.PI * forearm) / 180}
                                                 >
                                                     <Model
-                                                        url={'models/wrist_2__1_m-binary.stl'}
-                                                        point={new THREE.Vector3(0.0022, -0.0745, 0)}
-                                                        axis={new THREE.Vector3(0, 0, 1)}
-                                                        theta={(Math.PI * wrist2) / 180}
+                                                        url={'models/wrist_1__1_m-binary.stl'}
+                                                        point={new THREE.Vector3(0, -0.075, 0.5448)}
+                                                        axis={new THREE.Vector3(1, 0, 0)}
+                                                        theta={(Math.PI * wrist1) / 180}
                                                     >
                                                         <Model
-                                                            url={'models/end_effector_link__1_m-binary.stl'}
-                                                            point={new THREE.Vector3(0.00206, 0, 0.60275)}
-                                                            axis={new THREE.Vector3(0, 1, 0)}
-                                                            theta={(Math.PI * endEffectorLink) / 180}
-                                                        />
+                                                            url={'models/wrist_2__1_m-binary.stl'}
+                                                            point={new THREE.Vector3(0.0022, -0.0745, 0)}
+                                                            axis={new THREE.Vector3(0, 0, 1)}
+                                                            theta={(Math.PI * wrist2) / 180}
+                                                        >
+                                                            <Model
+                                                                url={'models/end_effector_link__1_m-binary.stl'}
+                                                                point={new THREE.Vector3(0.00206, 0, 0.60275)}
+                                                                axis={new THREE.Vector3(0, 1, 0)}
+                                                                theta={(Math.PI * endEffectorLink) / 180}
+                                                            />
+                                                        </Model>
                                                     </Model>
                                                 </Model>
                                             </Model>
                                         </Model>
                                     </Model>
-                                </Model>
-                            </group>
-                        </Suspense>
+                                </group>
+                            </Suspense>
 
-                        {/* eslint-disable-next-line react/no-unknown-property */}
-                        <mesh position={[0, 0, 0]} rotation-x={-Math.PI / 2} receiveShadow castShadow>
                             {/* eslint-disable-next-line react/no-unknown-property */}
-                            <planeGeometry args={[500, 500]} />
-                            <meshStandardMaterial color="white" />
-                        </mesh>
-                        <OrbitControls />
-                        <CameraControls makeDefault />
-                    </Canvas>
-                </Item>
-            </StyledPaper>
-        </Box>
+                            <mesh position={[0, 0, 0]} rotation-x={-Math.PI / 2} receiveShadow castShadow>
+                                {/* eslint-disable-next-line react/no-unknown-property */}
+                                <planeGeometry args={[500, 500]} />
+                                <meshStandardMaterial color="white" />
+                            </mesh>
+                            <OrbitControls />
+                            <CameraControls makeDefault />
+                        </Canvas>
+                    </Item>
+                </StyledPaper>
+            </Box>
+        </Grid>
     );
 }
