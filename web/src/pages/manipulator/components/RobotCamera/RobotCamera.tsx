@@ -10,22 +10,14 @@ import * as THREE from 'three';
 import { BufferGeometry, Mesh, NormalBufferAttributes, Vector3 } from 'three';
 import { STLLoader } from 'three/examples/jsm/loaders/STLLoader';
 
+import { IJointsState } from '../../../../types/appTypes';
 import { Item } from '../StyledComponents/StyledComponents';
 
 const StyledPaper = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff5d4',
 }));
 
-interface IProps {
-    shoulder: number;
-    upperArm: number;
-    forearm: number;
-    wrist1: number;
-    wrist2: number;
-    endEffectorLink: number;
-}
-
-export default function RobotCamera({ shoulder, upperArm, forearm, wrist1, wrist2, endEffectorLink }: IProps) {
+export default function RobotCamera({ shoulder, upperArm, forearm, wrist1, wrist2, endEffectorLink }: IJointsState) {
     function Loader() {
         const { progress } = useProgress();
         return <Html center>{progress} % loaded</Html>;
