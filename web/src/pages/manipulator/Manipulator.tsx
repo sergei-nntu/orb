@@ -13,12 +13,12 @@ export default function Manipulator() {
     const { request } = useHttp();
     const { state } = useContext(PoseContext);
     const jointsRef = useRef<IJointsState>({
-        shoulder: 150,
-        upperArm: 22,
-        forearm: 20,
+        shoulder: 0,
+        upperArm: 0,
+        forearm: 0,
         wrist1: 0,
-        wrist2: 90,
-        endEffectorLink: 100,
+        wrist2: 0,
+        endEffectorLink: 0,
     });
 
     useEffect(() => {
