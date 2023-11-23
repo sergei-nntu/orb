@@ -2,14 +2,14 @@ version: '3'
 
 services:
   orb:
-    image: orb
+    image: telemetrybalkan/orb
     container_name: orb
     ports:
       - "3000:3000"
     networks:
       - network
   ros:
-    image: ros
+    image: telemetrybalkan/ros
     container_name: ros
     privileged: true
     volumes:
