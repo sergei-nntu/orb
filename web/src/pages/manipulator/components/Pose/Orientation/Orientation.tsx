@@ -90,14 +90,15 @@ export default function Orientation() {
 
     return (
         <>
-            <StyledBox sx={{ mt: { md: 1, sm: 0 }, mr: { md: 0, xs: 1 } }}>
+            <StyledBox sx={{ mt: { md: 1, sm: 0 }, mr: { md: 0, xs: 1 }, minHeight: '280px' }}>
                 Orientation
                 <Box
                     component="div"
                     sx={{
                         display: 'flex',
                         justifyContent: 'space-around',
-                        mt: 1,
+                        mt: { md: 2, sx: 0 },
+                        mb: 2,
                     }}
                 >
                     <RotateRightIcon
@@ -136,6 +137,7 @@ export default function Orientation() {
                     sx={{
                         display: 'flex',
                         justifyContent: 'space-around',
+                        mb: 2,
                     }}
                 >
                     <Typography sx={{ userSelect: 'none' }} variant="subtitle1">

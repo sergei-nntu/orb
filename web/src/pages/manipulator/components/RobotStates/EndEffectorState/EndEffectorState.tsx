@@ -13,7 +13,7 @@ const StyledTag = styled('strong')(({ theme }) => ({
 export default function EndEffectorState() {
     const { state } = useContext(PoseContext);
     return (
-        <StyledBox sx={{ mt: { md: 1, sm: 0 } }}>
+        <StyledBox sx={{ mt: { md: 1, sm: 0 }, height: { md: '128.5px', xs: '280px' } }}>
             End-Effector State
             <Grid container sx={{ mt: 1, mb: 1 }}>
                 <Grid item xs={6}>

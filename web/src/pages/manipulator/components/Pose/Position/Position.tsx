@@ -85,13 +85,14 @@ export default function Position() {
     };
 
     return (
-        <StyledBox sx={{ mr: { md: 0, xs: 1 } }}>
+        <StyledBox sx={{ mr: { md: 0, xs: 1 }, height: { xs: '280px' } }}>
             Position
             <Box
                 component="div"
                 sx={{
                     display: 'flex',
                     justifyContent: 'space-around',
+                    mt: 3,
                 }}
             >
                 <SvgIcon

@@ -18,9 +18,7 @@ export default function RobotStates() {
                 }}
             >
                 <UserConsole />
-
                 <JointsState />
-
                 <GripperState />
             </Item>
         </Grid>
