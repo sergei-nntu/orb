@@ -125,7 +125,7 @@ export default function Dog() {
     }
 
     return (
-        <Canvas camera={{ position: [7, 5, -1] }}>
+        <Canvas camera={{ position: [6, 5, -1] }}>
             <Lights />
             <Suspense>
                 {/* eslint-disable-next-line react/no-unknown-property */}
