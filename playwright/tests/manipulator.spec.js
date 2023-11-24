@@ -145,3 +145,106 @@ test.describe('Orientation', () => {
     await expect(nextYawValue).not.toBe(backYawValue);
   });
 });
+test.describe('Joints Position', () => {
+  test('Edit Joint0', async ({ page }) => {
+    const oldJoint0 =  await page.locator('div:nth-child(1) >div:nth-child(3) > div > input').inputValue();
+    console.log("value_def = ", oldJoint0);
+
+    await page.locator('div:nth-child(1) >div:nth-child(3) > div > input').fill("20");
+    await page.locator('div:nth-child(1) >div:nth-child(3) > div > input').press("Enter");
+
+    const nextJoint0 =  await page.locator('div:nth-child(1) >div:nth-child(3) > div > input').inputValue();
+    console.log("value_new = ", nextJoint0);
+
+    await expect(oldJoint0).not.toBe(nextJoint0);
+  });
+
+  test('Edit Joint1', async ({ page }) => {
+    const oldJoint1 =  await page.locator('div:nth-child(2) >div:nth-child(3) > div > input').inputValue();
+    console.log("value_def = ", oldJoint1);
+
+    await page.locator('div:nth-child(2) >div:nth-child(3) > div > input').fill("20");
+    await page.locator('div:nth-child(2) >div:nth-child(3) > div > input').press("Enter");
+
+    const nextJoint1 =  await page.locator('div:nth-child(2) >div:nth-child(3) > div > input').inputValue();
+    console.log("value_new = ", nextJoint1);
+
+    await expect(oldJoint1).not.toBe(nextJoint1);
+  });
+
+  test('Edit Joint2', async ({ page }) => {
+    const oldJoint2 =  await page.locator('div:nth-child(3) >div:nth-child(3) > div > input').inputValue();
+    console.log("value_def = ", oldJoint2);
+
+    await page.locator('div:nth-child(3) >div:nth-child(3) > div > input').fill("20");
+    await page.locator('div:nth-child(3) >div:nth-child(3) > div > input').press("Enter");
+
+    const nextJoint2 =  await page.locator('div:nth-child(3) >div:nth-child(3) > div > input').inputValue();
+    console.log("value_new = ", nextJoint2);
+
+    await expect(oldJoint2).not.toBe(nextJoint2);
+  });
+
+  test('Edit Joint3', async ({ page }) => {
+    const oldJoint3 =  await page.locator('div:nth-child(4) >div:nth-child(3) > div > input').inputValue();
+    console.log("value_def = ", oldJoint3);
+
+    await page.locator('div:nth-child(4) >div:nth-child(3) > div > input').fill("20");
+    await page.locator('div:nth-child(4) >div:nth-child(3) > div > input').press("Enter");
+
+    const nextJoint3 =  await page.locator('div:nth-child(4) >div:nth-child(3) > div > input').inputValue();
+    console.log("value_new = ", nextJoint3);
+
+    await expect(oldJoint3).not.toBe(nextJoint3);
+  });
+
+  test('Edit Joint4', async ({ page }) => {
+    const oldJoint4 =  await page.locator('div:nth-child(5) >div:nth-child(3) > div > input').inputValue();
+    console.log("value_def = ", oldJoint4);
+
+    await page.locator('div:nth-child(5) >div:nth-child(3) > div > input').fill("20");
+    await page.locator('div:nth-child(5) >div:nth-child(3) > div > input').press("Enter");
+
+    const nextJoint4 =  await page.locator('div:nth-child(5) >div:nth-child(3) > div > input').inputValue();
+    console.log("value_new = ", nextJoint4);
+
+    await expect(oldJoint4).not.toBe(nextJoint4);
+  });
+
+  test('Edit Joint5', async ({ page }) => {
+    const oldJoint5 =  await page.locator('div:nth-child(6) >div:nth-child(3) > div > input').inputValue();
+    console.log("value_def = ", oldJoint5);
+
+    await page.locator('div:nth-child(6) >div:nth-child(3) > div > input').fill("20");
+    await page.locator('div:nth-child(6) >div:nth-child(3) > div > input').press("Enter");
+
+    const nextJoint5 =  await page.locator('div:nth-child(6) >div:nth-child(3) > div > input').inputValue();
+    console.log("value_new = ", nextJoint5);
+
+    await expect(oldJoint5).not.toBe(nextJoint5);
+  });
+});
+
+test.describe('Gripper State', () => {
+  test('Edit Gripper State', async ({ page }) => {
+    const oldPosition =  await page.locator('div > div.MuiBox-root.css-z3unzu > span > span> input').inputValue();
+    console.log("position_0 = ", oldPosition);
+
+    const sliderTrack = await page.locator('div > div.MuiBox-root.css-z3unzu > span');
+    const sliderOffsetWidth = await sliderTrack.evaluate(el => {
+      return el.getBoundingClientRect().width;
+    })
+    console.log("sliderOffsetWidth = ", sliderOffsetWidth);
+    // Using the hover method to place the mouse cursor then moving it to the right
+    await sliderTrack.hover({ force: true, position: { x: 0, y: 0 } });
+    await page.mouse.down();
+    await sliderTrack.click({ force: true, position: { x: (sliderOffsetWidth / 1.5), y: 0 } });
+    await page.mouse.up();
+
+    const newPosition =  await page.locator('div > div.MuiBox-root.css-z3unzu > span > span> input').inputValue();
+    console.log("position_1 = ", newPosition);
+
+    await expect(oldPosition).not.toBe(newPosition);
+
+  });
+});
