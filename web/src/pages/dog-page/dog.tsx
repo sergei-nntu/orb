@@ -1,7 +1,7 @@
 // import Box from '@mui/material/Box';
 import { Canvas, useLoader } from '@react-three/fiber';
 import React, { ReactNode, Suspense, useEffect, useRef } from 'react';
-import { CameraControls, OrbitControls } from '@react-three/drei';
+import { CameraControls, Html, OrbitControls, useProgress } from '@react-three/drei';
 import { BufferGeometry, Mesh, NormalBufferAttributes, Vector3 } from 'three';
 import { STLLoader } from 'three/examples/jsm/loaders/STLLoader';
 import * as THREE from 'three';
@@ -15,50 +15,22 @@ import { useControls } from 'leva';
 // }
 
 export default function Dog() {
-    const control = useControls('shoulders', {
-        shoulder4: {
-            value: 0,
-            min: -90,
-            max: 90,
-            step: 1,
-        },
-        shoulder3: {
-            value: 0,
-            min: -90,
-            max: 90,
-            step: 1,
-        },
-        shoulder2: {
-            value: 0,
-            min: -90,
-            max: 90,
-            step: 1,
-        },
+    function Loader() {
+        const { progress } = useProgress();
+        return <Html center>{Math.floor(progress)} % loaded</Html>;
+    }
+
+    const leg_1 = useControls('leg 1 (front left)', {
         shoulder1: {
             value: 0,
             min: -90,
             max: 90,
             step: 1,
         },
-    });
-
-    const control2 = useControls('knees', {
-        knee4: {
-            value: -90,
-            min: -150,
-            max: 0,
-            step: 1,
-        },
-        knee3: {
-            value: 90,
-            min: 0,
-            max: 150,
-            step: 1,
-        },
-        knee2: {
-            value: -90,
-            min: -150,
-            max: 0,
+        reductor1: {
+            value: -50,
+            min: -90,
+            max: 90,
             step: 1,
         },
         knee1: {
@@ -68,26 +40,60 @@ export default function Dog() {
             step: 1,
         },
     });
-    const control3 = useControls('reductors', {
-        reductor1: {
-            value: -90,
-            min: -150,
-            max: 0,
+    const leg_2 = useControls('leg 2 (front right)', {
+        shoulder2: {
+            value: 0,
+            min: -90,
+            max: 90,
             step: 1,
         },
         reductor2: {
+            value: -50,
+            min: -90,
+            max: 90,
+            step: 1,
+        },
+        knee2: {
             value: 90,
             min: 0,
             max: 150,
             step: 1,
         },
+    });
+    const leg_3 = useControls('leg 3 (rear left)', {
+        shoulder3: {
+            value: 0,
+            min: -90,
+            max: 90,
+            step: 1,
+        },
         reductor3: {
-            value: -90,
-            min: -150,
-            max: 0,
+            value: -50,
+            min: -90,
+            max: 90,
+            step: 1,
+        },
+        knee3: {
+            value: 90,
+            min: 0,
+            max: 150,
+            step: 1,
+        },
+    });
+    const leg_4 = useControls('leg 4 (rear right)', {
+        shoulder4: {
+            value: 0,
+            min: -90,
+            max: 90,
             step: 1,
         },
         reductor4: {
+            value: -50,
+            min: -90,
+            max: 90,
+            step: 1,
+        },
+        knee4: {
             value: 90,
             min: 0,
             max: 150,
@@ -128,7 +134,7 @@ export default function Dog() {
                     {/* eslint-disable-next-line react/no-unknown-property */}
                     <primitive object={geometry} attach="geometry" />;
                     {/* eslint-disable-next-line react/no-unknown-property */}
-                    <meshStandardMaterial color={color ?? '#00d0ff'} metalness={0.5} />
+                    <meshStandardMaterial color={color ?? '#ffd800'} metalness={0.5} />
                     {children}
                 </mesh>
             </>
@@ -141,33 +147,33 @@ export default function Dog() {
                 {/* eslint-disable-next-line react/no-unknown-property */}
                 <ambientLight visible color="#FFFFFF" intensity={0.5} />
                 {/* eslint-disable-next-line react/no-unknown-property */}
-                <directionalLight visible castShadow position={[-1, 3, -1]} color="#FFFFFF" intensity={0.5} />
+                <spotLight visible castShadow position={[-2, 6, -2]} color="#FFFFFF" intensity={10} />
                 {/* eslint-disable-next-line react/no-unknown-property */}
-                <pointLight visible castShadow position={[-1, 3, -1]} color="#FFFFFF" intensity={5} />
+                <pointLight visible position={[1, 3, 4]} color="#FFFFFF" intensity={5} />
                 {/* eslint-disable-next-line react/no-unknown-property */}
-                <spotLight visible castShadow position={[-1, 8, 0]} color="#FFFFFF" intensity={5} />
+                <directionalLight visible position={[-2, 1, 1]} color="#FFFFFF" intensity={0.7} />
             </>
         );
     }
 
     return (
-        <Canvas camera={{ position: [6, 5, -1] }}>
+        <Canvas shadows camera={{ position: [7, 6, -5] }}>
             <Lights />
-            <Suspense>
+            <Suspense fallback={<Loader />}>
                 {/* eslint-disable-next-line react/no-unknown-property */}
-                <group position={[0, 6, 0]} scale={[0.01, 0.01, 0.01]}>
+                <group position={[0, 4.18, 0]} scale={[0.01, 0.01, 0.01]}>
                     <Model url={'models/dog-modified-models/dog_body/dog_front_simple.stl'}>
                         <Model
                             url={'models/dog-modified-models/dog_body/dog_shoulder.stl'}
                             point={new THREE.Vector3(0, 0, 0)}
                             axis={new THREE.Vector3(0, 0, 1)}
-                            theta={(Math.PI * control.shoulder1) / 180}
+                            theta={(Math.PI * leg_1.shoulder1) / 180}
                         >
                             <Model
                                 url={'models/dog-modified-models/leg_1/dog_leg_shoulder-2_1.stl'}
                                 point={new THREE.Vector3(0, 0, 17)}
                                 axis={new THREE.Vector3(1, 0, 0)}
-                                theta={(Math.PI * control3.reductor1) / 180}
+                                theta={(Math.PI * leg_1.reductor1) / 180}
                             >
                                 <Model url={'models/dog-modified-models/leg_1/dog_leg_link_1.stl'}>
                                     <Model url={'models/dog-modified-models/leg_1/dog_leg_leg_1.stl'}>
@@ -175,7 +181,7 @@ export default function Dog() {
                                             url={'models/dog-modified-models/leg_1/dog_leg_knee_1.stl'}
                                             point={new THREE.Vector3(0, -295, 18)}
                                             axis={new THREE.Vector3(1, 0, 0)}
-                                            theta={(Math.PI * control2.knee1) / 180}
+                                            theta={(Math.PI * leg_1.knee1) / 180}
                                         >
                                             <Model url={'models/dog-modified-models/leg_1/dog_leg_shin_1.stl'}>
                                                 <Model
@@ -189,23 +195,23 @@ export default function Dog() {
                         </Model>
                         <Model
                             url={'models/dog-modified-models/dog_body/dog_shoulder_2.stl'}
-                            point={new THREE.Vector3(0, 0, 0)}
+                            point={new THREE.Vector3(186, 0, 0)}
                             axis={new THREE.Vector3(0, 0, 1)}
-                            theta={(Math.PI * control.shoulder2) / 180}
+                            theta={(Math.PI * leg_2.shoulder2) / 180}
                         >
                             <Model
                                 url={'models/dog-modified-models/leg_2/dog_leg_shoulder-2_2.stl'}
-                                point={new THREE.Vector3(0, 0, 0)}
-                                axis={new THREE.Vector3(0, 0, 1)}
-                                // theta={(Math.PI * control.shoulder1) / 180}
+                                point={new THREE.Vector3(0, 0, 17)}
+                                axis={new THREE.Vector3(1, 0, 0)}
+                                theta={(Math.PI * leg_2.reductor2) / 180}
                             >
                                 <Model url={'models/dog-modified-models/leg_2/dog_leg_link_2.stl'}>
                                     <Model url={'models/dog-modified-models/leg_2/dog_leg_leg_2.stl'}>
                                         <Model
                                             url={'models/dog-modified-models/leg_2/dog_leg_knee_2.stl'}
-                                            point={new THREE.Vector3(0, 0, 0)}
-                                            axis={new THREE.Vector3(0, 0, 1)}
-                                            theta={(Math.PI * control2.knee2) / 180}
+                                            point={new THREE.Vector3(0, -294, 18)}
+                                            axis={new THREE.Vector3(1, 0, 0)}
+                                            theta={(Math.PI * leg_2.knee2) / 180}
                                         >
                                             <Model url={'models/dog-modified-models/leg_2/dog_leg_shin_2.stl'}>
                                                 <Model
@@ -218,6 +224,10 @@ export default function Dog() {
                             </Model>
                         </Model>
                     </Model>
+                    <Model url={'models/dog-modified-models/dog_body/dog_puck_1.stl'}></Model>
+                    <Model url={'models/dog-modified-models/dog_body/dog_puck_2.stl'}></Model>
+                    <Model url={'models/dog-modified-models/dog_body/dog_puck_3.stl'}></Model>
+                    <Model url={'models/dog-modified-models/dog_body/dog_puck_4.stl'}></Model>
                     <Model url={'models/dog-modified-models/dog_body/dog_middle_simple.stl'}></Model>
                     <Model url={'models/dog-modified-models/dog_body/dog_sidewall_simple.stl'}></Model>
                     <Model url={'models/dog-modified-models/dog_body/dog_sidewall_2.stl'}></Model>
@@ -228,21 +238,21 @@ export default function Dog() {
                             url={'models/dog-modified-models/dog_body/dog_shoulder_4.stl'}
                             point={new THREE.Vector3(186, 0, 0)}
                             axis={new THREE.Vector3(0, 0, 1)}
-                            theta={(Math.PI * control.shoulder4) / 180}
+                            theta={(Math.PI * leg_4.shoulder4) / 180}
                         >
                             <Model
                                 url={'models/dog-modified-models/leg_4/dog_leg_shoulder-2_4.stl'}
-                                point={new THREE.Vector3(0, 0, 0)}
-                                axis={new THREE.Vector3(0, 0, 1)}
-                                // theta={(Math.PI * control.shoulder1) / 180}
+                                point={new THREE.Vector3(0, 0, 510)}
+                                axis={new THREE.Vector3(1, 0, 0)}
+                                theta={(Math.PI * leg_4.reductor4) / 180}
                             >
                                 <Model url={'models/dog-modified-models/leg_4/dog_leg_link_4.stl'}>
                                     <Model url={'models/dog-modified-models/leg_4/dog_leg_leg_4.stl'}>
                                         <Model
                                             url={'models/dog-modified-models/leg_4/dog_leg_knee_4.stl'}
-                                            point={new THREE.Vector3(0, 0, 0)}
-                                            axis={new THREE.Vector3(0, 0, 1)}
-                                            theta={(Math.PI * control2.knee4) / 180}
+                                            point={new THREE.Vector3(0, -293, 509)}
+                                            axis={new THREE.Vector3(1, 0, 0)}
+                                            theta={(Math.PI * leg_4.knee4) / 180}
                                         >
                                             <Model url={'models/dog-modified-models/leg_4/dog_leg_shin_4.stl'}>
                                                 <Model
@@ -258,21 +268,21 @@ export default function Dog() {
                             url={'models/dog-modified-models/dog_body/dog_shoulder_3.stl'}
                             point={new THREE.Vector3(0, 0, 0)}
                             axis={new THREE.Vector3(0, 0, 1)}
-                            theta={(Math.PI * control.shoulder3) / 180}
+                            theta={(Math.PI * leg_3.shoulder3) / 180}
                         >
                             <Model
                                 url={'models/dog-modified-models/leg_3/dog_leg_shoulder-2_3.stl'}
-                                point={new THREE.Vector3(0, 0, 0)}
-                                axis={new THREE.Vector3(0, 0, 1)}
-                                // theta={(Math.PI * control.shoulder1) / 180}
+                                point={new THREE.Vector3(0, 0, 510)}
+                                axis={new THREE.Vector3(1, 0, 0)}
+                                theta={(Math.PI * leg_3.reductor3) / 180}
                             >
                                 <Model url={'models/dog-modified-models/leg_3/dog_leg_link_3.stl'}>
                                     <Model url={'models/dog-modified-models/leg_3/dog_leg_leg_3.stl'}>
                                         <Model
                                             url={'models/dog-modified-models/leg_3/dog_leg_knee_3.stl'}
-                                            point={new THREE.Vector3(0, 0, 0)}
-                                            axis={new THREE.Vector3(0, 0, 1)}
-                                            theta={(Math.PI * control2.knee3) / 180}
+                                            point={new THREE.Vector3(0, -294, 512)}
+                                            axis={new THREE.Vector3(1, 0, 0)}
+                                            theta={(Math.PI * leg_3.knee3) / 180}
                                         >
                                             <Model url={'models/dog-modified-models/leg_3/dog_leg_shin_3.stl'}>
                                                 <Model
@@ -290,8 +300,8 @@ export default function Dog() {
             {/* eslint-disable-next-line react/no-unknown-property */}
             <mesh position={[0, 0, 0]} rotation-x={-Math.PI / 2} receiveShadow castShadow>
                 {/* eslint-disable-next-line react/no-unknown-property */}
-                <planeGeometry args={[100, 100]} />
-                <meshStandardMaterial color="white" />
+                <planeGeometry args={[500, 500]} />
+                <meshStandardMaterial color="#ffffff" />
             </mesh>
             <OrbitControls />
             <CameraControls makeDefault />
