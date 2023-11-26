@@ -9,8 +9,7 @@ import { POSE } from '../../../../../types/appTypes';
 import { StyledBox } from '../../StyledComponents/StyledComponents';
 
 export default function Orientation() {
-    const { state, dispatch } = useContext(PoseContext);
-    console.log(state);
+    const { dispatch } = useContext(PoseContext);
     const [keyState, setKeyState] = useState({
         1: false,
         2: false,
