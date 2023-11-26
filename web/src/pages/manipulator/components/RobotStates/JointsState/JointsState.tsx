@@ -85,12 +85,14 @@ export default function JointsState() {
                             value={joint0Value}
                             onChange={handleJoint0Change}
                             aria-labelledby="input-slider"
+                            id="slider-joint0"
                             min={-130}
                             max={130}
                         />
                     </Grid>
                     <Grid item>
                         <Input
+                            id="input-joint0"
                             sx={{ minWidth: '50px' }}
                             value={joint0Value}
                             size="small"
@@ -117,12 +119,14 @@ export default function JointsState() {
                             value={joint1Value}
                             onChange={handleJoint1Change}
                             aria-labelledby="input-slider"
+                            id="slider-joint1"
                             min={-90}
                             max={90}
                         />
                     </Grid>
                     <Grid item>
                         <Input
+                            id="input-joint1"
                             sx={{ minWidth: '50px' }}
                             value={joint1Value}
                             size="small"
@@ -149,12 +153,14 @@ export default function JointsState() {
                             value={joint2Value}
                             onChange={handleJoint2Change}
                             aria-labelledby="input-slider"
+                            id="slider-joint2"
                             min={-130}
                             max={130}
                         />
                     </Grid>
                     <Grid item>
                         <Input
+                            id="input-joint2"
                             sx={{ minWidth: '50px' }}
                             value={joint2Value}
                             size="small"
@@ -181,12 +187,14 @@ export default function JointsState() {
                             value={joint3Value}
                             onChange={handleJoint3Change}
                             aria-labelledby="input-slider"
+                            id="slider-joint3"
                             min={-130}
                             max={130}
                         />
                     </Grid>
                     <Grid item>
                         <Input
+                            id="input-joint3"
                             sx={{ minWidth: '50px' }}
                             value={joint3Value}
                             size="small"
@@ -213,12 +221,14 @@ export default function JointsState() {
                             value={joint4Value}
                             onChange={handleJoint4Change}
                             aria-labelledby="input-slider"
+                            id="slider-joint4"
                             min={-130}
                             max={130}
                         />
                     </Grid>
                     <Grid item>
                         <Input
+                            id="input-joint4"
                             sx={{ minWidth: '50px' }}
                             value={joint4Value}
                             size="small"
@@ -245,12 +255,14 @@ export default function JointsState() {
                             value={joint5Value}
                             onChange={handleJoint5Change}
                             aria-labelledby="input-slider"
+                            id="slider-joint5"
                             min={-130}
                             max={130}
                         />
                     </Grid>
                     <Grid item>
                         <Input
+                            id="input-joint5"
                             sx={{ minWidth: '50px' }}
                             value={joint5Value}
                             size="small"

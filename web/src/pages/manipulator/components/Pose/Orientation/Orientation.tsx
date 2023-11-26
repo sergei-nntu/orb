@@ -108,6 +108,7 @@ export default function Orientation() {
                         onMouseDown={handleArrowMouseDown('1', POSE.ORIENTATION_PITCH_UP)}
                         onMouseUp={handleArrowMouseUp('1')}
                         onMouseLeave={handleArrowMouseUp('1')}
+                        id="button-up-pitch"
                     />
                     <RotateLeftIcon
                         style={{
@@ -118,6 +119,7 @@ export default function Orientation() {
                         onMouseDown={handleArrowMouseDown('2', POSE.ORIENTATION_ROLL_UP)}
                         onMouseUp={handleArrowMouseUp('2')}
                         onMouseLeave={handleArrowMouseUp('2')}
+                        id="button-up-roll"
                     />
                     <RotateLeftIcon
                         style={{
@@ -128,6 +130,7 @@ export default function Orientation() {
                         onMouseDown={handleArrowMouseDown('3', POSE.ORIENTATION_YAW_UP)}
                         onMouseUp={handleArrowMouseUp('3')}
                         onMouseLeave={handleArrowMouseUp('3')}
+                        id="button-up-yaw"
                     />
                 </Box>
                 <Box
@@ -164,6 +167,7 @@ export default function Orientation() {
                         onMouseDown={handleArrowMouseDown('z', POSE.ORIENTATION_PITCH_DOWN)}
                         onMouseUp={handleArrowMouseUp('z')}
                         onMouseLeave={handleArrowMouseUp('z')}
+                        id="button-down-pitch"
                     />
                     <RotateRightIcon
                         style={{
@@ -174,6 +178,7 @@ export default function Orientation() {
                         onMouseDown={handleArrowMouseDown('x', POSE.ORIENTATION_ROLL_DOWN)}
                         onMouseUp={handleArrowMouseUp('x')}
                         onMouseLeave={handleArrowMouseUp('x')}
+                        id="button-down-roll"
                     />
                     <RotateRightIcon
                         style={{
@@ -184,6 +189,7 @@ export default function Orientation() {
                         onMouseDown={handleArrowMouseDown('c', POSE.ORIENTATION_YAW_DOWN)}
                         onMouseUp={handleArrowMouseUp('c')}
                         onMouseLeave={handleArrowMouseUp('c')}
+                        id="button-down-yaw"
                     />
                 </Box>
             </StyledBox>
