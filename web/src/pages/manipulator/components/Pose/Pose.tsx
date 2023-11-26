@@ -17,6 +17,7 @@ export default function Pose() {
     const { state, dispatch } = useContext(PoseContext);
     const prevStateRef = useRef<IPose | null>(null);
 
+    // TODO: Need to move it to EndEffectorState for optimization likely
     const sendStateToServer = async (state: IPose) => {
         try {
             const options = {

@@ -11,6 +11,7 @@ export enum API_ROUTES {
     STOP_PROGRAM = '/stop_program',
     GET_PROGRAM_STATE = '/get_program_state',
     GET_ACTIVE_PROGRAM = '/get_active_program',
+    GET_POSE_STATE = 'get_pose_state',
 }
 
 export enum KEY {

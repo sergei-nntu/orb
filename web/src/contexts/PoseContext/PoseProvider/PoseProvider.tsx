@@ -1,5 +1,6 @@
 import React, { useMemo, useReducer } from 'react';
 
+import { IPose } from '../../../types/appTypes';
 import { PoseContext } from '../PoseContext';
 import reducer from '../PoseReducer/PoseReducer';
 
@@ -8,7 +9,7 @@ type PoseProviderProps = {
 };
 
 function PoseProvider(props: PoseProviderProps) {
-    const initialState = {
+    const initialState: IPose = {
         position: {
             x: 0.0,
             y: 0.1,
