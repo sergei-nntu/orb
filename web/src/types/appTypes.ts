@@ -85,3 +85,12 @@ export type NotificationActionType =
     | Action<NOTIFICATION.BLOCKLY_IS_STOPPED, { open: boolean }>
     | Action<NOTIFICATION.HIDE>
     | Action<POSE.SET_PREV_STATE, { prevState: IPose }>;
+
+export interface IJointsState {
+    shoulder: number;
+    upperArm: number;
+    forearm: number;
+    wrist1: number;
+    wrist2: number;
+    endEffectorLink: number;
+}
