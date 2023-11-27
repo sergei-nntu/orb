@@ -33,6 +33,7 @@ export default function GripperState() {
         <StyledBox sx={{ width: '100%', mt: 1 }}>
             Gripper State
             <Slider
+                id="slider-gripper-state"
                 value={sliderValue}
                 onChange={handleChangeValue}
                 aria-label="Gripper state"
