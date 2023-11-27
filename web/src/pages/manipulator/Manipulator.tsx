@@ -1,5 +1,5 @@
 import { Grid } from '@mui/material';
-import React, { useContext, useEffect, useRef } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 
 import { API_ROUTES } from '../../constants';
 import { PoseContext } from '../../contexts/PoseContext/PoseContext';
@@ -12,7 +12,8 @@ import RobotStates from './components/RobotStates/RobotStates';
 export default function Manipulator() {
     const { request } = useHttp();
     const { state } = useContext(PoseContext);
-    const jointsRef = useRef<IJointsState>({
+    // FIXME: perhaps need to use useRef because this will give optimization
+    const [jointsState, setJointsState] = useState<IJointsState>({
         shoulder: 0,
         upperArm: 0,
         forearm: 0,
@@ -22,15 +23,13 @@ export default function Manipulator() {
     });
 
     useEffect(() => {
-        (async () => {
-            jointsRef.current = await request(API_ROUTES.GET_JOINTS_STATE);
-        })();
+        request(API_ROUTES.GET_JOINTS_STATE).then((r) => setJointsState(r));
     }, [state]);
 
     return (
         <Grid container spacing={1} sx={{ pt: 1, pr: 1 }}>
             <Pose />
-            <RobotCamera {...jointsRef.current} />
+            <RobotCamera {...jointsState} />
             <RobotStates />
         </Grid>
     );

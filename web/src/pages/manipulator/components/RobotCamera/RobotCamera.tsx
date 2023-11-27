@@ -112,7 +112,7 @@ export default function RobotCamera({ shoulder, upperArm, forearm, wrist1, wrist
                                                 url={'models/Forearm__1_m-binary.stl'}
                                                 point={new THREE.Vector3(0, -0.0745, 0.36699)}
                                                 axis={new THREE.Vector3(1, 0, 0)}
-                                                theta={forearm}
+                                                theta={-forearm}
                                             >
                                                 <Model
                                                     url={'models/wrist_1__1_m-binary.stl'}
