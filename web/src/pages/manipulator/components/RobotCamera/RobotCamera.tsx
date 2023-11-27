@@ -10,22 +10,14 @@ import * as THREE from 'three';
 import { BufferGeometry, Mesh, NormalBufferAttributes, Vector3 } from 'three';
 import { STLLoader } from 'three/examples/jsm/loaders/STLLoader';
 
+import { IJointsState } from '../../../../types/appTypes';
 import { Item } from '../StyledComponents/StyledComponents';
 
 const StyledPaper = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff5d4',
 }));
 
-interface IProps {
-    shoulder: number;
-    upperArm: number;
-    forearm: number;
-    wrist1: number;
-    wrist2: number;
-    endEffectorLink: number;
-}
-
-export default function RobotCamera({ shoulder, upperArm, forearm, wrist1, wrist2, endEffectorLink }: IProps) {
+export default function RobotCamera({ shoulder, upperArm, forearm, wrist1, wrist2, endEffectorLink }: IJointsState) {
     function Loader() {
         const { progress } = useProgress();
         return <Html center>{progress} % loaded</Html>;
@@ -108,37 +100,37 @@ export default function RobotCamera({ shoulder, upperArm, forearm, wrist1, wrist
                                         url={'models/shoulder__1_m-binary.stl'}
                                         point={new THREE.Vector3(0.000666, -0.07459, 0.106659)}
                                         axis={new THREE.Vector3(0, 0, 1)}
-                                        theta={(Math.PI * shoulder) / 180}
+                                        theta={shoulder}
                                     >
                                         <Model
                                             url={'models/upper_arm__1_m-binary.stl'}
                                             point={new THREE.Vector3(0, -0.0745, 0.16385)}
                                             axis={new THREE.Vector3(1, 0, 0)}
-                                            theta={(Math.PI * upperArm) / 180}
+                                            theta={upperArm}
                                         >
                                             <Model
                                                 url={'models/Forearm__1_m-binary.stl'}
                                                 point={new THREE.Vector3(0, -0.0745, 0.36699)}
                                                 axis={new THREE.Vector3(1, 0, 0)}
-                                                theta={(Math.PI * forearm) / 180}
+                                                theta={-forearm}
                                             >
                                                 <Model
                                                     url={'models/wrist_1__1_m-binary.stl'}
                                                     point={new THREE.Vector3(0, -0.075, 0.5448)}
                                                     axis={new THREE.Vector3(1, 0, 0)}
-                                                    theta={(Math.PI * wrist1) / 180}
+                                                    theta={wrist1}
                                                 >
                                                     <Model
                                                         url={'models/wrist_2__1_m-binary.stl'}
                                                         point={new THREE.Vector3(0.0022, -0.0745, 0)}
                                                         axis={new THREE.Vector3(0, 0, 1)}
-                                                        theta={(Math.PI * wrist2) / 180}
+                                                        theta={wrist2}
                                                     >
                                                         <Model
                                                             url={'models/end_effector_link__1_m-binary.stl'}
                                                             point={new THREE.Vector3(0.00206, 0, 0.60275)}
                                                             axis={new THREE.Vector3(0, 1, 0)}
-                                                            theta={(Math.PI * endEffectorLink) / 180}
+                                                            theta={endEffectorLink}
                                                         />
                                                     </Model>
                                                 </Model>
