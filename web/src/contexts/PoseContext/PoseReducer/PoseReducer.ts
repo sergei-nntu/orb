@@ -4,6 +4,7 @@ import { DEFAULT_OFFSET } from '../../../constants';
 import { IPose, POSE, PoseActionType } from '../../../types/appTypes';
 
 const reducer: Reducer<IPose, PoseActionType> = function (state, action) {
+    console.log(state, action);
     switch (action.type) {
         case POSE.POSITION_X_UP:
             return {

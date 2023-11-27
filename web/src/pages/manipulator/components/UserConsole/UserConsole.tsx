@@ -28,7 +28,7 @@ export default function UserConsole() {
     }, [messages]);
 
     return (
-        <StyledBox sx={{ width: '100%', height: '22vh', mb: 1, overflowY: 'auto' }}>
+        <StyledBox sx={{ width: '100%', height: '22vh', mb: 1, overflowY: 'auto' }} id="user-console">
             <CssBaseline />
             {messages.map((msg, index) => (
                 <Typography
@@ -37,6 +37,7 @@ export default function UserConsole() {
                     align="left"
                     variant="caption"
                     component={'div'}
+                    id="user-message"
                     sx={{ lineHeight: 1.2 }}
                 >
                     {msg}

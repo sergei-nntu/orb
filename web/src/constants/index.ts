@@ -12,6 +12,7 @@ export enum API_ROUTES {
     GET_PROGRAM_STATE = '/get_program_state',
     GET_ACTIVE_PROGRAM = '/get_active_program',
     GET_JOINTS_STATE = '/get_joints_state',
+    GET_POSE_STATE = 'get_pose_state',
 }
 
 export enum KEY {
