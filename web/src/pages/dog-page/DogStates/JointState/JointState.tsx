@@ -4,9 +4,10 @@ import MuiInput from '@mui/material/Input';
 import Slider from '@mui/material/Slider';
 import { styled } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, useContext } from 'react';
 
 import { StyledBox } from '../../../manipulator/components/StyledComponents/StyledComponents';
+import { JointStateContext } from '../../../../contexts/DogContext/JointStateContext';
 
 const Input = styled(MuiInput)`
     width: 42px;
@@ -24,18 +25,32 @@ type HandleInputChangeFunction = (
 type HandleBlurFunction = (value: SliderValue, setValue: React.Dispatch<React.SetStateAction<SliderValue>>) => void;
 
 export default function JointsState() {
-    const [joint0Value, setJoint0Value] = useState<SliderValue>(0);
-    const [joint1Value, setJoint1Value] = useState<SliderValue>(-50);
-    const [joint2Value, setJoint2Value] = useState<SliderValue>(90);
-    const [joint3Value, setJoint3Value] = useState<SliderValue>(0);
-    const [joint4Value, setJoint4Value] = useState<SliderValue>(-50);
-    const [joint5Value, setJoint5Value] = useState<SliderValue>(90);
-    const [joint6Value, setJoint6Value] = useState<SliderValue>(0);
-    const [joint7Value, setJoint7Value] = useState<SliderValue>(-50);
-    const [joint8Value, setJoint8Value] = useState<SliderValue>(90);
-    const [joint9Value, setJoint9Value] = useState<SliderValue>(0);
-    const [joint10Value, setJoint10Value] = useState<SliderValue>(-50);
-    const [joint11Value, setJoint11Value] = useState<SliderValue>(90);
+    const {
+        joint0Value,
+        setJoint0Value,
+        joint1Value,
+        setJoint1Value,
+        joint2Value,
+        setJoint2Value,
+        joint3Value,
+        setJoint3Value,
+        joint4Value,
+        setJoint4Value,
+        joint5Value,
+        setJoint5Value,
+        joint6Value,
+        setJoint6Value,
+        joint7Value,
+        setJoint7Value,
+        joint8Value,
+        setJoint8Value,
+        joint9Value,
+        setJoint9Value,
+        joint10Value,
+        setJoint10Value,
+        joint11Value,
+        setJoint11Value,
+    } = useContext(JointStateContext);
 
     const handleJoint0Change: HandleChangeFunction = (event, newValue) => {
         setJoint0Value(newValue);
