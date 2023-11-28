@@ -1,6 +1,6 @@
 // import Box from '@mui/material/Box';
 import { Canvas, useLoader } from '@react-three/fiber';
-import React, { ReactNode, Suspense, useContext, useEffect, useRef } from 'react';
+import React, { ReactNode, Suspense, useContext, useEffect, useRef, useState } from 'react';
 import { CameraControls, Html, OrbitControls, useProgress } from '@react-three/drei';
 import { BufferGeometry, Mesh, NormalBufferAttributes, Vector3 } from 'three';
 import { STLLoader } from 'three/examples/jsm/loaders/STLLoader';
@@ -9,6 +9,7 @@ import * as THREE from 'three';
 import { Box } from '@mui/material';
 import { Item } from '../manipulator/components/StyledComponents/StyledComponents';
 import { JointStateContext } from '../../contexts/DogContext/JointStateContext';
+import axios from 'axios';
 
 // interface IProps {
 //     shoulder4: number;
@@ -18,6 +19,20 @@ import { JointStateContext } from '../../contexts/DogContext/JointStateContext';
 // }
 
 export default function Dog() {
+    const [jointStates, setJointStates] = useState([])
+
+    useEffect(() => {
+        async function fetchFunc() {
+            try {
+                const resp = await axios.get('.../oqp_joint_states')
+                setJointStates(resp.data)
+            } catch (error) {
+                alert(error)
+            }
+          }
+          fetchFunc()
+    }, [])
+
     const {
         joint0Value,
         joint1Value,
