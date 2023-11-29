@@ -11,6 +11,19 @@ test.describe('Planning', () => {
         const locator = page.locator('//div[text()=\'Planning\']');
         await expect(locator).toContainText('Planning');
 
+        await page.mouse.click(600, 100, { button: 'right' });
+
+        const blocks = await page.locator('//div[contains(text(),\'Delete\')]').isEnabled();
+        if(blocks){
+            page.on('dialog', async dialog => {
+                console.log(dialog.message());
+                await dialog.accept();
+            });
+            await page.locator('//div[contains(text(),\'Delete\')]').click();
+            await page.locator("//button[text()=\'SAVE\']").click();
+            await page.reload();
+        }
+
         const source1 = page.locator('g.blocklyBlockCanvas > rect:nth-child(8)');
         const source2 = page.locator('g.blocklyBlockCanvas > g:nth-child(13)');
         const source3 = page.locator('g.blocklyBlockCanvas > g:nth-child(15)');
@@ -26,26 +39,74 @@ test.describe('Planning', () => {
         // const y0 = 400;
 
         await source1.dragTo(target, {
-            targetPosition: { x: 600, y: 400 }
+            targetPosition: { x: 600, y: 200 }
         });
 
         await source2.dragTo(target, {
-            targetPosition: { x: 760, y: 420 }
+            targetPosition: { x: 760, y: 220 }
         });
 
         await source3.dragTo(target, {
-            targetPosition: { x: 660, y: 440}
+            targetPosition: { x: 660, y: 240}
         });
 
         await source4.dragTo(target, {
-            targetPosition: { x: 660, y: 460 }
+            targetPosition: { x: 660, y: 260 }
         });
 
         await source5.dragTo(target, {
-            targetPosition: { x: 700, y: 380 }
+            targetPosition: { x: 700, y: 180 }
         });
 
+        // await page.waitForTimeout(3000);
+
+        await page.locator("//button[text()=\'SAVE\']").click();
+        await page.reload();
+
+        await page.locator('g.blocklyDraggable > g:nth-child(5) > g:nth-child(6)').click();
+        await page.locator('div.blocklyWidgetDiv.geras-renderer.classic-theme > input').fill("0.1");
+        await page.mouse.dblclick(400, 400);
+
+        await page.locator('g.blocklyDraggable > g:nth-child(8) > g:nth-child(8)').click();
+        await page.locator('div.blocklyWidgetDiv.geras-renderer.classic-theme > input').fill("0.2");
+        await page.mouse.dblclick(400, 400);
+
+        await page.locator('g.blocklyDraggable > g:nth-child(8) > g:nth-child(10)').click();
+        await page.locator('div.blocklyWidgetDiv.geras-renderer.classic-theme > input').fill("0.1");
+        await page.mouse.dblclick(400, 400);
+
+        await page.locator('g.blocklyDraggable > g:nth-child(8) > g:nth-child(12)').click();
+        await page.locator('div.blocklyWidgetDiv.geras-renderer.classic-theme > input').fill("0.1");
+        await page.mouse.dblclick(400, 400);
+
+        await page.locator('g.blocklyDraggable > g:nth-child(8) > g:nth-child(14)').click();
+        await page.locator('div.blocklyWidgetDiv.geras-renderer.classic-theme > input').fill("0.1");
+        await page.mouse.dblclick(400, 400);
+
+        await page.locator('g.blocklyDraggable > g:nth-child(8) > g:nth-child(16)').click();
+        await page.locator('div.blocklyWidgetDiv.geras-renderer.classic-theme > input').fill("0.2");
+        await page.mouse.dblclick(400, 400);
+
+        await page.locator('g:nth-child(8) > g.blocklyDraggable > g.blocklyDraggable > g.blocklyEditableText').click();
+        await page.locator('div.blocklyWidgetDiv.geras-renderer.classic-theme > input').fill("20");
+        await page.mouse.dblclick(400, 400);
+
+        await page.getByTestId('PlayArrowIcon').click();
         await page.waitForTimeout(3000);
+
+        const activeBlock = await page.locator('g:nth-child(8) > g.blocklyDraggable > g.blocklyDraggable > path[style="display: inline;"]').isVisible();
+        console.log("activeBlock = ",activeBlock);
+
+        if(activeBlock){
+            await page.locator('g:nth-child(8) > g.blocklyDraggable > g.blocklyDraggable > path[style="display: inline;"]').waitFor({state:'hidden'});
+            await page.getByTestId('StopIcon').click();
+        }
+
+        await page.locator("//button[text()=\'SAVE\']").click();
+        await page.reload();
+        // await page.waitForTimeout(10000);
+
+
 
     });
 });
