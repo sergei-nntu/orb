@@ -12,7 +12,7 @@ export default function UserConsole() {
     const { state } = useContext(PoseContext);
     const { request } = useHttp();
     const { notificationState } = useContext(NotificationContext);
-    const [messages, setMessages] = useState<string[]>(['Initialized.']);
+    const [messages, setMessages] = useState<string[]>([]);
     const messagesEndRef = useRef<HTMLDivElement | null>(null);
 
     const addMessage = (messageText: string) => {
@@ -31,12 +31,14 @@ export default function UserConsole() {
     }, [messages]);
 
     useEffect(() => {
-        request(API_ROUTES.CHECK_SERVER_STATUS).then((r) => {
-            if (r.ok) {
-                console.log('It works!', r);
+        request(API_ROUTES.CHECK_SERVER_STATUS).then((res) => {
+            let message = '';
+            if (res) {
+                message = 'Initialized';
             } else {
-                console.log("Server doesn't work!");
+                message = 'Error with connection to the server';
             }
+            addMessage(message);
         });
     }, []);
 

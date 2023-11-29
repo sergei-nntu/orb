@@ -51,6 +51,7 @@ export type PoseActionType =
 export enum CONSOLE_MESSAGE {
     NO_MOVE_TO_POSITION = 'There is no move to this position. Previous state was returned',
     SUCCESS_PLANNING = 'Changed goal state',
+    // add the type
 }
 
 export interface INotification {
