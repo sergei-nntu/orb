@@ -31,23 +31,33 @@ export default function UserConsole() {
     }, [messages]);
 
     useEffect(() => {
+        checkServerStatus();
+    }, []);
+
+    const checkServerStatus = () => {
         request(API_ROUTES.CHECK_SERVER_STATUS).then((res) => {
-            let message = '';
+            let message: string;
             if (res) {
-                message = 'Initialized';
+                message = CONSOLE_MESSAGE.INITIALIZED;
             } else {
-                message = 'Error with connection to the server';
+                message = CONSOLE_MESSAGE.NO_CONNECTION_WITH_SERVER;
             }
             addMessage(message);
         });
-    }, []);
+    };
+
+    const defineMessageColor = (msg: string) => {
+        const redColor =
+            msg === CONSOLE_MESSAGE.NO_MOVE_TO_POSITION || msg === CONSOLE_MESSAGE.NO_CONNECTION_WITH_SERVER;
+        return redColor ? 'red' : 'green';
+    };
 
     return (
         <StyledBox sx={{ width: '100%', height: '22vh', mb: 1, overflowY: 'auto' }} id="user-console">
             <CssBaseline />
             {messages.map((msg, index) => (
                 <Typography
-                    color={msg === CONSOLE_MESSAGE.NO_MOVE_TO_POSITION ? 'red' : 'green'}
+                    color={defineMessageColor(msg)}
                     key={index}
                     align="left"
                     variant="caption"

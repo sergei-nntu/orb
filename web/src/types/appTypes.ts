@@ -49,9 +49,10 @@ export type PoseActionType =
     | Action<POSE.SET_PREV_STATE, { prevState: IPose }>;
 
 export enum CONSOLE_MESSAGE {
+    INITIALIZED = 'Initialized',
     NO_MOVE_TO_POSITION = 'There is no move to this position. Previous state was returned',
     SUCCESS_PLANNING = 'Changed goal state',
-    // add the type
+    NO_CONNECTION_WITH_SERVER = 'Error with connection to the server',
 }
 
 export interface INotification {
