@@ -1,42 +1,58 @@
 // import Box from '@mui/material/Box';
-import { Canvas, useLoader } from '@react-three/fiber';
-import React, { ReactNode, Suspense, useContext, useEffect, useRef, useState } from 'react';
-import { CameraControls, Html, OrbitControls, useProgress } from '@react-three/drei';
-import { BufferGeometry, Mesh, NormalBufferAttributes, Vector3 } from 'three';
-import { STLLoader } from 'three/examples/jsm/loaders/STLLoader';
-import * as THREE from 'three';
 import { Box } from '@mui/material';
-import { Item } from '../manipulator/components/StyledComponents/StyledComponents';
-import useHttp from '../../hooks/Http/Http';
-import { API_ROUTES } from '../../constants';
+import { CameraControls, Html, OrbitControls, useProgress } from '@react-three/drei';
+import { Canvas, useLoader } from '@react-three/fiber';
+import React, { ReactNode, Suspense, useEffect, useRef, useState } from 'react';
+import { BufferGeometry, Mesh, NormalBufferAttributes, Vector3 } from 'three';
+import * as THREE from 'three';
+import { STLLoader } from 'three/examples/jsm/loaders/STLLoader';
 
-// interface Position {
-//     shoulder1: number;
-//     reductor1: number;
-//     knee1: number;
-//     shoulder2: number;
-//     reductor2: number;
-//     knee2: number;
-//     shoulder3: number;
-//     reductor3: number;
-//     knee3: number;
-//     shoulder4: number;
-//     reductor4: number;
-//     knee4: number;
-// }
+import { API_ROUTES } from '../../constants';
+import useHttp from '../../hooks/Http/Http';
+import { Item } from '../manipulator/components/StyledComponents/StyledComponents';
+
+interface OQPJointsState {
+    shoulder1: number;
+    reductor1: number;
+    knee1: number;
+    shoulder2: number;
+    reductor2: number;
+    knee2: number;
+    shoulder3: number;
+    reductor3: number;
+    knee3: number;
+    shoulder4: number;
+    reductor4: number;
+    knee4: number;
+}
+
+const initialState: OQPJointsState = {
+    shoulder1: 0,
+    reductor1: 0,
+    knee1: 0,
+    shoulder2: 0,
+    reductor2: 0,
+    knee2: 0,
+    shoulder3: 0,
+    reductor3: 0,
+    knee3: 0,
+    shoulder4: 0,
+    reductor4: 0,
+    knee4: 0,
+};
 
 export default function Dog() {
-    const [jointStates, setJointStates] = useState<any>({})
-    const {request} = useHttp()
-
+    const [jointStates, setJointStates] = useState<OQPJointsState>(initialState);
+    const { request } = useHttp();
 
     useEffect(() => {
         async function fetchFunc() {
-            const position = await request(API_ROUTES.GET_OQP_JOINT_STATE)
-            setJointStates(position)
-          }
-        fetchFunc()
-    }, [])
+            const position = await request(API_ROUTES.GET_OQP_JOINT_STATE);
+            console.log(position);
+            setJointStates(position);
+        }
+        fetchFunc().then((r) => console.log(r));
+    }, []);
 
     function Loader() {
         const { progress } = useProgress();

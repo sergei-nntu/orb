@@ -6,9 +6,9 @@ import { styled } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 import React, { ChangeEvent, useEffect, useState } from 'react';
 
-import { StyledBox } from '../../../manipulator/components/StyledComponents/StyledComponents';
-import useHttp from '../../../../hooks/Http/Http';
 import { API_ROUTES } from '../../../../constants';
+import useHttp from '../../../../hooks/Http/Http';
+import { StyledBox } from '../../../manipulator/components/StyledComponents/StyledComponents';
 
 const Input = styled(MuiInput)`
     width: 42px;
@@ -39,29 +39,29 @@ export default function JointsState() {
     const [joint10Value, setJoint10Value] = useState<SliderValue>(0);
     const [joint11Value, setJoint11Value] = useState<SliderValue>(0);
 
-    const {request} = useHttp()
+    const { request } = useHttp();
     useEffect(() => {
         async function fetchFunc() {
             try {
-                const resp = await request(API_ROUTES.GET_OQP_JOINT_STATE)
-                setJoint0Value(resp.shoulder1 * 180 / Math.PI)
-                setJoint1Value(resp.reductor1 * 180 / Math.PI)
-                setJoint2Value(resp.knee1 * 180 / Math.PI)
-                setJoint3Value(resp.shoulder2 * 180 / Math.PI)
-                setJoint4Value(resp.reductor2 * 180 / Math.PI)
-                setJoint5Value(resp.knee2 * 180 / Math.PI)
-                setJoint6Value(resp.shoulder3 * 180 / Math.PI)
-                setJoint7Value(resp.reductor3 * 180 / Math.PI)
-                setJoint8Value(resp.knee3 * 180 / Math.PI)
-                setJoint9Value(resp.shoulder4 * 180 / Math.PI)
-                setJoint10Value(resp.reductor4 * 180 / Math.PI)
-                setJoint11Value(resp.knee4 * 180 / Math.PI)
+                const res = await request(API_ROUTES.GET_OQP_JOINT_STATE);
+                setJoint0Value((res.shoulder1 * 180) / Math.PI);
+                setJoint1Value((res.reductor1 * 180) / Math.PI);
+                setJoint2Value((res.knee1 * 180) / Math.PI);
+                setJoint3Value((res.shoulder2 * 180) / Math.PI);
+                setJoint4Value((res.reductor2 * 180) / Math.PI);
+                setJoint5Value((res.knee2 * 180) / Math.PI);
+                setJoint6Value((res.shoulder3 * 180) / Math.PI);
+                setJoint7Value((res.reductor3 * 180) / Math.PI);
+                setJoint8Value((res.knee3 * 180) / Math.PI);
+                setJoint9Value((res.shoulder4 * 180) / Math.PI);
+                setJoint10Value((res.reductor4 * 180) / Math.PI);
+                setJoint11Value((res.knee4 * 180) / Math.PI);
             } catch (error) {
-                alert(error)
+                alert(error);
             }
         }
-        fetchFunc()
-    }, [])
+        fetchFunc().then((r) => console.log(r));
+    }, []);
 
     const handleJoint0Change: HandleChangeFunction = (event, newValue) => {
         setJoint0Value(newValue);

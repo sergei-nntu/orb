@@ -7,12 +7,12 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import NotificationProvider from './contexts/NotificationContext/NotificationProvider/NotificationProvider';
 import PoseProvider from './contexts/PoseContext/PoseProvider/PoseProvider';
 import Layout from './hoc/Layout/Layout';
+import DogMain from './pages/dog-page/DogMain';
 import ErrorPage from './pages/error-page/ErrorPage';
 import Manipulator from './pages/manipulator/Manipulator';
 import Navigation from './pages/navigation/Navigation';
 import Planning from './pages/planning/Planning';
 import QRPage from './pages/qr-page/QRPage';
-import DogMain from './pages/dog-page/DogMain';
 
 const router = createBrowserRouter([
     {

@@ -1,8 +1,8 @@
+import { Grid } from '@mui/material';
 import React from 'react';
+
 import Dog from './Dog';
 import DogStates from './DogStates/DogStates';
-import { Grid } from '@mui/material';
-
 
 export default function DogMain() {
     return (

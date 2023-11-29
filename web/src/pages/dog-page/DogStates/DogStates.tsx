@@ -1,5 +1,6 @@
 import { Grid } from '@mui/material';
 import React from 'react';
+
 import { Item } from '../../manipulator/components/StyledComponents/StyledComponents';
 import JointsState from './JointState/JointState';
 
