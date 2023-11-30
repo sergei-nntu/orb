@@ -7,8 +7,8 @@ test.beforeEach(async ({ page }) => {
 test.describe('QR', () => {
     test('QR', async ({ page }) => {
         await page.getByTestId('QrCode2Icon').click();
-        await page.waitForTimeout(3000);
         const locator = page.locator('//div[text()=\'QR\']');
         await expect(locator).toContainText('QR');
+        await expect(page.locator('#root > div > main > svg')).toBeVisible();
     });
 });

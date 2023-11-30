@@ -7,7 +7,6 @@ test.beforeEach(async ({ page }) => {
 test.describe('Navigation', () => {
   test('Navigation', async ({ page }) => {
     await page.getByTestId('NavigationIcon').click();
-    await page.waitForTimeout(3000);
     const locator = page.locator('//div[text()=\'Navigation\']');
     await expect(locator).toContainText('Navigation');
   });

@@ -4,8 +4,6 @@ test.beforeEach(async ({ page }) => {
   await page.goto('http://localhost:3000');
 
   await page.getByTestId('PrecisionManufacturingIcon').click();
-  await page.waitForTimeout(3000);
-
   const locator = page.locator('//div[text()=\'Manipulator\']');
   await expect(locator).toContainText('Manipulator');
 });

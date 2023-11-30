@@ -7,7 +7,6 @@ test.beforeEach(async ({ page }) => {
 test.describe('Planning', () => {
     test('Planning', async ({ page }) => {
         await page.getByTestId('NextPlanIcon').click();
-        // await page.waitForTimeout(3000);
         const locator = page.locator('//div[text()=\'Planning\']');
         await expect(locator).toContainText('Planning');
 
@@ -15,14 +14,19 @@ test.describe('Planning', () => {
 
         const blocks = await page.locator('//div[contains(text(),\'Delete\')]').isEnabled();
         if(blocks){
+            console.log("Delete blocks");
+
             page.on('dialog', async dialog => {
                 console.log(dialog.message());
                 await dialog.accept();
             });
             await page.locator('//div[contains(text(),\'Delete\')]').click();
+            console.log("Saving changes");
             await page.locator("//button[text()=\'SAVE\']").click();
             await page.reload();
         }
+
+        console.log("Drag and Drop Blocks");
 
         const source1 = page.locator('g.blocklyBlockCanvas > rect:nth-child(8)');
         const source2 = page.locator('g.blocklyBlockCanvas > g:nth-child(13)');
@@ -58,10 +62,10 @@ test.describe('Planning', () => {
             targetPosition: { x: 700, y: 180 }
         });
 
-        // await page.waitForTimeout(3000);
-
         await page.locator("//button[text()=\'SAVE\']").click();
         await page.reload();
+
+        console.log("Editing block values");
 
         await page.locator('g.blocklyDraggable > g:nth-child(5) > g:nth-child(6)').click();
         await page.locator('div.blocklyWidgetDiv.geras-renderer.classic-theme > input').fill("0.1");
@@ -91,22 +95,31 @@ test.describe('Planning', () => {
         await page.locator('div.blocklyWidgetDiv.geras-renderer.classic-theme > input').fill("20");
         await page.mouse.dblclick(400, 400);
 
-        await page.getByTestId('PlayArrowIcon').click();
-        await page.waitForTimeout(3000);
+        console.log("Running the program");
 
-        const activeBlock = await page.locator('g:nth-child(8) > g.blocklyDraggable > g.blocklyDraggable > path[style="display: inline;"]').isVisible();
+        await page.getByTestId('PlayArrowIcon').click();
+        await page.locator('//div[contains(text(),\'The program has been running!\')]').waitFor({state:'visible'});
+
+        let activeBlock;
+        try {
+            await page.locator('g:nth-child(8) > g.blocklyDraggable > g.blocklyDraggable > path[style="display: inline;"]').waitFor({state:'visible'});
+            activeBlock =  true;
+        }
+        catch (e){
+            activeBlock =   false;
+        }
+
         console.log("activeBlock = ",activeBlock);
 
         if(activeBlock){
+            console.log("Stopped the program");
             await page.locator('g:nth-child(8) > g.blocklyDraggable > g.blocklyDraggable > path[style="display: inline;"]').waitFor({state:'hidden'});
             await page.getByTestId('StopIcon').click();
+            await page.locator('//div[contains(text(),\'The program has been stopped!\')]').waitFor({state:'visible'});
         }
+        console.log("Saving changes");
 
         await page.locator("//button[text()=\'SAVE\']").click();
-        await page.reload();
-        // await page.waitForTimeout(10000);
-
-
-
+        await page.locator('//div[contains(text(),\'The program state has been saved!\')]').waitFor({state:'visible'});
     });
 });
