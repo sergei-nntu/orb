@@ -4,11 +4,9 @@ import MuiInput from '@mui/material/Input';
 import Slider from '@mui/material/Slider';
 import { styled } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
-import React, { ChangeEvent, useEffect, useState } from 'react';
-
-import { API_ROUTES } from '../../../../constants';
-import useHttp from '../../../../hooks/Http/Http';
+import React, { ChangeEvent, useContext } from 'react';
 import { StyledBox } from '../../../manipulator/components/StyledComponents/StyledComponents';
+import { JointStateContext } from '../../../../contexts/OQPJointStateContext/JointStateContext';
 
 const Input = styled(MuiInput)`
     width: 42px;
@@ -26,42 +24,32 @@ type HandleInputChangeFunction = (
 type HandleBlurFunction = (value: SliderValue, setValue: React.Dispatch<React.SetStateAction<SliderValue>>) => void;
 
 export default function JointsState() {
-    const [joint0Value, setJoint0Value] = useState<SliderValue>(0);
-    const [joint1Value, setJoint1Value] = useState<SliderValue>(0);
-    const [joint2Value, setJoint2Value] = useState<SliderValue>(0);
-    const [joint3Value, setJoint3Value] = useState<SliderValue>(0);
-    const [joint4Value, setJoint4Value] = useState<SliderValue>(0);
-    const [joint5Value, setJoint5Value] = useState<SliderValue>(0);
-    const [joint6Value, setJoint6Value] = useState<SliderValue>(0);
-    const [joint7Value, setJoint7Value] = useState<SliderValue>(0);
-    const [joint8Value, setJoint8Value] = useState<SliderValue>(0);
-    const [joint9Value, setJoint9Value] = useState<SliderValue>(0);
-    const [joint10Value, setJoint10Value] = useState<SliderValue>(0);
-    const [joint11Value, setJoint11Value] = useState<SliderValue>(0);
-
-    const { request } = useHttp();
-    useEffect(() => {
-        async function fetchFunc() {
-            try {
-                const res = await request(API_ROUTES.GET_OQP_JOINT_STATE);
-                setJoint0Value((res.shoulder1 * 180) / Math.PI);
-                setJoint1Value((res.reductor1 * 180) / Math.PI);
-                setJoint2Value((res.knee1 * 180) / Math.PI);
-                setJoint3Value((res.shoulder2 * 180) / Math.PI);
-                setJoint4Value((res.reductor2 * 180) / Math.PI);
-                setJoint5Value((res.knee2 * 180) / Math.PI);
-                setJoint6Value((res.shoulder3 * 180) / Math.PI);
-                setJoint7Value((res.reductor3 * 180) / Math.PI);
-                setJoint8Value((res.knee3 * 180) / Math.PI);
-                setJoint9Value((res.shoulder4 * 180) / Math.PI);
-                setJoint10Value((res.reductor4 * 180) / Math.PI);
-                setJoint11Value((res.knee4 * 180) / Math.PI);
-            } catch (error) {
-                alert(error);
-            }
-        }
-        fetchFunc().then((r) => console.log(r));
-    }, []);
+    const {
+        joint0Value,
+        setJoint0Value,
+        joint1Value,
+        setJoint1Value,
+        joint2Value,
+        setJoint2Value,
+        joint3Value,
+        setJoint3Value,
+        joint4Value,
+        setJoint4Value,
+        joint5Value,
+        setJoint5Value,
+        joint6Value,
+        setJoint6Value,
+        joint7Value,
+        setJoint7Value,
+        joint8Value,
+        setJoint8Value,
+        joint9Value,
+        setJoint9Value,
+        joint10Value,
+        setJoint10Value,
+        joint11Value,
+        setJoint11Value,
+    } = useContext(JointStateContext);
 
     const handleJoint0Change: HandleChangeFunction = (event, newValue) => {
         setJoint0Value(newValue);
