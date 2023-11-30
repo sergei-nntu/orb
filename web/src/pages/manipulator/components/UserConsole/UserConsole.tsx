@@ -1,50 +1,32 @@
 import { CssBaseline, Typography } from '@mui/material';
-import React, { useContext, useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef } from 'react';
 
-import { API_ROUTES } from '../../../../constants';
+import { MessagesContext } from '../../../../contexts/MessagesContext/MessagesContext';
 import { NotificationContext } from '../../../../contexts/NotificationContext/NotificationContext';
 import { PoseContext } from '../../../../contexts/PoseContext/PoseContext';
-import useHttp from '../../../../hooks/Http/Http';
 import { CONSOLE_MESSAGE } from '../../../../types/appTypes';
 import { StyledBox } from '../StyledComponents/StyledComponents';
 
 export default function UserConsole() {
     const { state } = useContext(PoseContext);
-    const { request } = useHttp();
     const { notificationState } = useContext(NotificationContext);
-    const [messages, setMessages] = useState<string[]>([]);
+    const { messages, setMessages } = useContext(MessagesContext);
     const messagesEndRef = useRef<HTMLDivElement | null>(null);
 
-    const addMessage = (messageText: string) => {
-        setMessages([...messages, messageText]);
+    const addMessage = (newMessage: string) => {
+        setMessages([...messages, newMessage]);
     };
 
     useEffect(() => {
         const message = notificationState.console.message;
         addMessage(message);
-    }, [state, notificationState.console.message]);
+    }, [state]);
 
     useEffect(() => {
         if (messagesEndRef.current) {
             messagesEndRef.current.scrollIntoView({ behavior: 'smooth', block: 'end', inline: 'nearest' });
         }
     }, [messages]);
-
-    useEffect(() => {
-        checkServerStatus();
-    }, []);
-
-    const checkServerStatus = () => {
-        request(API_ROUTES.CHECK_SERVER_STATUS).then((res) => {
-            let message: string;
-            if (res) {
-                message = CONSOLE_MESSAGE.INITIALIZED;
-            } else {
-                message = CONSOLE_MESSAGE.NO_CONNECTION_WITH_SERVER;
-            }
-            addMessage(message);
-        });
-    };
 
     const defineMessageColor = (msg: string) => {
         const redColor =
@@ -55,7 +37,7 @@ export default function UserConsole() {
     return (
         <StyledBox sx={{ width: '100%', height: '22vh', mb: 1, overflowY: 'auto' }} id="user-console">
             <CssBaseline />
-            {messages.map((msg, index) => (
+            {messages.map((msg: string, index: number) => (
                 <Typography
                     color={defineMessageColor(msg)}
                     key={index}
