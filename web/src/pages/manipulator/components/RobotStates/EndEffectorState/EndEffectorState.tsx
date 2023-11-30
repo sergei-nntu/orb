@@ -13,36 +13,36 @@ const StyledTag = styled('strong')(({ theme }) => ({
 export default function EndEffectorState() {
     const { state } = useContext(PoseContext);
     return (
-        <StyledBox sx={{ mt: { md: 1, sm: 0 }, height: { md: '128.5px', xs: '280px' } }}>
+        <StyledBox sx={{ mt: { md: 1, sm: 0 }, height: { md: '150px', xs: '280px' } }}>
             End-Effector State
-            <Grid container sx={{ mt: 1, mb: 1 }}>
+            <Grid container sx={{ mt: 3, mb: 1 }}>
                 <Grid item xs={6}>
-                    <Typography noWrap variant="subtitle2">
+                    <Typography noWrap variant="subtitle1">
                         <StyledTag>x</StyledTag>: {state?.position?.x || '0'}
                     </Typography>
                 </Grid>
                 <Grid item xs={6}>
-                    <Typography noWrap variant="subtitle2">
+                    <Typography noWrap variant="subtitle1">
                         <StyledTag>pitch</StyledTag>: {state?.orientation?.pitch || '0'}
                     </Typography>
                 </Grid>
                 <Grid item xs={6}>
-                    <Typography noWrap variant="subtitle2">
+                    <Typography noWrap variant="subtitle1">
                         <StyledTag>y</StyledTag>: {state?.position?.y || '0'}
                     </Typography>
                 </Grid>
                 <Grid item xs={6}>
-                    <Typography noWrap variant="subtitle2">
+                    <Typography noWrap variant="subtitle1">
                         <StyledTag>roll</StyledTag>: {state?.orientation?.roll || '0'}
                     </Typography>
                 </Grid>
                 <Grid item xs={6}>
-                    <Typography noWrap variant="subtitle2">
+                    <Typography noWrap variant="subtitle1">
                         <StyledTag>z</StyledTag>: {state?.position?.z || '0'}
                     </Typography>
                 </Grid>
                 <Grid item xs={6}>
-                    <Typography noWrap variant="subtitle2">
+                    <Typography noWrap variant="subtitle1">
                         <StyledTag>yaw</StyledTag>: {state?.orientation?.yaw || '0'}
                     </Typography>
                 </Grid>

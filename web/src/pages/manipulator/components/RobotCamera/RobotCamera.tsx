@@ -93,7 +93,7 @@ export default function RobotCamera({ shoulder, upperArm, forearm, wrist1, wrist
                 <StyledPaper elevation={1}>
                     <Item
                         sx={{
-                            minHeight: { md: '80vh', sm: '50vh', xs: '70vh' },
+                            minHeight: { md: '112vh', sm: '50vh', xs: '70vh' },
                             height: '100px',
                             display: 'flex',
                             justifyContent: 'center',

@@ -35,7 +35,7 @@ export default function GripperState() {
                 width: '100%',
                 mt: { md: 1 },
                 ml: { xs: 1, md: 0 },
-                minHeight: '128.5px',
+                minHeight: '150px',
             }}
         >
             Gripper State
@@ -49,7 +49,7 @@ export default function GripperState() {
                 marks={marks}
                 min={0}
                 max={160}
-                sx={{ mt: 2, width: '90%' }}
+                sx={{ mt: 1, width: '90%' }}
             />
         </StyledBox>
     );

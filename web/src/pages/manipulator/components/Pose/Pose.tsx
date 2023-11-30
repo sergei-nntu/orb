@@ -25,6 +25,7 @@ export default function Pose() {
                     x: state.position.x,
                     y: state.position.y,
                     z: state.position.z,
+
                     pitch: state.orientation.pitch,
                     roll: state.orientation.roll,
                     yaw: state.orientation.yaw,
