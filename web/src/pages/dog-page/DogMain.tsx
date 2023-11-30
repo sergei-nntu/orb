@@ -7,6 +7,8 @@ import useHttp from '../../hooks/Http/Http';
 import { API_ROUTES } from '../../constants';
 
 export default function DogMain() {
+    const { request } = useHttp();
+
     const [joint0Value, setJoint0Value] = useState(0);
     const [joint1Value, setJoint1Value] = useState(0);
     const [joint2Value, setJoint2Value] = useState(0);
@@ -20,7 +22,45 @@ export default function DogMain() {
     const [joint10Value, setJoint10Value] = useState(0);
     const [joint11Value, setJoint11Value] = useState(0);
 
-    const { request } = useHttp();
+    useEffect(() => {
+        const sendJointStateToServer = async () => {
+            try {
+                const options = {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        shoulder1: (joint0Value * Math.PI) / 180,
+                        reductor1: (joint1Value * Math.PI) / 180,
+                        knee1: (joint2Value * Math.PI) / 180,
+                        shoulder2: (joint3Value * Math.PI) / 180,
+                        reductor2: (joint4Value * Math.PI) / 180,
+                        knee2: (joint5Value * Math.PI) / 180,
+                        shoulder3: (joint6Value * Math.PI) / 180,
+                        reductor3: (joint7Value * Math.PI) / 180,
+                        knee3: (joint8Value * Math.PI) / 180,
+                        shoulder4: (joint9Value * Math.PI) / 180,
+                        reductor4: (joint10Value * Math.PI) / 180,
+                        knee4: (joint11Value * Math.PI) / 180,
+                    })
+                }
+                await request(API_ROUTES.GET_OQP_JOINT_STATE, options)
+            } catch (error) {
+                console.error(error)
+            }
+        }
+        sendJointStateToServer()
+    }, [joint0Value, 
+        joint1Value,
+        joint2Value,
+        joint3Value,
+        joint4Value,
+        joint5Value,
+        joint6Value,
+        joint7Value,
+        joint8Value,
+        joint9Value,
+        joint10Value,
+        joint11Value])
+
     useEffect(() => {
         async function fetchFunc() {
             try {
@@ -38,7 +78,7 @@ export default function DogMain() {
                 setJoint10Value((response.reductor4 * 180) / Math.PI);
                 setJoint11Value((response.knee4 * 180) / Math.PI);
             } catch (error) {
-                alert(error);
+                console.error(error);
             }
         }
         fetchFunc().then((r) => console.log(r));
