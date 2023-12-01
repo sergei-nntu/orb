@@ -1,3 +1,4 @@
 # IDEA config files
 /.idea
 /playwright/test-results/
+*/node_modules/
