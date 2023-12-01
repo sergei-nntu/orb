@@ -5,8 +5,9 @@ import Slider from '@mui/material/Slider';
 import { styled } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 import React, { ChangeEvent, useContext } from 'react';
-import { StyledBox } from '../../../manipulator/components/StyledComponents/StyledComponents';
+
 import { JointStateContext } from '../../../../contexts/OQPJointStateContext/JointStateContext';
+import { StyledBox } from '../../../manipulator/components/StyledComponents/StyledComponents';
 
 const Input = styled(MuiInput)`
     width: 42px;

@@ -6,8 +6,9 @@ import React, { ReactNode, Suspense, useContext, useEffect, useRef } from 'react
 import { BufferGeometry, Mesh, NormalBufferAttributes, Vector3 } from 'three';
 import * as THREE from 'three';
 import { STLLoader } from 'three/examples/jsm/loaders/STLLoader';
-import { Item } from '../manipulator/components/StyledComponents/StyledComponents';
+
 import { JointStateContext } from '../../contexts/OQPJointStateContext/JointStateContext';
+import { Item } from '../manipulator/components/StyledComponents/StyledComponents';
 
 // interface OQPJointsState {
 //     shoulder1: number;

@@ -1,10 +1,11 @@
 import { Grid } from '@mui/material';
 import React, { useEffect, useState } from 'react';
-import Dog from './Dog';
-import DogStates from './DogStates/DogStates';
+
+import { API_ROUTES } from '../../constants';
 import { JointStateContext } from '../../contexts/OQPJointStateContext/JointStateContext';
 import useHttp from '../../hooks/Http/Http';
-import { API_ROUTES } from '../../constants';
+import Dog from './Dog';
+import DogStates from './DogStates/DogStates';
 
 export default function DogMain() {
     const { request } = useHttp();
@@ -40,15 +41,16 @@ export default function DogMain() {
                         shoulder4: (joint9Value * Math.PI) / 180,
                         reductor4: (joint10Value * Math.PI) / 180,
                         knee4: (joint11Value * Math.PI) / 180,
-                    })
-                }
-                await request(API_ROUTES.GET_OQP_JOINT_STATE, options)
+                    }),
+                };
+                await request(API_ROUTES.POST_OQP_JOINT_STATE, options);
             } catch (error) {
-                console.error(error)
+                console.error(error);
             }
-        }
-        sendJointStateToServer()
-    }, [joint0Value, 
+        };
+        sendJointStateToServer();
+    }, [
+        joint0Value,
         joint1Value,
         joint2Value,
         joint3Value,
@@ -59,7 +61,8 @@ export default function DogMain() {
         joint8Value,
         joint9Value,
         joint10Value,
-        joint11Value])
+        joint11Value,
+    ]);
 
     useEffect(() => {
         async function fetchFunc() {
