@@ -60,7 +60,6 @@ export default function Pose() {
                     minHeight: { md: '80vh', xs: '0' },
                     display: 'flex',
                     flexDirection: { md: 'column', xs: 'row' },
-                    justifyContent: 'flex-end',
                     alignItems: { xs: 'flex-end', md: 'stretch' },
                     ml: 1,
                 }}

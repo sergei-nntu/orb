@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "preinstall": "npx npm-force-resolutions",
-    "start": "react-scripts start",
+    "start": "REACT_APP_HOST=$(ifconfig | sed -En 's/127.0.0.1//;s/.*inet (addr:)?(([0-9]*\\.){3}[0-9]*).*/\\2/p') react-scripts start",
     "build": "REACT_APP_HOST=$(ifconfig | sed -En 's/127.0.0.1//;s/.*inet (addr:)?(([0-9]*\\.){3}[0-9]*).*/\\2/p') react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -80,6 +80,6 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
-
+  },
+  "proxy": "http://ros:5001"
 }

@@ -89,11 +89,11 @@ export default function RobotCamera({ shoulder, upperArm, forearm, wrist1, wrist
 
     return (
         <Grid item sm={12} md={4} lg={6}>
-            <Box component="div" sx={{ flex: 1 }}>
+            <Box component="div" sx={{ flex: 1, ml: { xs: 1, md: 0 } }}>
                 <StyledPaper elevation={1}>
                     <Item
                         sx={{
-                            minHeight: { md: '112vh', sm: '50vh', xs: '70vh' },
+                            minHeight: { md: '725px', sm: '50vh', xs: '70vh' },
                             height: '100px',
                             display: 'flex',
                             justifyContent: 'center',

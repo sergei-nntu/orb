@@ -97,7 +97,7 @@ export default function Orientation() {
                     sx={{
                         display: 'flex',
                         justifyContent: 'space-around',
-                        mt: 3,
+                        mt: { md: 2, xs: 3 },
                         mb: 2,
                     }}
                 >

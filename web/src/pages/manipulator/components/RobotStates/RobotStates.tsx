@@ -14,7 +14,6 @@ export default function RobotStates() {
                     minHeight: { md: '80vh', xs: '0' },
                     display: 'flex',
                     flexDirection: { md: 'column', xs: 'row' },
-                    justifyContent: 'flex-end',
                 }}
             >
                 <UserConsole />
