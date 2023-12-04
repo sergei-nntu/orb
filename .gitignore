@@ -2,3 +2,5 @@
 /.idea
 /playwright/test-results/
 */node_modules
+**/orm/
+
