@@ -23,9 +23,10 @@ interface IProps {
     wrist1: number;
     wrist2: number;
     endEffectorLink: number;
+    claws: number;
 }
 
-export default function RobotCamera({ shoulder, upperArm, forearm, wrist1, wrist2, endEffectorLink }: IProps) {
+export default function RobotCamera({ shoulder, upperArm, forearm, wrist1, wrist2, endEffectorLink, claws }: IProps) {
     function Loader() {
         const { progress } = useProgress();
         return <Html center>{progress} % loaded</Html>;
@@ -79,9 +80,9 @@ export default function RobotCamera({ shoulder, upperArm, forearm, wrist1, wrist
                 {/* eslint-disable-next-line react/no-unknown-property */}
                 <directionalLight visible castShadow position={[-1, 3, -1]} color="#FFF5D4" intensity={0.5} />
                 {/* eslint-disable-next-line react/no-unknown-property */}
-                <pointLight visible castShadow position={[-1, 3, -1]} color="#FFF5D4" intensity={5} />
+                <pointLight visible position={[-1, 4, 2]} color="#FFF5D4" intensity={5} />
                 {/* eslint-disable-next-line react/no-unknown-property */}
-                <spotLight visible castShadow position={[-1, 3, -1]} color="#FFF5D4" intensity={5} />
+                <spotLight visible castShadow position={[-1, 8, -1]} color="#FFF5D4" intensity={8} />
             </>
         );
     }
@@ -98,48 +99,65 @@ export default function RobotCamera({ shoulder, upperArm, forearm, wrist1, wrist
                         alignItems: 'center',
                     }}
                 >
-                    <Canvas shadows camera={{ position: [1, 1.5, -1] }}>
+                    <Canvas shadows camera={{ position: [2, 5, -10] }}>
                         <Lights />
                         <Suspense fallback={<Loader />}>
                             {/* eslint-disable-next-line react/no-unknown-property */}
-                            <group rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, 0]}>
-                                <Model url={'models/base_link_m-binary.stl'} color="#ffffaa">
+                            <group rotation={[1.6, 0, 0]} position={[0, 1.39, 0]} scale={[0.01, 0.01, 0.01]}>
+                                <Model url={'models/orm-modified-models/base_link_m-binary.stl'} color="#ffffaa">
                                     <Model
-                                        url={'models/shoulder__1_m-binary.stl'}
+                                        url={'models/orm-modified-models/shoulder_1_m-binary.stl'}
                                         point={new THREE.Vector3(0.000666, -0.07459, 0.106659)}
                                         axis={new THREE.Vector3(0, 0, 1)}
                                         theta={(Math.PI * shoulder) / 180}
                                     >
                                         <Model
-                                            url={'models/upper_arm__1_m-binary.stl'}
-                                            point={new THREE.Vector3(0, -0.0745, 0.16385)}
+                                            url={'models/orm-modified-models/upper_arm_m-binary.stl'}
+                                            point={new THREE.Vector3(0, 0, 17)}
                                             axis={new THREE.Vector3(1, 0, 0)}
                                             theta={(Math.PI * upperArm) / 180}
                                         >
                                             <Model
-                                                url={'models/Forearm__1_m-binary.stl'}
-                                                point={new THREE.Vector3(0, -0.0745, 0.36699)}
+                                                url={'models/orm-modified-models/forearm_m-binary.stl'}
+                                                point={new THREE.Vector3(0, 0.2, -210)}
                                                 axis={new THREE.Vector3(1, 0, 0)}
                                                 theta={(Math.PI * forearm) / 180}
                                             >
                                                 <Model
-                                                    url={'models/wrist_1__1_m-binary.stl'}
-                                                    point={new THREE.Vector3(0, -0.075, 0.5448)}
+                                                    url={'models/orm-modified-models/wrist_link_1_m-binary.stl'}
+                                                    point={new THREE.Vector3(0, 0, -425)}
                                                     axis={new THREE.Vector3(1, 0, 0)}
                                                     theta={(Math.PI * wrist1) / 180}
                                                 >
                                                     <Model
-                                                        url={'models/wrist_2__1_m-binary.stl'}
-                                                        point={new THREE.Vector3(0.0022, -0.0745, 0)}
+                                                        url={'models/orm-modified-models/wrist_link_2_m-binary.stl'}
+                                                        point={new THREE.Vector3(-118, 0, 0)}
                                                         axis={new THREE.Vector3(0, 0, 1)}
                                                         theta={(Math.PI * wrist2) / 180}
                                                     >
                                                         <Model
-                                                            url={'models/end_effector_link__1_m-binary.stl'}
-                                                            point={new THREE.Vector3(0.00206, 0, 0.60275)}
+                                                            url={
+                                                                'models/orm-modified-models/gripper_without_claws_1.stl'
+                                                            }
+                                                            point={new THREE.Vector3(-120, 50, -500)}
                                                             axis={new THREE.Vector3(0, 1, 0)}
                                                             theta={(Math.PI * endEffectorLink) / 180}
-                                                        />
+                                                        >
+                                                            <Model
+                                                                url={
+                                                                    'models/orm-modified-models/gripper_claw_right.stl'
+                                                                }
+                                                                point={new THREE.Vector3(-118.5, 99.5, 0)}
+                                                                axis={new THREE.Vector3(0, 0, 1)}
+                                                                theta={-(Math.PI * claws) / 180}
+                                                            ></Model>
+                                                            <Model
+                                                                url={'models/orm-modified-models/gripper_claw_left.stl'}
+                                                                point={new THREE.Vector3(-118.5, 99.5, 0)}
+                                                                axis={new THREE.Vector3(0, 0, 1)}
+                                                                theta={(Math.PI * claws) / 180}
+                                                            ></Model>
+                                                        </Model>
                                                     </Model>
                                                 </Model>
                                             </Model>

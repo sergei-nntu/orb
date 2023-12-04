@@ -9,7 +9,7 @@ import RobotStates from './components/RobotStates/RobotStates';
 export default function Manipulator() {
     const control = useControls('endEffectorCtl', {
         shoulder: {
-            value: 0,
+            value: 180,
             min: 0,
             max: 360,
             step: 1,
@@ -22,8 +22,8 @@ export default function Manipulator() {
         },
         forearm: {
             value: 0,
-            min: 0,
-            max: 360,
+            min: -160,
+            max: 160,
             step: 1,
         },
         wrist1: {
@@ -42,6 +42,12 @@ export default function Manipulator() {
             value: 0,
             min: 0,
             max: 360,
+            step: 1,
+        },
+        claws: {
+            value: 0,
+            min: -15,
+            max: 25,
             step: 1,
         },
     });
