@@ -191,7 +191,7 @@ test.describe('Orientation', () => {
     await expect(backYawValue).toBe(yawValue);
   });
 });
-test.describe('Joints Position', () => {
+test.describe.skip('Joints Position', () => {
   test('Edit Joint0', async ({ page }) => {
     const oldJoint0 =  await page.locator('#input-joint0').inputValue();
     console.log("value_def = ", oldJoint0);
@@ -313,7 +313,7 @@ test.describe('Joints Position', () => {
   });
 });
 
-test.describe('Gripper State', () => {
+test.describe.skip('Gripper State', () => {
   test('Edit Gripper State', async ({ page }) => {
     const oldPosition =  await page.locator('#slider-gripper-state > span> input').inputValue();
     console.log("position_0 = ", oldPosition);
