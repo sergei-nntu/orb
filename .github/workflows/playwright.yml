@@ -25,8 +25,7 @@ jobs:
           HOME: /docker
     - name: "Docker compose"
       run: docker compose up -d
-      env:
-        HOME: /docker
+      command: cd docker
     - name: Install dependencies
       run: npm ci
       env:
