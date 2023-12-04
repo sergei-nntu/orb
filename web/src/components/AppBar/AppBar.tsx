@@ -146,22 +146,22 @@ export default function MenuAppBar() {
     };
 
     const getPose = () => {
-        request(API_ROUTES.GET_POSE_STATE).then(({ data }) => {
-            if (!data) {
+        request(API_ROUTES.GET_POSE_STATE).then((res) => {
+            if (!res?.data) {
                 return;
             }
             dispatch({
                 type: POSE.SET_PREV_STATE,
                 prevState: {
                     position: {
-                        x: data.x,
-                        y: data.y,
-                        z: data.z,
+                        x: res.data.x,
+                        y: res.data.y,
+                        z: res.data.z,
                     },
                     orientation: {
-                        pitch: data.pitch,
-                        roll: data.roll,
-                        yaw: data.yaw,
+                        pitch: res.data.pitch,
+                        roll: res.data.roll,
+                        yaw: res.data.yaw,
                     },
                     gripper_state: 0.0,
                 },
