@@ -80,59 +80,61 @@ export default function RobotCamera({ shoulder, upperArm, forearm, wrist1, wrist
     }
 
     return (
-        <Box component="div" sx={{ flex: 1, marginTop: '8px' }}>
-            <StyledPaper elevation={1}>
-                <Item
-                    sx={{
-                        minHeight: '80vh',
-                        height: '100px',
-                        display: 'flex',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                    }}
-                >
-                    <Canvas shadows camera={{ position: [1, 1.5, -1] }}>
-                        <Lights />
-                        <Suspense fallback={<Loader />}>
-                            {/* eslint-disable-next-line react/no-unknown-property */}
-                            <group rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, 0]}>
-                                <Model url={'models/base_link_m-binary.stl'} color="#ffffaa">
-                                    <Model
-                                        url={'models/shoulder__1_m-binary.stl'}
-                                        point={new THREE.Vector3(0.000666, -0.07459, 0.106659)}
-                                        axis={new THREE.Vector3(0, 0, 1)}
-                                        theta={shoulder}
-                                    >
+        <Grid item sm={12} md={4} lg={6}>
+            <Box component="div" sx={{ flex: 1, ml: { xs: 1, md: 0 } }}>
+                <StyledPaper elevation={1}>
+                    <Item
+                        sx={{
+                            minHeight: { md: '725px', sm: '50vh', xs: '70vh' },
+                            height: '100px',
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                        }}
+                    >
+                        <Canvas shadows camera={{ position: [1, 1.5, -1] }}>
+                            <Lights />
+                            <Suspense fallback={<Loader />}>
+                                {/* eslint-disable-next-line react/no-unknown-property */}
+                                <group rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, 0]}>
+                                    <Model url={'models/base_link_m-binary.stl'} color="#ffffaa">
                                         <Model
-                                            url={'models/upper_arm__1_m-binary.stl'}
-                                            point={new THREE.Vector3(0, -0.0745, 0.16385)}
-                                            axis={new THREE.Vector3(1, 0, 0)}
-                                            theta={upperArm}
+                                            url={'models/shoulder__1_m-binary.stl'}
+                                            point={new THREE.Vector3(0.000666, -0.07459, 0.106659)}
+                                            axis={new THREE.Vector3(0, 0, 1)}
+                                            theta={shoulder}
                                         >
                                             <Model
                                                 url={'models/upper_arm__1_m-binary.stl'}
                                                 point={new THREE.Vector3(0, -0.0745, 0.16385)}
                                                 axis={new THREE.Vector3(1, 0, 0)}
-                                                theta={-forearm}
+                                                theta={upperArm}
                                             >
                                                 <Model
                                                     url={'models/Forearm__1_m-binary.stl'}
                                                     point={new THREE.Vector3(0, -0.0745, 0.36699)}
                                                     axis={new THREE.Vector3(1, 0, 0)}
-                                                    theta={wrist1}
+                                                    theta={-forearm}
                                                 >
                                                     <Model
-                                                        url={'models/wrist_2__1_m-binary.stl'}
-                                                        point={new THREE.Vector3(0.0022, -0.0745, 0)}
-                                                        axis={new THREE.Vector3(0, 0, 1)}
-                                                        theta={wrist2}
+                                                        url={'models/wrist_1__1_m-binary.stl'}
+                                                        point={new THREE.Vector3(0, -0.075, 0.5448)}
+                                                        axis={new THREE.Vector3(1, 0, 0)}
+                                                        theta={wrist1}
                                                     >
                                                         <Model
-                                                            url={'models/end_effector_link__1_m-binary.stl'}
-                                                            point={new THREE.Vector3(0.00206, 0, 0.60275)}
-                                                            axis={new THREE.Vector3(0, 1, 0)}
-                                                            theta={endEffectorLink}
-                                                        />
+                                                            url={'models/wrist_2__1_m-binary.stl'}
+                                                            point={new THREE.Vector3(0.0022, -0.0745, 0)}
+                                                            axis={new THREE.Vector3(0, 0, 1)}
+                                                            theta={wrist2}
+                                                        >
+                                                            <Model
+                                                                url={'models/end_effector_link__1_m-binary.stl'}
+                                                                point={new THREE.Vector3(0.00206, 0, 0.60275)}
+                                                                axis={new THREE.Vector3(0, 1, 0)}
+                                                                theta={endEffectorLink}
+                                                            />
+                                                        </Model>
                                                     </Model>
                                                 </Model>
                                             </Model>
