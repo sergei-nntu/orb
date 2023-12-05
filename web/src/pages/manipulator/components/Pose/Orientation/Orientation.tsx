@@ -89,19 +89,20 @@ export default function Orientation() {
 
     return (
         <>
-            <StyledBox sx={{ mt: 1 }}>
+            <StyledBox sx={{ mt: { md: 1, sm: 0 }, mr: { md: 0, xs: 1 }, minHeight: '280px' }}>
                 Orientation
                 <Box
                     component="div"
                     sx={{
                         display: 'flex',
                         justifyContent: 'space-around',
-                        mt: 1,
+                        mt: { md: 2, xs: 3 },
+                        mb: 2,
                     }}
                 >
                     <RotateRightIcon
                         style={{
-                            fontSize: '7vh',
+                            fontSize: '55px',
                             transform: 'rotate(50deg) skew(30deg, 0deg)',
                         }}
                         color={keyState['1'] ? 'error' : 'primary'}
@@ -112,7 +113,7 @@ export default function Orientation() {
                     />
                     <RotateLeftIcon
                         style={{
-                            fontSize: '7vh',
+                            fontSize: '55px',
                             transform: 'scale(1.1)',
                         }}
                         color={keyState['2'] ? 'error' : 'primary'}
@@ -123,7 +124,7 @@ export default function Orientation() {
                     />
                     <RotateLeftIcon
                         style={{
-                            fontSize: '7vh',
+                            fontSize: '55px',
                             transform: 'perspective(500px) rotateX(65deg) scale(1.5)',
                         }}
                         color={keyState['3'] ? 'error' : 'primary'}
@@ -138,6 +139,7 @@ export default function Orientation() {
                     sx={{
                         display: 'flex',
                         justifyContent: 'space-around',
+                        mb: 2,
                     }}
                 >
                     <Typography sx={{ userSelect: 'none' }} variant="subtitle1">
@@ -160,7 +162,7 @@ export default function Orientation() {
                 >
                     <RotateLeftIcon
                         style={{
-                            fontSize: '7vh',
+                            fontSize: '55px',
                             transform: 'rotate(50deg) skew(30deg, 0deg)',
                         }}
                         color={keyState.z ? 'error' : 'primary'}
@@ -171,7 +173,7 @@ export default function Orientation() {
                     />
                     <RotateRightIcon
                         style={{
-                            fontSize: '7vh',
+                            fontSize: '55px',
                             transform: 'scale(1.1)',
                         }}
                         color={keyState.x ? 'error' : 'primary'}
@@ -182,7 +184,7 @@ export default function Orientation() {
                     />
                     <RotateRightIcon
                         style={{
-                            fontSize: '7vh',
+                            fontSize: '55px',
                             transform: 'perspective(500px) rotateX(65deg) scale(1.5)',
                         }}
                         color={keyState.c ? 'error' : 'primary'}

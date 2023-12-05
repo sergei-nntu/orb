@@ -1,3 +1,4 @@
+import { Grid } from '@mui/material';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import { styled } from '@mui/material/styles';
@@ -109,14 +110,14 @@ export default function RobotCamera({ shoulder, upperArm, forearm, wrist1, wrist
                                             theta={upperArm}
                                         >
                                             <Model
-                                                url={'models/Forearm__1_m-binary.stl'}
-                                                point={new THREE.Vector3(0, -0.0745, 0.36699)}
+                                                url={'models/upper_arm__1_m-binary.stl'}
+                                                point={new THREE.Vector3(0, -0.0745, 0.16385)}
                                                 axis={new THREE.Vector3(1, 0, 0)}
                                                 theta={-forearm}
                                             >
                                                 <Model
-                                                    url={'models/wrist_1__1_m-binary.stl'}
-                                                    point={new THREE.Vector3(0, -0.075, 0.5448)}
+                                                    url={'models/Forearm__1_m-binary.stl'}
+                                                    point={new THREE.Vector3(0, -0.0745, 0.36699)}
                                                     axis={new THREE.Vector3(1, 0, 0)}
                                                     theta={wrist1}
                                                 >
@@ -137,21 +138,21 @@ export default function RobotCamera({ shoulder, upperArm, forearm, wrist1, wrist
                                             </Model>
                                         </Model>
                                     </Model>
-                                </Model>
-                            </group>
-                        </Suspense>
+                                </group>
+                            </Suspense>
 
-                        {/* eslint-disable-next-line react/no-unknown-property */}
-                        <mesh position={[0, 0, 0]} rotation-x={-Math.PI / 2} receiveShadow castShadow>
                             {/* eslint-disable-next-line react/no-unknown-property */}
-                            <planeGeometry args={[500, 500]} />
-                            <meshStandardMaterial color="white" />
-                        </mesh>
-                        <OrbitControls />
-                        <CameraControls makeDefault />
-                    </Canvas>
-                </Item>
-            </StyledPaper>
-        </Box>
+                            <mesh position={[0, 0, 0]} rotation-x={-Math.PI / 2} receiveShadow castShadow>
+                                {/* eslint-disable-next-line react/no-unknown-property */}
+                                <planeGeometry args={[500, 500]} />
+                                <meshStandardMaterial color="white" />
+                            </mesh>
+                            <OrbitControls />
+                            <CameraControls makeDefault />
+                        </Canvas>
+                    </Item>
+                </StyledPaper>
+            </Box>
+        </Grid>
     );
 }
