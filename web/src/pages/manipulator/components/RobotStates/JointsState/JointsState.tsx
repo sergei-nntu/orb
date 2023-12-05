@@ -6,6 +6,8 @@ import { styled } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 import React, { ChangeEvent, useEffect, useState } from 'react';
 
+import { API_ROUTES } from '../../../../../constants';
+import useHttp from '../../../../../hooks/Http/Http';
 import { StyledBox } from '../../StyledComponents/StyledComponents';
 
 const Input = styled(MuiInput)`
@@ -24,6 +26,7 @@ type HandleInputChangeFunction = (
 type HandleBlurFunction = (value: SliderValue, setValue: React.Dispatch<React.SetStateAction<SliderValue>>) => void;
 
 export default function JointsState() {
+    const { request } = useHttp();
     const initialJointValues = Array(6).fill(0);
     const [jointValues, setJointValues] = useState<SliderValue[]>(initialJointValues);
 
@@ -47,8 +50,19 @@ export default function JointsState() {
     };
 
     useEffect(() => {
-        console.log(JointsState);
-    }, []);
+        const options = {
+            method: 'POST',
+            body: JSON.stringify({
+                joint0: jointValues[0],
+                joint1: jointValues[1],
+                joint2: jointValues[2],
+                joint3: jointValues[3],
+                joint4: jointValues[4],
+                joint5: jointValues[5],
+            }),
+        };
+        request(API_ROUTES.POST_JOINTS_STATE, options).then();
+    }, [jointValues]);
 
     return (
         <StyledBox sx={{ width: '100%' }}>
