@@ -1,0 +1,41 @@
+version: '3'
+
+services:
+  orb:
+    image: telemetrybalkan/orb
+    container_name: orb
+    ports:
+      - "3000:3000"
+    networks:
+      - network
+  ros:
+    image: telemetrybalkan/ros
+    container_name: ros
+    privileged: true
+    volumes:
+      - /dev:/dev
+    # Working only on linux
+    # devices:
+      # - /dev/ttyUSB0:/dev/ttyUSB0
+    command:
+      - /bin/bash
+      - -c
+      - |
+        source /opt/ros/noetic/setup.bash
+        cd /catkin_ws
+        catkin_make
+        source /catkin_ws/devel/setup.bash
+        roslaunch we_r2_moveit_config demo.launch &
+        sleep 10
+        cd ../orm/src/python
+        python3 orm_http_server.py &
+        sleep 5
+        cd /orm/src/python
+        python3 orm_http_server_publisher.py
+    ports:
+      - "5001:5001"
+    networks:
+      - network
+
+networks:
+  network:

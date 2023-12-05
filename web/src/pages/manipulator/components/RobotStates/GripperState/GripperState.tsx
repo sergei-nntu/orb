@@ -40,6 +40,7 @@ export default function GripperState() {
         >
             Gripper State
             <Slider
+                id="slider-gripper-state"
                 value={sliderValue}
                 onChange={handleChangeValue}
                 aria-label="Gripper state"

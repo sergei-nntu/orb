@@ -49,8 +49,10 @@ export type PoseActionType =
     | Action<POSE.SET_PREV_STATE, { prevState: IPose }>;
 
 export enum CONSOLE_MESSAGE {
+    INITIALIZED = 'Initialized',
     NO_MOVE_TO_POSITION = 'There is no move to this position. Previous state was returned',
     SUCCESS_PLANNING = 'Changed goal state',
+    NO_CONNECTION_WITH_SERVER = 'Error with connection to the server',
 }
 
 export interface INotification {
@@ -85,3 +87,12 @@ export type NotificationActionType =
     | Action<NOTIFICATION.BLOCKLY_IS_STOPPED, { open: boolean }>
     | Action<NOTIFICATION.HIDE>
     | Action<POSE.SET_PREV_STATE, { prevState: IPose }>;
+
+export interface IJointsState {
+    shoulder: number;
+    upperArm: number;
+    forearm: number;
+    wrist1: number;
+    wrist2: number;
+    endEffectorLink: number;
+}

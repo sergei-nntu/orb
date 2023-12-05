@@ -23,9 +23,10 @@ import React, { useContext, useEffect } from 'react';
 
 import { API_ROUTES, KEY } from '../../constants';
 import { NotificationContext } from '../../contexts/NotificationContext/NotificationContext';
+import { PoseContext } from '../../contexts/PoseContext/PoseContext';
 import useHttp from '../../hooks/Http/Http';
 import { useRouter } from '../../hooks/Router/Router';
-import { NOTIFICATION } from '../../types/appTypes';
+import { NOTIFICATION, POSE } from '../../types/appTypes';
 import { AppBar, Drawer, DrawerHeader } from './StyledComponents/StyledComponents';
 
 const drawerData = [
@@ -49,8 +50,9 @@ const drawerData = [
 
 export default function MenuAppBar() {
     const theme = useTheme();
-    const router = useRouter();
     const { request } = useHttp();
+    const { dispatch } = useContext(PoseContext);
+    const router = useRouter();
     const { dispatchNotification } = useContext(NotificationContext);
     const [open, setOpen] = React.useState(false);
     const [title, setTitle] = React.useState('Navigation');
@@ -142,6 +144,34 @@ export default function MenuAppBar() {
             dispatchNotification({ type: NOTIFICATION.SAVE_BLOCKLY, open: true });
         }
     };
+
+    const getPose = () => {
+        request(API_ROUTES.GET_POSE_STATE).then((res) => {
+            if (!res?.data) {
+                return;
+            }
+            dispatch({
+                type: POSE.SET_PREV_STATE,
+                prevState: {
+                    position: {
+                        x: res.data.x,
+                        y: res.data.y,
+                        z: res.data.z,
+                    },
+                    orientation: {
+                        pitch: res.data.pitch,
+                        roll: res.data.roll,
+                        yaw: res.data.yaw,
+                    },
+                    gripper_state: 0.0,
+                },
+            });
+        });
+    };
+
+    useEffect(() => {
+        getPose();
+    }, []);
 
     return (
         <>
