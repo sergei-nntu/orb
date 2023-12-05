@@ -73,7 +73,7 @@ export default function JointsState() {
     };
 
     return (
-        <StyledBox sx={{ width: '100%' }}>
+        <StyledBox sx={{ width: '100%', ml: { xs: 1, md: 0 }, mt: { xs: 0, md: 1 }, minHeight: '280px' }}>
             Joints Position
             <Box component="div" sx={{ width: '100%', mt: 1 }}>
                 <Grid container spacing={2} alignItems="center">
