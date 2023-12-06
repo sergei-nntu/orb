@@ -35,7 +35,7 @@ export default function UserConsole() {
     };
 
     return (
-        <StyledBox sx={{ width: '100%', minHeight: '280px', overflowY: 'auto', ml: { xs: 1, md: 0 } }}>
+        <StyledBox sx={{ width: '100%', height: '280px', overflowY: 'auto', ml: { xs: 1, md: 0 } }} id="user-console">
             <CssBaseline />
             {messages.map((msg: string, index: number) => (
                 <Typography
