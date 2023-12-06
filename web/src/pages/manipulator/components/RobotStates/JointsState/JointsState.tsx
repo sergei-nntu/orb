@@ -14,7 +14,7 @@ const Input = styled(MuiInput)`
     width: 42px;
 `;
 
-type SliderValue = number | number[];
+type SliderValue = number;
 
 type HandleChangeFunction = (index: number, newValue: SliderValue) => void;
 
@@ -53,12 +53,12 @@ export default function JointsState() {
         const options = {
             method: 'POST',
             body: JSON.stringify({
-                joint0: jointValues[0],
-                joint1: jointValues[1],
-                joint2: jointValues[2],
-                joint3: jointValues[3],
-                joint4: jointValues[4],
-                joint5: jointValues[5],
+                joint0: +((Math.PI * jointValues[0]) / 180),
+                joint1: +((Math.PI * jointValues[1]) / 180),
+                joint2: +((Math.PI * jointValues[2]) / 180),
+                joint3: +((Math.PI * jointValues[3]) / 180),
+                joint4: +((Math.PI * jointValues[4]) / 180),
+                joint5: +((Math.PI * jointValues[5]) / 180),
             }),
         };
         request(API_ROUTES.POST_JOINTS_STATE, options).then();
