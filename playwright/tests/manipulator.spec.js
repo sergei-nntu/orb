@@ -1,7 +1,7 @@
 const { test, expect } = require('@playwright/test');
 
 test.beforeEach(async ({ page }) => {
-  await page.goto('http://localhost:3000', {waitUntil: 'networkidle'});
+  await page.goto('http://localhost:3000');
 
   await page.getByTestId('PrecisionManufacturingIcon').click();
   const locator = page.locator('//div[text()=\'Manipulator\']');
@@ -9,13 +9,13 @@ test.beforeEach(async ({ page }) => {
 });
 test.describe('Position', () => {
   test('Edit X coordinate', async ({ page }) => {
-    const oldX =  await page.locator('div > div:nth-child(1) > h6').innerText();
+    const oldX =  await page.locator('div:nth-child(1) > div > div:nth-child(1) > h6').innerText();
     const oldXValue = oldX.split(": ")[1];
     console.log("x_def = ", oldXValue);
 
     await page.locator('#button-up-x').click();
 
-    const nextX =  await page.locator('div:nth-child(3) > div > div:nth-child(1) > h6').innerText();
+    const nextX =  await page.locator('div:nth-child(1) > div > div:nth-child(1) > h6').innerText();
     const nextXValue = nextX.split(": ")[1];
     console.log("x_new = ", nextXValue);
 
@@ -23,7 +23,7 @@ test.describe('Position', () => {
 
     await page.locator('#button-down-x').click();
 
-    const backX =  await page.locator('div:nth-child(3) > div > div:nth-child(1) > h6').innerText();
+    const backX =  await page.locator('div:nth-child(1) > div > div:nth-child(1) > h6').innerText();
     const backXValue = backX.split(": ")[1];
     console.log("x_new_1 = ", backXValue);
 
@@ -31,7 +31,7 @@ test.describe('Position', () => {
 
     await page.reload({ waitUntil: "networkidle" });
 
-    const x =  await page.locator('div:nth-child(3) > div > div:nth-child(1) > h6').innerText();
+    const x =  await page.locator('div:nth-child(1) > div > div:nth-child(1) > h6').innerText();
     const xValue = x.split(": ")[1];
     console.log("value_current = ", xValue);
 
@@ -39,13 +39,13 @@ test.describe('Position', () => {
   });
 
   test('Edit Y coordinate', async ({ page }) => {
-    const oldY =  await page.locator('div:nth-child(3) > div > div:nth-child(3) > h6').innerText();
+    const oldY =  await page.locator('div:nth-child(1) > div > div:nth-child(2) > h6').innerText();
     const oldYValue = oldY.split(": ")[1];
     console.log("y_def = ", oldYValue);
 
     await page.locator('#button-up-y').click();
 
-    const nextY =  await page.locator('div:nth-child(3) > div > div:nth-child(3) > h6').innerText();
+    const nextY =  await page.locator('div:nth-child(1) > div > div:nth-child(2) > h6').innerText();
     const nextYValue = nextY.split(": ")[1];
     console.log("y_new = ", nextYValue);
 
@@ -53,7 +53,7 @@ test.describe('Position', () => {
 
     await page.locator('#button-down-y').click();
 
-    const backY =  await page.locator('div:nth-child(3) > div > div:nth-child(3) > h6').innerText();
+    const backY =  await page.locator('div:nth-child(1) > div > div:nth-child(2) > h6').innerText();
     const backYValue = backY.split(": ")[1];
     console.log("y_new_1 = ", backYValue);
 
@@ -61,7 +61,7 @@ test.describe('Position', () => {
 
     await page.reload({ waitUntil: "networkidle" });
 
-    const y =  await page.locator('div:nth-child(3) > div > div:nth-child(3) > h6').innerText();
+    const y =  await page.locator('div:nth-child(1) > div > div:nth-child(2) > h6').innerText();
     const yValue = y.split(": ")[1];
     console.log("value_current = ", yValue);
 
@@ -69,13 +69,13 @@ test.describe('Position', () => {
   });
 
   test('Edit Z coordinate', async ({ page }) => {
-    const oldZ =  await page.locator('div:nth-child(3) > div > div:nth-child(5) > h6').innerText();
+    const oldZ =  await page.locator('div:nth-child(1) > div > div:nth-child(3) > h6').innerText();
     const oldZValue = oldZ.split(": ")[1];
     console.log("z_def = ", oldZValue);
 
     await page.locator('#button-up-z').click();
 
-    const nextZ =  await page.locator('div:nth-child(3) > div > div:nth-child(5) > h6').innerText();
+    const nextZ =  await page.locator('div:nth-child(1) > div > div:nth-child(3) > h6').innerText();
     const nextZValue = nextZ.split(": ")[1];
     console.log("z_new = ", nextZValue);
 
@@ -83,7 +83,7 @@ test.describe('Position', () => {
 
     await page.locator('#button-down-z').click();
 
-    const backZ =  await page.locator('div:nth-child(3) > div > div:nth-child(5) > h6').innerText();
+    const backZ =  await page.locator('div:nth-child(1) > div > div:nth-child(3) > h6').innerText();
     const backZValue = backZ.split(": ")[1];
     console.log("z_new_1 = ", backZValue);
 
@@ -91,7 +91,7 @@ test.describe('Position', () => {
 
     await page.reload({ waitUntil: "networkidle" });
 
-    const z =  await page.locator('div:nth-child(3) > div > div:nth-child(5) > h6').innerText();
+    const z =  await page.locator('div:nth-child(1) > div > div:nth-child(3) > h6').innerText();
     const zValue = z.split(": ")[1];
     console.log("value_current = ", zValue);
 
@@ -101,13 +101,13 @@ test.describe('Position', () => {
 
 test.describe('Orientation', () => {
   test('Edit pitch value', async ({ page }) => {
-    const oldPitch =  await page.locator('div:nth-child(3) > div > div > div:nth-child(2) > h6').innerText();
+    const oldPitch =  await page.locator('div:nth-child(2) > div > div:nth-child(1) > h6').innerText();
     const oldPitchValue = oldPitch.split(": ")[1];
     console.log("value_def = ", oldPitchValue);
 
     await page.locator('#button-up-pitch').click();
 
-    const nextPitch =  await page.locator('div:nth-child(3) > div > div > div:nth-child(2) > h6').innerText();
+    const nextPitch =  await page.locator('div:nth-child(2) > div > div:nth-child(1) > h6').innerText();
     const nextPitchValue = nextPitch.split(": ")[1];
     console.log("value_new = ", nextPitchValue);
 
@@ -115,7 +115,7 @@ test.describe('Orientation', () => {
 
     await page.locator('#button-down-pitch').click();
 
-    const backPitch =  await page.locator('div:nth-child(3) > div > div > div:nth-child(2) > h6').innerText();
+    const backPitch =  await page.locator('div:nth-child(2) > div > div:nth-child(1) > h6').innerText();
     const backPitchValue = backPitch.split(": ")[1];
     console.log("value_new_1 = ", backPitchValue);
 
@@ -123,7 +123,7 @@ test.describe('Orientation', () => {
 
     await page.reload({ waitUntil: "networkidle" });
 
-    const pitch =  await page.locator('div:nth-child(3) > div > div > div:nth-child(2) > h6').innerText();
+    const pitch =  await page.locator('div:nth-child(2) > div > div:nth-child(1) > h6').innerText();
     const pitchValue = pitch.split(": ")[1];
     console.log("value_current = ", pitchValue);
 
@@ -132,13 +132,13 @@ test.describe('Orientation', () => {
   });
 
   test('Edit roll value', async ({ page }) => {
-    const oldRoll =  await page.locator('div:nth-child(3) > div > div > div:nth-child(4) > h6').innerText();
+    const oldRoll =  await page.locator('div:nth-child(3) > div > div > div:nth-child(2) > div > div:nth-child(2) > h6').innerText();
     const oldRollValue = oldRoll.split(": ")[1];
     console.log("value_def = ", oldRollValue);
 
     await page.locator('#button-up-roll').click();
 
-    const nextRoll =  await page.locator('div:nth-child(3) > div > div > div:nth-child(4) > h6').innerText();
+    const nextRoll =  await page.locator('div:nth-child(3) > div > div > div:nth-child(2) > div > div:nth-child(2) > h6').innerText();
     const nextRollValue = nextRoll.split(": ")[1];
     console.log("value_new = ", nextRollValue);
 
@@ -146,7 +146,7 @@ test.describe('Orientation', () => {
 
     await page.locator('#button-down-roll').click();
 
-    const backRoll =  await page.locator('div:nth-child(3) > div > div > div:nth-child(4) > h6').innerText();
+    const backRoll =  await page.locator('div:nth-child(3) > div > div > div:nth-child(2) > div > div:nth-child(2) > h6').innerText();
     const backRollValue = backRoll.split(": ")[1];
     console.log("value_new_1 = ", backRollValue);
 
@@ -154,7 +154,7 @@ test.describe('Orientation', () => {
 
     await page.reload({ waitUntil: "networkidle" });
 
-    const roll =  await page.locator('div:nth-child(3) > div > div > div:nth-child(4) > h6').innerText();
+    const roll =  await page.locator('div:nth-child(3) > div > div > div:nth-child(2) > div > div:nth-child(2) > h6').innerText();
     const rollValue = roll.split(": ")[1];
     console.log("value_current = ", rollValue);
 
@@ -162,13 +162,13 @@ test.describe('Orientation', () => {
   });
 
   test('Edit yaw value', async ({ page }) => {
-    const oldYaw =  await page.locator('div:nth-child(3) > div > div > div:nth-child(6) > h6').innerText();
+    const oldYaw =  await page.locator('div:nth-child(2) > div > div:nth-child(3) > h6').innerText();
     const oldYawValue = oldYaw.split(": ")[1];
     console.log("value_def = ", oldYawValue);
 
     await page.locator('#button-up-yaw').click();
 
-    const nextYaw =  await page.locator('div:nth-child(3) > div > div > div:nth-child(6) > h6').innerText();
+    const nextYaw =  await page.locator('div:nth-child(2) > div > div:nth-child(3) > h6').innerText();
     const nextYawValue = nextYaw.split(": ")[1];
     console.log("value_new = ", nextYawValue);
 
@@ -176,7 +176,7 @@ test.describe('Orientation', () => {
 
     await page.locator('#button-down-yaw').click();
 
-    const backYaw =  await page.locator('div:nth-child(3) > div > div > div:nth-child(6) > h6').innerText();
+    const backYaw =  await page.locator('div:nth-child(2) > div > div:nth-child(3) > h6').innerText();
     const backYawValue = backYaw.split(": ")[1];
     console.log("value_new_1 = ", backYawValue);
 
@@ -184,7 +184,7 @@ test.describe('Orientation', () => {
 
     await page.reload({ waitUntil: "networkidle" });
 
-    const yaw =  await page.locator('div:nth-child(3) > div > div > div:nth-child(6) > h6').innerText();
+    const yaw =  await page.locator('div:nth-child(2) > div > div:nth-child(3) > h6').innerText();
     const yawValue = yaw.split(": ")[1];
     console.log("value_current = ", yawValue);
 
