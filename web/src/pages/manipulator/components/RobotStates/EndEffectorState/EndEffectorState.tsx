@@ -16,7 +16,6 @@ export default function EndEffectorState() {
         <StyledBox sx={{ mt: { md: 1, sm: 0 }, height: { md: '150px', xs: '280px' } }}>
             End-Effector State
             <Grid container justifyContent="center" sx={{ mt: { md: 0, xs: 7 }, mb: 1 }}>
-                {/* Первый столбец значений: x, y, z */}
                 <Grid item style={{ textAlign: 'right' }} sx={{ pl: 2, pr: 2 }}>
                     <Grid container direction="column" alignItems="flex-start">
                         <Grid item>
@@ -36,7 +35,6 @@ export default function EndEffectorState() {
                         </Grid>
                     </Grid>
                 </Grid>
-                {/* Второй столбец значений: pitch, roll, yaw */}
                 <Grid item style={{ textAlign: 'left' }} sx={{ pl: 2, pr: 2 }}>
                     <Grid container direction="column" alignItems="flex-start">
                         <Grid item>
