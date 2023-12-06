@@ -1,7 +1,7 @@
 const { test, expect } = require('@playwright/test');
 
 test.beforeEach(async ({ page }) => {
-    await page.goto('http://localhost:3000');
+    await page.goto('http://localhost:3000', {waitUntil: 'networkidle'});
 });
 
 test.describe('Planning', () => {
