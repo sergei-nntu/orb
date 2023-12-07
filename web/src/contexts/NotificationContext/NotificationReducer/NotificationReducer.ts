@@ -78,6 +78,15 @@ const reducer: Reducer<INotification, NotificationActionType> = function (state,
                     message: '',
                 },
             };
+        case NOTIFICATION.GET_QR_CODE:
+            return {
+                open: action.open,
+                severity: 'warning',
+                message: 'Please note that access to the QR code requires an active connection to our server!',
+                console: {
+                    message: '',
+                },
+            };
         case NOTIFICATION.HIDE:
             return {
                 ...state,
