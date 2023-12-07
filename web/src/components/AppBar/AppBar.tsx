@@ -106,16 +106,17 @@ export default function MenuAppBar() {
 
         await request(API_ROUTES.SET_ACTIVE_PROGRAM, options);
         const res = await request(API_ROUTES.START_PROGRAM);
-        if (res.success) {
+
+        if (res?.success) {
             dispatchNotification({ type: NOTIFICATION.RUN_BLOCKLY, open: true });
-        } else {
+        } else if (res?.success === false) {
             dispatchNotification({ type: NOTIFICATION.BLOCKLY_IS_ALREADY_RUNNING, open: true });
         }
     };
 
     const StopBlockly = async () => {
         const res = await request(API_ROUTES.STOP_PROGRAM);
-        if (res.success) {
+        if (res?.success) {
             dispatchNotification({ type: NOTIFICATION.STOP_BLOCKLY, open: true });
             return;
         }
@@ -140,7 +141,7 @@ export default function MenuAppBar() {
         };
 
         const res = await request(API_ROUTES.SET_ACTIVE_PROGRAM, options);
-        if (res.success) {
+        if (res?.success) {
             dispatchNotification({ type: NOTIFICATION.SAVE_BLOCKLY, open: true });
         }
     };
