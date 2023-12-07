@@ -17,6 +17,8 @@
   "homepage": "https://github.com/sergei-nntu/orb#readme",
   "devDependencies": {
     "@playwright/test": "^1.40.1",
-    "@types/node": "^20.9.3"
+    "@types/node": "^20.9.3",
+    "allure-commandline": "^2.25.0",
+    "allure-playwright": "^2.9.2"
   }
 }

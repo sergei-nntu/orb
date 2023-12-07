@@ -1,6 +1,7 @@
 # IDEA config files
 /.idea
-/playwright/test-results/
-/playwright/playwright-report/
 */node_modules
 **/orm/
+/playwright/test-results/
+/playwright/allure-results/
+/playwright/allure-report/
