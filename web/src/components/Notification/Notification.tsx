@@ -22,7 +22,7 @@ export default function Notification() {
             onClose={handleClose}
             autoHideDuration={5000}
         >
-            <Alert variant="filled" onClose={handleClose} severity={severity} sx={{ width: '100%' }}>
+            <Alert variant="filled" onClose={handleClose} severity={severity} sx={{ width: '100%', mb: 5 }}>
                 {message}
             </Alert>
         </Snackbar>
