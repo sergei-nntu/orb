@@ -78,6 +78,24 @@ const reducer: Reducer<INotification, NotificationActionType> = function (state,
                     message: '',
                 },
             };
+        case NOTIFICATION.BLOCKLY_WITHOUT_SERVER:
+            return {
+                open: action.open,
+                severity: 'warning',
+                message: 'Using Blockly requires connecting to the server to run or save blocks',
+                console: {
+                    message: '',
+                },
+            };
+        case NOTIFICATION.GET_QR_CODE:
+            return {
+                open: action.open,
+                severity: 'warning',
+                message: 'Please note that access to the QR code requires an active connection to our server!',
+                console: {
+                    message: '',
+                },
+            };
         case NOTIFICATION.HIDE:
             return {
                 ...state,

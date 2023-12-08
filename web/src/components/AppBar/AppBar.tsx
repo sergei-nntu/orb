@@ -106,20 +106,25 @@ export default function MenuAppBar() {
 
         await request(API_ROUTES.SET_ACTIVE_PROGRAM, options);
         const res = await request(API_ROUTES.START_PROGRAM);
-        if (res.success) {
+
+        if (res?.success) {
             dispatchNotification({ type: NOTIFICATION.RUN_BLOCKLY, open: true });
-        } else {
+        } else if (res?.success === false) {
             dispatchNotification({ type: NOTIFICATION.BLOCKLY_IS_ALREADY_RUNNING, open: true });
+        } else {
+            dispatchNotification({ type: NOTIFICATION.BLOCKLY_WITHOUT_SERVER, open: true });
         }
     };
 
     const StopBlockly = async () => {
         const res = await request(API_ROUTES.STOP_PROGRAM);
-        if (res.success) {
+        if (res?.success) {
             dispatchNotification({ type: NOTIFICATION.STOP_BLOCKLY, open: true });
-            return;
+        } else if (res?.success === false) {
+            dispatchNotification({ type: NOTIFICATION.BLOCKLY_IS_STOPPED, open: true });
+        } else {
+            dispatchNotification({ type: NOTIFICATION.BLOCKLY_WITHOUT_SERVER, open: true });
         }
-        dispatchNotification({ type: NOTIFICATION.BLOCKLY_IS_STOPPED, open: true });
     };
 
     const SaveBlockly = async () => {
@@ -140,8 +145,10 @@ export default function MenuAppBar() {
         };
 
         const res = await request(API_ROUTES.SET_ACTIVE_PROGRAM, options);
-        if (res.success) {
+        if (res?.success) {
             dispatchNotification({ type: NOTIFICATION.SAVE_BLOCKLY, open: true });
+        } else if (res?.success === undefined) {
+            dispatchNotification({ type: NOTIFICATION.BLOCKLY_WITHOUT_SERVER, open: true });
         }
     };
 
