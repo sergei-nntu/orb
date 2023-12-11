@@ -1,10 +1,11 @@
 import { Grid } from '@mui/material';
 import React, { useEffect, useState } from 'react';
-import Dog from './Dog';
-import DogStates from './DogStates/DogStates';
+
+import { API_ROUTES } from '../../constants';
 import { JointStateContext } from '../../contexts/OQPJointStateContext/JointStateContext';
 import useHttp from '../../hooks/Http/Http';
-import { API_ROUTES } from '../../constants';
+import Dog from './Dog';
+import DogStates from './DogStates/DogStates';
 
 export default function DogMain() {
     const { request } = useHttp();
@@ -42,7 +43,9 @@ export default function DogMain() {
                         knee4: (joint11Value * Math.PI) / 180,
                     }),
                 };
-                await request(API_ROUTES.GET_OQP_JOINT_STATE, options);
+
+                await request(API_ROUTES.POST_OQP_JOINT_STATE, options);
+
             } catch (error) {
                 console.error(error);
             }
