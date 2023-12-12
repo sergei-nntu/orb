@@ -4,6 +4,7 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import React from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
+import MessagesProvider from './contexts/MessagesContext/MessagesProvider/MessagesProvider';
 import NotificationProvider from './contexts/NotificationContext/NotificationProvider/NotificationProvider';
 import PoseProvider from './contexts/PoseContext/PoseProvider/PoseProvider';
 import Layout from './hoc/Layout/Layout';
@@ -60,10 +61,12 @@ function App() {
     return (
         <NotificationProvider>
             <PoseProvider>
-                <ThemeProvider theme={theme}>
-                    <CssBaseline />
-                    <RouterProvider router={router} />
-                </ThemeProvider>
+                <MessagesProvider>
+                    <ThemeProvider theme={theme}>
+                        <CssBaseline />
+                        <RouterProvider router={router} />
+                    </ThemeProvider>
+                </MessagesProvider>
             </PoseProvider>
         </NotificationProvider>
     );

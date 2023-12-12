@@ -24,9 +24,10 @@ import React, { useContext, useEffect } from 'react';
 
 import { API_ROUTES, KEY } from '../../constants';
 import { NotificationContext } from '../../contexts/NotificationContext/NotificationContext';
+import { PoseContext } from '../../contexts/PoseContext/PoseContext';
 import useHttp from '../../hooks/Http/Http';
 import { useRouter } from '../../hooks/Router/Router';
-import { NOTIFICATION } from '../../types/appTypes';
+import { NOTIFICATION, POSE } from '../../types/appTypes';
 import { AppBar, Drawer, DrawerHeader } from './StyledComponents/StyledComponents';
 
 const drawerData = [
@@ -54,8 +55,9 @@ const drawerData = [
 
 export default function MenuAppBar() {
     const theme = useTheme();
-    const router = useRouter();
     const { request } = useHttp();
+    const { dispatch } = useContext(PoseContext);
+    const router = useRouter();
     const { dispatchNotification } = useContext(NotificationContext);
     const [open, setOpen] = React.useState(false);
     const [title, setTitle] = React.useState('Navigation');
@@ -109,20 +111,25 @@ export default function MenuAppBar() {
 
         await request(API_ROUTES.SET_ACTIVE_PROGRAM, options);
         const res = await request(API_ROUTES.START_PROGRAM);
-        if (res.success) {
+
+        if (res?.success) {
             dispatchNotification({ type: NOTIFICATION.RUN_BLOCKLY, open: true });
-        } else {
+        } else if (res?.success === false) {
             dispatchNotification({ type: NOTIFICATION.BLOCKLY_IS_ALREADY_RUNNING, open: true });
+        } else {
+            dispatchNotification({ type: NOTIFICATION.BLOCKLY_WITHOUT_SERVER, open: true });
         }
     };
 
     const StopBlockly = async () => {
         const res = await request(API_ROUTES.STOP_PROGRAM);
-        if (res.success) {
+        if (res?.success) {
             dispatchNotification({ type: NOTIFICATION.STOP_BLOCKLY, open: true });
-            return;
+        } else if (res?.success === false) {
+            dispatchNotification({ type: NOTIFICATION.BLOCKLY_IS_STOPPED, open: true });
+        } else {
+            dispatchNotification({ type: NOTIFICATION.BLOCKLY_WITHOUT_SERVER, open: true });
         }
-        dispatchNotification({ type: NOTIFICATION.BLOCKLY_IS_STOPPED, open: true });
     };
 
     const SaveBlockly = async () => {
@@ -143,10 +150,40 @@ export default function MenuAppBar() {
         };
 
         const res = await request(API_ROUTES.SET_ACTIVE_PROGRAM, options);
-        if (res.success) {
+        if (res?.success) {
             dispatchNotification({ type: NOTIFICATION.SAVE_BLOCKLY, open: true });
+        } else if (res?.success === undefined) {
+            dispatchNotification({ type: NOTIFICATION.BLOCKLY_WITHOUT_SERVER, open: true });
         }
     };
+
+    const getPose = () => {
+        request(API_ROUTES.GET_POSE_STATE).then((res) => {
+            if (!res?.data) {
+                return;
+            }
+            dispatch({
+                type: POSE.SET_PREV_STATE,
+                prevState: {
+                    position: {
+                        x: res.data.x,
+                        y: res.data.y,
+                        z: res.data.z,
+                    },
+                    orientation: {
+                        pitch: res.data.pitch,
+                        roll: res.data.roll,
+                        yaw: res.data.yaw,
+                    },
+                    gripper_state: 0.0,
+                },
+            });
+        });
+    };
+
+    useEffect(() => {
+        getPose();
+    }, []);
 
     return (
         <>

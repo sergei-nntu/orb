@@ -45,12 +45,11 @@ export default function DogMain() {
                 };
 
                 await request(API_ROUTES.POST_OQP_JOINT_STATE, options);
-
             } catch (error) {
                 console.error(error);
             }
         };
-        sendJointStateToServer();
+        sendJointStateToServer().then();
     }, [
         joint0Value,
         joint1Value,

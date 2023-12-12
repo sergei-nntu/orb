@@ -30,7 +30,7 @@ const BlocklyEditor = (props: BlocklyEditorProps) => {
             (async () => {
                 const data = await request(API_ROUTES.GET_ACTIVE_PROGRAM);
 
-                if (data.structure) {
+                if (data?.structure) {
                     const structure = JSON.parse(data.structure);
                     if (workspace.current) {
                         Blockly.serialization.workspaces.load(structure, workspace.current);
@@ -66,7 +66,9 @@ const BlocklyEditor = (props: BlocklyEditorProps) => {
 
     const requestAndHighlightBlock = async () => {
         const data = await request(API_ROUTES.GET_PROGRAM_STATE);
-        highlightBlock(data.id);
+        if (data?.id) {
+            highlightBlock(data.id);
+        }
     };
 
     const handleWorkspaceChange = () => {

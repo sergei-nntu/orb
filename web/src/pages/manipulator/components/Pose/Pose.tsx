@@ -17,6 +17,7 @@ export default function Pose() {
     const { state, dispatch } = useContext(PoseContext);
     const prevStateRef = useRef<IPose | null>(null);
 
+    // TODO: Need to move it to EndEffectorState for optimization likely
     const sendStateToServer = async (state: IPose) => {
         try {
             const options = {
@@ -25,6 +26,7 @@ export default function Pose() {
                     x: state.position.x,
                     y: state.position.y,
                     z: state.position.z,
+
                     pitch: state.orientation.pitch,
                     roll: state.orientation.roll,
                     yaw: state.orientation.yaw,
@@ -37,6 +39,8 @@ export default function Pose() {
             if (execute) {
                 dispatchNotification({ type: NOTIFICATION.SUCCESS_PLANNING, open: false });
                 prevStateRef.current = { ...state };
+            } else if (!prevStateRef.current) {
+                dispatch({ type: POSE.RERENDER });
             } else {
                 dispatchNotification({ type: NOTIFICATION.NO_MOVE_TO_POSITION, open: false });
                 dispatch({ type: POSE.SET_PREV_STATE, prevState: prevStateRef.current });
@@ -51,19 +55,27 @@ export default function Pose() {
     }, [state]);
 
     return (
-        <Grid item xs={3}>
+        <Grid item xs={12} sm={12} md={4} lg={3}>
             <Item
                 sx={{
-                    minHeight: '80vh',
+                    minHeight: { md: '80vh', xs: '0' },
                     display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'flex-end',
+                    flexDirection: { md: 'column', xs: 'row' },
+                    alignItems: { xs: 'flex-end', md: 'stretch' },
                     ml: 1,
                 }}
             >
-                <Position />
-                <Orientation />
-                <EndEffectorState />
+                <Grid item xs={4} sm={4} md={12}>
+                    <Position />
+                </Grid>
+
+                <Grid item xs={4} sm={4} md={12}>
+                    <Orientation />
+                </Grid>
+
+                <Grid item xs={4} sm={4} md={12}>
+                    <EndEffectorState />
+                </Grid>
             </Item>
         </Grid>
     );

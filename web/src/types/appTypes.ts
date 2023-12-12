@@ -29,6 +29,7 @@ export enum POSE {
     ORIENTATION_YAW_DOWN = 'ORIENTATION_YAW_DOWN',
     SET_GRIPPER_STATE = 'SET_GRIPPER_STATE',
     SET_PREV_STATE = 'SET_PREV_STATE',
+    RERENDER = 'RERENDER',
 }
 
 export type PoseActionType =
@@ -48,8 +49,10 @@ export type PoseActionType =
     | Action<POSE.SET_PREV_STATE, { prevState: IPose }>;
 
 export enum CONSOLE_MESSAGE {
+    INITIALIZED = 'Initialized',
     NO_MOVE_TO_POSITION = 'There is no move to this position. Previous state was returned',
     SUCCESS_PLANNING = 'Changed goal state',
+    NO_CONNECTION_WITH_SERVER = 'Error with connection to the server',
 }
 
 export interface INotification {
@@ -69,8 +72,10 @@ export enum NOTIFICATION {
     SAVE_BLOCKLY = 'SAVE_BLOCKLY',
     STOP_BLOCKLY = 'STOP_BLOCKLY',
     RUN_BLOCKLY = 'RUN_BLOCKLY',
+    BLOCKLY_WITHOUT_SERVER = 'BLOCKLY_WITHOUT_SERVER',
     BLOCKLY_IS_ALREADY_RUNNING = 'BLOCKLY_IS_ALREADY_RUNNING',
     BLOCKLY_IS_STOPPED = 'BLOCKLY_IS_STOPPED',
+    GET_QR_CODE = 'GET_QR_CODE',
 }
 
 export type NotificationActionType =
@@ -81,6 +86,18 @@ export type NotificationActionType =
     | Action<NOTIFICATION.STOP_BLOCKLY, { open: boolean }>
     | Action<NOTIFICATION.RUN_BLOCKLY, { open: boolean }>
     | Action<NOTIFICATION.BLOCKLY_IS_ALREADY_RUNNING, { open: boolean }>
+    | Action<NOTIFICATION.BLOCKLY_WITHOUT_SERVER, { open: boolean }>
     | Action<NOTIFICATION.BLOCKLY_IS_STOPPED, { open: boolean }>
+    | Action<NOTIFICATION.GET_QR_CODE, { open: boolean }>
     | Action<NOTIFICATION.HIDE>
     | Action<POSE.SET_PREV_STATE, { prevState: IPose }>;
+
+export interface IJointsState {
+    shoulder: number;
+    upperArm: number;
+    forearm: number;
+    wrist1: number;
+    wrist2: number;
+    endEffectorLink: number;
+    claws: number;
+}
