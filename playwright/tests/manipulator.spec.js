@@ -8,6 +8,7 @@ test.beforeEach(async ({ page }) => {
   await expect(locator).toContainText('Manipulator');
 });
 test.describe('Position', () => {
+  test.describe.configure({ mode: 'serial' });
   test('Edit X coordinate', async ({ page }) => {
     const oldX =  await page.locator('div:nth-child(1) > div > div:nth-child(1) > h6').innerText();
     const oldXValue = oldX.split(": ")[1];
@@ -100,6 +101,7 @@ test.describe('Position', () => {
 });
 
 test.describe('Orientation', () => {
+  test.describe.configure({ mode: 'serial' });
   test('Edit pitch value', async ({ page }) => {
     const oldPitch =  await page.locator('div:nth-child(2) > div > div:nth-child(1) > h6').innerText();
     const oldPitchValue = oldPitch.split(": ")[1];
@@ -192,6 +194,7 @@ test.describe('Orientation', () => {
   });
 });
 test.describe.skip('Joints Position', () => {
+  test.describe.configure({ mode: 'serial' });
   test('Edit Joint0', async ({ page }) => {
     const oldJoint0 =  await page.locator('#input-joint0').inputValue();
     console.log("value_def = ", oldJoint0);
