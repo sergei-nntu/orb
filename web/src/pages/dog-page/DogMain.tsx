@@ -9,7 +9,7 @@ import DogStates from './DogStates/DogStates';
 
 export default function DogMain() {
     const { request } = useHttp();
-
+    // FIXME: It's necessary to replace all these states with one
     const [joint0Value, setJoint0Value] = useState(0);
     const [joint1Value, setJoint1Value] = useState(0);
     const [joint2Value, setJoint2Value] = useState(0);
@@ -26,6 +26,10 @@ export default function DogMain() {
     useEffect(() => {
         const sendJointStateToServer = async () => {
             try {
+                if (isInitialState()) {
+                    return;
+                }
+
                 const options = {
                     method: 'POST',
                     body: JSON.stringify({
@@ -64,6 +68,23 @@ export default function DogMain() {
         joint10Value,
         joint11Value,
     ]);
+
+    const isInitialState = () => {
+        return (
+            joint0Value === 0 &&
+            joint1Value === 0 &&
+            joint2Value === 0 &&
+            joint3Value === 0 &&
+            joint4Value === 0 &&
+            joint5Value === 0 &&
+            joint6Value === 0 &&
+            joint7Value === 0 &&
+            joint8Value === 0 &&
+            joint9Value === 0 &&
+            joint10Value === 0 &&
+            joint11Value === 0
+        );
+    };
 
     useEffect(() => {
         async function fetchFunc() {
