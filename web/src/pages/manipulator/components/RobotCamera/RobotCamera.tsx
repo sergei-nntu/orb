@@ -100,47 +100,47 @@ export default function RobotCamera({
                             alignItems: 'center',
                         }}
                     >
-                        <Canvas shadows camera={{ position: [2, 5, -10] }}>
+                        <Canvas shadows camera={{ position: [0, 0.7, -1] }}>
                             <Lights />
                             <Suspense fallback={<Loader />}>
                                 {/* eslint-disable-next-line react/no-unknown-property */}
-                                <group rotation={[1.6, 0, 0]} position={[0, 1.39, 0]} scale={[0.01, 0.01, 0.01]}>
-                                    <Model url={'models/orm-modified-models/base_link_m-binary.stl'} color="#ffffaa">
+                                <group rotation={[-1.55, 0, 0]}>
+                                    <Model url={'models/orm-modified-models/base_link.stl'} color="#ffffaa">
                                         <Model
-                                            url={'models/orm-modified-models/shoulder_1_m-binary.stl'}
+                                            url={'models/orm-modified-models/shoulder.stl'}
                                             point={new THREE.Vector3(0.000666, -0.07459, 0.106659)}
                                             axis={new THREE.Vector3(0, 0, 1)}
                                             theta={shoulder}
                                         >
                                             <Model
-                                                url={'models/orm-modified-models/upper_arm_m-binary.stl'}
-                                                point={new THREE.Vector3(0, 0, 17)}
+                                                url={'models/orm-modified-models/upper_arm.stl'}
+                                                point={new THREE.Vector3(0, -0.075, 0.122)}
                                                 axis={new THREE.Vector3(1, 0, 0)}
                                                 theta={upperArm}
                                             >
                                                 <Model
-                                                    url={'models/orm-modified-models/forearm_m-binary.stl'}
-                                                    point={new THREE.Vector3(0, 0.2, -210)}
+                                                    url={'models/orm-modified-models/forearm.stl'}
+                                                    point={new THREE.Vector3(0, -0.076, 0.35)}
                                                     axis={new THREE.Vector3(1, 0, 0)}
-                                                    theta={-forearm}
+                                                    theta={forearm}
                                                 >
                                                     <Model
-                                                        url={'models/orm-modified-models/wrist_link_1_m-binary.stl'}
-                                                        point={new THREE.Vector3(0, 0, -425)}
+                                                        url={'models/orm-modified-models/wrist_link_1.stl'}
+                                                        point={new THREE.Vector3(0, -0.076, 0.566)}
                                                         axis={new THREE.Vector3(1, 0, 0)}
                                                         theta={wrist1}
                                                     >
                                                         <Model
-                                                            url={'models/orm-modified-models/wrist_link_2_m-binary.stl'}
-                                                            point={new THREE.Vector3(-118, 0, 0)}
+                                                            url={'models/orm-modified-models/wrist_link_2.stl'}
+                                                            point={new THREE.Vector3(0.118, -0.075, 0)}
                                                             axis={new THREE.Vector3(0, 0, 1)}
                                                             theta={wrist2}
                                                         >
                                                             <Model
                                                                 url={
-                                                                    'models/orm-modified-models/gripper_without_claws_1.stl'
+                                                                    'models/orm-modified-models/gripper_without_claws.stl'
                                                                 }
-                                                                point={new THREE.Vector3(-120, 50, -500)}
+                                                                point={new THREE.Vector3(0.117, 0, 0.643)}
                                                                 axis={new THREE.Vector3(0, 1, 0)}
                                                                 theta={endEffectorLink}
                                                             >
@@ -148,7 +148,7 @@ export default function RobotCamera({
                                                                     url={
                                                                         'models/orm-modified-models/gripper_claw_right.stl'
                                                                     }
-                                                                    point={new THREE.Vector3(-118.5, 99.5, 0)}
+                                                                    point={new THREE.Vector3(0.115, 0.025, 0)}
                                                                     axis={new THREE.Vector3(0, 0, 1)}
                                                                     theta={-claws}
                                                                 ></Model>
@@ -156,7 +156,7 @@ export default function RobotCamera({
                                                                     url={
                                                                         'models/orm-modified-models/gripper_claw_left.stl'
                                                                     }
-                                                                    point={new THREE.Vector3(-118.5, 99.5, 0)}
+                                                                    point={new THREE.Vector3(0.12, 0.02, 0)}
                                                                     axis={new THREE.Vector3(0, 0, 1)}
                                                                     theta={claws}
                                                                 ></Model>
