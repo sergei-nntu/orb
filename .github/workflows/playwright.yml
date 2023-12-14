@@ -87,12 +87,12 @@ jobs:
 #    - uses: actions/checkout@v3
 #      with:
 #        ref: playwright-tests
-    - name: Set up JDK 1.8
-      uses: actions/setup-java@v4
-      with:
-        distribution: 'temurin'
-        java-version: 8
-    - name: "Send message"
-      run: java "-DconfigFile=notifications/config.json" -jar notifications/allure-notifications-4.2.1.jar
-      working-directory: ./playwright
+#    - name: Set up JDK 1.8
+#      uses: actions/setup-java@v4
+#      with:
+#        distribution: 'temurin'
+#        java-version: 8
+#    - name: "Send message"
+#      run: java "-DconfigFile=notifications/config.json" -jar notifications/allure-notifications-4.2.1.jar
+#      working-directory: ./playwright
 
