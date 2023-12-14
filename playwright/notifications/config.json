@@ -1,0 +1,18 @@
+{
+  "base": {
+    "project": "ORB",
+    "environment": "testing",
+    "comment": "",
+    "reportLink": "",
+    "language": "en",
+    "allureFolder": "allure-report/",
+    "enableChart": true,
+    "logo": "",
+    "durationFormat": "HH:mm:ss.SSS"
+  },
+  "telegram": {
+    "token": "6679543013:AAGJcdt_xG1uD7uACKILhN1INE4iD6Ve4gI",
+    "chat": "1784681932",
+    "replyTo": ""
+  }
+}
