@@ -1,7 +1,10 @@
 name: Playwright Tests
 on:
   schedule:
-    - cron: "0 6 * * *"
+    - cron: "30 10 * * *"
+      branches:
+        include:
+         [playwright-tests ]
   push:
     branches: [ playwright-tests ]
 #  pull_request:
