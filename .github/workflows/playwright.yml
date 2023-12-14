@@ -1,7 +1,7 @@
 name: Playwright Tests
 on:
   schedule:
-    - cron: "35 7 * * *"
+    - cron: "0 9 * * *"
       branches: [playwright-tests ]
   push:
     branches: [ playwright-tests ]
