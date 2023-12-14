@@ -1,7 +1,7 @@
 name: Playwright Tests
 on:
   schedule:
-    - cron: "40 10 * * *"
+    - cron: "0 3 * * *"
   push:
     branches: [ playwright-tests ]
 #  pull_request:
@@ -16,7 +16,7 @@ jobs:
       uses: actions/checkout@v3
       with:
         ref: playwright-tests
-    - name: "Checkout branch for push and pr event"
+    - name: "Checkout branch for push event"
       if: (github.event_name != 'schedule')
       uses: actions/checkout@v3
       with:
