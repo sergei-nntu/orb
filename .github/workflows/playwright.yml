@@ -47,7 +47,7 @@ jobs:
       run: npm install --save-dev allure-playwright
       working-directory: ./playwright
     - name: Generate the Allure Report
-      run: allure generate ./allure-result --clean
+      run: npx allure serve allure-results
       working-directory: ./playwright
     - uses: actions/upload-artifact@v3
       if: always()
