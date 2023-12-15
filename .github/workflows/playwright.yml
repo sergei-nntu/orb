@@ -9,7 +9,7 @@ on:
 jobs:
   test:
     timeout-minutes: 60
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
     steps:
     - name: "Checkout branch for schedule event"
       if: (github.event_name == 'schedule')
