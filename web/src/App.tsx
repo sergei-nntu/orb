@@ -8,6 +8,7 @@ import MessagesProvider from './contexts/MessagesContext/MessagesProvider/Messag
 import NotificationProvider from './contexts/NotificationContext/NotificationProvider/NotificationProvider';
 import PoseProvider from './contexts/PoseContext/PoseProvider/PoseProvider';
 import Layout from './hoc/Layout/Layout';
+import DogMain from './pages/dog-page/DogMain';
 import ErrorPage from './pages/error-page/ErrorPage';
 import Manipulator from './pages/manipulator/Manipulator';
 import Navigation from './pages/navigation/Navigation';
@@ -35,6 +36,10 @@ const router = createBrowserRouter([
             {
                 path: '/qr',
                 element: <QRPage />,
+            },
+            {
+                path: '/dog',
+                element: <DogMain />,
             },
         ],
     },

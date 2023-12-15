@@ -20,6 +20,7 @@ export default function Manipulator() {
         wrist1: 0,
         wrist2: 0,
         endEffectorLink: 0,
+        claws: 0,
     });
 
     useEffect(() => {

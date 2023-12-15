@@ -11,6 +11,8 @@ export enum API_ROUTES {
     STOP_PROGRAM = '/stop_program',
     GET_PROGRAM_STATE = '/get_program_state',
     GET_ACTIVE_PROGRAM = '/get_active_program',
+    GET_OQP_JOINT_STATE = '/get_oqp_joint_state',
+    POST_OQP_JOINT_STATE = '/post_oqp_joint_state',
     GET_JOINTS_STATE = '/get_joints_state',
     GET_POSE_STATE = '/get_pose_state',
     CHECK_SERVER_STATUS = '/check_server_status',
