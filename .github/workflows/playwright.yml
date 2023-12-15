@@ -50,12 +50,6 @@ jobs:
         name: allure-results
         path: ./playwright/allure-results
         retention-days: 20
-    - uses: actions/upload-artifact@v3
-      if: always()
-      with:
-        name: allure-report
-        path: ./playwright/allure-report
-        retention-days: 20
 
 #    - name: Get Allure history
 #      uses: actions/checkout@v3
@@ -65,15 +59,15 @@ jobs:
 #        ref: gh-pages
 #        path: gh-pages
 #
-    - uses: simple-elf/allure-report-action@master
-      if: always()
-      id: allure-report
-      with:
-        allure_results: allure-results
-#        gh_pages: gh-pages
-        allure_report: allure-report
-        allure_history: allure-history
-        keep_reports: 20
+#    - uses: simple-elf/allure-report-action@master
+#      if: always()
+#      id: allure-report
+#      with:
+#        allure_results: allure-results
+##        gh_pages: gh-pages
+#        allure_report: allure-report
+#        allure_history: allure-history
+#        keep_reports: 20
 
 #    - name: Deploy report to Github Pages
 #      if: always()
@@ -97,5 +91,5 @@ jobs:
     - name: "Send message"
       run: ls
 #      java "-DconfigFile=notifications/config.json" -jar notifications/allure-notifications-4.2.1.jar
-      working-directory: ./playwright/allure-report
+      working-directory: ./playwright
 
