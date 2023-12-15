@@ -6,6 +6,7 @@ import NextPlanIcon from '@mui/icons-material/NextPlan';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import PrecisionManufacturingIcon from '@mui/icons-material/PrecisionManufacturing';
 import QrCode2Icon from '@mui/icons-material/QrCode2';
+import SmartToyIcon from '@mui/icons-material/SmartToy';
 import StopIcon from '@mui/icons-material/Stop';
 import { Box, Button } from '@mui/material';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -45,6 +46,10 @@ const drawerData = [
     {
         icon: <QrCode2Icon />,
         text: 'QR',
+    },
+    {
+        icon: <SmartToyIcon />,
+        text: 'Dog',
     },
 ];
 

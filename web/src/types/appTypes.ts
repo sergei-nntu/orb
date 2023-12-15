@@ -99,4 +99,5 @@ export interface IJointsState {
     wrist1: number;
     wrist2: number;
     endEffectorLink: number;
+    claws: number;
 }
