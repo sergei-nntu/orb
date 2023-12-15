@@ -35,18 +35,19 @@ jobs:
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps
       working-directory: ./playwright
+    - run: |
+      sudo apt-get install default-jre
+      wget https://github.com/allure-framework/allure2/releases/download/2.18.1/allure_2.18.1-1_all.deb
+      sudo dpkg -i allure_2.18.1-1_all.deb
     - name: Run Playwright tests
       run: npx playwright test
       working-directory: ./playwright
-    - run: |
-        sudo apt-get install default-jre
-        wget https://github.com/allure-framework/allure2/releases/download/2.18.1/allure_2.18.1-1_all.deb
-        sudo dpkg -i allure_2.18.1-1_all.deb
     - name: Install the Allure Playwright
       if: always()
       run: npm install --save-dev allure-playwright
       working-directory: ./playwright
     - name: Generate the Allure Report
+      if: always()
       run: allure generate allure-results -o allure-report
       working-directory: ./playwright
     - uses: actions/upload-artifact@v3
