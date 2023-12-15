@@ -38,6 +38,15 @@ jobs:
     - name: Run Playwright tests
       run: npx playwright test
       working-directory: ./playwright
+    - name: Install the Allure Report
+      run: npm install --save-dev allure-commandline
+      working-directory: ./playwright
+    - name: Install the Allure Playwright
+      run: npm install --save-dev allure-playwright
+      working-directory: ./playwright
+    - name: Generate the Allure Report
+      run: allure generate ./allure-result --clean
+      working-directory: ./playwright
     - uses: actions/upload-artifact@v3
       if: always()
       with:
@@ -91,5 +100,5 @@ jobs:
     - name: "Send message"
       run: ls
 #      java "-DconfigFile=notifications/config.json" -jar notifications/allure-notifications-4.2.1.jar
-      working-directory: ./playwright/allure-results
+      working-directory: ./playwright/allure-report
 
