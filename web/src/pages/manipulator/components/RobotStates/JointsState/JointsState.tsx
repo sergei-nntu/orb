@@ -67,12 +67,22 @@ export default function JointsState() {
     }, []);
 
     useEffect(() => {
-        request(API_ROUTES.GET_JOINTS_STATE).then((r) => {
-            const radianValues: number[] = Object.values(r);
-            const degreesValues = radianValues.map((element: number) => +((180 * element) / Math.PI).toFixed(0));
-            setJointValues(degreesValues);
-        });
+        getJointsValues();
     }, [state]);
+
+    useEffect(() => {
+        getJointsValues();
+    }, []);
+
+    const getJointsValues = () => {
+        request(API_ROUTES.GET_JOINTS_STATE)
+            .then((r) => {
+                const radianValues: number[] = Object.values(r);
+                const degreesValues = radianValues.map((element: number) => +((180 * element) / Math.PI).toFixed(0));
+                setJointValues(degreesValues);
+            })
+            .catch((error) => console.log(error));
+    };
 
     return (
         <StyledBox sx={{ width: '100%', ml: { xs: 1, md: 0 }, mt: { xs: 0, md: 1 }, minHeight: '280px' }}>
