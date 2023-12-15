@@ -14,7 +14,7 @@ jobs:
     - name: "Checkout branch for schedule event"
       if: (github.event_name == 'schedule')
       run: echo "This step will always run"
-      uses: actions/checkout@v3
+    - uses: actions/checkout@v3
       with:
         ref: playwright-tests
     - name: "Checkout branch for push event"
