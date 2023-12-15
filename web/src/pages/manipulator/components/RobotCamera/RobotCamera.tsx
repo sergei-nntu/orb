@@ -122,7 +122,7 @@ export default function RobotCamera({
                                                     url={'models/orm-modified-models/forearm.stl'}
                                                     point={new THREE.Vector3(0, -0.076, 0.35)}
                                                     axis={new THREE.Vector3(1, 0, 0)}
-                                                    theta={forearm}
+                                                    theta={-forearm}
                                                 >
                                                     <Model
                                                         url={'models/orm-modified-models/wrist_link_1.stl'}
