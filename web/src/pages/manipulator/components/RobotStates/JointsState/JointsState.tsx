@@ -4,9 +4,10 @@ import MuiInput from '@mui/material/Input';
 import Slider from '@mui/material/Slider';
 import { styled } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
-import React, { ChangeEvent, useEffect, useState } from 'react';
+import React, { ChangeEvent, useContext, useEffect, useState } from 'react';
 
 import { API_ROUTES } from '../../../../../constants';
+import { PoseContext } from '../../../../../contexts/PoseContext/PoseContext';
 import useHttp from '../../../../../hooks/Http/Http';
 import { StyledBox } from '../../StyledComponents/StyledComponents';
 
@@ -27,6 +28,7 @@ type HandleBlurFunction = (value: SliderValue, setValue: React.Dispatch<React.Se
 
 export default function JointsState() {
     const { request } = useHttp();
+    const { state } = useContext(PoseContext);
     const initialJointValues = Array(6).fill(0);
     const [jointValues, setJointValues] = useState<SliderValue[]>(initialJointValues);
 
@@ -62,7 +64,15 @@ export default function JointsState() {
             }),
         };
         request(API_ROUTES.POST_JOINTS_STATE, options).then();
-    }, [jointValues]);
+    }, []);
+
+    useEffect(() => {
+        request(API_ROUTES.GET_JOINTS_STATE).then((r) => {
+            const radianValues: number[] = Object.values(r);
+            const degreesValues = radianValues.map((element: number) => +((180 * element) / Math.PI).toFixed(0));
+            setJointValues(degreesValues);
+        });
+    }, [state]);
 
     return (
         <StyledBox sx={{ width: '100%', ml: { xs: 1, md: 0 }, mt: { xs: 0, md: 1 }, minHeight: '280px' }}>

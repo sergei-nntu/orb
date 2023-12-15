@@ -63,7 +63,7 @@ function App() {
             <PoseProvider>
                 <MessagesProvider>
                     <ThemeProvider theme={theme}>
-                        <CssBaseline />
+                        <CssBaseline enableColorScheme />
                         <RouterProvider router={router} />
                     </ThemeProvider>
                 </MessagesProvider>
