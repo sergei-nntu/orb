@@ -9,7 +9,7 @@ on:
 jobs:
   test:
     timeout-minutes: 60
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     steps:
     - name: "Checkout branch for schedule event"
       if: (github.event_name == 'schedule')
@@ -104,5 +104,5 @@ jobs:
       if: always()
       run: ls
 #      java "-DconfigFile=notifications/config.json" -jar notifications/allure-notifications-4.2.1.jar
-      working-directory: ./playwright/allure-report
+      working-directory: ./playwright
 
