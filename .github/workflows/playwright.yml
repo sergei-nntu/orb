@@ -1,7 +1,7 @@
 name: Playwright Tests
 on:
   schedule:
-    - cron: "0 12 * * *"
+    - cron: "0 3 * * *"
   push:
     branches: [ playwright-tests ]
 #  pull_request:
@@ -15,11 +15,6 @@ jobs:
       if: (github.event_name == 'schedule')
       run: echo "This step will always run"
     - uses: actions/checkout@v3
-      with:
-        ref: playwright-tests
-    - name: "Checkout branch for push event"
-      if: (github.event_name != 'schedule')
-      uses: actions/checkout@v3
       with:
         ref: playwright-tests
     - uses: actions/setup-node@v3
@@ -50,9 +45,16 @@ jobs:
         path: ./playwright/playwright-report/
         retention-days: 20
     - uses: actions/upload-artifact@v3
+      if: always()
       with:
         name: allure-results
         path: ./playwright/allure-results
+        retention-days: 20
+    - uses: actions/upload-artifact@v3
+      if: always()
+      with:
+        name: allure-report
+        path: ./playwright/allure-report
         retention-days: 20
 
 #    - name: Get Allure history
@@ -63,8 +65,7 @@ jobs:
 #        ref: gh-pages
 #        path: gh-pages
 #
-    - name: Test marketplace action
-      uses: simple-elf/allure-report-action@master
+    - uses: simple-elf/allure-report-action@master
       if: always()
       id: allure-report
       with:
@@ -88,12 +89,13 @@ jobs:
 #    - uses: actions/checkout@v3
 #      with:
 #        ref: playwright-tests
-#    - name: Set up JDK 1.8
-#      uses: actions/setup-java@v4
-#      with:
-#        distribution: 'temurin'
-#        java-version: 8
-#    - name: "Send message"
-#      run: java "-DconfigFile=notifications/config.json" -jar notifications/allure-notifications-4.2.1.jar
-#      working-directory: ./playwright
+    - name: Set up JDK 1.8
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'temurin'
+        java-version: 8
+    - name: "Send message"
+      run: ls
+#      java "-DconfigFile=notifications/config.json" -jar notifications/allure-notifications-4.2.1.jar
+      working-directory: ./playwright/allure-report
 
