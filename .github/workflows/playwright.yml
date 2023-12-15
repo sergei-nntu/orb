@@ -91,5 +91,5 @@ jobs:
     - name: "Send message"
       run: ls
 #      java "-DconfigFile=notifications/config.json" -jar notifications/allure-notifications-4.2.1.jar
-      working-directory: ./playwright
+      working-directory: ./playwright/allure-results
 
