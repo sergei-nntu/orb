@@ -39,7 +39,7 @@ jobs:
       run: npx playwright test
       working-directory: ./playwright
     - name: Install the Allure Report
-      run: npm install --save-dev allure-commandline
+      run: sudo apt-get install allure
       working-directory: ./playwright
     - name: Install the Allure Playwright
       run: npm install --save-dev allure-playwright
