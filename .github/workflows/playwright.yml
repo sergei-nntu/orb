@@ -104,5 +104,5 @@ jobs:
     - name: "Send message"
       if: always()
       run: java "-DconfigFile=notifications/config.json" -jar notifications/allure-notifications-4.2.1.jar
-      working-directory: ./playwright/allure-report
+      working-directory: ./playwright
 
