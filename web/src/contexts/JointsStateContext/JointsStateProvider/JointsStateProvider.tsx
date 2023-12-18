@@ -1,9 +1,8 @@
-import React, { useContext, useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 
 import { API_ROUTES } from '../../../constants';
 import useHttp from '../../../hooks/Http/Http';
 import { IJointsState } from '../../../types/appTypes';
-import { PoseContext } from '../../PoseContext/PoseContext';
 import { JointsStateContext } from '../JointsStateContext';
 
 type JointsStateProviderProps = {
@@ -12,7 +11,6 @@ type JointsStateProviderProps = {
 
 export default function JointsStateProvider(props: JointsStateProviderProps) {
     const { request } = useHttp();
-    const { state } = useContext(PoseContext);
     const [jointsState, setJointsState] = useState<IJointsState>({
         shoulder: 0,
         upperArm: 0,
@@ -25,7 +23,7 @@ export default function JointsStateProvider(props: JointsStateProviderProps) {
 
     useEffect(() => {
         request(API_ROUTES.GET_JOINTS_STATE).then((r) => setJointsState(r));
-    }, [state]);
+    });
 
     const value = useMemo(() => ({ jointsState, setJointsState }), [jointsState]);
     return <JointsStateContext.Provider value={value}>{props.children}</JointsStateContext.Provider>;
