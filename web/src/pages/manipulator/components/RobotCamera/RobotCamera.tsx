@@ -5,28 +5,22 @@ import { styled } from '@mui/material/styles';
 import { CameraControls, Html, OrbitControls, useProgress } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
 import { useLoader } from '@react-three/fiber';
-import React, { ReactNode, useEffect, useRef } from 'react';
+import React, { ReactNode, useContext, useEffect, useRef } from 'react';
 import { Suspense } from 'react';
 import * as THREE from 'three';
 import { BufferGeometry, Mesh, NormalBufferAttributes, Vector3 } from 'three';
 import { STLLoader } from 'three/examples/jsm/loaders/STLLoader';
 
-import { IJointsState } from '../../../../types/appTypes';
+import { JointsStateContext } from '../../../../contexts/JointsStateContext/JointsStateContext';
 import { Item } from '../StyledComponents/StyledComponents';
 
 const StyledPaper = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff5d4',
 }));
 
-export default function RobotCamera({
-    shoulder,
-    upperArm,
-    forearm,
-    wrist1,
-    wrist2,
-    endEffectorLink,
-    claws,
-}: IJointsState) {
+export default function RobotCamera() {
+    const { jointsState } = useContext(JointsStateContext);
+
     function Loader() {
         const { progress } = useProgress();
         return <Html center>{progress} % loaded</Html>;
@@ -110,31 +104,31 @@ export default function RobotCamera({
                                             url={'models/orm-modified-models/shoulder.stl'}
                                             point={new THREE.Vector3(0.000666, -0.07459, 0.106659)}
                                             axis={new THREE.Vector3(0, 0, 1)}
-                                            theta={shoulder}
+                                            theta={jointsState.shoulder}
                                         >
                                             <Model
                                                 url={'models/orm-modified-models/upper_arm.stl'}
                                                 point={new THREE.Vector3(0, -0.075, 0.122)}
                                                 axis={new THREE.Vector3(1, 0, 0)}
-                                                theta={upperArm}
+                                                theta={jointsState.upperArm}
                                             >
                                                 <Model
                                                     url={'models/orm-modified-models/forearm.stl'}
                                                     point={new THREE.Vector3(0, -0.076, 0.35)}
                                                     axis={new THREE.Vector3(1, 0, 0)}
-                                                    theta={-forearm}
+                                                    theta={-jointsState.forearm}
                                                 >
                                                     <Model
                                                         url={'models/orm-modified-models/wrist_link_1.stl'}
                                                         point={new THREE.Vector3(0, -0.076, 0.566)}
                                                         axis={new THREE.Vector3(1, 0, 0)}
-                                                        theta={wrist1}
+                                                        theta={jointsState.wrist1}
                                                     >
                                                         <Model
                                                             url={'models/orm-modified-models/wrist_link_2.stl'}
                                                             point={new THREE.Vector3(0.118, -0.075, 0)}
                                                             axis={new THREE.Vector3(0, 0, 1)}
-                                                            theta={wrist2}
+                                                            theta={jointsState.wrist2}
                                                         >
                                                             <Model
                                                                 url={
@@ -142,7 +136,7 @@ export default function RobotCamera({
                                                                 }
                                                                 point={new THREE.Vector3(0.117, 0, 0.643)}
                                                                 axis={new THREE.Vector3(0, 1, 0)}
-                                                                theta={endEffectorLink}
+                                                                theta={jointsState.endEffectorLink}
                                                             >
                                                                 <Model
                                                                     url={
@@ -150,7 +144,7 @@ export default function RobotCamera({
                                                                     }
                                                                     point={new THREE.Vector3(0.115, 0.025, 0)}
                                                                     axis={new THREE.Vector3(0, 0, 1)}
-                                                                    theta={-claws}
+                                                                    theta={-jointsState.claws}
                                                                 ></Model>
                                                                 <Model
                                                                     url={
@@ -158,7 +152,7 @@ export default function RobotCamera({
                                                                     }
                                                                     point={new THREE.Vector3(0.12, 0.02, 0)}
                                                                     axis={new THREE.Vector3(0, 0, 1)}
-                                                                    theta={claws}
+                                                                    theta={jointsState.claws}
                                                                 ></Model>
                                                             </Model>
                                                         </Model>
