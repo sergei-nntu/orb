@@ -1,7 +1,8 @@
 name: Playwright Tests
 on:
+  workflow_dispatch:
   schedule:
-    - cron: "0 3 * * *"
+    - cron: "30 12 * * *"
   push:
     branches: [ playwright-tests ]
 #  pull_request:
@@ -11,9 +12,6 @@ jobs:
     timeout-minutes: 60
     runs-on: ubuntu-latest
     steps:
-    - name: "Checkout branch for schedule event"
-      if: (github.event_name == 'schedule')
-      run: echo "This step will always run"
     - uses: actions/checkout@v3
       with:
         ref: playwright-tests
