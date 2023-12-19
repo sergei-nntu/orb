@@ -8,7 +8,9 @@ import React, { ChangeEvent, useContext, useEffect, useState } from 'react';
 
 import { API_ROUTES } from '../../../../../constants';
 import { JointsStateContext } from '../../../../../contexts/JointsStateContext/JointsStateContext';
+import { PoseContext } from '../../../../../contexts/PoseContext/PoseContext';
 import useHttp from '../../../../../hooks/Http/Http';
+import { IJointsState } from '../../../../../types/appTypes';
 import { StyledBox } from '../../StyledComponents/StyledComponents';
 
 const Input = styled(MuiInput)`
@@ -27,14 +29,50 @@ type HandleInputChangeFunction = (
 type HandleBlurFunction = (value: SliderValue, setValue: React.Dispatch<React.SetStateAction<SliderValue>>) => void;
 
 export default function JointsState() {
+    const { state } = useContext(PoseContext);
     const { request } = useHttp();
-    const { jointsState } = useContext(JointsStateContext);
+    const { setJointsState } = useContext(JointsStateContext);
+
     const initialJointValues = Array(6).fill(0);
     const [jointValues, setJointValues] = useState<SliderValue[]>(initialJointValues);
 
     const handleJointChange: HandleChangeFunction = (index, newValue) => {
         const newValues = [...jointValues];
         newValues[index] = newValue;
+
+        // FIXME: move to reducer maybe
+        switch (index) {
+            case 0:
+                setJointsState((prev: IJointsState) => {
+                    return { ...prev, shoulder: +((Math.PI * newValue) / 180) };
+                });
+                break;
+            case 1:
+                setJointsState((prev: IJointsState) => {
+                    return { ...prev, upperArm: +((Math.PI * newValue) / 180) };
+                });
+                break;
+            case 2:
+                setJointsState((prev: IJointsState) => {
+                    return { ...prev, forearm: +((Math.PI * newValue) / 180) };
+                });
+                break;
+            case 3:
+                setJointsState((prev: IJointsState) => {
+                    return { ...prev, wrist1: +((Math.PI * newValue) / 180) };
+                });
+                break;
+            case 4:
+                setJointsState((prev: IJointsState) => {
+                    return { ...prev, wrist2: +((Math.PI * newValue) / 180) };
+                });
+                break;
+            case 5:
+                setJointsState((prev: IJointsState) => {
+                    return { ...prev, endEffectorLink: +((Math.PI * newValue) / 180) };
+                });
+                break;
+        }
         setJointValues(newValues);
     };
 
@@ -51,34 +89,29 @@ export default function JointsState() {
         }
     };
 
-    useEffect(() => {
-        const options = {
-            method: 'POST',
-            body: JSON.stringify({
-                joint0: +((Math.PI * jointValues[0]) / 180),
-                joint1: +((Math.PI * jointValues[1]) / 180),
-                joint2: +((Math.PI * jointValues[2]) / 180),
-                joint3: +((Math.PI * jointValues[3]) / 180),
-                joint4: +((Math.PI * jointValues[4]) / 180),
-                joint5: +((Math.PI * jointValues[5]) / 180),
-            }),
-        };
-        request(API_ROUTES.POST_JOINTS_STATE, options).then();
-    }, []);
+    // FIXME: have to post joints value to another topic in the future
+    // useEffect(() => {
+    // const options = {
+    //     method: 'POST',
+    //     body: JSON.stringify({
+    //         joint0: +((Math.PI * jointValues[0]) / 180),
+    //         joint1: +((Math.PI * jointValues[1]) / 180),
+    //         joint2: +((Math.PI * jointValues[2]) / 180),
+    //         joint3: +((Math.PI * jointValues[3]) / 180),
+    //         joint4: +((Math.PI * jointValues[4]) / 180),
+    //         joint5: +((Math.PI * jointValues[5]) / 180),
+    //     }),
+    // };
+    // request(API_ROUTES.POST_JOINTS_STATE, options).then();
+    // }, []);
 
     useEffect(() => {
-        getJointsValues();
-    }, []);
-
-    useEffect(() => {
-        getJointsValues();
-    }, [jointsState]);
-
-    const getJointsValues = () => {
-        const radianValues: number[] = Object.values(jointsState);
-        const degreesValues = radianValues.map((element: number) => +((180 * element) / Math.PI).toFixed(0));
-        setJointValues(degreesValues);
-    };
+        request(API_ROUTES.GET_JOINTS_STATE).then((res: IJointsState) => {
+            const radianValues = [res.shoulder, res.upperArm, res.forearm, res.wrist1, res.wrist2, res.endEffectorLink];
+            const degreesValues = radianValues.map((element: number) => +((180 * element) / Math.PI).toFixed(0));
+            setJointValues(degreesValues);
+        });
+    }, [state]);
 
     return (
         <StyledBox sx={{ width: '100%', ml: { xs: 1, md: 0 }, mt: { xs: 0, md: 1 }, minHeight: '280px' }}>
