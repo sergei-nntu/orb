@@ -72,11 +72,9 @@ jobs:
       run: echo 'https://github.com/sergei-nntu/orb/actions/runs/${{ github.run_id }}/artifacts/${{ steps.artifact-upload-allure-report-step.outputs.artifact-id }}'
     - run: |
         sudo apt-get install jq
-        jq '.base.reportLink = "https://github.com/sergei-nntu/orb/actions/runs/${{ github.run_id }}/artifacts/${{ steps.artifact-upload-allure-report-step.outputs.artifact-id }}"' config.json > config.json.tmp
-        mv config.json.tmp config.json
+        jq '.base.reportLink = "https://github.com/sergei-nntu/orb/actions/runs/${{ github.run_id }}/artifacts/${{ steps.artifact-upload-allure-report-step.outputs.artifact-id }}"' notifications/config.json > notifications/config.json.tmp
+        mv notifications/config.json.tmp notifications/config.json
       working-directory: ./playwright
-      with:
-        path: ./playwright/notifications
 #    - name: Get Allure history
 #      uses: actions/checkout@v3
 #      if: always()
