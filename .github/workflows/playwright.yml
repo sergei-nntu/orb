@@ -74,8 +74,9 @@ jobs:
         sudo apt-get install jq
         jq '.base.reportLink = "https://github.com/sergei-nntu/orb/actions/runs/${{ github.run_id }}/artifacts/${{ steps.artifact-upload-allure-report-step.outputs.artifact-id }}"' config.json > config.json.tmp
         mv config.json.tmp config.json
-      path: ./playwright/notifications
       working-directory: ./playwright
+      with:
+        path: ./playwright/notifications
 #    - name: Get Allure history
 #      uses: actions/checkout@v3
 #      if: always()
