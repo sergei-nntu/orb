@@ -48,7 +48,7 @@ jobs:
       if: always()
       run: allure generate allure-results -o allure-report
       working-directory: ./playwright
-    - uses: actions/upload-artifact@v3
+    - uses: actions/upload-artifact@v4
       id: artifact-upload-step
       if: always()
       with:
