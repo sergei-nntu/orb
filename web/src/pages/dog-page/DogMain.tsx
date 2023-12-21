@@ -139,8 +139,12 @@ export default function DogMain() {
             }}
         >
             <Grid container spacing={1} sx={{ pt: 1, pr: 1 }}>
-                <Dog />
-                <DogStates />
+                <Grid item xs={6} sm={7} md={6} lg={8}>
+                    <Dog />
+                </Grid>
+                <Grid item xs={6} sm={5} md={6} lg={4}>
+                    <DogStates />
+                </Grid>
             </Grid>
         </JointStateContext.Provider>
     );
