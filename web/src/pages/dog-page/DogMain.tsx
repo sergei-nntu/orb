@@ -90,18 +90,18 @@ export default function DogMain() {
         async function fetchFunc() {
             try {
                 const response = await request(API_ROUTES.GET_OQP_JOINT_STATE);
-                setJoint0Value((response.shoulder1 * 180) / Math.PI);
-                setJoint1Value((response.reductor1 * 180) / Math.PI);
-                setJoint2Value((response.knee1 * 180) / Math.PI);
-                setJoint3Value((response.shoulder2 * 180) / Math.PI);
-                setJoint4Value((response.reductor2 * 180) / Math.PI);
-                setJoint5Value((response.knee2 * 180) / Math.PI);
-                setJoint6Value((response.shoulder3 * 180) / Math.PI);
-                setJoint7Value((response.reductor3 * 180) / Math.PI);
-                setJoint8Value((response.knee3 * 180) / Math.PI);
-                setJoint9Value((response.shoulder4 * 180) / Math.PI);
-                setJoint10Value((response.reductor4 * 180) / Math.PI);
-                setJoint11Value((response.knee4 * 180) / Math.PI);
+                setJoint0Value(+((response.shoulder1 * 180) / Math.PI).toFixed(0));
+                setJoint1Value(+((response.reductor1 * 180) / Math.PI).toFixed(0));
+                setJoint2Value(+((response.knee1 * 180) / Math.PI).toFixed(0));
+                setJoint3Value(+((response.shoulder2 * 180) / Math.PI).toFixed(0));
+                setJoint4Value(+((response.reductor2 * 180) / Math.PI).toFixed(0));
+                setJoint5Value(+((response.knee2 * 180) / Math.PI).toFixed(0));
+                setJoint6Value(+((response.shoulder3 * 180) / Math.PI).toFixed(0));
+                setJoint7Value(+((response.reductor3 * 180) / Math.PI).toFixed(0));
+                setJoint8Value(+((response.knee3 * 180) / Math.PI).toFixed(0));
+                setJoint9Value(+((response.shoulder4 * 180) / Math.PI).toFixed(0));
+                setJoint10Value(+((response.reductor4 * 180) / Math.PI).toFixed(0));
+                setJoint11Value(+((response.knee4 * 180) / Math.PI).toFixed(0));
             } catch (error) {
                 console.error(error);
             }
