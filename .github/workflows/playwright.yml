@@ -73,10 +73,10 @@ jobs:
       run: echo 'Run ID is ${{ github.run_id }}'
     - name: artifact URL
       if: always()
-      run: echo 'https://github.com/sergei-nntu/orb/actions/runs/${{ github.run_id }}/artifacts/${{ steps.artifact-upload-allure-report-step.outputs.artifact-id }}'
+      run: echo 'https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}/artifacts/${{ steps.artifact-upload-allure-report-step.outputs.artifact-id }}'
     - run: |
         sudo apt-get install jq
-        jq '.base.reportLink = "https://github.com/sergei-nntu/orb/actions/runs/${{ github.run_id }}/artifacts/${{ steps.artifact-upload-allure-report-step.outputs.artifact-id }}"' notifications/config.json > notifications/config.json.tmp
+        jq '.base.reportLink = "https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}/artifacts/${{ steps.artifact-upload-allure-report-step.outputs.artifact-id }}"' notifications/config.json > notifications/config.json.tmp
         mv notifications/config.json.tmp notifications/config.json
       if: always()
       working-directory: ./playwright
