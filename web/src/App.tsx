@@ -4,6 +4,7 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import React from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
+import JointsStateProvider from './contexts/JointsStateContext/JointsStateProvider/JointsStateProvider';
 import MessagesProvider from './contexts/MessagesContext/MessagesProvider/MessagesProvider';
 import NotificationProvider from './contexts/NotificationContext/NotificationProvider/NotificationProvider';
 import PoseProvider from './contexts/PoseContext/PoseProvider/PoseProvider';
@@ -62,10 +63,12 @@ function App() {
         <NotificationProvider>
             <PoseProvider>
                 <MessagesProvider>
-                    <ThemeProvider theme={theme}>
-                        <CssBaseline />
-                        <RouterProvider router={router} />
-                    </ThemeProvider>
+                    <JointsStateProvider>
+                        <ThemeProvider theme={theme}>
+                            <CssBaseline enableColorScheme />
+                            <RouterProvider router={router} />
+                        </ThemeProvider>
+                    </JointsStateProvider>
                 </MessagesProvider>
             </PoseProvider>
         </NotificationProvider>
