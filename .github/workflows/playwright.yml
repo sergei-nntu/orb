@@ -40,6 +40,16 @@ jobs:
     - name: Run Playwright tests
       run: npx playwright test
       working-directory: ./playwright
+    - uses: actions/upload-artifact@v4
+      id: artifact-upload-playwright-report-step
+      if: always()
+      with:
+        name: playwright-report
+        path: ./playwright/playwright-report/
+        retention-days: 20
+    - name: Output artifact ID for playwright report
+      if: always()
+      run: echo 'Artifact ID is ${{ steps.artifact-upload-playwright-report-step.outputs.artifact-id }}'
     - name: Install the Allure Playwright
       if: always()
       run: npm install --save-dev allure-playwright
@@ -48,19 +58,28 @@ jobs:
       if: always()
       run: allure generate allure-results -o allure-report
       working-directory: ./playwright
-    - uses: actions/upload-artifact@v3
-      if: always()
-      with:
-        name: playwright-report
-        path: ./playwright/playwright-report/
-        retention-days: 20
-    - uses: actions/upload-artifact@v3
+    - uses: actions/upload-artifact@v4
+      id: artifact-upload-allure-report-step
       if: always()
       with:
         name: allure-results
         path: ./playwright/allure-results
         retention-days: 20
-
+    - name: Output artifact ID for allure results
+      if: always()
+      run: echo 'Artifact ID is ${{ steps.artifact-upload-allure-report-step.outputs.artifact-id }}'
+    - name: Run ID
+      if: always()
+      run: echo 'Run ID is ${{ github.run_id }}'
+    - name: artifact URL
+      if: always()
+      run: echo 'https://github.com/sergei-nntu/orb/actions/runs/${{ github.run_id }}/artifacts/${{ steps.artifact-upload-allure-report-step.outputs.artifact-id }}'
+    - run: |
+        sudo apt-get install jq
+        jq '.base.reportLink = "https://github.com/sergei-nntu/orb/actions/runs/${{ github.run_id }}/artifacts/${{ steps.artifact-upload-allure-report-step.outputs.artifact-id }}"' notifications/config.json > notifications/config.json.tmp
+        mv notifications/config.json.tmp notifications/config.json
+      if: always()
+      working-directory: ./playwright
 #    - name: Get Allure history
 #      uses: actions/checkout@v3
 #      if: always()
