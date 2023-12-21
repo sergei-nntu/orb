@@ -89,21 +89,20 @@ export default function JointsState() {
         }
     };
 
-    // FIXME: have to post joints value to another topic in the future
-    // useEffect(() => {
-    // const options = {
-    //     method: 'POST',
-    //     body: JSON.stringify({
-    //         joint0: +((Math.PI * jointValues[0]) / 180),
-    //         joint1: +((Math.PI * jointValues[1]) / 180),
-    //         joint2: +((Math.PI * jointValues[2]) / 180),
-    //         joint3: +((Math.PI * jointValues[3]) / 180),
-    //         joint4: +((Math.PI * jointValues[4]) / 180),
-    //         joint5: +((Math.PI * jointValues[5]) / 180),
-    //     }),
-    // };
-    // request(API_ROUTES.POST_JOINTS_STATE, options).then();
-    // }, []);
+    useEffect(() => {
+        const options = {
+            method: 'POST',
+            body: JSON.stringify({
+                joint0: +((Math.PI * jointValues[0]) / 180),
+                joint1: +((Math.PI * jointValues[1]) / 180),
+                joint2: +((Math.PI * jointValues[2]) / 180),
+                joint3: +((Math.PI * jointValues[3]) / 180),
+                joint4: +((Math.PI * jointValues[4]) / 180),
+                joint5: +((Math.PI * jointValues[5]) / 180),
+            }),
+        };
+        request(API_ROUTES.POST_JOINTS_STATE, options).then();
+    }, [jointValues]);
 
     useEffect(() => {
         request(API_ROUTES.GET_JOINTS_STATE).then((res: IJointsState) => {
