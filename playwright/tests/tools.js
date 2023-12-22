@@ -18,6 +18,9 @@ exports.handledTextInput = async ({ page }, selector, value) => {
     console.log("value_current = ", currentValue);
 
     // await expect(nextValue).toBe(value);
+    await page.locator(selector).fill(oldValue);
+    await page.locator(selector).press("Enter");
+
 }
 
 exports.handledInnerText = async ({ page }, selector, button) => {
