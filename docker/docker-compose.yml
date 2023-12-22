@@ -28,10 +28,7 @@ services:
         roslaunch we_r2_moveit_config demo.launch &
         sleep 10
         cd ../orm/src/python
-        python3 orm_http_server.py &
-        sleep 5
-        cd /orm/src/python
-        python3 orm_http_server_publisher.py
+        python3 orm_http_server.py
     ports:
       - "5001:5001"
     networks:

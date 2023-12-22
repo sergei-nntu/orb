@@ -117,7 +117,7 @@ export default function JointsState() {
     };
 
     return (
-        <StyledBox sx={{ width: '100%' }}>
+        <StyledBox sx={{ width: '100%', pt: 1 }}>
             FRONT LEFT
             <Box component="div" sx={{ width: '100%', mt: 1 }}>
                 <Grid container spacing={2} alignItems="center">
@@ -184,7 +184,7 @@ export default function JointsState() {
                         />
                     </Grid>
                 </Grid>
-                <Grid container spacing={2} alignItems="center">
+                <Grid container spacing={2} alignItems="center" sx={{ mb: 4 }}>
                     <Grid item>
                         <Typography id="input-slider">Knee</Typography>
                     </Grid>
@@ -281,7 +281,7 @@ export default function JointsState() {
                         />
                     </Grid>
                 </Grid>
-                <Grid container spacing={2} alignItems="center">
+                <Grid container spacing={2} alignItems="center" sx={{ mb: 4 }}>
                     <Grid item>
                         <Typography id="input-slider">Knee</Typography>
                     </Grid>
@@ -378,7 +378,7 @@ export default function JointsState() {
                         />
                     </Grid>
                 </Grid>
-                <Grid container spacing={2} alignItems="center">
+                <Grid container spacing={2} alignItems="center" sx={{ mb: 4 }}>
                     <Grid item>
                         <Typography id="input-slider">Knee</Typography>
                     </Grid>

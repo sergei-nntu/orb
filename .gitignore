@@ -1,3 +1,6 @@
 # IDEA config files
 /.idea
+
 **/orm/
+
+.DS_Store
