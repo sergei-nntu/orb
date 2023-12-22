@@ -11,17 +11,17 @@ export default function DogMain() {
     const { request } = useHttp();
     // FIXME: It's necessary to replace all these states with one
     const [joint0Value, setJoint0Value] = useState(0);
-    const [joint1Value, setJoint1Value] = useState(0);
-    const [joint2Value, setJoint2Value] = useState(0);
+    const [joint1Value, setJoint1Value] = useState(-50);
+    const [joint2Value, setJoint2Value] = useState(90);
     const [joint3Value, setJoint3Value] = useState(0);
-    const [joint4Value, setJoint4Value] = useState(0);
-    const [joint5Value, setJoint5Value] = useState(0);
+    const [joint4Value, setJoint4Value] = useState(-50);
+    const [joint5Value, setJoint5Value] = useState(90);
     const [joint6Value, setJoint6Value] = useState(0);
-    const [joint7Value, setJoint7Value] = useState(0);
-    const [joint8Value, setJoint8Value] = useState(0);
+    const [joint7Value, setJoint7Value] = useState(-50);
+    const [joint8Value, setJoint8Value] = useState(90);
     const [joint9Value, setJoint9Value] = useState(0);
-    const [joint10Value, setJoint10Value] = useState(0);
-    const [joint11Value, setJoint11Value] = useState(0);
+    const [joint10Value, setJoint10Value] = useState(-50);
+    const [joint11Value, setJoint11Value] = useState(90);
 
     useEffect(() => {
         const sendJointStateToServer = async () => {
@@ -72,17 +72,17 @@ export default function DogMain() {
     const isInitialState = () => {
         return (
             joint0Value === 0 &&
-            joint1Value === 0 &&
-            joint2Value === 0 &&
+            joint1Value === -50 &&
+            joint2Value === 90 &&
             joint3Value === 0 &&
-            joint4Value === 0 &&
-            joint5Value === 0 &&
+            joint4Value === -50 &&
+            joint5Value === 90 &&
             joint6Value === 0 &&
-            joint7Value === 0 &&
-            joint8Value === 0 &&
+            joint7Value === -50 &&
+            joint8Value === 90 &&
             joint9Value === 0 &&
-            joint10Value === 0 &&
-            joint11Value === 0
+            joint10Value === -50 &&
+            joint11Value === 90
         );
     };
 
