@@ -5,28 +5,41 @@ on:
     - cron: "0 3 * * *"
   push:
     branches: [ playwright-tests ]
-#  pull_request:
-#    branches: [ main, master ]
+  pull_request:
+    types:
+      - closed
 jobs:
   test:
     timeout-minutes: 60
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
+    - name: Pull request to develop branch or schedule
+      if: ((github.event.pull_request.merged == true) || (github.event_name == 'schedule'))
+      uses: actions/checkout@v3
+      with:
+        ref: develop
+    - name: Push to playwright-tests branch
+      if: (github.event_name == 'push' && github.ref == 'refs/heads/playwright-tests')
+      uses: actions/checkout@v3
       with:
         ref: playwright-tests
     - uses: actions/setup-node@v3
       with:
         node-version: 18
-    - name: "Docker for web"
+    - name: Docker for web
       run: docker build . -t telemetrybalkan/orb
       working-directory: ./web
-    - name: "Docker for ros"
+    - name: Docker for ros
       run: docker build . -t telemetrybalkan/ros
       working-directory: ./docker
-    - name: "Docker compose"
+    - name: Docker compose
       run: docker compose up -d
       working-directory: ./docker
+    - name: Checkout to playwright-tests
+      if: ((github.event.pull_request.merged == true) || (github.event_name == 'schedule'))
+      uses: actions/checkout@v3
+      with:
+        ref: playwright-tests
     - name: Install dependencies
       run: npm ci
       working-directory: ./playwright
