@@ -7,7 +7,7 @@ const DogStates = () => {
     return (
         <Item
             sx={{
-                minHeight: '80vh',
+                height: '90vh',
                 display: 'flex',
                 mt: 1,
             }}
