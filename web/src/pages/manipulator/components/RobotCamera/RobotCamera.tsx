@@ -11,7 +11,9 @@ import * as THREE from 'three';
 import { BufferGeometry, Mesh, NormalBufferAttributes, Vector3 } from 'three';
 import { STLLoader } from 'three/examples/jsm/loaders/STLLoader';
 
+import { API_ROUTES } from '../../../../constants';
 import { JointsStateContext } from '../../../../contexts/JointsStateContext/JointsStateContext';
+import useHttp from '../../../../hooks/Http/Http';
 import { Item } from '../StyledComponents/StyledComponents';
 
 const StyledPaper = styled(Paper)(({ theme }) => ({
@@ -19,7 +21,20 @@ const StyledPaper = styled(Paper)(({ theme }) => ({
 }));
 
 export default function RobotCamera() {
-    const { jointsState } = useContext(JointsStateContext);
+    const { jointsState, setJointsState } = useContext(JointsStateContext);
+    const { request } = useHttp();
+    const interval = useRef<string | number | NodeJS.Timeout | undefined>(undefined);
+
+    useEffect(() => {
+        interval.current = setInterval(getJointsState, 100);
+        return () => {
+            clearInterval(interval.current);
+        };
+    }, []);
+
+    const getJointsState = async () => {
+        request(API_ROUTES.GET_JOINTS_STATE).then((r) => setJointsState(r));
+    };
 
     function Loader() {
         const { progress } = useProgress();
