@@ -1,15 +1,16 @@
 const { test, expect } = require('@playwright/test');
-const {handledTextInput} = require("./tools");
+const {handledTextInput, waitLoading} = require("./tools");
 const shoulderValue = "-5";
 const reductorValue = "-45";
 const kneeValue = "95";
 
-test.beforeEach(async ({ page }) => {
-    await page.goto('http://localhost:3000');
+test.beforeEach('Dog',async ({ page }) => {
+    await page.goto('http://localhost:3000',{ waitUntil: "networkidle" });
 
     await page.getByTestId('SmartToyIcon').click();
     const locator = page.locator('//div[text()=\'Dog\']');
     await expect(locator).toContainText('Dog');
+    await waitLoading({page});
 });
 test.describe('Edit Front Left', () => {
     test('Edit Shoulder', async ({ page }) => {

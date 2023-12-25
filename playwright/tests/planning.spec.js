@@ -1,6 +1,6 @@
 const { test, expect } = require('@playwright/test');
 
-test.beforeEach(async ({ page }) => {
+test.beforeEach('Planning',async ({ page }) => {
     await page.goto('http://localhost:3000', {waitUntil: 'networkidle'});
     await page.getByTestId('NextPlanIcon').click();
     const locator = page.locator('//div[text()=\'Planning\']');

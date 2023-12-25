@@ -52,3 +52,19 @@ exports.handledInnerText = async ({ page }, selector, button) => {
 
     await expect(backCoordinateValue).toBe(coordinateValue);
 }
+
+const _isVisible = async ({ page }, selector) => {
+    try {
+        await page.locator(selector).waitFor({timeout:2000});
+        return true;
+    }
+    catch (e){
+        return  false;
+    }
+}
+
+exports.waitLoading = async ({ page } ) => {
+    const visible = await _isVisible({page} ,'div > canvas');
+    console.log("visible = ", visible);
+    if (visible) await page.locator('//div[contains(text(),\'loaded\')]').waitFor({state:'hidden'});
+}

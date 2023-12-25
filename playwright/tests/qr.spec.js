@@ -1,6 +1,6 @@
 const { test, expect } = require('@playwright/test');
 
-test.beforeEach(async ({ page }) => {
+test.beforeEach('QR',async ({ page }) => {
     await page.goto('http://localhost:3000');
 });
 
