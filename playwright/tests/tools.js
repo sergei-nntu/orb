@@ -18,7 +18,7 @@ exports.handledTextInput = async ({ page }, selector, value) => {
     const currentValue =  await page.locator(selector).inputValue();
     console.log("value_current = ", currentValue);
 
-    // await expect(nextValue).toBe(value);
+    await expect(nextValue).toBe(currentValue);
 
     await page.locator(selector).click();
     await page.locator(selector).fill(oldValue);
@@ -28,6 +28,8 @@ exports.handledTextInput = async ({ page }, selector, value) => {
 
     const defValue =  await page.locator(selector).inputValue();
     console.log("defValue = ",defValue);
+
+    await expect(defValue).toBe(oldValue);
 
 }
 
