@@ -4,8 +4,9 @@ import React, { useContext, useEffect, useState } from 'react';
 import { PoseContext } from '../../../../../contexts/PoseContext/PoseContext';
 import { POSE } from '../../../../../types/appTypes';
 import { StyledBox } from '../../StyledComponents/StyledComponents';
+import { PoseProps } from '../Pose';
 
-export default function Position() {
+export default function Position({ remoteControlEnabled }: PoseProps) {
     const { dispatch } = useContext(PoseContext);
     const [keyState, setKeyState] = useState({
         w: false,
@@ -23,6 +24,8 @@ export default function Position() {
                 ...prevKeyState,
                 [key]: true,
             }));
+
+            remoteControlEnabled.current = true;
 
             // FIXME: rewrite this piece of code
             switch (key) {
@@ -74,6 +77,7 @@ export default function Position() {
             [key]: true,
         }));
 
+        remoteControlEnabled.current = true;
         dispatch({ type: action });
     };
 

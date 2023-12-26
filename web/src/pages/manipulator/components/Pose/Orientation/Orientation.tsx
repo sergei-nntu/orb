@@ -7,8 +7,9 @@ import React, { useContext, useEffect, useState } from 'react';
 import { PoseContext } from '../../../../../contexts/PoseContext/PoseContext';
 import { POSE } from '../../../../../types/appTypes';
 import { StyledBox } from '../../StyledComponents/StyledComponents';
+import { PoseProps } from '../Pose';
 
-export default function Orientation() {
+export default function Orientation({ remoteControlEnabled }: PoseProps) {
     const { dispatch } = useContext(PoseContext);
     const [keyState, setKeyState] = useState({
         1: false,
@@ -25,6 +26,7 @@ export default function Orientation() {
             [key]: true,
         }));
 
+        remoteControlEnabled.current = true;
         dispatch({ type: action });
     };
 
@@ -42,6 +44,8 @@ export default function Orientation() {
                 ...prevKeyState,
                 [key]: true,
             }));
+
+            remoteControlEnabled.current = true;
 
             // FIXME: rewrite this piece of code
             switch (key) {

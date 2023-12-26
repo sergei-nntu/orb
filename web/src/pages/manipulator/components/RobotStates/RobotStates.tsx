@@ -6,7 +6,12 @@ import UserConsole from '../UserConsole/UserConsole';
 import GripperState from './GripperState/GripperState';
 import JointsState from './JointsState/JointsState';
 
-export default function RobotStates() {
+type RobotStatesProps = {
+    remoteControlEnabled: React.MutableRefObject<boolean>;
+    degreesValues: number[];
+};
+
+export default function RobotStates(props: RobotStatesProps) {
     return (
         <Grid item xs={12} md={4} lg={3}>
             <Item
@@ -17,7 +22,7 @@ export default function RobotStates() {
                 }}
             >
                 <UserConsole />
-                <JointsState />
+                <JointsState {...props} />
                 <GripperState />
             </Item>
         </Grid>

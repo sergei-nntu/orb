@@ -4,7 +4,7 @@ import MuiInput from '@mui/material/Input';
 import Slider from '@mui/material/Slider';
 import { styled } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
-import React, { ChangeEvent, useContext, useEffect, useRef, useState } from 'react';
+import React, { ChangeEvent, useContext, useEffect, useState } from 'react';
 
 import { API_ROUTES } from '../../../../../constants';
 import { JointsStateContext } from '../../../../../contexts/JointsStateContext/JointsStateContext';
@@ -27,29 +27,22 @@ type HandleInputChangeFunction = (
 
 type HandleBlurFunction = (value: SliderValue, setValue: React.Dispatch<React.SetStateAction<SliderValue>>) => void;
 
-export default function JointsState() {
+export type JointsStateProps = {
+    remoteControlEnabled: React.MutableRefObject<boolean>;
+    degreesValues: number[];
+};
+
+export default function JointsState(props: JointsStateProps) {
     const { request } = useHttp();
     const { setJointsState } = useContext(JointsStateContext);
+    const { remoteControlEnabled, degreesValues } = props;
 
     const initialJointValues = Array(6).fill(0);
     const [jointValues, setJointValues] = useState<SliderValue[]>(initialJointValues);
 
-    const interval = useRef<string | number | NodeJS.Timeout | undefined>(undefined);
-
     useEffect(() => {
-        interval.current = setInterval(getJointsState, 100);
-        return () => {
-            clearInterval(interval.current);
-        };
-    }, []);
-
-    const getJointsState = async () => {
-        request(API_ROUTES.GET_JOINTS_STATE).then((res: IJointsState) => {
-            const radianValues = [res.shoulder, res.upperArm, res.forearm, res.wrist1, res.wrist2, res.endEffectorLink];
-            const degreesValues = radianValues.map((element: number) => +((180 * element) / Math.PI).toFixed(0));
-            setJointValues(degreesValues);
-        });
-    };
+        setJointValues(degreesValues);
+    }, [degreesValues]);
 
     const handleJointChange: HandleChangeFunction = (index, newValue) => {
         const newValues = [...jointValues];
@@ -89,6 +82,9 @@ export default function JointsState() {
                 break;
         }
         setJointValues(newValues);
+
+        console.log('Interval is done into function!');
+        remoteControlEnabled.current = false;
     };
 
     const handleInputChange: HandleInputChangeFunction = (event, setValue) => {
@@ -127,6 +123,7 @@ export default function JointsState() {
     //     });
     // }, [state]);
 
+    console.log('Render!');
     return (
         <StyledBox sx={{ width: '100%', ml: { xs: 1, md: 0 }, mt: { xs: 0, md: 1 }, minHeight: '280px' }}>
             Joints Position
