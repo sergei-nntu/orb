@@ -4,9 +4,9 @@ exports.handledTextInput = async ({ page }, selector, value) => {
     const oldValue =  await page.locator(selector).inputValue();
     console.log("value_def = ", oldValue);
 
-    await page.locator(selector).first().click();
+    await page.locator(selector).click();
     await page.locator(selector).fill(value);
-    await page.locator(selector).first().press('Enter');
+    await page.locator(selector).press('Enter');
 
     const nextValue =  await page.locator(selector).inputValue();
     console.log("value_new = ", nextValue);
@@ -19,9 +19,12 @@ exports.handledTextInput = async ({ page }, selector, value) => {
     console.log("value_current = ", currentValue);
 
     // await expect(nextValue).toBe(value);
-    await page.locator(selector).first().click();
+
+    await page.locator(selector).click();
     await page.locator(selector).fill(oldValue);
-    await page.locator(selector).first().press('Enter');
+    await page.locator(selector).press('Enter');
+
+    await page.reload({ waitUntil: "networkidle" });
 
 }
 
