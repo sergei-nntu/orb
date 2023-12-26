@@ -15,6 +15,7 @@ export default function Manipulator() {
     const degreesValues = useRef([0, 0, 0, 0, 0, 0]);
     const interval = useRef<string | number | NodeJS.Timeout | undefined>(undefined);
     const remoteControlEnabled = useRef<boolean>(true);
+    const blocklyEnabled = useRef(false);
 
     useEffect(() => {
         interval.current = setInterval(getJointsState, 100);
@@ -33,11 +34,21 @@ export default function Manipulator() {
         }
     };
 
+    useEffect(() => {
+        request(API_ROUTES.GET_BLOCKLY_STATE).then((r) => {
+            blocklyEnabled.current = r?.state;
+        });
+    }, []);
+
     return (
         <Grid container spacing={1} sx={{ pt: 1, pr: 1 }}>
-            <Pose remoteControlEnabled={remoteControlEnabled} />
+            <Pose remoteControlEnabled={remoteControlEnabled} blocklyEnabled={blocklyEnabled} />
             <RobotCamera />
-            <RobotStates remoteControlEnabled={remoteControlEnabled} degreesValues={degreesValues.current} />
+            <RobotStates
+                remoteControlEnabled={remoteControlEnabled}
+                degreesValues={degreesValues.current}
+                blocklyEnabled={blocklyEnabled}
+            />
         </Grid>
     );
 }

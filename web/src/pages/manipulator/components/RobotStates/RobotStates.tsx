@@ -9,6 +9,7 @@ import JointsState from './JointsState/JointsState';
 type RobotStatesProps = {
     remoteControlEnabled: React.MutableRefObject<boolean>;
     degreesValues: number[];
+    blocklyEnabled: React.MutableRefObject<boolean>;
 };
 
 export default function RobotStates(props: RobotStatesProps) {
@@ -23,7 +24,7 @@ export default function RobotStates(props: RobotStatesProps) {
             >
                 <UserConsole />
                 <JointsState {...props} />
-                <GripperState />
+                <GripperState blocklyEnabled={props.blocklyEnabled} />
             </Item>
         </Grid>
     );

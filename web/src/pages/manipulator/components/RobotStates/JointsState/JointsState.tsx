@@ -30,12 +30,13 @@ type HandleBlurFunction = (value: SliderValue, setValue: React.Dispatch<React.Se
 export type JointsStateProps = {
     remoteControlEnabled: React.MutableRefObject<boolean>;
     degreesValues: number[];
+    blocklyEnabled: React.MutableRefObject<boolean>;
 };
 
 export default function JointsState(props: JointsStateProps) {
     const { request } = useHttp();
     const { setJointsState } = useContext(JointsStateContext);
-    const { remoteControlEnabled, degreesValues } = props;
+    const { remoteControlEnabled, degreesValues, blocklyEnabled } = props;
 
     const initialJointValues = Array(6).fill(0);
     const [jointValues, setJointValues] = useState<SliderValue[]>(initialJointValues);
@@ -83,7 +84,6 @@ export default function JointsState(props: JointsStateProps) {
         }
         setJointValues(newValues);
 
-        console.log('Interval is done into function!');
         remoteControlEnabled.current = false;
     };
 
@@ -115,15 +115,6 @@ export default function JointsState(props: JointsStateProps) {
         request(API_ROUTES.POST_JOINTS_STATE, options).then();
     }, [jointValues]);
 
-    // useEffect(() => {
-    //     request(API_ROUTES.GET_JOINTS_STATE).then((res: IJointsState) => {
-    //         const radianValues = [res.shoulder, res.upperArm, res.forearm, res.wrist1, res.wrist2, res.endEffectorLink];
-    //         const degreesValues = radianValues.map((element: number) => +((180 * element) / Math.PI).toFixed(0));
-    //         setJointValues(degreesValues);
-    //     });
-    // }, [state]);
-
-    console.log('Render!');
     return (
         <StyledBox sx={{ width: '100%', ml: { xs: 1, md: 0 }, mt: { xs: 0, md: 1 }, minHeight: '280px' }}>
             Joints Position
@@ -138,6 +129,7 @@ export default function JointsState(props: JointsStateProps) {
                                 value={value}
                                 onChange={(_, newValue) => handleJointChange(index, newValue as SliderValue)}
                                 aria-labelledby={`input-slider-${index}`}
+                                disabled={blocklyEnabled.current}
                                 id={`slider-joint-${index}`}
                                 min={-130}
                                 max={130}
@@ -149,6 +141,7 @@ export default function JointsState(props: JointsStateProps) {
                                 sx={{ minWidth: '50px' }}
                                 value={value}
                                 size="small"
+                                disabled={blocklyEnabled.current}
                                 onChange={(e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
                                     handleInputChange(e, (newValue) => {
                                         const newValues = [...jointValues];

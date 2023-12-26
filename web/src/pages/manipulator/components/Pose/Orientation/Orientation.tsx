@@ -9,7 +9,7 @@ import { POSE } from '../../../../../types/appTypes';
 import { StyledBox } from '../../StyledComponents/StyledComponents';
 import { PoseProps } from '../Pose';
 
-export default function Orientation({ remoteControlEnabled }: PoseProps) {
+export default function Orientation({ remoteControlEnabled, blocklyEnabled }: PoseProps) {
     const { dispatch } = useContext(PoseContext);
     const [keyState, setKeyState] = useState({
         1: false,
@@ -21,6 +21,10 @@ export default function Orientation({ remoteControlEnabled }: PoseProps) {
     });
 
     const handleArrowMouseDown = (key: string, action: string) => () => {
+        if (blocklyEnabled.current) {
+            return;
+        }
+
         setKeyState((prevKeyState) => ({
             ...prevKeyState,
             [key]: true,
@@ -38,6 +42,10 @@ export default function Orientation({ remoteControlEnabled }: PoseProps) {
     };
 
     const handleKeyDown = async (e: KeyboardEvent) => {
+        if (blocklyEnabled.current) {
+            return;
+        }
+
         const key = e.key.toLowerCase();
         if (key in keyState) {
             setKeyState((prevKeyState) => ({

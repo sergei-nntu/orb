@@ -6,7 +6,7 @@ import { POSE } from '../../../../../types/appTypes';
 import { StyledBox } from '../../StyledComponents/StyledComponents';
 import { PoseProps } from '../Pose';
 
-export default function Position({ remoteControlEnabled }: PoseProps) {
+export default function Position({ remoteControlEnabled, blocklyEnabled }: PoseProps) {
     const { dispatch } = useContext(PoseContext);
     const [keyState, setKeyState] = useState({
         w: false,
@@ -18,6 +18,10 @@ export default function Position({ remoteControlEnabled }: PoseProps) {
     });
 
     const handleKeyDown = (e: KeyboardEvent) => {
+        if (blocklyEnabled.current) {
+            return;
+        }
+
         const key = e.key.toLowerCase();
         if (key in keyState) {
             setKeyState((prevKeyState) => ({
@@ -72,6 +76,10 @@ export default function Position({ remoteControlEnabled }: PoseProps) {
     }, []);
 
     const handleArrowMouseDown = (key: string, action: string) => () => {
+        if (blocklyEnabled.current) {
+            return;
+        }
+
         setKeyState((prevKeyState) => ({
             ...prevKeyState,
             [key]: true,

@@ -17,6 +17,7 @@ export enum API_ROUTES {
     GET_POSE_STATE = '/get_pose_state',
     CHECK_SERVER_STATUS = '/check_server_status',
     POST_JOINTS_STATE = '/post_joints_state',
+    GET_BLOCKLY_STATE = '/get_blockly_state',
 }
 
 export enum KEY {
