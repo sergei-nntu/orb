@@ -26,6 +26,9 @@ exports.handledTextInput = async ({ page }, selector, value) => {
 
     await page.reload({ waitUntil: "networkidle" });
 
+    const defValue =  await page.locator(selector).inputValue();
+    console.log("defValue = ",defValue);
+
 }
 
 exports.handledInnerText = async ({ page }, selector, button) => {
