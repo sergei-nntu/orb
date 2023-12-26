@@ -14,6 +14,7 @@ exports.handledTextInput = async ({ page }, selector, value) => {
     await expect(oldValue).not.toBe(nextValue);
 
     await page.reload({ waitUntil: "networkidle" });
+    await page.waitForLoadState();
 
     const currentValue =  await page.locator(selector).inputValue();
     console.log("value_current = ", currentValue);
@@ -25,6 +26,7 @@ exports.handledTextInput = async ({ page }, selector, value) => {
     await page.locator(selector).press('Enter');
 
     await page.reload({ waitUntil: "networkidle" });
+    await page.waitForLoadState();
 
     const defValue =  await page.locator(selector).inputValue();
     console.log("defValue = ",defValue);
