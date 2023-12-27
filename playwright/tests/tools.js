@@ -29,7 +29,7 @@ module.exports = class Tools {
 
     async _isVisible(selector){
         try {
-            await this.element.locator(selector).last().waitFor({timeout:2000});
+            await this.element.locator(selector).last().waitFor({timeout:5000});
             return true;
         }
         catch (e){
