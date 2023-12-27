@@ -27,6 +27,7 @@ export default function Manipulator() {
     const getJointsState = async () => {
         if (remoteControlEnabled.current) {
             request(API_ROUTES.GET_JOINTS_STATE).then((r: IJointsState) => {
+                if (!r) return;
                 setJointsState({ ...r });
                 const radianValues = [r.shoulder, r.upperArm, r.forearm, r.wrist1, r.wrist2, r.endEffectorLink];
                 degreesValues.current = radianValues.map((element: number) => +((180 * element) / Math.PI).toFixed(0));
