@@ -110,7 +110,7 @@ export default function Position({ remoteControlEnabled, blocklyEnabled }: PoseP
                 <SvgIcon
                     viewBox="0 0 48 60"
                     style={{ cursor: 'pointer', height: '60px', width: '48px' }}
-                    color={keyState.q ? 'error' : 'primary'}
+                    color={blocklyEnabled.current ? 'disabled' : keyState.q ? 'error' : 'primary'}
                     onMouseDown={handleArrowMouseDown('q', POSE.POSITION_Z_DOWN)}
                     onMouseUp={handleArrowMouseUp('q')}
                     onMouseLeave={handleArrowMouseUp('q')}
@@ -128,7 +128,7 @@ export default function Position({ remoteControlEnabled, blocklyEnabled }: PoseP
                 <SvgIcon
                     viewBox="0 0 48 60"
                     style={{ cursor: 'pointer', height: '60px', width: '48px' }}
-                    color={keyState.e ? 'error' : 'primary'}
+                    color={blocklyEnabled.current ? 'disabled' : keyState.e ? 'error' : 'primary'}
                     onMouseDown={handleArrowMouseDown('e', POSE.POSITION_Z_UP)}
                     onMouseUp={handleArrowMouseUp('e')}
                     onMouseLeave={handleArrowMouseUp('e')}
@@ -163,7 +163,7 @@ export default function Position({ remoteControlEnabled, blocklyEnabled }: PoseP
                         left: 'calc(50% - 24px)',
                         top: '0',
                     }}
-                    color={keyState.w ? 'error' : 'primary'}
+                    color={blocklyEnabled.current ? 'disabled' : keyState.w ? 'error' : 'primary'}
                     onMouseDown={handleArrowMouseDown('w', POSE.POSITION_Y_UP)}
                     onMouseUp={handleArrowMouseUp('w')}
                     onMouseLeave={handleArrowMouseUp('w')}
@@ -185,7 +185,7 @@ export default function Position({ remoteControlEnabled, blocklyEnabled }: PoseP
                         left: 'calc(50% - 24px)',
                         bottom: '0',
                     }}
-                    color={keyState.s ? 'error' : 'primary'}
+                    color={blocklyEnabled.current ? 'disabled' : keyState.s ? 'error' : 'primary'}
                     onMouseDown={handleArrowMouseDown('s', POSE.POSITION_Y_DOWN)}
                     onMouseUp={handleArrowMouseUp('s')}
                     onMouseLeave={handleArrowMouseUp('s')}
@@ -207,7 +207,7 @@ export default function Position({ remoteControlEnabled, blocklyEnabled }: PoseP
                         left: '0',
                         top: 'calc(50% - 24px)',
                     }}
-                    color={keyState.a ? 'error' : 'primary'}
+                    color={blocklyEnabled.current ? 'disabled' : keyState.a ? 'error' : 'primary'}
                     onMouseDown={handleArrowMouseDown('a', POSE.POSITION_X_DOWN)}
                     onMouseUp={handleArrowMouseUp('a')}
                     onMouseLeave={handleArrowMouseUp('a')}
@@ -229,7 +229,7 @@ export default function Position({ remoteControlEnabled, blocklyEnabled }: PoseP
                         right: '0',
                         top: 'calc(50% - 24px)',
                     }}
-                    color={keyState.d ? 'error' : 'primary'}
+                    color={blocklyEnabled.current ? 'disabled' : keyState.d ? 'error' : 'primary'}
                     onMouseDown={handleArrowMouseDown('d', POSE.POSITION_X_UP)}
                     onMouseUp={handleArrowMouseUp('d')}
                     onMouseLeave={handleArrowMouseUp('d')}

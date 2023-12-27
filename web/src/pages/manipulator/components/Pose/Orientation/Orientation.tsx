@@ -115,9 +115,10 @@ export default function Orientation({ remoteControlEnabled, blocklyEnabled }: Po
                     <RotateRightIcon
                         style={{
                             fontSize: '55px',
+                            cursor: 'pointer',
                             transform: 'rotate(50deg) skew(30deg, 0deg)',
                         }}
-                        color={keyState['1'] ? 'error' : 'primary'}
+                        color={blocklyEnabled.current ? 'disabled' : keyState['1'] ? 'error' : 'primary'}
                         onMouseDown={handleArrowMouseDown('1', POSE.ORIENTATION_PITCH_UP)}
                         onMouseUp={handleArrowMouseUp('1')}
                         onMouseLeave={handleArrowMouseUp('1')}
@@ -126,9 +127,10 @@ export default function Orientation({ remoteControlEnabled, blocklyEnabled }: Po
                     <RotateLeftIcon
                         style={{
                             fontSize: '55px',
+                            cursor: 'pointer',
                             transform: 'scale(1.1)',
                         }}
-                        color={keyState['2'] ? 'error' : 'primary'}
+                        color={blocklyEnabled.current ? 'disabled' : keyState['2'] ? 'error' : 'primary'}
                         onMouseDown={handleArrowMouseDown('2', POSE.ORIENTATION_ROLL_UP)}
                         onMouseUp={handleArrowMouseUp('2')}
                         onMouseLeave={handleArrowMouseUp('2')}
@@ -137,9 +139,10 @@ export default function Orientation({ remoteControlEnabled, blocklyEnabled }: Po
                     <RotateLeftIcon
                         style={{
                             fontSize: '55px',
+                            cursor: 'pointer',
                             transform: 'perspective(500px) rotateX(65deg) scale(1.5)',
                         }}
-                        color={keyState['3'] ? 'error' : 'primary'}
+                        color={blocklyEnabled.current ? 'disabled' : keyState['3'] ? 'error' : 'primary'}
                         onMouseDown={handleArrowMouseDown('3', POSE.ORIENTATION_YAW_UP)}
                         onMouseUp={handleArrowMouseUp('3')}
                         onMouseLeave={handleArrowMouseUp('3')}
@@ -175,9 +178,10 @@ export default function Orientation({ remoteControlEnabled, blocklyEnabled }: Po
                     <RotateLeftIcon
                         style={{
                             fontSize: '55px',
+                            cursor: 'pointer',
                             transform: 'rotate(50deg) skew(30deg, 0deg)',
                         }}
-                        color={keyState.z ? 'error' : 'primary'}
+                        color={blocklyEnabled.current ? 'disabled' : keyState.z ? 'error' : 'primary'}
                         onMouseDown={handleArrowMouseDown('z', POSE.ORIENTATION_PITCH_DOWN)}
                         onMouseUp={handleArrowMouseUp('z')}
                         onMouseLeave={handleArrowMouseUp('z')}
@@ -186,9 +190,10 @@ export default function Orientation({ remoteControlEnabled, blocklyEnabled }: Po
                     <RotateRightIcon
                         style={{
                             fontSize: '55px',
+                            cursor: 'pointer',
                             transform: 'scale(1.1)',
                         }}
-                        color={keyState.x ? 'error' : 'primary'}
+                        color={blocklyEnabled.current ? 'disabled' : keyState.x ? 'error' : 'primary'}
                         onMouseDown={handleArrowMouseDown('x', POSE.ORIENTATION_ROLL_DOWN)}
                         onMouseUp={handleArrowMouseUp('x')}
                         onMouseLeave={handleArrowMouseUp('x')}
@@ -197,9 +202,10 @@ export default function Orientation({ remoteControlEnabled, blocklyEnabled }: Po
                     <RotateRightIcon
                         style={{
                             fontSize: '55px',
+                            cursor: 'pointer',
                             transform: 'perspective(500px) rotateX(65deg) scale(1.5)',
                         }}
-                        color={keyState.c ? 'error' : 'primary'}
+                        color={blocklyEnabled.current ? 'disabled' : keyState.c ? 'error' : 'primary'}
                         onMouseDown={handleArrowMouseDown('c', POSE.ORIENTATION_YAW_DOWN)}
                         onMouseUp={handleArrowMouseUp('c')}
                         onMouseLeave={handleArrowMouseUp('c')}
