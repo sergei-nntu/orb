@@ -1,5 +1,6 @@
 const { test, expect } = require('@playwright/test');
 const {handledInnerText, handledTextInput} = require("./tools");
+const Bot = require("./bot");
 const jointValue = "20";
 
 test.beforeEach('Manipulator',async ({ page }) => {
@@ -12,46 +13,59 @@ test.beforeEach('Manipulator',async ({ page }) => {
 test.describe('Position', () => {
   test.describe.configure({ mode: 'serial' });
   test('Edit X coordinate', async ({ page }) => {
-    await handledInnerText({page}, 'div:nth-child(1) > div > div:nth-child(1) > h6',"x");
+    const bot = new Bot(page);
+    await bot._handledEditValueByClick( 'div:nth-child(1) > div > div:nth-child(1) > h6',"x");
+
   });
   test('Edit Y coordinate', async ({ page }) => {
-    await handledInnerText({page}, 'div:nth-child(1) > div > div:nth-child(2) > h6',"y");
+    const bot = new Bot(page);
+    await bot._handledEditValueByClick( 'div:nth-child(1) > div > div:nth-child(2) > h6',"y");
   });
   test('Edit Z coordinate', async ({ page }) => {
-    await handledInnerText({page}, 'div:nth-child(1) > div > div:nth-child(3) > h6',"z");
+    const bot = new Bot(page);
+    await bot._handledEditValueByClick( 'div:nth-child(1) > div > div:nth-child(3) > h6',"z");
   });
 });
 test.describe('Orientation', () => {
   test.describe.configure({ mode: 'serial' });
   test('Edit pitch value', async ({ page }) => {
-    await handledInnerText({page}, 'div:nth-child(2) > div > div:nth-child(1) > h6',"pitch");
+    const bot = new Bot(page);
+    await bot._handledEditValueByClick('div:nth-child(2) > div > div:nth-child(1) > h6',"pitch");
   });
   test('Edit roll value', async ({ page }) => {
-    await handledInnerText({page}, 'div:nth-child(3) > div > div > div:nth-child(2) > div > div:nth-child(2) > h6',"roll");
+    const bot = new Bot(page);
+    await bot._handledEditValueByClick('div:nth-child(3) > div > div > div:nth-child(2) > div > div:nth-child(2) > h6',"roll");
   });
   test('Edit yaw value', async ({ page }) => {
-    await handledInnerText({page}, 'div:nth-child(2) > div > div:nth-child(3) > h6',"yaw");
+    const bot = new Bot(page);
+    await bot._handledEditValueByClick( 'div:nth-child(2) > div > div:nth-child(3) > h6',"yaw");
   });
 });
 test.describe.skip('Skip Joints Position tests', () => {
   test.describe.configure({ mode: 'serial' });
   test('Edit Joint0', async ({ page }) => {
-    await handledTextInput({page}, '#input-joint-0',jointValue);
+    const bot = new Bot(page);
+    await bot._handledEditValueSlider( '#input-joint-0',jointValue);
   });
   test('Edit Joint1', async ({ page }) => {
-    await handledTextInput({page}, '#input-joint-1',jointValue);
+    const bot = new Bot(page);
+    await bot._handledEditValueSlider( '#input-joint-1',jointValue);
   });
   test('Edit Joint2', async ({ page }) => {
-    await handledTextInput({page}, '#input-joint-2',jointValue);
+    const bot = new Bot(page);
+    await bot._handledEditValueSlider( '#input-joint-2',jointValue);
   });
   test('Edit Joint3', async ({ page }) => {
-    await handledTextInput({page}, '#input-joint-3',jointValue);
+    const bot = new Bot(page);
+    await bot._handledEditValueSlider( '#input-joint-3',jointValue);
   });
   test('Edit Joint4', async ({ page }) => {
-    await handledTextInput({page}, '#input-joint-4',jointValue);
+    const bot = new Bot(page);
+    await bot._handledEditValueSlider( '#input-joint-4',jointValue);
   });
   test('Edit Joint5', async ({ page }) => {
-    await handledTextInput({page}, '#input-joint-5',jointValue);
+    const bot = new Bot(page);
+    await bot._handledEditValueSlider( '#input-joint-5',jointValue);
   });
 });
 test.describe('Gripper State', () => {
