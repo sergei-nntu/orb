@@ -6,12 +6,18 @@ import React, { useContext } from 'react';
 import { PoseContext } from '../../../../../contexts/PoseContext/PoseContext';
 import { StyledBox } from '../../StyledComponents/StyledComponents';
 
-const StyledTag = styled('strong')(({ theme }) => ({
-    color: theme.palette.primary.main,
-}));
+type EndEffectorStateProps = {
+    blocklyEnabled: React.MutableRefObject<boolean>;
+};
 
-export default function EndEffectorState() {
+export default function EndEffectorState(props: EndEffectorStateProps) {
+    const { blocklyEnabled } = props;
     const { state } = useContext(PoseContext);
+
+    const StyledTag = styled('strong')(({ theme }) => ({
+        color: blocklyEnabled.current ? theme.palette.grey.A700 : theme.palette.primary.main,
+    }));
+
     return (
         <StyledBox sx={{ mt: { md: 1, sm: 0 }, height: { md: '150px', xs: '280px' } }}>
             End-Effector State

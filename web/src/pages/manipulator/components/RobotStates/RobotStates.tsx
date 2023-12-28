@@ -6,7 +6,13 @@ import UserConsole from '../UserConsole/UserConsole';
 import GripperState from './GripperState/GripperState';
 import JointsState from './JointsState/JointsState';
 
-export default function RobotStates() {
+type RobotStatesProps = {
+    remoteControlEnabled: React.MutableRefObject<boolean>;
+    degreesValues: number[];
+    blocklyEnabled: React.MutableRefObject<boolean>;
+};
+
+export default function RobotStates(props: RobotStatesProps) {
     return (
         <Grid item xs={12} md={4} lg={3}>
             <Item
@@ -17,8 +23,8 @@ export default function RobotStates() {
                 }}
             >
                 <UserConsole />
-                <JointsState />
-                <GripperState />
+                <JointsState {...props} />
+                <GripperState blocklyEnabled={props.blocklyEnabled} />
             </Item>
         </Grid>
     );

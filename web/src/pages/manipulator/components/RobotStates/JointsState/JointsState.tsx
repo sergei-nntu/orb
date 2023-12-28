@@ -8,7 +8,6 @@ import React, { ChangeEvent, useContext, useEffect, useState } from 'react';
 
 import { API_ROUTES } from '../../../../../constants';
 import { JointsStateContext } from '../../../../../contexts/JointsStateContext/JointsStateContext';
-import { PoseContext } from '../../../../../contexts/PoseContext/PoseContext';
 import useHttp from '../../../../../hooks/Http/Http';
 import { IJointsState } from '../../../../../types/appTypes';
 import { StyledBox } from '../../StyledComponents/StyledComponents';
@@ -28,13 +27,23 @@ type HandleInputChangeFunction = (
 
 type HandleBlurFunction = (value: SliderValue, setValue: React.Dispatch<React.SetStateAction<SliderValue>>) => void;
 
-export default function JointsState() {
-    const { state } = useContext(PoseContext);
+export type JointsStateProps = {
+    remoteControlEnabled: React.MutableRefObject<boolean>;
+    degreesValues: number[];
+    blocklyEnabled: React.MutableRefObject<boolean>;
+};
+
+export default function JointsState(props: JointsStateProps) {
     const { request } = useHttp();
     const { setJointsState } = useContext(JointsStateContext);
+    const { remoteControlEnabled, degreesValues, blocklyEnabled } = props;
 
     const initialJointValues = Array(6).fill(0);
     const [jointValues, setJointValues] = useState<SliderValue[]>(initialJointValues);
+
+    useEffect(() => {
+        setJointValues(degreesValues);
+    }, [degreesValues]);
 
     const handleJointChange: HandleChangeFunction = (index, newValue) => {
         const newValues = [...jointValues];
@@ -74,6 +83,8 @@ export default function JointsState() {
                 break;
         }
         setJointValues(newValues);
+
+        remoteControlEnabled.current = false;
     };
 
     const handleInputChange: HandleInputChangeFunction = (event, setValue) => {
@@ -104,14 +115,6 @@ export default function JointsState() {
         request(API_ROUTES.POST_JOINTS_STATE, options).then();
     }, [jointValues]);
 
-    useEffect(() => {
-        request(API_ROUTES.GET_JOINTS_STATE).then((res: IJointsState) => {
-            const radianValues = [res.shoulder, res.upperArm, res.forearm, res.wrist1, res.wrist2, res.endEffectorLink];
-            const degreesValues = radianValues.map((element: number) => +((180 * element) / Math.PI).toFixed(0));
-            setJointValues(degreesValues);
-        });
-    }, [state]);
-
     return (
         <StyledBox sx={{ width: '100%', ml: { xs: 1, md: 0 }, mt: { xs: 0, md: 1 }, minHeight: '280px' }}>
             Joints Position
@@ -126,6 +129,7 @@ export default function JointsState() {
                                 value={value}
                                 onChange={(_, newValue) => handleJointChange(index, newValue as SliderValue)}
                                 aria-labelledby={`input-slider-${index}`}
+                                disabled={blocklyEnabled.current}
                                 id={`slider-joint-${index}`}
                                 min={-130}
                                 max={130}
@@ -137,6 +141,7 @@ export default function JointsState() {
                                 sx={{ minWidth: '50px' }}
                                 value={value}
                                 size="small"
+                                disabled={blocklyEnabled.current}
                                 onChange={(e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
                                     handleInputChange(e, (newValue) => {
                                         const newValues = [...jointValues];
