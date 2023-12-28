@@ -43,7 +43,7 @@ module.exports = class Tools {
     }
 
     async _reload() {
-        await this.element.reload({ waitUntil: "networkidle" });
+        await this.element.reload();
         await this._waitLoading();
     }
 };
