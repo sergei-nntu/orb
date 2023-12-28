@@ -41,7 +41,7 @@ test.describe('Orientation', () => {
     await bot._handledEditValueByClick( 'div:nth-child(2) > div > div:nth-child(3) > h6',"yaw");
   });
 });
-test.describe.skip('Skip Joints Position tests', () => {
+test.describe.skip('Joints Position tests', () => {
   test.describe.configure({ mode: 'serial' });
   test('Edit Joint0', async ({ page }) => {
     const bot = new Bot(page);
