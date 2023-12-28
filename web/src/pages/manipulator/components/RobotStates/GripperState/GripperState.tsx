@@ -20,7 +20,11 @@ function valuetext(value: number) {
     return `${value}°`;
 }
 
-export default function GripperState() {
+type GripperStateProps = {
+    blocklyEnabled: React.MutableRefObject<boolean>;
+};
+
+export default function GripperState({ blocklyEnabled }: GripperStateProps) {
     const { dispatch } = useContext(PoseContext);
     const [sliderValue, setSliderValue] = useState<number>(80);
 
@@ -40,6 +44,7 @@ export default function GripperState() {
         >
             Gripper State
             <Slider
+                disabled={blocklyEnabled.current}
                 id="slider-gripper-state"
                 value={sliderValue}
                 onChange={handleChangeValue}
