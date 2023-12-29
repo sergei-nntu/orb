@@ -89,7 +89,7 @@ test.describe('Gripper State', () => {
 
     await expect(oldPosition).not.toBe(newPosition);
 
-    await page.reload({ waitUntil: "networkidle" });
+    await page.reload();
 
     const gripperPosition =  await page.locator('#slider-gripper-state > span> input').inputValue();
     console.log("value_current = ", gripperPosition);
