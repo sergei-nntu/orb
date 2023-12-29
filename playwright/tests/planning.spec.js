@@ -30,6 +30,9 @@ test.describe('Planning', () => {
         const source3 = page.locator('g.blocklyBlockCanvas > g:nth-child(15)');
         const source4 = page.locator('g.blocklyBlockCanvas > g:nth-child(17)');
         const source5 = page.locator('g.blocklyBlockCanvas > g:nth-child(5)');
+        // const source6 = page.locator('g.blocklyBlockCanvas > g:nth-child(13)');
+        // const source7 = page.locator('g.blocklyBlockCanvas > g:nth-child(15)');
+        // const source8 = page.locator('g.blocklyBlockCanvas > g:nth-child(17)');
         const target = page.locator('div > svg.blocklySvg > g');
         // const box = await source5.boundingBox();
         // console.log("box-w = ", box.width);
@@ -51,6 +54,15 @@ test.describe('Planning', () => {
         await source5.dragTo(target, {
             targetPosition: { x: 700, y: 180 }
         });
+        // await source6.dragTo(target, {
+        //     targetPosition: { x: 760, y: 280 }
+        // });
+        // await source7.dragTo(target, {
+        //     targetPosition: { x: 660, y: 300 }
+        // });
+        // await source8.dragTo(target, {
+        //     targetPosition: { x: 660, y: 320 }
+        // });
         await page.locator("//button[text()=\'SAVE\']").click();
         await page.locator('//div[contains(text(),\'The program state has been saved!\')]').waitFor({state:'visible'});
     });

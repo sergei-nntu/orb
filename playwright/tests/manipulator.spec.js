@@ -1,5 +1,4 @@
 const { test, expect } = require('@playwright/test');
-const {handledInnerText, handledTextInput} = require("./tools");
 const Bot = require("./bot");
 const jointValue = "20";
 
