@@ -69,37 +69,37 @@ test.describe.skip('Joints Position tests', () => {
 });
 test.describe('Gripper State', () => {
   test('Edit Gripper State', async ({ page }) => {
-    const oldPosition =  await page.locator('#slider-gripper-state > span> input').inputValue();
+    const bot = new Bot(page);
+    const oldPosition =  await bot.tools._handledInputValue('#slider-gripper-state > span> input');
     console.log("position_0 = ", oldPosition);
 
-    const sliderTrack = await page.locator('#slider-gripper-state');
+    const sliderTrack = await bot.tools.element.locator('#slider-gripper-state');
     const sliderOffsetWidth = await sliderTrack.evaluate(el => {
       return el.getBoundingClientRect().width;
     })
     console.log("sliderOffsetWidth = ", sliderOffsetWidth);
     // Using the hover method to place the mouse cursor then moving it to the right
     await sliderTrack.hover({ force: true, position: { x: 0, y: 0 } });
-    await page.mouse.down();
+    await bot.tools.element.mouse.down();
     await sliderTrack.click({ force: true, position: { x: (sliderOffsetWidth / 1.5), y: 0 } });
-    await page.mouse.up();
+    await bot.tools.element.mouse.up();
 
-    const newPosition =  await page.locator('#slider-gripper-state > span> input').inputValue();
+    const newPosition = await bot.tools._handledInputValue('#slider-gripper-state > span> input');
     console.log("position_1 = ", newPosition);
 
     await expect(oldPosition).not.toBe(newPosition);
+    await bot.tools._reload();
 
-    await page.reload();
+    const gripperPosition =  await bot.tools._handledInputValue('#slider-gripper-state > span> input');
 
-    const gripperPosition =  await page.locator('#slider-gripper-state > span> input').inputValue();
     console.log("value_current = ", gripperPosition);
-
-    // await expect(newPosition).toBe(gripperPosition);
 
   });
 });
 test.describe('Connection to the server', () => {
   test('Establishing a connection to the server', async ({ page }) => {
-    const userMessage =  await page.locator('//div[@id="user-message"][1]').innerText();
+    const bot = new Bot(page);
+    const userMessage = await bot.tools._handledInnerText('//div[@id="user-message"][1]');
     console.log("text = ", userMessage);
     await expect(userMessage).not.toBe('Error with connection to the server');
   });
