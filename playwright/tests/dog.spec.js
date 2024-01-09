@@ -15,56 +15,56 @@ test.describe('Edit Front Left', () => {
 
     test('Edit Shoulder', async ({ page }) => {
         const bot = new Bot(page);
-        await bot._handledEditValueSlider('div:nth-child(1) > div:nth-child(3) > div > input', shoulderValue);
+        await bot._handledEditValueSlider('div:nth-child(1) > div:nth-child(1) > div:nth-child(4) > div > input', shoulderValue);
     });
     test('Edit Reductor', async ({ page }) => {
         const bot = new Bot(page);
-        await bot._handledEditValueSlider('div:nth-child(2) > div:nth-child(3) > div > input', reductorValue);
+        await bot._handledEditValueSlider('div:nth-child(1) > div:nth-child(2) > div:nth-child(3) > div > input', reductorValue);
     });
     test('Edit Knee', async ({ page }) => {
         const bot = new Bot(page);
-        await bot._handledEditValueSlider('div:nth-child(3) > div:nth-child(3) > div > input', kneeValue);
+        await bot._handledEditValueSlider('div:nth-child(1) > div:nth-child(3) > div:nth-child(3) > div > input', kneeValue);
     });
 });
 test.describe('Edit Front Right', () => {
     test('Edit Shoulder', async ({ page }) => {
         const bot = new Bot(page);
-        await bot._handledEditValueSlider( 'div:nth-child(4) > div:nth-child(3) > div > input', shoulderValue);
+        await bot._handledEditValueSlider( 'div:nth-child(2) > div:nth-child(1) > div:nth-child(4) > div > input', shoulderValue);
     });
     test('Edit Reductor', async ({ page }) => {
         const bot = new Bot(page);
-        await bot._handledEditValueSlider( 'div:nth-child(5) > div:nth-child(3) > div > input', reductorValue);
+        await bot._handledEditValueSlider( 'div:nth-child(2) > div:nth-child(2) > div:nth-child(3) > div > input', reductorValue);
     });
     test('Edit Knee', async ({ page }) => {
         const bot = new Bot(page);
-        await bot._handledEditValueSlider('div:nth-child(6) > div:nth-child(3) > div > input', kneeValue);
+        await bot._handledEditValueSlider('div:nth-child(2) > div:nth-child(3) > div:nth-child(3) > div > input', kneeValue);
     });
 });
 test.describe('Edit Rear Left', () => {
     test('Edit Shoulder', async ({ page }) => {
         const bot = new Bot(page);
-        await bot._handledEditValueSlider( 'div:nth-child(7) > div:nth-child(3) > div > input', shoulderValue);
+        await bot._handledEditValueSlider( 'div:nth-child(3) > div:nth-child(1) > div:nth-child(4) > div > input', shoulderValue);
     });
     test('Edit Reductor', async ({ page }) => {
         const bot = new Bot(page);
-        await bot._handledEditValueSlider('div:nth-child(8) > div:nth-child(3) > div > input', reductorValue);
+        await bot._handledEditValueSlider('div:nth-child(3) > div:nth-child(2) > div:nth-child(3) > div > input', reductorValue);
     });
     test('Edit Knee', async ({ page }) => {
         const bot = new Bot(page);
-        await bot._handledEditValueSlider('div:nth-child(9) > div:nth-child(3) > div > input', kneeValue);
+        await bot._handledEditValueSlider('div:nth-child(3) > div:nth-child(3) > div:nth-child(3) > div > input', kneeValue);
     });
 });
 test.describe('Edit Rear Right', () => {
     test('Edit Shoulder', async ({ page }) => {
         const bot = new Bot(page);
-        await bot._handledEditValueSlider( 'div:nth-child(10) > div:nth-child(3) > div > input', shoulderValue);
+        await bot._handledEditValueSlider( 'div:nth-child(4) > div:nth-child(1) > div:nth-child(4) > div > input', shoulderValue);
     });
     test('Edit Reductor', async ({ page }) => {
         const bot = new Bot(page);
-        await bot._handledEditValueSlider( 'div:nth-child(11) > div:nth-child(3) > div > input', reductorValue);
+        await bot._handledEditValueSlider( 'div:nth-child(4) > div:nth-child(2) > div:nth-child(3) > div > input', reductorValue);
     });
     test('Edit Knee', async ({ page }) => {
         const bot = new Bot(page);
-        await bot._handledEditValueSlider( 'div:nth-child(12) > div:nth-child(3) > div > input', kneeValue);
+        await bot._handledEditValueSlider( 'div:nth-child(4) > div:nth-child(3) > div:nth-child(3) > div > input', kneeValue);
     });
 });
