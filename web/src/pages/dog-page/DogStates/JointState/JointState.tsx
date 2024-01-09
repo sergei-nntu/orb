@@ -117,396 +117,421 @@ export default function JointsState() {
     };
 
     return (
-        <StyledBox sx={{ width: '100%', pt: 1 }}>
-            FRONT LEFT
-            <Box component="div" sx={{ width: '100%', mt: 1 }}>
-                <Grid container spacing={2} alignItems="center">
-                    <Grid item>
-                        <Typography id="input-slider">Shoulder</Typography>
+        <StyledBox sx={{ width: '100%' }}>
+            <Box
+                component="div"
+                sx={{
+                    width: '100%',
+                    display: 'flex',
+                    justifyContent: 'space-evenly',
+                    flexDirection: 'column',
+                    height: '100%',
+                }}
+            >
+                <div>
+                    <Grid container spacing={2} alignItems="center">
+                        <Grid item sx={{ width: '100%' }}>
+                            FRONT LEFT
+                        </Grid>
+                        <Grid item>
+                            <Typography id="input-slider">Shoulder</Typography>
+                        </Grid>
+                        <Grid item xs>
+                            <Slider
+                                value={joint0Value}
+                                onChange={handleJoint0Change}
+                                aria-labelledby="input-slider"
+                                min={-90}
+                                max={90}
+                            />
+                        </Grid>
+                        <Grid item>
+                            <Input
+                                sx={{ minWidth: '50px' }}
+                                value={joint0Value}
+                                size="small"
+                                onChange={(e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+                                    handleInputChange(e, setJoint0Value)
+                                }
+                                onBlur={() => handleBlur(joint0Value, setJoint0Value)}
+                                inputProps={{
+                                    step: 1,
+                                    min: -90,
+                                    max: 90,
+                                    type: 'number',
+                                    'aria-labelledby': 'input-slider',
+                                }}
+                            />
+                        </Grid>
                     </Grid>
-                    <Grid item xs>
-                        <Slider
-                            value={joint0Value}
-                            onChange={handleJoint0Change}
-                            aria-labelledby="input-slider"
-                            min={-90}
-                            max={90}
-                        />
+                    <Grid container spacing={2} alignItems="center">
+                        <Grid item>
+                            <Typography id="input-slider">Reductor</Typography>
+                        </Grid>
+                        <Grid item xs>
+                            <Slider
+                                value={joint1Value}
+                                onChange={handleJoint1Change}
+                                aria-labelledby="input-slider"
+                                min={-90}
+                                max={90}
+                            />
+                        </Grid>
+                        <Grid item>
+                            <Input
+                                sx={{ minWidth: '50px' }}
+                                value={joint1Value}
+                                size="small"
+                                onChange={(e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+                                    handleInputChange(e, setJoint1Value)
+                                }
+                                onBlur={() => handleBlur(joint1Value, setJoint1Value)}
+                                inputProps={{
+                                    step: 1,
+                                    min: -90,
+                                    max: 90,
+                                    type: 'number',
+                                    'aria-labelledby': 'input-slider',
+                                }}
+                            />
+                        </Grid>
                     </Grid>
-                    <Grid item>
-                        <Input
-                            sx={{ minWidth: '50px' }}
-                            value={joint0Value}
-                            size="small"
-                            onChange={(e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
-                                handleInputChange(e, setJoint0Value)
-                            }
-                            onBlur={() => handleBlur(joint0Value, setJoint0Value)}
-                            inputProps={{
-                                step: 1,
-                                min: -90,
-                                max: 90,
-                                type: 'number',
-                                'aria-labelledby': 'input-slider',
-                            }}
-                        />
+                    <Grid container spacing={2} alignItems="center">
+                        <Grid item>
+                            <Typography id="input-slider">Knee</Typography>
+                        </Grid>
+                        <Grid item xs>
+                            <Slider
+                                value={joint2Value}
+                                onChange={handleJoint2Change}
+                                aria-labelledby="input-slider"
+                                min={0}
+                                max={150}
+                            />
+                        </Grid>
+                        <Grid item>
+                            <Input
+                                sx={{ minWidth: '50px' }}
+                                value={joint2Value}
+                                size="small"
+                                onChange={(e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+                                    handleInputChange(e, setJoint2Value)
+                                }
+                                onBlur={() => handleBlur(joint2Value, setJoint2Value)}
+                                inputProps={{
+                                    step: 1,
+                                    min: 0,
+                                    max: 150,
+                                    type: 'number',
+                                    'aria-labelledby': 'input-slider',
+                                }}
+                            />
+                        </Grid>
                     </Grid>
-                </Grid>
-                <Grid container spacing={2} alignItems="center">
-                    <Grid item>
-                        <Typography id="input-slider">Reductor</Typography>
+                </div>
+                <div>
+                    <Grid container spacing={2} alignItems="center">
+                        <Grid item sx={{ width: '100%' }}>
+                            FRONT RIGHT
+                        </Grid>
+                        <Grid item>
+                            <Typography id="input-slider">Shoulder</Typography>
+                        </Grid>
+                        <Grid item xs>
+                            <Slider
+                                value={joint3Value}
+                                onChange={handleJoint3Change}
+                                aria-labelledby="input-slider"
+                                min={-90}
+                                max={90}
+                            />
+                        </Grid>
+                        <Grid item>
+                            <Input
+                                sx={{ minWidth: '50px' }}
+                                value={joint3Value}
+                                size="small"
+                                onChange={(e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+                                    handleInputChange(e, setJoint3Value)
+                                }
+                                onBlur={() => handleBlur(joint3Value, setJoint3Value)}
+                                inputProps={{
+                                    step: 1,
+                                    min: -90,
+                                    max: 90,
+                                    type: 'number',
+                                    'aria-labelledby': 'input-slider',
+                                }}
+                            />
+                        </Grid>
                     </Grid>
-                    <Grid item xs>
-                        <Slider
-                            value={joint1Value}
-                            onChange={handleJoint1Change}
-                            aria-labelledby="input-slider"
-                            min={-90}
-                            max={90}
-                        />
+                    <Grid container spacing={2} alignItems="center">
+                        <Grid item>
+                            <Typography id="input-slider">Reductor</Typography>
+                        </Grid>
+                        <Grid item xs>
+                            <Slider
+                                value={joint4Value}
+                                onChange={handleJoint4Change}
+                                aria-labelledby="input-slider"
+                                min={-90}
+                                max={90}
+                            />
+                        </Grid>
+                        <Grid item>
+                            <Input
+                                sx={{ minWidth: '50px' }}
+                                value={joint4Value}
+                                size="small"
+                                onChange={(e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+                                    handleInputChange(e, setJoint4Value)
+                                }
+                                onBlur={() => handleBlur(joint4Value, setJoint4Value)}
+                                inputProps={{
+                                    step: 1,
+                                    min: -90,
+                                    max: 90,
+                                    type: 'number',
+                                    'aria-labelledby': 'input-slider',
+                                }}
+                            />
+                        </Grid>
                     </Grid>
-                    <Grid item>
-                        <Input
-                            sx={{ minWidth: '50px' }}
-                            value={joint1Value}
-                            size="small"
-                            onChange={(e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
-                                handleInputChange(e, setJoint1Value)
-                            }
-                            onBlur={() => handleBlur(joint1Value, setJoint1Value)}
-                            inputProps={{
-                                step: 1,
-                                min: -90,
-                                max: 90,
-                                type: 'number',
-                                'aria-labelledby': 'input-slider',
-                            }}
-                        />
+                    <Grid container spacing={2} alignItems="center">
+                        <Grid item>
+                            <Typography id="input-slider">Knee</Typography>
+                        </Grid>
+                        <Grid item xs>
+                            <Slider
+                                value={joint5Value}
+                                onChange={handleJoint5Change}
+                                aria-labelledby="input-slider"
+                                min={0}
+                                max={150}
+                            />
+                        </Grid>
+                        <Grid item>
+                            <Input
+                                sx={{ minWidth: '50px' }}
+                                value={joint5Value}
+                                size="small"
+                                onChange={(e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+                                    handleInputChange(e, setJoint5Value)
+                                }
+                                onBlur={() => handleBlur(joint5Value, setJoint5Value)}
+                                inputProps={{
+                                    step: 1,
+                                    min: 0,
+                                    max: 150,
+                                    type: 'number',
+                                    'aria-labelledby': 'input-slider',
+                                }}
+                            />
+                        </Grid>
                     </Grid>
-                </Grid>
-                <Grid container spacing={2} alignItems="center" sx={{ mb: 4 }}>
-                    <Grid item>
-                        <Typography id="input-slider">Knee</Typography>
+                </div>
+                <div>
+                    <Grid container spacing={2} alignItems="center">
+                        <Grid item sx={{ width: '100%' }}>
+                            REAR LEFT
+                        </Grid>
+                        <Grid item>
+                            <Typography id="input-slider">Shoulder</Typography>
+                        </Grid>
+                        <Grid item xs>
+                            <Slider
+                                value={joint6Value}
+                                onChange={handleJoint6Change}
+                                aria-labelledby="input-slider"
+                                min={-90}
+                                max={90}
+                            />
+                        </Grid>
+                        <Grid item>
+                            <Input
+                                sx={{ minWidth: '50px' }}
+                                value={joint6Value}
+                                size="small"
+                                onChange={(e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+                                    handleInputChange(e, setJoint6Value)
+                                }
+                                onBlur={() => handleBlur(joint6Value, setJoint6Value)}
+                                inputProps={{
+                                    step: 1,
+                                    min: -90,
+                                    max: 90,
+                                    type: 'number',
+                                    'aria-labelledby': 'input-slider',
+                                }}
+                            />
+                        </Grid>
                     </Grid>
-                    <Grid item xs>
-                        <Slider
-                            value={joint2Value}
-                            onChange={handleJoint2Change}
-                            aria-labelledby="input-slider"
-                            min={0}
-                            max={150}
-                        />
+                    <Grid container spacing={2} alignItems="center">
+                        <Grid item>
+                            <Typography id="input-slider">Reductor</Typography>
+                        </Grid>
+                        <Grid item xs>
+                            <Slider
+                                value={joint7Value}
+                                onChange={handleJoint7Change}
+                                aria-labelledby="input-slider"
+                                min={-90}
+                                max={90}
+                            />
+                        </Grid>
+                        <Grid item>
+                            <Input
+                                sx={{ minWidth: '50px' }}
+                                value={joint7Value}
+                                size="small"
+                                onChange={(e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+                                    handleInputChange(e, setJoint7Value)
+                                }
+                                onBlur={() => handleBlur(joint7Value, setJoint7Value)}
+                                inputProps={{
+                                    step: 1,
+                                    min: -90,
+                                    max: 90,
+                                    type: 'number',
+                                    'aria-labelledby': 'input-slider',
+                                }}
+                            />
+                        </Grid>
                     </Grid>
-                    <Grid item>
-                        <Input
-                            sx={{ minWidth: '50px' }}
-                            value={joint2Value}
-                            size="small"
-                            onChange={(e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
-                                handleInputChange(e, setJoint2Value)
-                            }
-                            onBlur={() => handleBlur(joint2Value, setJoint2Value)}
-                            inputProps={{
-                                step: 1,
-                                min: 0,
-                                max: 150,
-                                type: 'number',
-                                'aria-labelledby': 'input-slider',
-                            }}
-                        />
+                    <Grid container spacing={2} alignItems="center">
+                        <Grid item>
+                            <Typography id="input-slider">Knee</Typography>
+                        </Grid>
+                        <Grid item xs>
+                            <Slider
+                                value={joint8Value}
+                                onChange={handleJoint8Change}
+                                aria-labelledby="input-slider"
+                                min={0}
+                                max={150}
+                            />
+                        </Grid>
+                        <Grid item>
+                            <Input
+                                sx={{ minWidth: '50px' }}
+                                value={joint8Value}
+                                size="small"
+                                onChange={(e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+                                    handleInputChange(e, setJoint8Value)
+                                }
+                                onBlur={() => handleBlur(joint8Value, setJoint8Value)}
+                                inputProps={{
+                                    step: 1,
+                                    min: 0,
+                                    max: 150,
+                                    type: 'number',
+                                    'aria-labelledby': 'input-slider',
+                                }}
+                            />
+                        </Grid>
                     </Grid>
-                </Grid>
-                FRONT RIGHT
-                <Grid container spacing={2} alignItems="center">
-                    <Grid item>
-                        <Typography id="input-slider">Shoulder</Typography>
+                </div>
+                <div>
+                    <Grid container spacing={2} alignItems="center">
+                        <Grid item sx={{ width: '100%' }}>
+                            REAR RIGHT
+                        </Grid>
+                        <Grid item>
+                            <Typography id="input-slider">Shoulder</Typography>
+                        </Grid>
+                        <Grid item xs>
+                            <Slider
+                                value={joint9Value}
+                                onChange={handleJoint9Change}
+                                aria-labelledby="input-slider"
+                                min={-90}
+                                max={90}
+                            />
+                        </Grid>
+                        <Grid item>
+                            <Input
+                                sx={{ minWidth: '50px' }}
+                                value={joint9Value}
+                                size="small"
+                                onChange={(e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+                                    handleInputChange(e, setJoint9Value)
+                                }
+                                onBlur={() => handleBlur(joint9Value, setJoint9Value)}
+                                inputProps={{
+                                    step: 1,
+                                    min: -90,
+                                    max: 90,
+                                    type: 'number',
+                                    'aria-labelledby': 'input-slider',
+                                }}
+                            />
+                        </Grid>
                     </Grid>
-                    <Grid item xs>
-                        <Slider
-                            value={joint3Value}
-                            onChange={handleJoint3Change}
-                            aria-labelledby="input-slider"
-                            min={-90}
-                            max={90}
-                        />
+                    <Grid container spacing={2} alignItems="center">
+                        <Grid item>
+                            <Typography id="input-slider">Reductor</Typography>
+                        </Grid>
+                        <Grid item xs>
+                            <Slider
+                                value={joint10Value}
+                                onChange={handleJoint10Change}
+                                aria-labelledby="input-slider"
+                                min={-90}
+                                max={90}
+                            />
+                        </Grid>
+                        <Grid item>
+                            <Input
+                                sx={{ minWidth: '50px' }}
+                                value={joint10Value}
+                                size="small"
+                                onChange={(e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+                                    handleInputChange(e, setJoint10Value)
+                                }
+                                onBlur={() => handleBlur(joint10Value, setJoint10Value)}
+                                inputProps={{
+                                    step: 1,
+                                    min: -90,
+                                    max: 90,
+                                    type: 'number',
+                                    'aria-labelledby': 'input-slider',
+                                }}
+                            />
+                        </Grid>
                     </Grid>
-                    <Grid item>
-                        <Input
-                            sx={{ minWidth: '50px' }}
-                            value={joint3Value}
-                            size="small"
-                            onChange={(e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
-                                handleInputChange(e, setJoint3Value)
-                            }
-                            onBlur={() => handleBlur(joint3Value, setJoint3Value)}
-                            inputProps={{
-                                step: 1,
-                                min: -90,
-                                max: 90,
-                                type: 'number',
-                                'aria-labelledby': 'input-slider',
-                            }}
-                        />
+                    <Grid container spacing={2} alignItems="center">
+                        <Grid item>
+                            <Typography id="input-slider">Knee</Typography>
+                        </Grid>
+                        <Grid item xs>
+                            <Slider
+                                value={joint11Value}
+                                onChange={handleJoint11Change}
+                                aria-labelledby="input-slider"
+                                min={0}
+                                max={150}
+                            />
+                        </Grid>
+                        <Grid item>
+                            <Input
+                                sx={{ minWidth: '50px' }}
+                                value={joint11Value}
+                                size="small"
+                                onChange={(e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+                                    handleInputChange(e, setJoint11Value)
+                                }
+                                onBlur={() => handleBlur(joint11Value, setJoint11Value)}
+                                inputProps={{
+                                    step: 1,
+                                    min: 0,
+                                    max: 150,
+                                    type: 'number',
+                                    'aria-labelledby': 'input-slider',
+                                }}
+                            />
+                        </Grid>
                     </Grid>
-                </Grid>
-                <Grid container spacing={2} alignItems="center">
-                    <Grid item>
-                        <Typography id="input-slider">Reductor</Typography>
-                    </Grid>
-                    <Grid item xs>
-                        <Slider
-                            value={joint4Value}
-                            onChange={handleJoint4Change}
-                            aria-labelledby="input-slider"
-                            min={-90}
-                            max={90}
-                        />
-                    </Grid>
-                    <Grid item>
-                        <Input
-                            sx={{ minWidth: '50px' }}
-                            value={joint4Value}
-                            size="small"
-                            onChange={(e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
-                                handleInputChange(e, setJoint4Value)
-                            }
-                            onBlur={() => handleBlur(joint4Value, setJoint4Value)}
-                            inputProps={{
-                                step: 1,
-                                min: -90,
-                                max: 90,
-                                type: 'number',
-                                'aria-labelledby': 'input-slider',
-                            }}
-                        />
-                    </Grid>
-                </Grid>
-                <Grid container spacing={2} alignItems="center" sx={{ mb: 4 }}>
-                    <Grid item>
-                        <Typography id="input-slider">Knee</Typography>
-                    </Grid>
-                    <Grid item xs>
-                        <Slider
-                            value={joint5Value}
-                            onChange={handleJoint5Change}
-                            aria-labelledby="input-slider"
-                            min={0}
-                            max={150}
-                        />
-                    </Grid>
-                    <Grid item>
-                        <Input
-                            sx={{ minWidth: '50px' }}
-                            value={joint5Value}
-                            size="small"
-                            onChange={(e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
-                                handleInputChange(e, setJoint5Value)
-                            }
-                            onBlur={() => handleBlur(joint5Value, setJoint5Value)}
-                            inputProps={{
-                                step: 1,
-                                min: 0,
-                                max: 150,
-                                type: 'number',
-                                'aria-labelledby': 'input-slider',
-                            }}
-                        />
-                    </Grid>
-                </Grid>
-                REAR LEFT
-                <Grid container spacing={2} alignItems="center">
-                    <Grid item>
-                        <Typography id="input-slider">Shoulder</Typography>
-                    </Grid>
-                    <Grid item xs>
-                        <Slider
-                            value={joint6Value}
-                            onChange={handleJoint6Change}
-                            aria-labelledby="input-slider"
-                            min={-90}
-                            max={90}
-                        />
-                    </Grid>
-                    <Grid item>
-                        <Input
-                            sx={{ minWidth: '50px' }}
-                            value={joint6Value}
-                            size="small"
-                            onChange={(e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
-                                handleInputChange(e, setJoint6Value)
-                            }
-                            onBlur={() => handleBlur(joint6Value, setJoint6Value)}
-                            inputProps={{
-                                step: 1,
-                                min: -90,
-                                max: 90,
-                                type: 'number',
-                                'aria-labelledby': 'input-slider',
-                            }}
-                        />
-                    </Grid>
-                </Grid>
-                <Grid container spacing={2} alignItems="center">
-                    <Grid item>
-                        <Typography id="input-slider">Reductor</Typography>
-                    </Grid>
-                    <Grid item xs>
-                        <Slider
-                            value={joint7Value}
-                            onChange={handleJoint7Change}
-                            aria-labelledby="input-slider"
-                            min={-90}
-                            max={90}
-                        />
-                    </Grid>
-                    <Grid item>
-                        <Input
-                            sx={{ minWidth: '50px' }}
-                            value={joint7Value}
-                            size="small"
-                            onChange={(e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
-                                handleInputChange(e, setJoint7Value)
-                            }
-                            onBlur={() => handleBlur(joint7Value, setJoint7Value)}
-                            inputProps={{
-                                step: 1,
-                                min: -90,
-                                max: 90,
-                                type: 'number',
-                                'aria-labelledby': 'input-slider',
-                            }}
-                        />
-                    </Grid>
-                </Grid>
-                <Grid container spacing={2} alignItems="center" sx={{ mb: 4 }}>
-                    <Grid item>
-                        <Typography id="input-slider">Knee</Typography>
-                    </Grid>
-                    <Grid item xs>
-                        <Slider
-                            value={joint8Value}
-                            onChange={handleJoint8Change}
-                            aria-labelledby="input-slider"
-                            min={0}
-                            max={150}
-                        />
-                    </Grid>
-                    <Grid item>
-                        <Input
-                            sx={{ minWidth: '50px' }}
-                            value={joint8Value}
-                            size="small"
-                            onChange={(e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
-                                handleInputChange(e, setJoint8Value)
-                            }
-                            onBlur={() => handleBlur(joint8Value, setJoint8Value)}
-                            inputProps={{
-                                step: 1,
-                                min: 0,
-                                max: 150,
-                                type: 'number',
-                                'aria-labelledby': 'input-slider',
-                            }}
-                        />
-                    </Grid>
-                </Grid>
-                REAR RIGHT
-                <Grid container spacing={2} alignItems="center">
-                    <Grid item>
-                        <Typography id="input-slider">Shoulder</Typography>
-                    </Grid>
-                    <Grid item xs>
-                        <Slider
-                            value={joint9Value}
-                            onChange={handleJoint9Change}
-                            aria-labelledby="input-slider"
-                            min={-90}
-                            max={90}
-                        />
-                    </Grid>
-                    <Grid item>
-                        <Input
-                            sx={{ minWidth: '50px' }}
-                            value={joint9Value}
-                            size="small"
-                            onChange={(e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
-                                handleInputChange(e, setJoint9Value)
-                            }
-                            onBlur={() => handleBlur(joint9Value, setJoint9Value)}
-                            inputProps={{
-                                step: 1,
-                                min: -90,
-                                max: 90,
-                                type: 'number',
-                                'aria-labelledby': 'input-slider',
-                            }}
-                        />
-                    </Grid>
-                </Grid>
-                <Grid container spacing={2} alignItems="center">
-                    <Grid item>
-                        <Typography id="input-slider">Reductor</Typography>
-                    </Grid>
-                    <Grid item xs>
-                        <Slider
-                            value={joint10Value}
-                            onChange={handleJoint10Change}
-                            aria-labelledby="input-slider"
-                            min={-90}
-                            max={90}
-                        />
-                    </Grid>
-                    <Grid item>
-                        <Input
-                            sx={{ minWidth: '50px' }}
-                            value={joint10Value}
-                            size="small"
-                            onChange={(e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
-                                handleInputChange(e, setJoint10Value)
-                            }
-                            onBlur={() => handleBlur(joint10Value, setJoint10Value)}
-                            inputProps={{
-                                step: 1,
-                                min: -90,
-                                max: 90,
-                                type: 'number',
-                                'aria-labelledby': 'input-slider',
-                            }}
-                        />
-                    </Grid>
-                </Grid>
-                <Grid container spacing={2} alignItems="center">
-                    <Grid item>
-                        <Typography id="input-slider">Knee</Typography>
-                    </Grid>
-                    <Grid item xs>
-                        <Slider
-                            value={joint11Value}
-                            onChange={handleJoint11Change}
-                            aria-labelledby="input-slider"
-                            min={0}
-                            max={150}
-                        />
-                    </Grid>
-                    <Grid item>
-                        <Input
-                            sx={{ minWidth: '50px' }}
-                            value={joint11Value}
-                            size="small"
-                            onChange={(e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
-                                handleInputChange(e, setJoint11Value)
-                            }
-                            onBlur={() => handleBlur(joint11Value, setJoint11Value)}
-                            inputProps={{
-                                step: 1,
-                                min: 0,
-                                max: 150,
-                                type: 'number',
-                                'aria-labelledby': 'input-slider',
-                            }}
-                        />
-                    </Grid>
-                </Grid>
+                </div>
             </Box>
         </StyledBox>
     );
