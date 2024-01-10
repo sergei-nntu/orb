@@ -8,13 +8,16 @@ on:
   pull_request:
     types:
       - closed
+  pull_request_review:
+    types:
+      - submitted
 jobs:
   test:
     timeout-minutes: 60
     runs-on: ubuntu-latest
     steps:
     - name: Pull request to develop branch or schedule
-      if: ((github.event.pull_request.merged == true) || (github.event_name == 'schedule'))
+      if: ((github.event.pull_request.merged == true) || (github.event.review.state == 'approved') || (github.event_name == 'schedule'))
       uses: actions/checkout@v3
       with:
         ref: develop
