@@ -1,39 +1,43 @@
 const { test, expect } = require('@playwright/test');
+const Bot = require("./bot");
 
 test.beforeEach('Planning',async ({ page }) => {
-    await page.goto('http://localhost:3000', {waitUntil: 'networkidle'});
-    await page.getByTestId('NextPlanIcon').click();
-    const locator = page.locator('//div[text()=\'Planning\']');
+    const bot = new Bot(page);
+    await bot.tools.element.goto('http://localhost:3000', {waitUntil: 'networkidle'});
+    await bot.tools._handledButtonByTestId('NextPlanIcon');
+    const locator = bot.tools.element.locator('//div[text()=\'Planning\']');
     await expect(locator).toContainText('Planning');
 });
 test.describe('Planning', () => {
     test.describe.configure({ mode: 'serial' });
     test('Delete blocks', async ({ page }) => {
-        await page.mouse.click(600, 100, { button: 'right' });
-        const blocks = await page.locator('//div[contains(text(),\'Delete\')]').isEnabled();
+        const bot = new Bot(page);
+        await bot.tools.element.mouse.click(600, 100, { button: 'right' });
+        const blocks = await bot.tools.element.locator('//div[contains(text(),\'Delete\')]').isEnabled();
         if(blocks){
             console.log("Delete blocks");
-            page.on('dialog', async dialog => {
+            bot.tools.element.on('dialog', async dialog => {
                 console.log(dialog.message());
                 await dialog.accept();
             });
-            await page.locator('//div[contains(text(),\'Delete\')]').click();
+            await bot.tools.element.locator('//div[contains(text(),\'Delete\')]').click();
             console.log("Saving changes");
-            await page.locator("//button[text()=\'SAVE\']").click();
-            await page.locator('//div[contains(text(),\'The program state has been saved!\')]').waitFor({state:'visible'});
+            await bot.tools._handledButton("//button[text()=\'SAVE\']");
+            await bot.tools._waitFor('//div[contains(text(),\'The program state has been saved!\')]', 'visible');
         }
     });
     test('Drag and Drop Blocks', async ({ page }) => {
         console.log("Drag and Drop Blocks");
-        const source1 = page.locator('g.blocklyBlockCanvas > rect:nth-child(8)');
-        const source2 = page.locator('g.blocklyBlockCanvas > g:nth-child(13)');
-        const source3 = page.locator('g.blocklyBlockCanvas > g:nth-child(15)');
-        const source4 = page.locator('g.blocklyBlockCanvas > g:nth-child(17)');
-        const source5 = page.locator('g.blocklyBlockCanvas > g:nth-child(5)');
+        const bot = new Bot(page);
+        const source1 = bot.tools.element.locator('g.blocklyBlockCanvas > rect:nth-child(8)');
+        const source2 = bot.tools.element.locator('g.blocklyBlockCanvas > g:nth-child(13)');
+        const source3 = bot.tools.element.locator('g.blocklyBlockCanvas > g:nth-child(15)');
+        const source4 = bot.tools.element.locator('g.blocklyBlockCanvas > g:nth-child(17)');
+        const source5 = bot.tools.element.locator('g.blocklyBlockCanvas > g:nth-child(5)');
         // const source6 = page.locator('g.blocklyBlockCanvas > g:nth-child(13)');
         // const source7 = page.locator('g.blocklyBlockCanvas > g:nth-child(15)');
         // const source8 = page.locator('g.blocklyBlockCanvas > g:nth-child(17)');
-        const target = page.locator('div > svg.blocklySvg > g');
+        const target = bot.tools.element.locator('div > svg.blocklySvg > g');
         // const box = await source5.boundingBox();
         // console.log("box-w = ", box.width);
         // console.log("box-h = ", box.height);
@@ -63,90 +67,85 @@ test.describe('Planning', () => {
         // await source8.dragTo(target, {
         //     targetPosition: { x: 660, y: 320 }
         // });
-        await page.locator("//button[text()=\'SAVE\']").click();
-        await page.locator('//div[contains(text(),\'The program state has been saved!\')]').waitFor({state:'visible'});
+        await bot.tools._handledButton("//button[text()=\'SAVE\']");
+        await bot.tools._waitFor('//div[contains(text(),\'The program state has been saved!\')]', 'visible');
     });
     test('Editing block values', async ({ page }) => {
         console.log("Editing block values");
-        await page.locator('g:nth-child(5) > g:nth-child(6)').click();
-        await page.locator('div.blocklyWidgetDiv.geras-renderer.classic-theme > input').fill("0.1");
-        await page.locator('div.blocklyWidgetDiv.geras-renderer.classic-theme > input').press("Enter");
+        const bot = new Bot(page);
+        await bot.tools._handledButton('g:nth-child(5) > g:nth-child(6)');
+        await bot.tools._handledTextInput('div.blocklyWidgetDiv.geras-renderer.classic-theme > input', '0.1');
 
-        await page.locator('g:nth-child(8) > g:nth-child(8)').click();
-        await page.locator('div.blocklyWidgetDiv.geras-renderer.classic-theme > input').fill("0.2");
-        await page.locator('div.blocklyWidgetDiv.geras-renderer.classic-theme > input').press("Enter");
+        await bot.tools._handledButton('g:nth-child(8) > g:nth-child(8)');
+        await bot.tools._handledTextInput('div.blocklyWidgetDiv.geras-renderer.classic-theme > input', '0.2');
 
-        await page.locator('g:nth-child(8) > g:nth-child(10)').click();
-        await page.locator('div.blocklyWidgetDiv.geras-renderer.classic-theme > input').fill("0.1");
-        await page.locator('div.blocklyWidgetDiv.geras-renderer.classic-theme > input').press("Enter");
+        await bot.tools._handledButton('g:nth-child(8) > g:nth-child(10)');
+        await bot.tools._handledTextInput('div.blocklyWidgetDiv.geras-renderer.classic-theme > input', '0.1');
 
-        await page.locator('g:nth-child(8) > g:nth-child(12)').click();
-        await page.locator('div.blocklyWidgetDiv.geras-renderer.classic-theme > input').fill("0.1");
-        await page.locator('div.blocklyWidgetDiv.geras-renderer.classic-theme > input').press("Enter");
+        await bot.tools._handledButton('g:nth-child(8) > g:nth-child(12)');
+        await bot.tools._handledTextInput('div.blocklyWidgetDiv.geras-renderer.classic-theme > input', '0.1');
 
-        await page.locator('g:nth-child(8) > g:nth-child(14)').click();
-        await page.locator('div.blocklyWidgetDiv.geras-renderer.classic-theme > input').fill("0.1");
-        await page.locator('div.blocklyWidgetDiv.geras-renderer.classic-theme > input').press("Enter");
+        await bot.tools._handledButton('g:nth-child(8) > g:nth-child(14)');
+        await bot.tools._handledTextInput('div.blocklyWidgetDiv.geras-renderer.classic-theme > input', '0.1');
 
-        await page.locator('g:nth-child(8) > g:nth-child(16)').click();
-        await page.locator('div.blocklyWidgetDiv.geras-renderer.classic-theme > input').fill("0.2");
-        await page.locator('div.blocklyWidgetDiv.geras-renderer.classic-theme > input').press("Enter");
+        await bot.tools._handledButton('g:nth-child(8) > g:nth-child(16)');
+        await bot.tools._handledTextInput('div.blocklyWidgetDiv.geras-renderer.classic-theme > input', '0.2');
 
-        await page.locator('g:nth-child(8) > g.blocklyDraggable > g.blocklyDraggable > g.blocklyEditableText').click();
-        await page.locator('div.blocklyWidgetDiv.geras-renderer.classic-theme > input').fill("20");
-        await page.locator('div.blocklyWidgetDiv.geras-renderer.classic-theme > input').press("Enter");
+        await bot.tools._handledButton('g:nth-child(8) > g.blocklyDraggable > g.blocklyDraggable > g.blocklyEditableText');
+        await bot.tools._handledTextInput('div.blocklyWidgetDiv.geras-renderer.classic-theme > input', '20');
 
-        await page.locator("//button[text()=\'SAVE\']").click();
-        await page.locator('//div[contains(text(),\'The program state has been saved!\')]').waitFor({state:'visible'});
+        await bot.tools._handledButton("//button[text()=\'SAVE\']");
+        await bot.tools._waitFor('//div[contains(text(),\'The program state has been saved!\')]', 'visible');
     });
     test('Running the program', async ({ page }) => {
         console.log("Running the program");
-        await page.locator('g:nth-child(5) > g.blocklyDraggable > g.blocklyDraggable').click();
-        await page.getByTestId('PlayArrowIcon').click();
-        await page.locator('div > div.MuiAlert-message').waitFor({state:'visible'});
+        const bot = new Bot(page);
+        await bot.tools._handledButton('g:nth-child(5) > g.blocklyDraggable > g.blocklyDraggable');
+        await bot.tools._handledButtonByTestId('PlayArrowIcon');
+        await bot.tools._waitFor('div > div.MuiAlert-message', 'visible');
         let message;
-        message =  await page.locator('div > div.MuiAlert-message').innerText();
+        message =  await bot.tools._handledInnerText('div > div.MuiAlert-message');
         console.log("message = ", message);
         if(message === "The program is already running!"){
-            await page.locator('div > div.MuiAlert-message').waitFor({state:'hidden'});
-            await page.getByTestId('StopIcon').click();
-            await page.locator('div > div.MuiAlert-message').waitFor({state:'visible'});
-            await page.getByTestId('PlayArrowIcon').click();
-            await page.locator('div > div.MuiAlert-message').waitFor({state:'visible'});
-            message =  await page.locator('div > div.MuiAlert-message').innerText();
+            await bot.tools._waitFor('div > div.MuiAlert-message', 'hidden');
+            await bot.tools._handledButtonByTestId('StopIcon');
+            await bot.tools._waitFor('div > div.MuiAlert-message', 'visible');
+            await bot.tools._handledButtonByTestId('PlayArrowIcon');
+            await bot.tools._waitFor('div > div.MuiAlert-message', 'visible');
+            message =  await bot.tools._handledInnerText('div > div.MuiAlert-message');
         }
         await expect(message).toBe("The program has been running!");
         // await page.locator('//div[contains(text(),\'The program has been running!\')]').waitFor({state:'visible'});
 
-        const checkActiveBlock = async(page) => {
+        const checkActiveBlock = async() => {
             try {
-                await page.locator('g:nth-child(8) > g.blocklyDraggable > g.blocklyDraggable > path[style="display: inline;"]').waitFor({state:'visible'});
+                await bot.tools._waitFor('g:nth-child(8) > g.blocklyDraggable > g.blocklyDraggable > path[style="display: inline;"]', 'visible');
             }
             catch (e){
                 console.log("Active block not found!");
             }
             console.log("Stopped the program");
-            await page.locator('g:nth-child(8) > g.blocklyDraggable > g.blocklyDraggable > path[style="display: inline;"]').waitFor({state:'hidden'});
-            await page.getByTestId('StopIcon').click();
-            await page.locator('div > div.MuiAlert-message').waitFor({state:'visible'});
-            message =  await page.locator('div > div.MuiAlert-message').innerText();
+            await bot.tools._waitFor('g:nth-child(8) > g.blocklyDraggable > g.blocklyDraggable > path[style="display: inline;"]', 'hidden');
+            await bot.tools._handledButtonByTestId('StopIcon');
+            await bot.tools._waitFor('div > div.MuiAlert-message', 'visible');
+            message =  await bot.tools._handledInnerText('div > div.MuiAlert-message');
             console.log("message = ", message);
             return message;
         };
 
-        message = await checkActiveBlock(page);
+        message = await checkActiveBlock();
         if(message === "The program isn't running now!"){
-            await page.locator('div > div.MuiAlert-message').waitFor({state:'hidden'});
-            await page.getByTestId('PlayArrowIcon').click();
-            await page.locator('div > div.MuiAlert-message').waitFor({state:'visible'});
-            message = await checkActiveBlock(page);
+            await bot.tools._waitFor('div > div.MuiAlert-message', 'hidden');
+            await bot.tools._handledButtonByTestId('PlayArrowIcon');
+            await bot.tools._waitFor('div > div.MuiAlert-message', 'visible');
+            message = await checkActiveBlock();
         }
         await expect(message).toBe("The program has been stopped!");
-        // await page.locator('//div[contains(text(),\'The program has been stopped!\')]').waitFor({state:'visible'});
     });
     test('Saving changes', async ({ page }) => {
         console.log("Saving changes");
-        await page.locator("//button[text()=\'SAVE\']").click();
-        await page.locator('//div[contains(text(),\'The program state has been saved!\')]').waitFor({state:'visible'});
+        const bot = new Bot(page);
+        await bot.tools._handledButton("//button[text()=\'SAVE\']");
+        await bot.tools._waitFor('//div[contains(text(),\'The program state has been saved!\')]', 'visible');
     });
 });

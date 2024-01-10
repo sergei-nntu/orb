@@ -1,13 +1,16 @@
 const { test, expect } = require('@playwright/test');
+const Bot = require("./bot");
 
 test.beforeEach('Navigation',async ({ page }) => {
-  await page.goto('http://localhost:3000');
+  const bot = new Bot(page);
+  await bot.tools.element.goto('http://localhost:3000');
 });
 
 test.describe('Navigation', () => {
   test('Navigation', async ({ page }) => {
-    await page.getByTestId('NavigationIcon').click();
-    const locator = page.locator('//div[text()=\'Navigation\']');
+    const bot = new Bot(page);
+    await bot.tools._handledButtonByTestId('NavigationIcon');
+    const locator = bot.tools.element.locator('//div[text()=\'Navigation\']');
     await expect(locator).toContainText('Navigation');
   });
 });

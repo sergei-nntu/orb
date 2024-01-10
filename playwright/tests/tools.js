@@ -3,7 +3,6 @@ module.exports = class Tools {
         this.element = element;
     }
 
-
     async _handledTextInput(selector, value) {
         await this.element.locator(selector).fill(value);
         await this.element.locator(selector).press('Enter');
@@ -23,8 +22,12 @@ module.exports = class Tools {
         if (wait) await this._waitLoading();
     }
 
-    async _waitFor(selector){
-        await this.element.locator(selector).waitFor();
+    async _handledButtonByTestId(selector){
+        await this.element.getByTestId(selector).click();
+    }
+
+    async _waitFor(selector, state){
+        await this.element.locator(selector).waitFor({state:state});
     }
 
     async _isVisible(selector){

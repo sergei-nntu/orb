@@ -3,10 +3,10 @@ const Bot = require("./bot");
 const jointValue = "20";
 
 test.beforeEach('Manipulator',async ({ page }) => {
-  await page.goto('http://localhost:3000');
-
-  await page.getByTestId('PrecisionManufacturingIcon').click();
-  const locator = page.locator('//div[text()=\'Manipulator\']');
+  const bot = new Bot(page);
+  await bot.tools.element.goto('http://localhost:3000');
+  await bot.tools._handledButtonByTestId('PrecisionManufacturingIcon');
+  const locator = bot.tools.element.locator('//div[text()=\'Manipulator\']');
   await expect(locator).toContainText('Manipulator');
 });
 test.describe('Position', () => {
