@@ -8,18 +8,21 @@ on:
   pull_request:
     types:
       - closed
+  pull_request_review:
+    types:
+      - submitted
 jobs:
   test:
     timeout-minutes: 60
     runs-on: ubuntu-latest
     steps:
     - name: Pull request to develop branch or schedule
-      if: ((github.event.pull_request.merged == true) || (github.event_name == 'schedule'))
+      if: ((github.event.pull_request.merged == true) || (github.event.review.state == 'approved') || (github.event_name == 'schedule'))
       uses: actions/checkout@v3
       with:
         ref: develop
-    - name: Push to playwright-tests branch
-      if: (github.event_name == 'push' && github.ref == 'refs/heads/playwright-tests')
+    - name: Push to playwright-tests branch or workflow_dispatch
+      if: ((github.event_name == 'push' && github.ref == 'refs/heads/playwright-tests') || github.event_name == 'workflow_dispatch')
       uses: actions/checkout@v3
       with:
         ref: playwright-tests
