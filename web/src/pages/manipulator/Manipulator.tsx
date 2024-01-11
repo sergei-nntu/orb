@@ -4,7 +4,6 @@ import React, { useContext, useEffect, useRef } from 'react';
 import { API_ROUTES } from '../../constants';
 import { JointsStateContext } from '../../contexts/JointsStateContext/JointsStateContext';
 import useHttp from '../../hooks/Http/Http';
-import { IJointsState } from '../../types/appTypes';
 import Pose from './components/Pose/Pose';
 import RobotCamera from './components/RobotCamera/RobotCamera';
 import RobotStates from './components/RobotStates/RobotStates';
@@ -12,13 +11,16 @@ import RobotStates from './components/RobotStates/RobotStates';
 export default function Manipulator() {
     const { request } = useHttp();
     const { setJointsState } = useContext(JointsStateContext);
+
+    const trajectory = useRef(undefined);
     const degreesValues = useRef([0, 0, 0, 0, 0, 0]);
     const interval = useRef<string | number | NodeJS.Timeout | undefined>(undefined);
+
     const remoteControlEnabled = useRef<boolean>(true);
-    const blocklyEnabled = useRef(false);
+    const blocklyEnabled = useRef<boolean>(false);
 
     useEffect(() => {
-        interval.current = setInterval(getJointsState, 100);
+        interval.current = setInterval(getJointsState, 500);
         return () => {
             clearInterval(interval.current);
         };
@@ -26,13 +28,44 @@ export default function Manipulator() {
 
     const getJointsState = async () => {
         if (remoteControlEnabled.current) {
-            request(API_ROUTES.GET_JOINTS_STATE).then((r: IJointsState) => {
-                if (!r) return;
-                setJointsState({ ...r });
-                const radianValues = [r.shoulder, r.upperArm, r.forearm, r.wrist1, r.wrist2, r.endEffectorLink];
-                degreesValues.current = radianValues.map((element: number) => +((180 * element) / Math.PI).toFixed(0));
-            });
+            const r = await request(API_ROUTES.GET_JOINT_TRAJECTORY);
+            if (!r) return;
+
+            if (isSameTrajectory(r)) {
+                return;
+            }
+
+            if (needToSetTrajectory(r)) {
+                trajectory.current = r;
+            }
+
+            const processJointState = async (state: number[]) => {
+                await new Promise((resolve) => setTimeout(resolve, 30));
+
+                setJointsState({
+                    shoulder: state[0],
+                    upperArm: state[1],
+                    forearm: state[2],
+                    wrist1: state[3],
+                    wrist2: state[4],
+                    endEffectorLink: state[5],
+                });
+
+                degreesValues.current = state.map((element) => +((180 * element) / Math.PI).toFixed(0));
+            };
+
+            for (let i = 0; i < r.length; i++) {
+                await processJointState(r[i]);
+            }
         }
+    };
+
+    const isSameTrajectory = (r: number[][]) => {
+        return JSON.stringify(trajectory.current) === JSON.stringify(r);
+    };
+
+    const needToSetTrajectory = (r: number[][]) => {
+        return !trajectory.current || JSON.stringify(trajectory.current) !== JSON.stringify(r);
     };
 
     useEffect(() => {
