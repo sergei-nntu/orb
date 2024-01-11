@@ -148,4 +148,74 @@ test.describe('Planning', () => {
         await bot.tools._handledButton("//button[text()=\'SAVE\']");
         await bot.tools._waitFor('//div[contains(text(),\'The program state has been saved!\')]', 'visible');
     });
+    test('Automatic position and orientation changes', async ({page}) => {
+        const bot = new Bot(page);
+        await bot.tools._handledButton('g:nth-child(5) > g.blocklyDraggable > g.blocklyDraggable');
+        await bot.tools._handledButtonByTestId('PlayArrowIcon');
+        await bot.tools._waitFor('div > div.MuiAlert-message', 'visible');
+        let message;
+        message =  await bot.tools._handledInnerText('div > div.MuiAlert-message');
+        console.log("message = ", message);
+        await expect(message).toBe("The program has been running!");
+
+        await bot.tools.element.goto('http://localhost:3000/manipulator');
+        await bot.tools._waitLoading();
+
+        // const locator = bot.tools.element.locator('#button-down-x');
+        await expect(bot.tools.element.locator('#button-down-x')).toHaveClass(/Disabled/);
+        await expect(bot.tools.element.locator('#button-up-x')).toHaveClass(/Disabled/);
+        await expect(bot.tools.element.locator('#button-down-y')).toHaveClass(/Disabled/);
+        await expect(bot.tools.element.locator('#button-up-y')).toHaveClass(/Disabled/);
+        await expect(bot.tools.element.locator('#button-down-z')).toHaveClass(/Disabled/);
+        await expect(bot.tools.element.locator('#button-up-z')).toHaveClass(/Disabled/);
+
+        await expect(bot.tools.element.locator('#button-down-pitch')).toHaveClass(/Disabled/);
+        await expect(bot.tools.element.locator('#button-up-pitch')).toHaveClass(/Disabled/);
+        await expect(bot.tools.element.locator('#button-down-roll')).toHaveClass(/Disabled/);
+        await expect(bot.tools.element.locator('#button-up-roll')).toHaveClass(/Disabled/);
+        await expect(bot.tools.element.locator('#button-down-yaw')).toHaveClass(/Disabled/);
+        await expect(bot.tools.element.locator('#button-up-yaw')).toHaveClass(/Disabled/);
+
+        await expect(bot.tools.element.locator('#input-joint-0')).toHaveClass(/disabled/);
+        await expect(bot.tools.element.locator('#input-joint-1')).toHaveClass(/disabled/);
+        await expect(bot.tools.element.locator('#input-joint-2')).toHaveClass(/disabled/);
+        await expect(bot.tools.element.locator('#input-joint-3')).toHaveClass(/disabled/);
+        await expect(bot.tools.element.locator('#input-joint-4')).toHaveClass(/disabled/);
+        await expect(bot.tools.element.locator('#input-joint-5')).toHaveClass(/disabled/);
+
+        await expect(bot.tools.element.locator('#slider-gripper-state')).toHaveClass(/disabled/);
+
+        await bot.tools._handledButtonByTestId('NextPlanIcon');
+        await bot.tools._handledButtonByTestId('StopIcon');
+
+        message =  await bot.tools._handledInnerText('div > div.MuiAlert-message');
+        await expect(message).toBe("The program has been stopped!");
+
+        await bot.tools.element.goto('http://localhost:3000/manipulator');
+        await bot.tools._waitLoading();
+
+        await expect(bot.tools.element.locator('#button-down-x')).not.toHaveClass(/Disabled/);
+        await expect(bot.tools.element.locator('#button-up-x')).not.toHaveClass(/Disabled/);
+        await expect(bot.tools.element.locator('#button-down-y')).not.toHaveClass(/Disabled/);
+        await expect(bot.tools.element.locator('#button-up-y')).not.toHaveClass(/Disabled/);
+        await expect(bot.tools.element.locator('#button-down-z')).not.toHaveClass(/Disabled/);
+        await expect(bot.tools.element.locator('#button-up-z')).not.toHaveClass(/Disabled/);
+
+        await expect(bot.tools.element.locator('#button-down-pitch')).not.toHaveClass(/Disabled/);
+        await expect(bot.tools.element.locator('#button-up-pitch')).not.toHaveClass(/Disabled/);
+        await expect(bot.tools.element.locator('#button-down-roll')).not.toHaveClass(/Disabled/);
+        await expect(bot.tools.element.locator('#button-up-roll')).not.toHaveClass(/Disabled/);
+        await expect(bot.tools.element.locator('#button-down-yaw')).not.toHaveClass(/Disabled/);
+        await expect(bot.tools.element.locator('#button-up-yaw')).not.toHaveClass(/Disabled/);
+
+        await expect(bot.tools.element.locator('#input-joint-0')).not.toHaveClass(/disabled/);
+        await expect(bot.tools.element.locator('#input-joint-1')).not.toHaveClass(/disabled/);
+        await expect(bot.tools.element.locator('#input-joint-2')).not.toHaveClass(/disabled/);
+        await expect(bot.tools.element.locator('#input-joint-3')).not.toHaveClass(/disabled/);
+        await expect(bot.tools.element.locator('#input-joint-4')).not.toHaveClass(/disabled/);
+        await expect(bot.tools.element.locator('#input-joint-5')).not.toHaveClass(/disabled/);
+
+        await expect(bot.tools.element.locator('#slider-gripper-state')).not.toHaveClass(/disabled/);
+
+    });
 });
