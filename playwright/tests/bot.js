@@ -44,14 +44,19 @@ module.exports = class Bot {
         // await expect(defValue).toBe(oldValue);
     }
 
-    async _handledEditValueByClick(selector, button) {
+    async _handledEditValueByClick(selector, button = [], key=false) {
 
         const oldCoordinate = await this.tools._handledInnerText(selector);
 
         const oldCoordinateValue = oldCoordinate.split(": ")[1];
         console.log("coordinate_def = ", oldCoordinateValue);
 
-        await this.tools._handledButton(`#button-up-${button}`);
+        if(key) {
+            await this.tools._handledKeyButton(button[0]);
+
+        } else {
+            await this.tools._handledButton(`#button-up-${button[0]}`);
+        }
 
         const nextCoordinate = await this.tools._handledInnerText(selector);
 
@@ -60,7 +65,12 @@ module.exports = class Bot {
 
         await expect(oldCoordinateValue).not.toBe(nextCoordinateValue);
 
-        await this.tools._handledButton(`#button-down-${button}`);
+        if(key) {
+            await this.tools._handledKeyButton(button[1]);
+
+        }else{
+            await this.tools._handledButton(`#button-down-${button[0]}`);
+        }
 
         const backCoordinate =  await this.tools._handledInnerText(selector);
         const backCoordinateValue = backCoordinate.split(": ")[1];

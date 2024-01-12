@@ -161,7 +161,6 @@ test.describe('Planning', () => {
         await bot.tools.element.goto('http://localhost:3000/manipulator');
         await bot.tools._waitLoading();
 
-        // const locator = bot.tools.element.locator('#button-down-x');
         await expect(bot.tools.element.locator('#button-down-x')).toHaveClass(/Disabled/);
         await expect(bot.tools.element.locator('#button-up-x')).toHaveClass(/Disabled/);
         await expect(bot.tools.element.locator('#button-down-y')).toHaveClass(/Disabled/);

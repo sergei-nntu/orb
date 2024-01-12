@@ -26,6 +26,11 @@ module.exports = class Tools {
         await this.element.getByTestId(selector).click();
     }
 
+    async _handledKeyButton( button){
+        await this.element.keyboard.down(button);
+        await this.element.keyboard.up(button);
+    }
+
     async _waitFor(selector, state){
         await this.element.locator(selector).waitFor({state:state});
     }

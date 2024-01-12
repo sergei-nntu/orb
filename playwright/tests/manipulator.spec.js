@@ -13,31 +13,42 @@ test.describe('Position', () => {
   test.describe.configure({ mode: 'serial' });
   test('Edit X coordinate', async ({ page }) => {
     const bot = new Bot(page);
-    await bot._handledEditValueByClick( 'div:nth-child(1) > div > div:nth-child(1) > h6',"x");
-
+    await bot._handledEditValueByClick( 'div:nth-child(1) > div > div:nth-child(1) > h6',["x"]);
+  });
+  test('Edit X coordinate with keyboard buttons', async ({ page }) => {
+    const bot = new Bot(page);
+    await bot._handledEditValueByClick( 'div:nth-child(1) > div > div:nth-child(1) > h6',["D","A"], true);
   });
   test('Edit Y coordinate', async ({ page }) => {
     const bot = new Bot(page);
-    await bot._handledEditValueByClick( 'div:nth-child(1) > div > div:nth-child(2) > h6',"y");
+    await bot._handledEditValueByClick( 'div:nth-child(1) > div > div:nth-child(2) > h6',["y"]);
+  });
+  test('Edit Y coordinate with keyboard buttons', async ({ page }) => {
+    const bot = new Bot(page);
+    await bot._handledEditValueByClick( 'div:nth-child(1) > div > div:nth-child(2) > h6',["W","S"], true);
   });
   test('Edit Z coordinate', async ({ page }) => {
     const bot = new Bot(page);
-    await bot._handledEditValueByClick( 'div:nth-child(1) > div > div:nth-child(3) > h6',"z");
+    await bot._handledEditValueByClick( 'div:nth-child(1) > div > div:nth-child(3) > h6',["z"]);
+  });
+  test('Edit Z coordinate with keyboard buttons', async ({ page }) => {
+    const bot = new Bot(page);
+    await bot._handledEditValueByClick( 'div:nth-child(1) > div > div:nth-child(3) > h6',["E","Q"], true);
   });
 });
 test.describe('Orientation', () => {
   test.describe.configure({ mode: 'serial' });
   test('Edit pitch value', async ({ page }) => {
     const bot = new Bot(page);
-    await bot._handledEditValueByClick('div:nth-child(2) > div > div:nth-child(1) > h6',"pitch");
+    await bot._handledEditValueByClick('div:nth-child(2) > div > div:nth-child(1) > h6',["pitch"]);
   });
   test('Edit roll value', async ({ page }) => {
     const bot = new Bot(page);
-    await bot._handledEditValueByClick('div:nth-child(3) > div > div > div:nth-child(2) > div > div:nth-child(2) > h6',"roll");
+    await bot._handledEditValueByClick('div:nth-child(3) > div > div > div:nth-child(2) > div > div:nth-child(2) > h6',["roll"]);
   });
   test('Edit yaw value', async ({ page }) => {
     const bot = new Bot(page);
-    await bot._handledEditValueByClick( 'div:nth-child(2) > div > div:nth-child(3) > h6',"yaw");
+    await bot._handledEditValueByClick( 'div:nth-child(2) > div > div:nth-child(3) > h6',["yaw"]);
   });
 });
 test.describe.skip('Joints Position tests', () => {
