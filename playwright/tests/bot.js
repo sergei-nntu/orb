@@ -86,4 +86,16 @@ module.exports = class Bot {
 
         await expect(backCoordinateValue).toBe(coordinateValue);
     }
+
+    async _getListValues(selector)  {
+        const elements = [];
+        const elementsAll = await this.element.locator(selector).all();
+        console.log("elementsAll = ",elementsAll);
+        for (const element of elementsAll) {
+            const value = await element.inputValue();
+            elements.push(value);
+        }
+        console.log("elements = ", elements);
+        return elements;
+    }
 };

@@ -47,6 +47,7 @@ module.exports = class Tools {
 
     async _waitLoading() {
         const visible = await this._isVisible("div > canvas");
+        console.log("visible = ", visible);
         if (visible) await this.element.locator('//div[contains(text(),\'loaded\')]').waitFor({state:'hidden'});
     }
 

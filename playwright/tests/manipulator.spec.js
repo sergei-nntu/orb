@@ -4,8 +4,9 @@ const jointValue = "20";
 
 test.beforeEach('Manipulator',async ({ page }) => {
   const bot = new Bot(page);
-  await bot.tools.element.goto('http://localhost:3000');
-  await bot.tools._handledButtonByTestId('PrecisionManufacturingIcon');
+  await bot.tools.element.goto('http://localhost:3000/manipulator');
+  await bot.tools._waitLoading();
+  // await bot.tools._handledButtonByTestId('PrecisionManufacturingIcon');
   const locator = bot.tools.element.locator('//div[text()=\'Manipulator\']');
   await expect(locator).toContainText('Manipulator');
 });
@@ -34,6 +35,17 @@ test.describe('Position', () => {
   test('Edit Z coordinate with keyboard buttons', async ({ page }) => {
     const bot = new Bot(page);
     await bot._handledEditValueByClick( 'div:nth-child(1) > div > div:nth-child(3) > h6',["E","Q"], true);
+  });
+  test.skip('Changing the movement path of manipulator',async ({ page }) => {
+    const bot = new Bot(page);
+    const joints_def = await bot._getListValues('input[id*= input-joint]');
+    await bot.tools._handledButton( '#button-up-x');
+    await bot.tools.element.waitForTimeout(5000);
+    const message =  await page.locator('#user-message').last().innerText();
+    console.log("message = ", message);
+    const joints_new= await bot._getListValues('input[id*= input-joint]');
+
+    await expect(joints_def).not.toBe(joints_new);
   });
 });
 test.describe('Orientation', () => {
