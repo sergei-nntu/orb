@@ -3,7 +3,7 @@ import React from 'react';
 
 import { Item } from '../StyledComponents/StyledComponents';
 import UserConsole from '../UserConsole/UserConsole';
-import GripperState from './GripperState/GripperState';
+import Gripper from './GripperState/Gripper';
 import JointsState from './JointsState/JointsState';
 
 type RobotStatesProps = {
@@ -24,7 +24,7 @@ export default function RobotStates(props: RobotStatesProps) {
             >
                 <UserConsole />
                 <JointsState {...props} />
-                <GripperState blocklyEnabled={props.blocklyEnabled} />
+                <Gripper blocklyEnabled={props.blocklyEnabled} />
             </Item>
         </Grid>
     );

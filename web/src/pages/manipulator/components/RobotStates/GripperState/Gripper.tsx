@@ -1,7 +1,9 @@
 import Slider from '@mui/material/Slider';
 import React, { useContext, useState } from 'react';
 
+import { API_ROUTES } from '../../../../../constants';
 import { PoseContext } from '../../../../../contexts/PoseContext/PoseContext';
+import useHttp from '../../../../../hooks/Http/Http';
 import { POSE } from '../../../../../types/appTypes';
 import { StyledBox } from '../../StyledComponents/StyledComponents';
 
@@ -20,17 +22,27 @@ function valuetext(value: number) {
     return `${value}°`;
 }
 
-type GripperStateProps = {
+type GripperProps = {
     blocklyEnabled: React.MutableRefObject<boolean>;
 };
 
-export default function GripperState({ blocklyEnabled }: GripperStateProps) {
+export default function Gripper({ blocklyEnabled }: GripperProps) {
+    const { request } = useHttp();
     const { dispatch } = useContext(PoseContext);
-    const [sliderValue, setSliderValue] = useState<number>(80);
+    const [gripperState, setGripperState] = useState<number>(80);
 
-    const handleChangeValue = (event: Event, newValue: number | number[]) => {
-        setSliderValue(newValue as number);
-        dispatch({ type: POSE.SET_GRIPPER_STATE, value: newValue as number });
+    const handleChangeValue = (_event: Event, newValue: number | number[]) => {
+        setGripperState(newValue as number);
+
+        const gripperStateInRadians = +(((newValue as number) * Math.PI) / 180).toFixed(2);
+        dispatch({ type: POSE.SET_GRIPPER_STATE, value: gripperStateInRadians });
+
+        request(API_ROUTES.SET_GRIPPER_STATE, {
+            method: 'POST',
+            body: JSON.stringify({
+                gripper: gripperStateInRadians,
+            }),
+        }).then();
     };
 
     return (
@@ -46,16 +58,16 @@ export default function GripperState({ blocklyEnabled }: GripperStateProps) {
             <Slider
                 disabled={blocklyEnabled.current}
                 id="slider-gripper-state"
-                value={sliderValue}
+                value={gripperState}
                 onChange={handleChangeValue}
                 aria-label="Gripper state"
                 getAriaValueText={valuetext}
+                sx={{ mt: 3, width: '90%' }}
                 valueLabelDisplay="auto"
                 step={1}
                 marks={marks}
                 min={0}
                 max={160}
-                sx={{ mt: 3, width: '90%' }}
             />
         </StyledBox>
     );

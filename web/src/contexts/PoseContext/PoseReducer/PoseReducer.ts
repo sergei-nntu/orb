@@ -104,7 +104,7 @@ const reducer: Reducer<IPose, PoseActionType> = function (state, action) {
         case POSE.SET_GRIPPER_STATE:
             return {
                 ...state,
-                gripper_state: +((action.value * Math.PI) / 180).toFixed(2),
+                gripper_state: action.value,
             };
         case POSE.SET_PREV_STATE:
             return {
