@@ -49,6 +49,7 @@ export default function Manipulator() {
                     wrist1: state[3],
                     wrist2: state[4],
                     endEffectorLink: state[5],
+                    claws: state[6],
                 });
 
                 degreesValues.current = state.map((element) => +((180 * element) / Math.PI).toFixed(0));

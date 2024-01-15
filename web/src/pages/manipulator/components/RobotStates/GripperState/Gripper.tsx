@@ -1,10 +1,8 @@
 import Slider from '@mui/material/Slider';
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 
 import { API_ROUTES } from '../../../../../constants';
-import { PoseContext } from '../../../../../contexts/PoseContext/PoseContext';
 import useHttp from '../../../../../hooks/Http/Http';
-import { POSE } from '../../../../../types/appTypes';
 import { StyledBox } from '../../StyledComponents/StyledComponents';
 
 const marks = [
@@ -28,15 +26,11 @@ type GripperProps = {
 
 export default function Gripper({ blocklyEnabled }: GripperProps) {
     const { request } = useHttp();
-    const { dispatch } = useContext(PoseContext);
     const [gripperState, setGripperState] = useState<number>(80);
 
     const handleChangeValue = (_event: Event, newValue: number | number[]) => {
         setGripperState(newValue as number);
-
         const gripperStateInRadians = +(((newValue as number) * Math.PI) / 180).toFixed(2);
-        dispatch({ type: POSE.SET_GRIPPER_STATE, value: gripperStateInRadians });
-
         request(API_ROUTES.SET_GRIPPER_STATE, {
             method: 'POST',
             body: JSON.stringify({

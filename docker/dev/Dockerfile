@@ -7,13 +7,15 @@ RUN apt-get update && apt-get install -y \
     ros-noetic-fiducial-msgs \
     ros-noetic-joint-state-publisher \
     ros-noetic-robot-state-publisher \
+    ros-noetic-moveit \
     ros-noetic-tf2-ros \
     ros-noetic-xacro \
     python3-rospy \
-    python3-pip
+    python3-pip \
+    python3-tk
 
-RUN apt install -y ros-noetic-moveit
-RUN apt-get install -y python3-tk
+#RUN apt-get install -y --fix-missing ros-noetic-moveit
+#RUN apt-get install -y python3-tk
 
 RUN pip3 install flask
 RUN pip3 install pyserial
