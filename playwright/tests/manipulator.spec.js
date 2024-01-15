@@ -36,16 +36,21 @@ test.describe('Position', () => {
     const bot = new Bot(page);
     await bot._handledEditValueByClick( 'div:nth-child(1) > div > div:nth-child(3) > h6',["E","Q"], true);
   });
-  test.skip('Changing the movement path of manipulator',async ({ page }) => {
+  test('Changing the movement path of manipulator',async ({ page }) => {
     const bot = new Bot(page);
-    const joints_def = await bot._getListValues('input[id*= input-joint]');
-    await bot.tools._handledButton( '#button-up-x');
-    await bot.tools.element.waitForTimeout(5000);
-    const message =  await page.locator('#user-message').last().innerText();
-    console.log("message = ", message);
-    const joints_new= await bot._getListValues('input[id*= input-joint]');
-
-    await expect(joints_def).not.toBe(joints_new);
+    await bot.tools.element.waitForTimeout(1000);
+    await bot._handledEditTrajectory('#button-up-x');
+    await bot._handledEditTrajectory('#button-down-x');
+    await bot._handledEditTrajectory('#button-up-y');
+    await bot._handledEditTrajectory('#button-down-y');
+    await bot._handledEditTrajectory('#button-up-z');
+    await bot._handledEditTrajectory('#button-down-z');
+    await bot._handledEditTrajectory('#button-up-pitch');
+    await bot._handledEditTrajectory('#button-down-pitch');
+    await bot._handledEditTrajectory('#button-up-roll');
+    await bot._handledEditTrajectory('#button-down-roll');
+    await bot._handledEditTrajectory('#button-up-yaw');
+    await bot._handledEditTrajectory('#button-down-yaw');
   });
 });
 test.describe('Orientation', () => {

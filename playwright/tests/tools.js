@@ -9,7 +9,7 @@ module.exports = class Tools {
     }
 
     async _handledInnerText(selector) {
-        const value = await this.element.locator(selector).innerText();
+        const value = await this.element.locator(selector).last().innerText();
         return value;
     }
 
@@ -32,7 +32,7 @@ module.exports = class Tools {
     }
 
     async _waitFor(selector, state){
-        await this.element.locator(selector).waitFor({state:state});
+        await this.element.locator(selector).last().waitFor({state:state});
     }
 
     async _isVisible(selector){
