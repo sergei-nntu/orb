@@ -13,7 +13,8 @@ export default function Manipulator() {
     const { setJointsState } = useContext(JointsStateContext);
 
     const trajectory = useRef(undefined);
-    const degreesValues = useRef([0, 0, 0, 0, 0, 0]);
+    const gripperValueInRadians = useRef<undefined | number>(undefined);
+    const degreesJointValues = useRef([0, 0, 0, 0, 0, 0]);
     const interval = useRef<string | number | NodeJS.Timeout | undefined>(undefined);
 
     const remoteControlEnabled = useRef<boolean>(true);
@@ -52,7 +53,9 @@ export default function Manipulator() {
                     claws: state[6],
                 });
 
-                degreesValues.current = state.map((element) => +((180 * element) / Math.PI).toFixed(0));
+                const joints = [...state];
+                gripperValueInRadians.current = joints.pop();
+                degreesJointValues.current = joints.map((element) => +((180 * element) / Math.PI).toFixed(0));
             };
 
             for (let i = 0; i < r.length; i++) {
@@ -81,7 +84,8 @@ export default function Manipulator() {
             <RobotCamera />
             <RobotStates
                 remoteControlEnabled={remoteControlEnabled}
-                degreesValues={degreesValues.current}
+                degreesJointValues={degreesJointValues}
+                gripperValueInRadians={gripperValueInRadians}
                 blocklyEnabled={blocklyEnabled}
             />
         </Grid>

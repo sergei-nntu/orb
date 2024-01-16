@@ -1,5 +1,5 @@
 import Slider from '@mui/material/Slider';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { API_ROUTES } from '../../../../../constants';
 import useHttp from '../../../../../hooks/Http/Http';
@@ -21,12 +21,27 @@ function valuetext(value: number) {
 }
 
 type GripperProps = {
+    remoteControlEnabled: React.MutableRefObject<boolean>;
+    degreesJointValues: React.MutableRefObject<number[]>;
+    gripperValueInRadians: React.MutableRefObject<undefined | number>;
     blocklyEnabled: React.MutableRefObject<boolean>;
 };
 
-export default function Gripper({ blocklyEnabled }: GripperProps) {
+export default function Gripper(props: GripperProps) {
     const { request } = useHttp();
+    const { blocklyEnabled, gripperValueInRadians } = props;
     const [gripperState, setGripperState] = useState<number>(80);
+
+    useEffect(() => {
+        if (!blocklyEnabled.current) return;
+        getGripperState();
+    });
+
+    const getGripperState = () => {
+        if (gripperValueInRadians.current === undefined) return;
+        const gripperValueInDegrees = +((180 * gripperValueInRadians.current) / Math.PI).toFixed(0);
+        setGripperState(gripperValueInDegrees);
+    };
 
     const handleChangeValue = (_event: Event, newValue: number | number[]) => {
         setGripperState(newValue as number);
