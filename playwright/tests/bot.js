@@ -101,11 +101,13 @@ module.exports = class Bot {
 
     async _handledEditTrajectory(selector) {
         const joints_def = await this._getListValues('input[id*= input-joint]');
+        const responsePromise = this.tools.element.waitForResponse(resp => resp.url().includes('post_joints_state') && resp.status() === 200);
         await this.tools._handledButton( selector);
+        await responsePromise;
         await this.tools._waitFor('//div[text()=\'Changed goal state\']','visible');
         // const message =  await this.tools._handledInnerText('#user-message');
         // console.log("message = ", message);
-        await this.tools.element.waitForTimeout(1000);
+        // await this.tools.element.waitForTimeout(1000);
         const joints_new= await this._getListValues('input[id*= input-joint]');
         await expect(joints_def).not.toStrictEqual(joints_new);
     }
