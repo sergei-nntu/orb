@@ -78,7 +78,7 @@ module.exports = class Bot {
 
         await expect(nextCoordinateValue).not.toBe(backCoordinateValue);
 
-        await this.tools._reload();
+        await this.tools._reloadManipulator();
 
         const coordinate =  await this.tools._handledInnerText(selector);
         const coordinateValue = coordinate.split(": ")[1];

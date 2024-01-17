@@ -51,11 +51,16 @@ module.exports = class Tools {
         if (visible) await this.element.locator('//div[contains(text(),\'loaded\')]').waitFor({state:'hidden'});
     }
 
-    async _reload() {
+    async _reloadManipulator() {
         const responsePromise = this.element.waitForResponse(resp => resp.url().includes('convert_pose') && resp.status() === 200);
         await this.element.reload();
         await responsePromise;
 
+        await this._waitLoading();
+    }
+
+    async _reload() {
+        await this.element.reload();
         await this._waitLoading();
     }
 };
