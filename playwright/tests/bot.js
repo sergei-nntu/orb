@@ -101,7 +101,7 @@ module.exports = class Bot {
 
     async _handledEditTrajectory(selector) {
         const joints_def = await this._getListValues('input[id*= input-joint]');
-        const responsePromise = this.tools.element.waitForResponse(resp => resp.url().includes('post_joints_state') && resp.status() === 200);
+        const responsePromise = this.tools.element.waitForResponse(resp => resp.url().includes('convert_pose') && resp.status() === 200);
         await this.tools._handledButton( selector);
         await responsePromise;
         await this.tools._waitFor('//div[text()=\'Changed goal state\']','visible');
