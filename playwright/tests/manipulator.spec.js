@@ -44,7 +44,7 @@ test.describe('Position', () => {
   });
 });
 test.describe('Changing the path of movement of the manipulator', () => {
-  test.describe.configure({ mode: 'serial' });
+  // test.describe.configure({ mode: 'serial' });
   test('Changing the path of movement of the manipulator along the X coordinate',async ({ page }) => {
     const bot = new Bot(page);
     // await bot.tools.element.waitForTimeout(1000);
