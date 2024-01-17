@@ -18,7 +18,7 @@ module.exports = class Tools {
         return value;
     }
     async _handledButton(selector, wait = false) {
-        await this.element.locator(selector).nth(0).click();
+        await this.element.locator(selector).click();
         if (wait) await this._waitLoading();
     }
 
