@@ -47,33 +47,38 @@ test.describe('Changing the path of movement of the manipulator', () => {
   // test.describe.configure({ mode: 'serial' });
   test('Changing the path of movement of the manipulator along the X coordinate',async ({ page }) => {
     const bot = new Bot(page);
-    // await bot.tools.element.waitForTimeout(1000);
+    await bot.tools.element.waitForTimeout(1000);
     await bot._handledEditTrajectory('#button-up-x');
     await bot._handledEditTrajectory('#button-down-x');
   });
   test('Changing the path of movement of the manipulator along the Y coordinate',async ({ page }) => {
     const bot = new Bot(page);
+    await bot.tools.element.waitForTimeout(1000);
     await bot._handledEditTrajectory('#button-up-y');
     await bot._handledEditTrajectory('#button-down-y');
   });
   test('Changing the path of movement of the manipulator along the Z coordinate',async ({ page }) => {
     const bot = new Bot(page);
+    await bot.tools.element.waitForTimeout(1000);
     await bot._handledEditTrajectory('#button-up-z');
     await bot._handledEditTrajectory('#button-down-z');
   });
   test('Changing the trajectory of the manipulator when changing the pitch',async ({ page }) => {
     const bot = new Bot(page);
+    await bot.tools.element.waitForTimeout(1000);
     await bot._handledEditTrajectory('#button-up-pitch');
     await bot._handledEditTrajectory('#button-down-pitch');
 
   });
   test('Changing the trajectory of the manipulator when changing the roll',async ({ page }) => {
     const bot = new Bot(page);
+    await bot.tools.element.waitForTimeout(1000);
     await bot._handledEditTrajectory('#button-up-roll');
     await bot._handledEditTrajectory('#button-down-roll');
   });
   test('Changing the trajectory of the manipulator when changing yaw',async ({ page }) => {
     const bot = new Bot(page);
+    await bot.tools.element.waitForTimeout(1000);
     await bot._handledEditTrajectory('#button-up-yaw');
     await bot._handledEditTrajectory('#button-down-yaw');
   });
