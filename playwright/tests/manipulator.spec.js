@@ -4,13 +4,13 @@ const jointValue = "20";
 
 test.beforeEach('Manipulator',async ({ page }) => {
   const bot = new Bot(page);
-  // await bot.tools.element.goto('http://localhost:3000/manipulator');
-  // await bot.tools._waitLoading();
-
-  const responsePromise = bot.tools.element.waitForResponse(resp => resp.url().includes('convert_pose') && resp.status() === 200);
   await bot.tools.element.goto('http://localhost:3000/manipulator');
-  await responsePromise;
   await bot.tools._waitLoading();
+
+  // const responsePromise = bot.tools.element.waitForResponse(resp => resp.url().includes('convert_pose') && resp.status() === 200);
+  // await bot.tools.element.goto('http://localhost:3000/manipulator');
+  // await responsePromise;
+  // await bot.tools._waitLoading();
 
   // await bot.tools._handledButtonByTestId('PrecisionManufacturingIcon');
   const locator = bot.tools.element.locator('//div[text()=\'Manipulator\']');
