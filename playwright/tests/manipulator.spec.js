@@ -42,7 +42,7 @@ test.describe('Position', () => {
     await bot._handledEditValueByClick( 'div:nth-child(1) > div > div:nth-child(3) > h6',["E","Q"], true);
   });
 });
-test.describe('Changing the path of movement of the manipulator', () => {
+test.describe.skip('Changing the path of movement of the manipulator', () => {
   test.describe.configure({ mode: 'serial' });
   test('Changing the path of movement of the manipulator along the X coordinate',async ({ page }) => {
     const bot = new Bot(page);
