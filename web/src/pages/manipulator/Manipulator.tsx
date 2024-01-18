@@ -1,7 +1,7 @@
 import { Grid } from '@mui/material';
 import React, { useContext, useEffect, useRef } from 'react';
 
-import { API_ROUTES } from '../../constants';
+import { API_ROUTES, GRIPPER_SCALE_COEFFICIENT } from '../../constants';
 import { JointsStateContext } from '../../contexts/JointsStateContext/JointsStateContext';
 import useHttp from '../../hooks/Http/Http';
 import Pose from './components/Pose/Pose';
@@ -50,7 +50,7 @@ export default function Manipulator() {
                     wrist1: state[3],
                     wrist2: state[4],
                     endEffectorLink: state[5],
-                    claws: state[6],
+                    claws: state[6] * GRIPPER_SCALE_COEFFICIENT,
                 });
 
                 const joints = [...state];

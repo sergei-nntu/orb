@@ -30,12 +30,18 @@ type GripperProps = {
 export default function Gripper(props: GripperProps) {
     const { request } = useHttp();
     const { blocklyEnabled, gripperValueInRadians } = props;
-    const [gripperState, setGripperState] = useState<number>(80);
+    const [gripperState, setGripperState] = useState<number | undefined>(
+        +((180 * (gripperValueInRadians.current || 0)) / Math.PI).toFixed(0),
+    );
 
     useEffect(() => {
         if (!blocklyEnabled.current) return;
         getGripperState();
     });
+
+    useEffect(() => {
+        getGripperState();
+    }, [gripperValueInRadians.current]);
 
     const getGripperState = () => {
         if (gripperValueInRadians.current === undefined) return;
