@@ -28,11 +28,28 @@ type GripperProps = {
 };
 
 export default function Gripper(props: GripperProps) {
-    const { request } = useHttp();
     const { blocklyEnabled, gripperValueInRadians } = props;
-    const [gripperState, setGripperState] = useState<number | undefined>(
+
+    const { request } = useHttp();
+    const [isDragging, setIsDragging] = useState(false);
+    const [gripperState, setGripperState] = useState<number>(
         +((180 * (gripperValueInRadians.current || 0)) / Math.PI).toFixed(0),
     );
+
+    useEffect(() => {
+        const handleGlobalMouseUp = (event: MouseEvent) => {
+            if (event.button === 0 && isDragging) {
+                sendGripperStateToServer(gripperState);
+                setIsDragging(false);
+            }
+        };
+
+        window.addEventListener('mouseup', handleGlobalMouseUp);
+
+        return () => {
+            window.removeEventListener('mouseup', handleGlobalMouseUp);
+        };
+    }, [isDragging, gripperState]);
 
     useEffect(() => {
         if (!blocklyEnabled.current) return;
@@ -49,12 +66,7 @@ export default function Gripper(props: GripperProps) {
         setGripperState(gripperValueInDegrees);
     };
 
-    const handleChangeValue = (_event: React.SyntheticEvent | Event, newValue: number | number[]) => {
-        setGripperState(newValue as number);
-        sendGripperStateToServer(newValue);
-    };
-
-    const sendGripperStateToServer = (value: number | number[]) => {
+    const sendGripperStateToServer = (value: number) => {
         const gripperStateInRadians = +(((value as number) * Math.PI) / 180).toFixed(2);
         request(API_ROUTES.SET_GRIPPER_STATE, {
             method: 'POST',
@@ -62,6 +74,11 @@ export default function Gripper(props: GripperProps) {
                 gripper: gripperStateInRadians,
             }),
         }).then();
+    };
+
+    const handleChangeValue = (_event: Event, newValue: number | number[]) => {
+        setIsDragging(true);
+        setGripperState(newValue as number);
     };
 
     return (
@@ -78,7 +95,7 @@ export default function Gripper(props: GripperProps) {
                 disabled={blocklyEnabled.current}
                 id="slider-gripper-state"
                 value={gripperState}
-                onChangeCommitted={handleChangeValue}
+                onChange={handleChangeValue}
                 aria-label="Gripper state"
                 getAriaValueText={valuetext}
                 sx={{ mt: 3, width: '90%' }}
