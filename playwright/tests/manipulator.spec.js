@@ -145,12 +145,13 @@ test.describe('Gripper State', () => {
     console.log("position_1 = ", newPosition);
 
     await expect(oldPosition).not.toBe(newPosition);
-    await bot.tools._reload();
+    await bot.tools._reloadManipulator();
 
     const gripperPosition =  await bot.tools._handledInputValue('#slider-gripper-state > span> input');
 
     console.log("value_current = ", gripperPosition);
 
+    await expect(newPosition).toBe(gripperPosition);
   });
 });
 test.describe('Connection to the server', () => {
