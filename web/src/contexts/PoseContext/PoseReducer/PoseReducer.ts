@@ -101,11 +101,6 @@ const reducer: Reducer<IPose, PoseActionType> = function (state, action) {
                     yaw: +(state.orientation.yaw - DEFAULT_OFFSET).toFixed(2),
                 },
             };
-        case POSE.SET_GRIPPER_STATE:
-            return {
-                ...state,
-                gripper_state: +((action.value * Math.PI) / 180).toFixed(2),
-            };
         case POSE.SET_PREV_STATE:
             return {
                 ...action.prevState,

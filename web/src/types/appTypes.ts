@@ -11,7 +11,6 @@ export interface IPose {
         roll: number;
         yaw: number;
     };
-    gripper_state: number;
 }
 
 export enum POSE {
@@ -27,7 +26,6 @@ export enum POSE {
     ORIENTATION_ROLL_DOWN = 'ORIENTATION_ROLL_DOWN',
     ORIENTATION_YAW_UP = 'ORIENTATION_YAW_UP',
     ORIENTATION_YAW_DOWN = 'ORIENTATION_YAW_DOWN',
-    SET_GRIPPER_STATE = 'SET_GRIPPER_STATE',
     SET_PREV_STATE = 'SET_PREV_STATE',
     RERENDER = 'RERENDER',
 }
@@ -45,7 +43,6 @@ export type PoseActionType =
     | Action<POSE.ORIENTATION_ROLL_DOWN>
     | Action<POSE.ORIENTATION_YAW_UP>
     | Action<POSE.ORIENTATION_YAW_DOWN>
-    | Action<POSE.SET_GRIPPER_STATE, { value: number }>
     | Action<POSE.SET_PREV_STATE, { prevState: IPose }>;
 
 export enum CONSOLE_MESSAGE {
