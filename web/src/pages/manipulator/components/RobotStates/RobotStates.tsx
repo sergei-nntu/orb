@@ -3,12 +3,13 @@ import React from 'react';
 
 import { Item } from '../StyledComponents/StyledComponents';
 import UserConsole from '../UserConsole/UserConsole';
-import GripperState from './GripperState/GripperState';
+import Gripper from './GripperState/Gripper';
 import JointsState from './JointsState/JointsState';
 
 type RobotStatesProps = {
     remoteControlEnabled: React.MutableRefObject<boolean>;
-    degreesValues: number[];
+    degreesJointValues: React.MutableRefObject<number[]>;
+    gripperValueInRadians: React.MutableRefObject<undefined | number>;
     blocklyEnabled: React.MutableRefObject<boolean>;
 };
 
@@ -24,7 +25,7 @@ export default function RobotStates(props: RobotStatesProps) {
             >
                 <UserConsole />
                 <JointsState {...props} />
-                <GripperState blocklyEnabled={props.blocklyEnabled} />
+                <Gripper {...props} />
             </Item>
         </Grid>
     );

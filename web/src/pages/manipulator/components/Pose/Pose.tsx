@@ -23,7 +23,6 @@ export default function Pose(props: PoseProps) {
     const { state, dispatch } = useContext(PoseContext);
     const prevStateRef = useRef<IPose | null>(null);
 
-    // TODO: Need to move it to EndEffectorState for optimization likely
     const sendStateToServer = async (state: IPose) => {
         try {
             const options = {
@@ -32,11 +31,9 @@ export default function Pose(props: PoseProps) {
                     x: state.position.x,
                     y: state.position.y,
                     z: state.position.z,
-
                     pitch: state.orientation.pitch,
                     roll: state.orientation.roll,
                     yaw: state.orientation.yaw,
-                    gripper: state.gripper_state,
                 }),
             };
 

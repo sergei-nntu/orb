@@ -29,21 +29,21 @@ type HandleBlurFunction = (value: SliderValue, setValue: React.Dispatch<React.Se
 
 export type JointsStateProps = {
     remoteControlEnabled: React.MutableRefObject<boolean>;
-    degreesValues: number[];
+    degreesJointValues: React.MutableRefObject<number[]>;
     blocklyEnabled: React.MutableRefObject<boolean>;
 };
 
 export default function JointsState(props: JointsStateProps) {
     const { request } = useHttp();
     const { setJointsState } = useContext(JointsStateContext);
-    const { remoteControlEnabled, degreesValues, blocklyEnabled } = props;
+    const { remoteControlEnabled, degreesJointValues, blocklyEnabled } = props;
 
     const initialJointValues = Array(6).fill(0);
     const [jointValues, setJointValues] = useState<SliderValue[]>(initialJointValues);
 
     useEffect(() => {
-        setJointValues(degreesValues);
-    }, [degreesValues]);
+        setJointValues(degreesJointValues.current);
+    }, [degreesJointValues.current]);
 
     const handleJointChange: HandleChangeFunction = (index, newValue) => {
         const newValues = [...jointValues];
@@ -82,8 +82,8 @@ export default function JointsState(props: JointsStateProps) {
                 });
                 break;
         }
-        setJointValues(newValues);
 
+        setJointValues(newValues);
         remoteControlEnabled.current = false;
     };
 
