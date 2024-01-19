@@ -49,9 +49,13 @@ export default function Gripper(props: GripperProps) {
         setGripperState(gripperValueInDegrees);
     };
 
-    const handleChangeValue = (_event: Event, newValue: number | number[]) => {
+    const handleChangeValue = (_event: React.SyntheticEvent | Event, newValue: number | number[]) => {
         setGripperState(newValue as number);
-        const gripperStateInRadians = +(((newValue as number) * Math.PI) / 180).toFixed(2);
+        sendGripperStateToServer(newValue);
+    };
+
+    const sendGripperStateToServer = (value: number | number[]) => {
+        const gripperStateInRadians = +(((value as number) * Math.PI) / 180).toFixed(2);
         request(API_ROUTES.SET_GRIPPER_STATE, {
             method: 'POST',
             body: JSON.stringify({
@@ -74,7 +78,7 @@ export default function Gripper(props: GripperProps) {
                 disabled={blocklyEnabled.current}
                 id="slider-gripper-state"
                 value={gripperState}
-                onChange={handleChangeValue}
+                onChangeCommitted={handleChangeValue}
                 aria-label="Gripper state"
                 getAriaValueText={valuetext}
                 sx={{ mt: 3, width: '90%' }}

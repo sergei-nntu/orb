@@ -82,8 +82,8 @@ export default function JointsState(props: JointsStateProps) {
                 });
                 break;
         }
-        setJointValues(newValues);
 
+        setJointValues(newValues);
         remoteControlEnabled.current = false;
     };
 
