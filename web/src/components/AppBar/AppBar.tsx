@@ -20,7 +20,7 @@ import ListItemText from '@mui/material/ListItemText';
 import { useTheme } from '@mui/material/styles';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useRef } from 'react';
 
 import { API_ROUTES, KEY } from '../../constants';
 import { NotificationContext } from '../../contexts/NotificationContext/NotificationContext';
@@ -59,12 +59,24 @@ export default function MenuAppBar() {
     const { dispatch } = useContext(PoseContext);
     const router = useRouter();
     const { dispatchNotification } = useContext(NotificationContext);
+
     const [open, setOpen] = React.useState(false);
     const [title, setTitle] = React.useState('Navigation');
+    const interval = useRef<string | number | NodeJS.Timeout | undefined>(undefined);
 
     useEffect(() => {
         calculateTitle();
+        interval.current = setInterval(getUSBConnectionStatus, 2000);
+        return () => {
+            clearInterval(interval.current);
+        };
     }, []);
+
+    const getUSBConnectionStatus = async () => {
+        const res = await request(API_ROUTES.GET_USB_CONNECTION_STATUS);
+        const notificationType = res.connection ? NOTIFICATION.USB_ENABLED : NOTIFICATION.USB_DISABLED;
+        dispatchNotification({ type: notificationType, open: true });
+    };
 
     const handleButtonClick = (event: React.MouseEvent<HTMLElement>) => {
         const value = event.currentTarget.getAttribute('data-text') || '';
@@ -175,7 +187,6 @@ export default function MenuAppBar() {
                         roll: res.data.roll,
                         yaw: res.data.yaw,
                     },
-                    gripper_state: 0.0,
                 },
             });
         });
