@@ -20,7 +20,7 @@ import ListItemText from '@mui/material/ListItemText';
 import { useTheme } from '@mui/material/styles';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import React, { useContext, useEffect, useRef } from 'react';
+import React, { useCallback, useContext, useEffect, useRef } from 'react';
 
 import { API_ROUTES, KEY } from '../../constants';
 import { NotificationContext } from '../../contexts/NotificationContext/NotificationContext';
@@ -55,28 +55,49 @@ const drawerData = [
 
 export default function MenuAppBar() {
     const theme = useTheme();
+    const router = useRouter();
+
     const { request } = useHttp();
     const { dispatch } = useContext(PoseContext);
-    const router = useRouter();
     const { dispatchNotification } = useContext(NotificationContext);
 
     const [open, setOpen] = React.useState(false);
     const [title, setTitle] = React.useState('Navigation');
+
     const interval = useRef<string | number | NodeJS.Timeout | undefined>(undefined);
+    const connectionStatus = useRef<boolean>(false);
 
     useEffect(() => {
         calculateTitle();
-        interval.current = setInterval(getUSBConnectionStatus, 2000);
+        interval.current = setInterval(handleUSBConnection, 5000);
         return () => {
             clearInterval(interval.current);
         };
     }, []);
 
-    const getUSBConnectionStatus = async () => {
-        const res = await request(API_ROUTES.GET_USB_CONNECTION_STATUS);
-        const notificationType = res.connection ? NOTIFICATION.USB_ENABLED : NOTIFICATION.USB_DISABLED;
-        dispatchNotification({ type: notificationType, open: true });
+    const handleUSBConnection = async () => {
+        const res = await getUSBConnectionStatus();
+
+        if (isSameUSBStatus(res)) {
+            return;
+        }
+
+        connectionStatus.current = res.connection;
+        handleUSBNotification();
     };
+
+    const getUSBConnectionStatus = async () => {
+        return await request(API_ROUTES.GET_USB_CONNECTION_STATUS);
+    };
+
+    const isSameUSBStatus = (res: { connection: boolean }) => {
+        return res.connection === connectionStatus.current;
+    };
+
+    const handleUSBNotification = useCallback(() => {
+        const notificationType = connectionStatus.current ? NOTIFICATION.USB_ENABLED : NOTIFICATION.USB_DISABLED;
+        dispatchNotification({ type: notificationType, open: true });
+    }, [connectionStatus.current]);
 
     const handleButtonClick = (event: React.MouseEvent<HTMLElement>) => {
         const value = event.currentTarget.getAttribute('data-text') || '';
