@@ -1,0 +1,42 @@
+import { Typography } from '@mui/material';
+import React from 'react';
+
+import { MessageType } from '../../../../contexts/MessagesContext/MessagesProvider/MessagesProvider';
+import { CONSOLE_MESSAGE } from '../../../../types/appTypes';
+
+export default function Message({ index, text, time }: MessageType) {
+    const defineMessageColor = (text: string) => {
+        const redColor =
+            text === CONSOLE_MESSAGE.NO_MOVE_TO_POSITION || text === CONSOLE_MESSAGE.NO_CONNECTION_WITH_SERVER;
+        return redColor ? 'red' : 'green';
+    };
+
+    return (
+        <div key={index} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <Typography
+                color={defineMessageColor(text)}
+                key={index}
+                align="left"
+                variant="caption"
+                component={'div'}
+                id="user-message"
+                sx={{ lineHeight: 1.2 }}
+            >
+                {text}
+            </Typography>
+            {text && (
+                <Typography
+                    color={defineMessageColor(text)}
+                    key={index}
+                    align="right"
+                    variant="caption"
+                    component={'div'}
+                    id="user-message"
+                    sx={{ lineHeight: 1.2 }}
+                >
+                    {time}
+                </Typography>
+            )}
+        </div>
+    );
+}
