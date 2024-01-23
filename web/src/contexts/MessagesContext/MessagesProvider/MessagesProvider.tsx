@@ -2,25 +2,33 @@ import React, { useEffect, useMemo, useState } from 'react';
 
 import { API_ROUTES } from '../../../constants';
 import useHttp from '../../../hooks/Http/Http';
-import { CONSOLE_MESSAGE } from '../../../types/appTypes';
+import { CONSOLE_MESSAGE, MessageType } from '../../../types/appTypes';
 import { MessagesContext } from '../MessagesContext';
 
 type MessagesProviderProps = {
     children: React.ReactNode;
 };
 
+export const getCurrentTime = (date: Date): string => {
+    const hours = String(date.getHours()).padStart(2, '0');
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+    const seconds = String(date.getSeconds()).padStart(2, '0');
+
+    return `${hours}:${minutes}:${seconds}`;
+};
+
 function MessagesProvider(props: MessagesProviderProps) {
     const { request } = useHttp();
-    const [messages, setMessages] = useState<string[]>([]);
+    const [messages, setMessages] = useState<MessageType[]>([]);
 
     useEffect(() => {
         checkServerStatus().then();
     }, []);
 
     const checkServerStatus = async () => {
-        request(API_ROUTES.CHECK_SERVER_STATUS).then((res) => {
+        request(API_ROUTES.CHECK_SERVER_STATUS).then((res: boolean) => {
             const statusMessage = identifyStatus(res);
-            setMessages([statusMessage]);
+            setMessages([{ index: messages.length, text: statusMessage, time: getCurrentTime(new Date()) }]);
         });
     };
 
