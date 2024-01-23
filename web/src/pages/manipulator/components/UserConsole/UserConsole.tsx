@@ -2,9 +2,10 @@ import { CssBaseline } from '@mui/material';
 import React, { useContext, useEffect, useRef } from 'react';
 
 import { MessagesContext } from '../../../../contexts/MessagesContext/MessagesContext';
-import { getCurrentTime, MessageType } from '../../../../contexts/MessagesContext/MessagesProvider/MessagesProvider';
+import { getCurrentTime } from '../../../../contexts/MessagesContext/MessagesProvider/MessagesProvider';
 import { NotificationContext } from '../../../../contexts/NotificationContext/NotificationContext';
 import { PoseContext } from '../../../../contexts/PoseContext/PoseContext';
+import { MessageType } from '../../../../types/appTypes';
 import { StyledBox } from '../StyledComponents/StyledComponents';
 import Message from './Message';
 

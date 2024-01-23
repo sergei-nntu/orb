@@ -2,17 +2,11 @@ import React, { useEffect, useMemo, useState } from 'react';
 
 import { API_ROUTES } from '../../../constants';
 import useHttp from '../../../hooks/Http/Http';
-import { CONSOLE_MESSAGE } from '../../../types/appTypes';
+import { CONSOLE_MESSAGE, MessageType } from '../../../types/appTypes';
 import { MessagesContext } from '../MessagesContext';
 
 type MessagesProviderProps = {
     children: React.ReactNode;
-};
-
-export type MessageType = {
-    index: number;
-    text: string;
-    time: string;
 };
 
 export const getCurrentTime = (date: Date): string => {
@@ -32,7 +26,7 @@ function MessagesProvider(props: MessagesProviderProps) {
     }, []);
 
     const checkServerStatus = async () => {
-        request(API_ROUTES.CHECK_SERVER_STATUS).then((res) => {
+        request(API_ROUTES.CHECK_SERVER_STATUS).then((res: boolean) => {
             const statusMessage = identifyStatus(res);
             setMessages([{ index: messages.length, text: statusMessage, time: getCurrentTime(new Date()) }]);
         });
