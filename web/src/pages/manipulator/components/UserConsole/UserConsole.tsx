@@ -2,6 +2,7 @@ import { CssBaseline, Typography } from '@mui/material';
 import React, { useContext, useEffect, useRef } from 'react';
 
 import { MessagesContext } from '../../../../contexts/MessagesContext/MessagesContext';
+import { addTimeToMessage } from '../../../../contexts/MessagesContext/MessagesProvider/MessagesProvider';
 import { NotificationContext } from '../../../../contexts/NotificationContext/NotificationContext';
 import { PoseContext } from '../../../../contexts/PoseContext/PoseContext';
 import { CONSOLE_MESSAGE } from '../../../../types/appTypes';
@@ -14,7 +15,7 @@ export default function UserConsole() {
     const messagesEndRef = useRef<HTMLDivElement | null>(null);
 
     const addMessage = (newMessage: string) => {
-        setMessages([...messages, newMessage]);
+        setMessages([...messages, addTimeToMessage(newMessage)]);
     };
 
     useEffect(() => {

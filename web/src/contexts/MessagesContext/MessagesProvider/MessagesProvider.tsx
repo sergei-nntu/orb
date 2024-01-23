@@ -9,6 +9,15 @@ type MessagesProviderProps = {
     children: React.ReactNode;
 };
 
+export const addTimeToMessage = (message: string): string => {
+    const date = new Date();
+    const hours = String(date.getHours()).padStart(2, '0');
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+    const seconds = String(date.getSeconds()).padStart(2, '0');
+
+    return message + ` ` + `${hours}:${minutes}:${seconds}`;
+};
+
 function MessagesProvider(props: MessagesProviderProps) {
     const { request } = useHttp();
     const [messages, setMessages] = useState<string[]>([]);
@@ -26,9 +35,9 @@ function MessagesProvider(props: MessagesProviderProps) {
 
     const identifyStatus = (res: boolean) => {
         if (res) {
-            return CONSOLE_MESSAGE.INITIALIZED;
+            return addTimeToMessage(CONSOLE_MESSAGE.INITIALIZED);
         } else {
-            return CONSOLE_MESSAGE.NO_CONNECTION_WITH_SERVER;
+            return addTimeToMessage(CONSOLE_MESSAGE.NO_CONNECTION_WITH_SERVER);
         }
     };
 
