@@ -15,7 +15,7 @@ export const addTimeToMessage = (message: string): string => {
     const minutes = String(date.getMinutes()).padStart(2, '0');
     const seconds = String(date.getSeconds()).padStart(2, '0');
 
-    return message + ` ` + `${hours}:${minutes}:${seconds}`;
+    return message ? message + ' ' + `${hours}:${minutes}:${seconds}` : message || '';
 };
 
 function MessagesProvider(props: MessagesProviderProps) {
