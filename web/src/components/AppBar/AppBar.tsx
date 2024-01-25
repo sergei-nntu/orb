@@ -65,11 +65,11 @@ export default function MenuAppBar() {
     const [title, setTitle] = React.useState('Navigation');
 
     const interval = useRef<string | number | NodeJS.Timeout | undefined>(undefined);
-    const connectionStatus = useRef<boolean>(false);
+    const connectionStatus = useRef<boolean | undefined>(undefined);
 
     useEffect(() => {
         calculateTitle();
-        interval.current = setInterval(handleUSBConnection, 5000);
+        interval.current = setInterval(handleUSBConnection, 2000);
         return () => {
             clearInterval(interval.current);
         };
@@ -78,7 +78,7 @@ export default function MenuAppBar() {
     const handleUSBConnection = async () => {
         const res = await getUSBConnectionStatus();
 
-        if (isSameUSBStatus(res)) {
+        if (thereIsNoConnecton(res) || isSameUSBStatus(res)) {
             return;
         }
 
@@ -92,6 +92,10 @@ export default function MenuAppBar() {
 
     const isSameUSBStatus = (res: { connection: boolean }) => {
         return res.connection === connectionStatus.current;
+    };
+
+    const thereIsNoConnecton = (res: { connection: boolean }) => {
+        return res === undefined;
     };
 
     const handleUSBNotification = useCallback(() => {
