@@ -98,3 +98,9 @@ export interface IJointsState {
     endEffectorLink: number;
     claws: number;
 }
+
+export type MessageType = {
+    index: number;
+    text: string;
+    time: string;
+};
