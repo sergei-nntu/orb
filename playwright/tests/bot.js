@@ -48,7 +48,7 @@ module.exports = class Bot {
 
         const oldCoordinate = await this.tools._handledInnerText(selector);
 
-        const oldCoordinateValue = oldCoordinate.split(": ")[1];
+        const oldCoordinateValue = oldCoordinate.split(":")[1].trim();
         console.log("coordinate_def = ", oldCoordinateValue);
 
         if(key) {
@@ -60,7 +60,7 @@ module.exports = class Bot {
 
         const nextCoordinate = await this.tools._handledInnerText(selector);
 
-        const nextCoordinateValue = nextCoordinate.split(": ")[1];
+        const nextCoordinateValue = nextCoordinate.split(":")[1].trim();
         console.log("coordinate_new = ", nextCoordinateValue);
 
         await expect(oldCoordinateValue).not.toBe(nextCoordinateValue);
@@ -73,7 +73,7 @@ module.exports = class Bot {
         }
 
         const backCoordinate =  await this.tools._handledInnerText(selector);
-        const backCoordinateValue = backCoordinate.split(": ")[1];
+        const backCoordinateValue = backCoordinate.split(":")[1].trim();
         console.log("coordinate_new_1 = ", backCoordinateValue);
 
         await expect(nextCoordinateValue).not.toBe(backCoordinateValue);
@@ -81,7 +81,7 @@ module.exports = class Bot {
         await this.tools._reloadManipulator();
 
         const coordinate =  await this.tools._handledInnerText(selector);
-        const coordinateValue = coordinate.split(": ")[1];
+        const coordinateValue = coordinate.split(":")[1].trim();
         console.log("coordinate_current = ", coordinateValue);
 
         await expect(backCoordinateValue).toBe(coordinateValue);
