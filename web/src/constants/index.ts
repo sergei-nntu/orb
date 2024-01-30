@@ -28,3 +28,13 @@ export enum KEY {
     BLOCKLY_CODE = 'BLOCKLY_CODE',
     BLOCKLY_STRUCTURE = 'BLOCKLY_STRUCTURE',
 }
+
+export enum TAB {
+    NAVIGATION = 'Navigation',
+    MANIPULATOR = 'Manipulator',
+    PLANNING = 'Planning',
+    QR = 'QR',
+    OQP = 'OQP',
+}
+
+export const DISABLED_TABS = [TAB.MANIPULATOR, TAB.OQP];

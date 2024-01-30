@@ -22,7 +22,7 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import React, { useCallback, useContext, useEffect, useRef } from 'react';
 
-import { API_ROUTES, KEY } from '../../constants';
+import { API_ROUTES, DISABLED_TABS, KEY, TAB } from '../../constants';
 import { NotificationContext } from '../../contexts/NotificationContext/NotificationContext';
 import { PoseContext } from '../../contexts/PoseContext/PoseContext';
 import useHttp from '../../hooks/Http/Http';
@@ -33,23 +33,23 @@ import { AppBar, Drawer, DrawerHeader } from './StyledComponents/StyledComponent
 const drawerData = [
     {
         icon: <NavigationIcon />,
-        text: 'Navigation',
+        tab: TAB.NAVIGATION,
     },
     {
         icon: <PrecisionManufacturingIcon />,
-        text: 'Manipulator',
+        tab: TAB.MANIPULATOR,
     },
     {
         icon: <NextPlanIcon />,
-        text: 'Planning',
+        tab: TAB.PLANNING,
     },
     {
         icon: <QrCode2Icon />,
-        text: 'QR',
+        tab: TAB.QR,
     },
     {
         icon: <SmartToyIcon />,
-        text: 'Dog',
+        tab: TAB.OQP,
     },
 ];
 
@@ -68,7 +68,15 @@ export default function MenuAppBar() {
     const connectionStatus = useRef<boolean | undefined>(undefined);
 
     useEffect(() => {
-        calculateTitle();
+        getPose();
+    }, []);
+
+    useEffect(() => {
+        const title = getTitle();
+        setTitle(title);
+    });
+
+    useEffect(() => {
         interval.current = setInterval(handleUSBConnection, 2000);
         return () => {
             clearInterval(interval.current);
@@ -77,11 +85,9 @@ export default function MenuAppBar() {
 
     const handleUSBConnection = async () => {
         const res = await getUSBConnectionStatus();
-
-        if (thereIsNoConnecton(res) || isSameUSBStatus(res)) {
+        if (thereIsNoConnection(res) || isSameUSBStatus(res)) {
             return;
         }
-
         connectionStatus.current = res.connection;
         handleUSBNotification();
     };
@@ -94,7 +100,7 @@ export default function MenuAppBar() {
         return res.connection === connectionStatus.current;
     };
 
-    const thereIsNoConnecton = (res: { connection: boolean }) => {
+    const thereIsNoConnection = (res: { connection: boolean }) => {
         return res === undefined;
     };
 
@@ -104,21 +110,44 @@ export default function MenuAppBar() {
     }, [connectionStatus.current]);
 
     const handleButtonClick = (event: React.MouseEvent<HTMLElement>) => {
-        const value = event.currentTarget.getAttribute('data-text') || '';
-        setTitle(value);
-        const path = calculatePath(value);
+        const tab = event.currentTarget.getAttribute('data-text') || '';
+        const path = calculatePath(tab);
         router.push(path);
         handleDrawerClose();
     };
 
-    const calculateTitle = () => {
-        if (router.pathname === '/') return;
-        const pathname = router.pathname.replace('/', '');
-        setTitle(pathname.charAt(0).toUpperCase() + pathname.slice(1));
+    const calculatePath = (tab: string) => {
+        return tab === TAB.NAVIGATION ? '/' : tab.toLowerCase();
     };
 
-    const calculatePath = (value: string) => {
-        return value === 'Navigation' ? '/' : value.toLowerCase();
+    const calculateTitle = () => {
+        let title: string;
+        const pathname = router.pathname.replace('/', '');
+        switch (pathname) {
+            case '':
+                title = TAB.NAVIGATION;
+                break;
+            case TAB.MANIPULATOR.toLowerCase():
+                title = TAB.MANIPULATOR;
+                break;
+            case TAB.PLANNING.toLowerCase():
+                title = TAB.PLANNING;
+                break;
+            case TAB.QR.toLowerCase():
+                title = TAB.QR;
+                break;
+            case TAB.OQP.toLowerCase():
+                title = TAB.OQP;
+                break;
+            default:
+                title = 'Unknown';
+                break;
+        }
+        return title;
+    };
+
+    const getTitle = () => {
+        return calculateTitle();
     };
 
     const handleDrawerOpen = () => {
@@ -217,10 +246,6 @@ export default function MenuAppBar() {
         });
     };
 
-    useEffect(() => {
-        getPose();
-    }, []);
-
     return (
         <>
             <CssBaseline />
@@ -241,7 +266,7 @@ export default function MenuAppBar() {
                     <Typography variant="h6" noWrap component="div">
                         {title}
                     </Typography>
-                    {router.pathname === '/planning' && (
+                    {router.pathname === TAB.PLANNING && (
                         <>
                             {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
                             {/*// @ts-ignore*/}
@@ -270,13 +295,19 @@ export default function MenuAppBar() {
                 <List>
                     {drawerData.map((item) => (
                         <ListItem
-                            key={item.text}
+                            key={item.tab}
                             disablePadding
                             sx={{ display: 'block' }}
-                            data-text={item.text}
-                            onClick={(event) => handleButtonClick(event)}
+                            data-text={item.tab}
+                            onClick={(event) => {
+                                if (!connectionStatus.current && DISABLED_TABS.includes(item.tab)) {
+                                    return;
+                                }
+                                handleButtonClick(event);
+                            }}
                         >
                             <ListItemButton
+                                disabled={!connectionStatus.current && DISABLED_TABS.includes(item.tab)}
                                 sx={{
                                     minHeight: 48,
                                     justifyContent: open ? 'initial' : 'center',
@@ -292,7 +323,7 @@ export default function MenuAppBar() {
                                 >
                                     {item.icon}
                                 </ListItemIcon>
-                                <ListItemText primary={item.text} sx={{ opacity: open ? 1 : 0 }} />
+                                <ListItemText primary={item.tab} sx={{ opacity: open ? 1 : 0 }} />
                             </ListItemButton>
                         </ListItem>
                     ))}
