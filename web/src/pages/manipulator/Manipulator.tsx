@@ -30,7 +30,10 @@ export default function Manipulator() {
     const getJointsState = async () => {
         if (remoteControlEnabled.current) {
             const r = await request(API_ROUTES.GET_JOINT_TRAJECTORY);
-            if (!r) return;
+            if (!r) {
+                clearInterval(interval.current);
+                return;
+            }
 
             if (isSameTrajectory(r)) {
                 return;

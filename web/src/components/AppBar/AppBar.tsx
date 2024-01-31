@@ -68,15 +68,12 @@ export default function MenuAppBar() {
     const connectionStatus = useRef<boolean | undefined>(undefined);
 
     useEffect(() => {
-        getPose();
-    }, []);
-
-    useEffect(() => {
         const title = getTitle();
         setTitle(title);
     });
 
     useEffect(() => {
+        getPose();
         interval.current = setInterval(handleUSBConnection, 2000);
         return () => {
             clearInterval(interval.current);
@@ -86,8 +83,10 @@ export default function MenuAppBar() {
     const handleUSBConnection = async () => {
         const res = await getUSBConnectionStatus();
         if (thereIsNoConnection(res) || isSameUSBStatus(res)) {
+            clearInterval(interval.current);
             return;
         }
+
         connectionStatus.current = res.connection;
         handleUSBNotification();
     };

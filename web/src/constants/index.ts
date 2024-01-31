@@ -38,3 +38,4 @@ export enum TAB {
 }
 
 export const DISABLED_TABS = [TAB.MANIPULATOR, TAB.OQP];
+export const DISABLED_PATHS = ['/manipulator', '/oqp'];

@@ -9,6 +9,7 @@ import MessagesProvider from './contexts/MessagesContext/MessagesProvider/Messag
 import NotificationProvider from './contexts/NotificationContext/NotificationProvider/NotificationProvider';
 import PoseProvider from './contexts/PoseContext/PoseProvider/PoseProvider';
 import Layout from './hoc/Layout/Layout';
+import ProtectedRoute from './hoc/ProtectedRoute/ProtectedRoute';
 import DogMain from './pages/dog-page/DogMain';
 import ErrorPage from './pages/error-page/ErrorPage';
 import Manipulator from './pages/manipulator/Manipulator';
@@ -28,19 +29,35 @@ const router = createBrowserRouter([
             },
             {
                 path: '/manipulator',
-                element: <Manipulator />,
+                element: (
+                    <ProtectedRoute>
+                        <Manipulator />
+                    </ProtectedRoute>
+                ),
             },
             {
                 path: '/planning',
-                element: <Planning />,
+                element: (
+                    <ProtectedRoute>
+                        <Planning />
+                    </ProtectedRoute>
+                ),
             },
             {
                 path: '/qr',
-                element: <QRPage />,
+                element: (
+                    <ProtectedRoute>
+                        <QRPage />
+                    </ProtectedRoute>
+                ),
             },
             {
                 path: '/oqp',
-                element: <DogMain />,
+                element: (
+                    <ProtectedRoute>
+                        <DogMain />
+                    </ProtectedRoute>
+                ),
             },
         ],
     },
