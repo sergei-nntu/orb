@@ -2,7 +2,7 @@ import RotateLeftIcon from '@mui/icons-material/RotateLeft';
 import RotateRightIcon from '@mui/icons-material/RotateRight';
 import { Box } from '@mui/material';
 import Typography from '@mui/material/Typography';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 
 import { PoseContext } from '../../../../../contexts/PoseContext/PoseContext';
 import { POSE } from '../../../../../types/appTypes';
@@ -19,6 +19,8 @@ export default function Orientation({ remoteControlEnabled, blocklyEnabled }: Po
         x: false,
         c: false,
     });
+
+    const keyDownInProgressRef = useRef<boolean>(false);
 
     const handleArrowMouseDown = (key: string, action: string) => () => {
         if (blocklyEnabled.current) {
@@ -41,13 +43,14 @@ export default function Orientation({ remoteControlEnabled, blocklyEnabled }: Po
         }));
     };
 
-    const handleKeyDown = async (e: KeyboardEvent) => {
-        if (blocklyEnabled.current) {
+    const handleKeyDown = (e: KeyboardEvent) => {
+        if (blocklyEnabled.current || keyDownInProgressRef.current) {
             return;
         }
 
         const key = e.key.toLowerCase();
         if (key in keyState) {
+            keyDownInProgressRef.current = true;
             setKeyState((prevKeyState) => ({
                 ...prevKeyState,
                 [key]: true,
@@ -82,6 +85,8 @@ export default function Orientation({ remoteControlEnabled, blocklyEnabled }: Po
     const handleKeyUp = (e: KeyboardEvent) => {
         const key = e.key.toLowerCase();
         if (key in keyState) {
+            keyDownInProgressRef.current = false;
+
             setKeyState((prevKeyState) => ({
                 ...prevKeyState,
                 [key]: false,

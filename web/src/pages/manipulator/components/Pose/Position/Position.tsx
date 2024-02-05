@@ -1,5 +1,5 @@
 import { Box, SvgIcon } from '@mui/material';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 
 import { PoseContext } from '../../../../../contexts/PoseContext/PoseContext';
 import { POSE } from '../../../../../types/appTypes';
@@ -17,13 +17,16 @@ export default function Position({ remoteControlEnabled, blocklyEnabled }: PoseP
         e: false,
     });
 
+    const keyDownInProgressRef = useRef<boolean>(false);
+
     const handleKeyDown = (e: KeyboardEvent) => {
-        if (blocklyEnabled.current) {
+        if (blocklyEnabled.current || keyDownInProgressRef.current) {
             return;
         }
 
         const key = e.key.toLowerCase();
         if (key in keyState) {
+            keyDownInProgressRef.current = true;
             setKeyState((prevKeyState) => ({
                 ...prevKeyState,
                 [key]: true,
@@ -58,6 +61,8 @@ export default function Position({ remoteControlEnabled, blocklyEnabled }: PoseP
     const handleKeyUp = (e: KeyboardEvent) => {
         const key = e.key.toLowerCase();
         if (key in keyState) {
+            keyDownInProgressRef.current = false;
+
             setKeyState((prevKeyState) => ({
                 ...prevKeyState,
                 [key]: false,
