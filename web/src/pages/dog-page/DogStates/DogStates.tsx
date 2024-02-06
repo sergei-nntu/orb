@@ -7,10 +7,9 @@ const DogStates = () => {
     return (
         <Item
             sx={{
-                minHeight: '90vh',
-                display: 'flex',
                 mt: 1,
             }}
+            display={'flex'}
         >
             <JointsState />
         </Item>

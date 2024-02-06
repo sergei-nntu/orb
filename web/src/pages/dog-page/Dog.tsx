@@ -86,7 +86,7 @@ export default function Dog() {
     }
 
     return (
-        <Box component="div" sx={{ height: '90vh', marginTop: '8px' }}>
+        <Box component="div" sx={{ marginTop: '8px', display: 'flex' }}>
             <Canvas shadows camera={{ position: [7, 6, -5] }}>
                 <Lights />
                 <Suspense fallback={<Loader />}>
