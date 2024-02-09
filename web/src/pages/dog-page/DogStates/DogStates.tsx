@@ -1,4 +1,3 @@
-import { Grid } from '@mui/material';
 import React from 'react';
 
 import { Item } from '../../manipulator/components/StyledComponents/StyledComponents';
@@ -6,16 +5,16 @@ import JointsState from './JointState/JointState';
 
 const DogStates = () => {
     return (
-        <Grid item sm={4} md={5} lg={12}>
-            <Item
-                sx={{
-                    flex: '1',
-                    minWidth: '25vh',
-                }}
-            >
-                <JointsState />
-            </Item>
-        </Grid>
+        <Item
+            sx={{
+                minHeight: '750px',
+                minWidth: '200px',
+                display: 'flex',
+                mt: 1,
+            }}
+        >
+            <JointsState />
+        </Item>
     );
 };
 

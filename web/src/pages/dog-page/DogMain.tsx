@@ -138,19 +138,13 @@ export default function DogMain() {
                 setJoint11Value,
             }}
         >
-            <Grid
-                container
-                spacing={1}
-                sx={{
-                    pt: 1,
-                    pr: 1,
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    flexDirection: 'column',
-                }}
-            >
-                <Dog />
-                <DogStates />
+            <Grid container spacing={1} sx={{ pt: 1, pr: 1 }}>
+                <Grid item xs={6} sm={7} md={6} lg={8}>
+                    <Dog />
+                </Grid>
+                <Grid item xs={6} sm={5} md={6} lg={4}>
+                    <DogStates />
+                </Grid>
             </Grid>
         </JointStateContext.Provider>
     );
