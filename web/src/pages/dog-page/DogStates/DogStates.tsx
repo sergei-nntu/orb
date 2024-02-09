@@ -6,13 +6,12 @@ import JointsState from './JointState/JointState';
 
 const DogStates = () => {
     return (
-        <Grid item xs={6} sm={5} md={6} lg={4}>
+        <Grid item sm={4} md={5} lg={12}>
             <Item
                 sx={{
-                    mt: 1,
-                    minWidth: '178px',
+                    flex: '1',
+                    minWidth: '25vh',
                 }}
-                display={'flex'}
             >
                 <JointsState />
             </Item>

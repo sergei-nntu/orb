@@ -138,7 +138,17 @@ export default function DogMain() {
                 setJoint11Value,
             }}
         >
-            <Grid container spacing={1} sx={{ pt: 1, pr: 1 }}>
+            <Grid
+                container
+                spacing={1}
+                sx={{
+                    pt: 1,
+                    pr: 1,
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    flexDirection: 'column',
+                }}
+            >
                 <Dog />
                 <DogStates />
             </Grid>

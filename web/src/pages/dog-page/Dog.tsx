@@ -92,12 +92,14 @@ export default function Dog() {
     }
 
     return (
-        <Grid item xs={6} sm={7} md={6} lg={8}>
-            <Box component="div" sx={{ marginTop: '8px' }}>
+        <Grid item sm={8} md={9} lg={12}>
+            <Box component="div" sx={{ flex: 1 }}>
                 <StyledPaper elevation={1}>
                     <Item
                         sx={{
-                            height: '647px',
+                            minHeight: '660px',
+                            height: '100px',
+                            display: 'flex',
                         }}
                     >
                         <Canvas shadows camera={{ position: [7, 6, -5] }}>
