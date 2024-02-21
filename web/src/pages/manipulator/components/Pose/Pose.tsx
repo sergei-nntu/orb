@@ -1,11 +1,11 @@
 import { Grid } from '@mui/material';
-import React, { useContext, useEffect, useRef } from 'react';
+import React, { useContext, useEffect } from 'react';
 
 import { API_ROUTES } from '../../../../constants';
 import { NotificationContext } from '../../../../contexts/NotificationContext/NotificationContext';
 import { PoseContext } from '../../../../contexts/PoseContext/PoseContext';
 import useHttp from '../../../../hooks/Http/Http';
-import { IPose, NOTIFICATION, POSE } from '../../../../types/appTypes';
+import { IPose, NOTIFICATION } from '../../../../types/appTypes';
 import EndEffectorState from '../RobotStates/EndEffectorState/EndEffectorState';
 import { Item } from '../StyledComponents/StyledComponents';
 import Orientation from './Orientation/Orientation';
@@ -20,8 +20,7 @@ export default function Pose(props: PoseProps) {
     const { remoteControlEnabled, blocklyEnabled } = props;
     const { request } = useHttp();
     const { dispatchNotification } = useContext(NotificationContext);
-    const { state, dispatch } = useContext(PoseContext);
-    const prevStateRef = useRef<IPose | null>(null);
+    const { state } = useContext(PoseContext);
 
     const sendStateToServer = async (state: IPose) => {
         try {
@@ -41,12 +40,8 @@ export default function Pose(props: PoseProps) {
 
             if (execute) {
                 dispatchNotification({ type: NOTIFICATION.SUCCESS_PLANNING, open: false });
-                prevStateRef.current = { ...state };
-            } else if (!prevStateRef.current) {
-                dispatch({ type: POSE.RERENDER });
             } else {
                 dispatchNotification({ type: NOTIFICATION.NO_MOVE_TO_POSITION, open: false });
-                dispatch({ type: POSE.SET_PREV_STATE, prevState: prevStateRef.current });
             }
         } catch (error) {
             console.error('Error: ', error);
@@ -54,7 +49,11 @@ export default function Pose(props: PoseProps) {
     };
 
     useEffect(() => {
-        sendStateToServer(state).then((r) => console.log(r));
+        sendStateToServer(state).then((err) => {
+            if (err != undefined) {
+                console.log(err);
+            }
+        });
     }, [state]);
 
     return (
