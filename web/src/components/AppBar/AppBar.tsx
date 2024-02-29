@@ -56,9 +56,9 @@ const drawerData = [
 export default function MenuAppBar() {
     const theme = useTheme();
     const { request } = useHttp();
-    const { dispatch } = useContext(PoseContext);
     const router = useRouter();
     const { dispatchNotification } = useContext(NotificationContext);
+    const { dispatch } = useContext(PoseContext);
     const [open, setOpen] = React.useState(false);
     const [title, setTitle] = React.useState('Navigation');
 
@@ -175,7 +175,6 @@ export default function MenuAppBar() {
                         roll: res.data.roll,
                         yaw: res.data.yaw,
                     },
-                    gripper_state: 0.0,
                 },
             });
         });

@@ -27,3 +27,16 @@ export enum KEY {
     BLOCKLY_CODE = 'BLOCKLY_CODE',
     BLOCKLY_STRUCTURE = 'BLOCKLY_STRUCTURE',
 }
+
+export const INITIAL_POSE_STATE = {
+    position: {
+        x: 0.0,
+        y: 0.1,
+        z: 0.4,
+    },
+    orientation: {
+        pitch: 0.0,
+        roll: 0.0,
+        yaw: 0.0,
+    },
+};
