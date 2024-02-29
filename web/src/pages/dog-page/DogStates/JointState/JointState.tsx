@@ -122,10 +122,6 @@ export default function JointsState() {
                 component="div"
                 sx={{
                     width: '100%',
-                    display: 'flex',
-                    justifyContent: 'space-evenly',
-                    flexDirection: 'column',
-                    height: '100%',
                 }}
             >
                 <div>
