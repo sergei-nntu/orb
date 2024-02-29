@@ -1,11 +1,11 @@
 import { Grid } from '@mui/material';
 import React, { useContext, useEffect } from 'react';
 
-import { API_ROUTES } from '../../../../constants';
+import { API_ROUTES, INITIAL_POSE_STATE } from '../../../../constants';
 import { NotificationContext } from '../../../../contexts/NotificationContext/NotificationContext';
 import { PoseContext } from '../../../../contexts/PoseContext/PoseContext';
 import useHttp from '../../../../hooks/Http/Http';
-import { IPose, NOTIFICATION } from '../../../../types/appTypes';
+import { IPose, NOTIFICATION, POSE } from '../../../../types/appTypes';
 import EndEffectorState from '../RobotStates/EndEffectorState/EndEffectorState';
 import { Item } from '../StyledComponents/StyledComponents';
 import Orientation from './Orientation/Orientation';
@@ -20,10 +20,14 @@ export default function Pose(props: PoseProps) {
     const { remoteControlEnabled, blocklyEnabled } = props;
     const { request } = useHttp();
     const { dispatchNotification } = useContext(NotificationContext);
-    const { state } = useContext(PoseContext);
+    const { state, dispatch } = useContext(PoseContext);
 
     const sendStateToServer = async (state: IPose) => {
         try {
+            if (state === INITIAL_POSE_STATE) {
+                return;
+            }
+
             const options = {
                 method: 'POST',
                 body: JSON.stringify({
@@ -36,12 +40,30 @@ export default function Pose(props: PoseProps) {
                 }),
             };
 
-            const { execute } = await request(API_ROUTES.CONVERT_POSE, options);
+            const { execute, data } = await request(API_ROUTES.CONVERT_POSE, options);
+
+            console.log('Current pose state from server:', data);
+            console.log('Current pose state from frontend:', state);
 
             if (execute) {
                 dispatchNotification({ type: NOTIFICATION.SUCCESS_PLANNING, open: false });
             } else {
                 dispatchNotification({ type: NOTIFICATION.NO_MOVE_TO_POSITION, open: false });
+                dispatch({
+                    type: POSE.SET_PREV_STATE,
+                    prevState: {
+                        position: {
+                            x: data.x,
+                            y: data.y,
+                            z: data.z,
+                        },
+                        orientation: {
+                            pitch: data.pitch,
+                            roll: data.roll,
+                            yaw: data.yaw,
+                        },
+                    },
+                });
             }
         } catch (error) {
             console.error('Error: ', error);

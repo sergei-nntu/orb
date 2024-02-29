@@ -3,7 +3,7 @@ import { styled } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 import React, { useEffect, useRef, useState } from 'react';
 
-import { API_ROUTES } from '../../../../../constants';
+import { API_ROUTES, INITIAL_POSE_STATE } from '../../../../../constants';
 import useHttp from '../../../../../hooks/Http/Http';
 import { IPose } from '../../../../../types/appTypes';
 import { StyledBox } from '../../StyledComponents/StyledComponents';
@@ -17,25 +17,14 @@ export default function EndEffectorState(props: EndEffectorStateProps) {
     const { request } = useHttp();
     const interval = useRef<string | number | NodeJS.Timeout | undefined>(undefined);
 
-    const [endEffectorState, setEndEffectorState] = useState<IPose>({
-        position: {
-            x: 0,
-            y: 0.1,
-            z: 0.4,
-        },
-        orientation: {
-            pitch: 0,
-            roll: 0,
-            yaw: 0,
-        },
-    });
+    const [endEffectorState, setEndEffectorState] = useState<IPose>(INITIAL_POSE_STATE);
 
     const StyledTag = styled('strong')(({ theme }) => ({
         color: blocklyEnabled.current ? theme.palette.grey.A700 : theme.palette.primary.main,
     }));
 
     useEffect(() => {
-        interval.current = setInterval(getEndEffectorState, 200);
+        interval.current = setInterval(getEndEffectorState, 100);
 
         return () => {
             clearInterval(interval.current);

@@ -4,16 +4,13 @@ import { Box } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import React, { useContext, useEffect, useRef, useState } from 'react';
 
-import { API_ROUTES } from '../../../../../constants';
 import { PoseContext } from '../../../../../contexts/PoseContext/PoseContext';
-import useHttp from '../../../../../hooks/Http/Http';
 import { POSE } from '../../../../../types/appTypes';
 import { StyledBox } from '../../StyledComponents/StyledComponents';
 import { PoseProps } from '../Pose';
 
 export default function Orientation({ remoteControlEnabled, blocklyEnabled }: PoseProps) {
     const { dispatch } = useContext(PoseContext);
-    const { request } = useHttp();
     const [keyState, setKeyState] = useState({
         1: false,
         2: false,
@@ -82,7 +79,6 @@ export default function Orientation({ remoteControlEnabled, blocklyEnabled }: Po
                     dispatch({ type: POSE.ORIENTATION_YAW_DOWN });
                     break;
             }
-            getPose();
         }
     };
 
@@ -96,30 +92,6 @@ export default function Orientation({ remoteControlEnabled, blocklyEnabled }: Po
                 [key]: false,
             }));
         }
-    };
-
-    const getPose = () => {
-        request(API_ROUTES.GET_POSE_STATE).then((res) => {
-            if (!res?.data) {
-                return;
-            }
-            dispatch({
-                type: POSE.SET_PREV_STATE,
-                prevState: {
-                    position: {
-                        x: res.data.x,
-                        y: res.data.y,
-                        z: res.data.z,
-                    },
-                    orientation: {
-                        pitch: res.data.pitch,
-                        roll: res.data.roll,
-                        yaw: res.data.yaw,
-                    },
-                    gripper_state: 0.0,
-                },
-            });
-        });
     };
 
     useEffect(() => {
