@@ -11,6 +11,8 @@ type ProtectedRouteProps = {
 export default function ProtectedRoute(props: ProtectedRouteProps) {
     const router = useRouter();
 
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     if (DISABLED_PATHS.includes(router.pathname)) {
         return <Navigate to="/" />;
     }

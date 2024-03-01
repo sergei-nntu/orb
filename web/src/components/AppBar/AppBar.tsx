@@ -62,15 +62,21 @@ export default function MenuAppBar() {
     const { dispatchNotification } = useContext(NotificationContext);
 
     const [open, setOpen] = React.useState(false);
-    const [title, setTitle] = React.useState('Navigation');
+    const [title, setTitle] = React.useState(TAB.NAVIGATION);
 
     const interval = useRef<string | number | NodeJS.Timeout | undefined>(undefined);
     const connectionStatus = useRef<boolean | undefined>(undefined);
 
     useEffect(() => {
-        const title = getTitle();
-        setTitle(title);
+        const currentTab = getCurrentTab();
+        setTitle(currentTab);
     });
+
+    const getCurrentTab = () => {
+        const pathname = router.pathname.replace('/', '');
+        const foundTab = drawerData.find((item) => item.tab.toLowerCase() === pathname);
+        return foundTab ? foundTab.tab : TAB.NAVIGATION;
+    };
 
     useEffect(() => {
         getPose();
@@ -108,6 +114,7 @@ export default function MenuAppBar() {
         dispatchNotification({ type: notificationType, open: true });
     }, [connectionStatus.current]);
 
+    // FIXME: it's not good way to define tab and path. Fix it
     const handleButtonClick = (event: React.MouseEvent<HTMLElement>) => {
         const tab = event.currentTarget.getAttribute('data-text') || '';
         const path = calculatePath(tab);
@@ -117,36 +124,6 @@ export default function MenuAppBar() {
 
     const calculatePath = (tab: string) => {
         return tab === TAB.NAVIGATION ? '/' : tab.toLowerCase();
-    };
-
-    const calculateTitle = () => {
-        let title: string;
-        const pathname = router.pathname.replace('/', '');
-        switch (pathname) {
-            case '':
-                title = TAB.NAVIGATION;
-                break;
-            case TAB.MANIPULATOR.toLowerCase():
-                title = TAB.MANIPULATOR;
-                break;
-            case TAB.PLANNING.toLowerCase():
-                title = TAB.PLANNING;
-                break;
-            case TAB.QR.toLowerCase():
-                title = TAB.QR;
-                break;
-            case TAB.OQP.toLowerCase():
-                title = TAB.OQP;
-                break;
-            default:
-                title = 'Unknown';
-                break;
-        }
-        return title;
-    };
-
-    const getTitle = () => {
-        return calculateTitle();
     };
 
     const handleDrawerOpen = () => {
@@ -265,7 +242,7 @@ export default function MenuAppBar() {
                     <Typography variant="h6" noWrap component="div">
                         {title}
                     </Typography>
-                    {router.pathname === TAB.PLANNING && (
+                    {title === TAB.PLANNING && (
                         <>
                             {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
                             {/*// @ts-ignore*/}
@@ -299,6 +276,8 @@ export default function MenuAppBar() {
                             sx={{ display: 'block' }}
                             data-text={item.tab}
                             onClick={(event) => {
+                                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                                // @ts-ignore
                                 if (!connectionStatus.current && DISABLED_TABS.includes(item.tab)) {
                                     return;
                                 }
@@ -306,6 +285,8 @@ export default function MenuAppBar() {
                             }}
                         >
                             <ListItemButton
+                                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                                // @ts-ignore
                                 disabled={!connectionStatus.current && DISABLED_TABS.includes(item.tab)}
                                 sx={{
                                     minHeight: 48,
