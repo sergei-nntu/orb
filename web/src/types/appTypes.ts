@@ -27,7 +27,6 @@ export enum POSE {
     ORIENTATION_YAW_UP = 'ORIENTATION_YAW_UP',
     ORIENTATION_YAW_DOWN = 'ORIENTATION_YAW_DOWN',
     SET_PREV_STATE = 'SET_PREV_STATE',
-    RERENDER = 'RERENDER',
 }
 
 export type PoseActionType =
@@ -47,7 +46,7 @@ export type PoseActionType =
 
 export enum CONSOLE_MESSAGE {
     INITIALIZED = 'Initialized',
-    NO_MOVE_TO_POSITION = 'There is no move to this position. Previous state was returned',
+    NO_MOVE_TO_POSITION = 'There is no move to this position. Please try again',
     SUCCESS_PLANNING = 'Changed goal state',
     NO_CONNECTION_WITH_SERVER = 'Error with connection to the server',
 }

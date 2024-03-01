@@ -39,3 +39,16 @@ export enum TAB {
 
 export const DISABLED_TABS = [TAB.MANIPULATOR, TAB.OQP];
 export const DISABLED_PATHS = ['/manipulator', '/oqp'];
+
+export const INITIAL_POSE_STATE = {
+    position: {
+        x: 0.0,
+        y: 0.1,
+        z: 0.4,
+    },
+    orientation: {
+        pitch: 0.0,
+        roll: 0.0,
+        yaw: 0.0,
+    },
+};

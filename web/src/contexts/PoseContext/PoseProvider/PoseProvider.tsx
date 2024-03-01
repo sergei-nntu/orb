@@ -1,6 +1,6 @@
 import React, { useMemo, useReducer } from 'react';
 
-import { IPose } from '../../../types/appTypes';
+import { INITIAL_POSE_STATE } from '../../../constants';
 import { PoseContext } from '../PoseContext';
 import reducer from '../PoseReducer/PoseReducer';
 
@@ -9,20 +9,7 @@ type PoseProviderProps = {
 };
 
 function PoseProvider(props: PoseProviderProps) {
-    const initialState: IPose = {
-        position: {
-            x: 0.0,
-            y: 0.1,
-            z: 0.4,
-        },
-        orientation: {
-            pitch: 0.0,
-            roll: 0.0,
-            yaw: 0.0,
-        },
-    };
-
-    const [state, dispatch] = useReducer(reducer, initialState);
+    const [state, dispatch] = useReducer(reducer, INITIAL_POSE_STATE);
     const value = useMemo(() => ({ state, dispatch }), [state]);
 
     return <PoseContext.Provider value={value}>{props.children}</PoseContext.Provider>;
