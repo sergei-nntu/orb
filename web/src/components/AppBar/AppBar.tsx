@@ -27,6 +27,7 @@ import { NotificationContext } from '../../contexts/NotificationContext/Notifica
 import { PoseContext } from '../../contexts/PoseContext/PoseContext';
 import useHttp from '../../hooks/Http/Http';
 import { useRouter } from '../../hooks/Router/Router';
+import { useUsbConnection } from '../../hooks/UsbConnection/UsbConnection';
 import { NOTIFICATION, POSE } from '../../types/appTypes';
 import { AppBar, Drawer, DrawerHeader } from './StyledComponents/StyledComponents';
 
@@ -60,6 +61,7 @@ export default function MenuAppBar() {
     const { request } = useHttp();
     const { dispatch } = useContext(PoseContext);
     const { dispatchNotification } = useContext(NotificationContext);
+    const { getUsbConnectionStatus } = useUsbConnection(useHttp, useRouter);
 
     const [open, setOpen] = React.useState(false);
     const [title, setTitle] = React.useState(TAB.NAVIGATION);
@@ -87,18 +89,15 @@ export default function MenuAppBar() {
     }, []);
 
     const handleUSBConnection = async () => {
-        const res = await getUSBConnectionStatus();
+        const res = await getUsbConnectionStatus();
+        console.log('getUsbConnectionStatus connection >>>', res.connection);
+
         if (thereIsNoConnection(res) || isSameUSBStatus(res)) {
-            clearInterval(interval.current);
             return;
         }
 
         connectionStatus.current = res.connection;
         handleUSBNotification();
-    };
-
-    const getUSBConnectionStatus = async () => {
-        return await request(API_ROUTES.GET_USB_CONNECTION_STATUS);
     };
 
     const isSameUSBStatus = (res: { connection: boolean }) => {
@@ -276,18 +275,22 @@ export default function MenuAppBar() {
                             sx={{ display: 'block' }}
                             data-text={item.tab}
                             onClick={(event) => {
-                                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                                // @ts-ignore
-                                if (!connectionStatus.current && DISABLED_TABS.includes(item.tab)) {
+                                if (
+                                    !connectionStatus.current &&
+                                    DISABLED_TABS.includes(item.tab) &&
+                                    process.env.REACT_APP_ENVIRONMENT !== 'development'
+                                ) {
                                     return;
                                 }
                                 handleButtonClick(event);
                             }}
                         >
                             <ListItemButton
-                                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                                // @ts-ignore
-                                disabled={!connectionStatus.current && DISABLED_TABS.includes(item.tab)}
+                                disabled={
+                                    !connectionStatus.current &&
+                                    DISABLED_TABS.includes(item.tab) &&
+                                    process.env.REACT_APP_ENVIRONMENT !== 'development'
+                                }
                                 sx={{
                                     minHeight: 48,
                                     justifyContent: open ? 'initial' : 'center',
