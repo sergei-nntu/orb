@@ -2,10 +2,11 @@ import { Grid } from '@mui/material';
 import React, { useContext, useEffect } from 'react';
 
 import { API_ROUTES, INITIAL_POSE_STATE } from '../../../../constants';
-import { NotificationContext } from '../../../../contexts/NotificationContext/NotificationContext';
+import { MessagesContext } from '../../../../contexts/MessagesContext/MessagesContext';
+import { ADD_MESSAGE } from '../../../../contexts/MessagesContext/MessagesReducer/MessagesReducer';
 import { PoseContext } from '../../../../contexts/PoseContext/PoseContext';
 import useHttp from '../../../../hooks/Http/Http';
-import { IPose, NOTIFICATION, POSE } from '../../../../types/appTypes';
+import { IPose, POSE } from '../../../../types/appTypes';
 import EndEffectorState from '../RobotStates/EndEffectorState/EndEffectorState';
 import { Item } from '../StyledComponents/StyledComponents';
 import Orientation from './Orientation/Orientation';
@@ -16,10 +17,18 @@ export type PoseProps = {
     blocklyEnabled: React.MutableRefObject<boolean>;
 };
 
+export const getCurrentTime = (date: Date): string => {
+    const hours = String(date.getHours()).padStart(2, '0');
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+    const seconds = String(date.getSeconds()).padStart(2, '0');
+
+    return `${hours}:${minutes}:${seconds}`;
+};
+
 export default function Pose(props: PoseProps) {
     const { remoteControlEnabled, blocklyEnabled } = props;
     const { request } = useHttp();
-    const { dispatchNotification } = useContext(NotificationContext);
+    const { dispatchMessages } = useContext(MessagesContext);
     const { state, dispatch } = useContext(PoseContext);
 
     const sendStateToServer = async (state: IPose) => {
@@ -46,9 +55,18 @@ export default function Pose(props: PoseProps) {
             console.log('Current pose state from frontend:', state);
 
             if (execute) {
-                dispatchNotification({ type: NOTIFICATION.SUCCESS_PLANNING, open: false });
+                dispatchMessages({
+                    type: ADD_MESSAGE,
+                    payload: { text: 'Changed goal state', time: getCurrentTime(new Date()) },
+                });
             } else {
-                dispatchNotification({ type: NOTIFICATION.NO_MOVE_TO_POSITION, open: false });
+                dispatchMessages({
+                    type: ADD_MESSAGE,
+                    payload: {
+                        text: 'There is no move to this position. Please try again',
+                        time: getCurrentTime(new Date()),
+                    },
+                });
                 dispatch({
                     type: POSE.SET_PREV_STATE,
                     prevState: {

@@ -14,9 +14,6 @@ function NotificationProvider(props: NotificationProviderProps) {
         severity: 'success',
         message: '',
         open: false,
-        console: {
-            message: '',
-        },
     };
 
     const [notificationState, dispatchNotification] = useReducer(reducer, initialState);

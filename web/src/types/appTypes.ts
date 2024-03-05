@@ -55,9 +55,6 @@ export interface INotification {
     severity: 'success' | 'info' | 'warning' | 'error';
     message: string;
     open: boolean;
-    console: {
-        message: string;
-    };
 }
 
 export enum NOTIFICATION {
@@ -98,8 +95,8 @@ export interface IJointsState {
     claws: number;
 }
 
-export type MessageType = {
+export interface IMessage {
     index: number;
     text: string;
     time: string;
-};
+}
