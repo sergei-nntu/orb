@@ -21,7 +21,7 @@ export default function Pose(props: PoseProps) {
     const { request } = useHttp();
     const { addUserConsoleMessage } = useContext(UserConsoleMessagesContext);
     const { state, dispatch } = useContext(PoseContext);
-    // This flag indicates whether the SET_PREV_STATE function worked. If it did, we should exit the function and not make the same request again.
+    // This flag indicates whether the SET_PREV_STATE function worked. If it did we should exit the function and not make the same request again.
     const previousMove = useRef<boolean | undefined>(undefined);
 
     const sendStateToServer = async (state: IPose) => {
