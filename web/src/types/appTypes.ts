@@ -95,8 +95,8 @@ export interface IJointsState {
     claws: number;
 }
 
-export interface IMessage {
+export type UserConsoleMessage = {
     index: number;
     text: string;
     time: string;
-}
+};
