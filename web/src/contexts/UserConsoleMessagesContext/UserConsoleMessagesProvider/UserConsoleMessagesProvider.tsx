@@ -37,7 +37,6 @@ function UserConsoleMessagesProvider(props: MessagesProviderProps) {
     const checkServerStatus = async (): Promise<void> => {
         request(API_ROUTES.CHECK_SERVER_STATUS).then((res: boolean): void => {
             const statusMessage: string = identifyStatus(res);
-
             addUserConsoleMessage(statusMessage);
         });
     };
