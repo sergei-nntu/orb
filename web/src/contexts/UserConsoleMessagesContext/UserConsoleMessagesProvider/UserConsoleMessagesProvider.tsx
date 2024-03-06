@@ -28,6 +28,13 @@ function UserConsoleMessagesProvider(props: MessagesProviderProps) {
     };
 
     const addUserConsoleMessage = (messageText: string): void => {
+        if (
+            messageText == CONSOLE_MESSAGE.NO_MOVE_TO_POSITION &&
+            userConsoleMessages[userConsoleMessages.length - 1]?.text == CONSOLE_MESSAGE.NO_MOVE_TO_POSITION
+        ) {
+            return;
+        }
+
         setMessages([
             ...userConsoleMessages,
             { index: userConsoleMessages.length, text: messageText, time: getCurrentTime(new Date()) },

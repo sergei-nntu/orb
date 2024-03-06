@@ -5,7 +5,7 @@ import { API_ROUTES, INITIAL_POSE_STATE } from '../../../../constants';
 import { PoseContext } from '../../../../contexts/PoseContext/PoseContext';
 import { UserConsoleMessagesContext } from '../../../../contexts/UserConsoleMessagesContext/UserConsoleMessagesContext';
 import useHttp from '../../../../hooks/Http/Http';
-import { CONSOLE_MESSAGE, IPose, POSE } from '../../../../types/appTypes';
+import { CONSOLE_MESSAGE, IPose } from '../../../../types/appTypes';
 import EndEffectorState from '../RobotStates/EndEffectorState/EndEffectorState';
 import { Item } from '../StyledComponents/StyledComponents';
 import Orientation from './Orientation/Orientation';
@@ -20,7 +20,7 @@ export default function Pose(props: PoseProps) {
     const { remoteControlEnabled, blocklyEnabled } = props;
     const { request } = useHttp();
     const { addUserConsoleMessage } = useContext(UserConsoleMessagesContext);
-    const { state, dispatch } = useContext(PoseContext);
+    const { state } = useContext(PoseContext);
 
     const sendStateToServer = async (state: IPose) => {
         try {
@@ -49,21 +49,6 @@ export default function Pose(props: PoseProps) {
                 addUserConsoleMessage(CONSOLE_MESSAGE.SUCCESS_PLANNING);
             } else {
                 addUserConsoleMessage(CONSOLE_MESSAGE.NO_MOVE_TO_POSITION);
-                dispatch({
-                    type: POSE.SET_PREV_STATE,
-                    prevState: {
-                        position: {
-                            x: data.x,
-                            y: data.y,
-                            z: data.z,
-                        },
-                        orientation: {
-                            pitch: data.pitch,
-                            roll: data.roll,
-                            yaw: data.yaw,
-                        },
-                    },
-                });
             }
         } catch (error) {
             console.error('Error: ', error);
