@@ -68,6 +68,7 @@ export default function MenuAppBar() {
 
     const interval = useRef<string | number | NodeJS.Timeout | undefined>(undefined);
     const connectionStatus = useRef<boolean | undefined>(undefined);
+    const currentPath = useRef<string | undefined>(undefined);
 
     useEffect(() => {
         const currentTab = getCurrentTab();
@@ -91,6 +92,12 @@ export default function MenuAppBar() {
     const handleUSBConnection = async () => {
         const res = await getUsbConnectionStatus();
         console.log('getUsbConnectionStatus connection >>>', res.connection);
+
+        if (currentPath.current === 'manipulator' || currentPath.current === 'oqp') {
+            if (thereIsNoConnection(res) || !res.connection) {
+                router.push('/');
+            }
+        }
 
         if (thereIsNoConnection(res) || isSameUSBStatus(res)) {
             return;
@@ -117,6 +124,7 @@ export default function MenuAppBar() {
     const handleButtonClick = (event: React.MouseEvent<HTMLElement>) => {
         const tab = event.currentTarget.getAttribute('data-text') || '';
         const path = calculatePath(tab);
+        currentPath.current = path;
         router.push(path);
         handleDrawerClose();
     };

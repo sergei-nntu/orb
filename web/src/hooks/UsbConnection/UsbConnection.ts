@@ -15,7 +15,6 @@ export function useUsbConnection(useHttp, useRouter) {
             if (res && res.connection) {
                 setUsbConnected(true);
             } else {
-                console.log(process.env.NODE_ENV);
                 if (process.env.REACT_APP_ENVIRONMENT === 'development') {
                     setUsbConnected(true);
                 } else {
