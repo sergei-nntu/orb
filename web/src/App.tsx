@@ -39,7 +39,7 @@ const router = createBrowserRouter([
                 element: <QRPage />,
             },
             {
-                path: '/dog',
+                path: '/oqp',
                 element: <DogMain />,
             },
         ],

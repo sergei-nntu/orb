@@ -66,9 +66,12 @@ const BlocklyEditor = (props: BlocklyEditorProps) => {
 
     const requestAndHighlightBlock = async () => {
         const data = await request(API_ROUTES.GET_PROGRAM_STATE);
-        if (data?.id) {
-            highlightBlock(data.id);
+        if (!data) {
+            clearInterval(interval.current);
+            return;
         }
+
+        highlightBlock(data.id);
     };
 
     const handleWorkspaceChange = () => {

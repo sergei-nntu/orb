@@ -4,11 +4,15 @@ import React, { useEffect, useState } from 'react';
 import { API_ROUTES } from '../../constants';
 import { JointStateContext } from '../../contexts/OQPJointStateContext/JointStateContext';
 import useHttp from '../../hooks/Http/Http';
+import { useRouter } from '../../hooks/Router/Router';
+import { useUsbConnection } from '../../hooks/UsbConnection/UsbConnection';
 import Dog from './Dog';
 import DogStates from './DogStates/DogStates';
 
 export default function DogMain() {
     const { request } = useHttp();
+    const { usbConnected, checkUsbConnection } = useUsbConnection(useHttp, useRouter);
+
     // FIXME: It's necessary to replace all these states with one
     const [joint0Value, setJoint0Value] = useState(0);
     const [joint1Value, setJoint1Value] = useState(-50);
@@ -87,6 +91,7 @@ export default function DogMain() {
     };
 
     useEffect(() => {
+        checkUsbConnection().then();
         async function fetchFunc() {
             try {
                 const response = await request(API_ROUTES.GET_OQP_JOINT_STATE);
@@ -109,7 +114,7 @@ export default function DogMain() {
         fetchFunc().then((r) => console.log(r));
     }, []);
 
-    return (
+    return usbConnected ? (
         <JointStateContext.Provider
             value={{
                 joint0Value,
@@ -147,5 +152,5 @@ export default function DogMain() {
                 </Grid>
             </Grid>
         </JointStateContext.Provider>
-    );
+    ) : null;
 }

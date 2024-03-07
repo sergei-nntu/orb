@@ -65,6 +65,26 @@ const reducer: Reducer<INotification, NotificationActionType> = function (state,
                 severity: 'warning',
                 message: 'Please note that access to the QR code requires an active connection to our server!',
             };
+        // TODO: maybe it needs to add three notification state for
+        //  usb connector - 1) usb enabled 2) usb disconnected 3) usb wasn't found
+        case NOTIFICATION.USB_ENABLED:
+            return {
+                open: action.open,
+                severity: 'success',
+                message: 'USB Connector enabled successfully!',
+                console: {
+                    message: '',
+                },
+            };
+        case NOTIFICATION.USB_DISABLED:
+            return {
+                open: action.open,
+                severity: 'error',
+                message: 'USB Connector disconnected!',
+                console: {
+                    message: '',
+                },
+            };
         case NOTIFICATION.HIDE:
             return {
                 ...state,

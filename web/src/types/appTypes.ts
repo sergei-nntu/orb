@@ -69,6 +69,8 @@ export enum NOTIFICATION {
     BLOCKLY_IS_ALREADY_RUNNING = 'BLOCKLY_IS_ALREADY_RUNNING',
     BLOCKLY_IS_STOPPED = 'BLOCKLY_IS_STOPPED',
     GET_QR_CODE = 'GET_QR_CODE',
+    USB_ENABLED = 'USB_ENABLED',
+    USB_DISABLED = 'USB_DISABLED',
 }
 
 export type NotificationActionType =
@@ -82,6 +84,8 @@ export type NotificationActionType =
     | Action<NOTIFICATION.BLOCKLY_WITHOUT_SERVER, { open: boolean }>
     | Action<NOTIFICATION.BLOCKLY_IS_STOPPED, { open: boolean }>
     | Action<NOTIFICATION.GET_QR_CODE, { open: boolean }>
+    | Action<NOTIFICATION.USB_ENABLED, { open: boolean }>
+    | Action<NOTIFICATION.USB_DISABLED, { open: boolean }>
     | Action<NOTIFICATION.HIDE>
     | Action<POSE.SET_PREV_STATE, { prevState: IPose }>;
 

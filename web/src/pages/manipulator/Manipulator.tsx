@@ -4,6 +4,8 @@ import React, { useContext, useEffect, useRef } from 'react';
 import { API_ROUTES, GRIPPER_SCALE_COEFFICIENT } from '../../constants';
 import { JointsStateContext } from '../../contexts/JointsStateContext/JointsStateContext';
 import useHttp from '../../hooks/Http/Http';
+import { useRouter } from '../../hooks/Router/Router';
+import { useUsbConnection } from '../../hooks/UsbConnection/UsbConnection';
 import Pose from './components/Pose/Pose';
 import RobotCamera from './components/RobotCamera/RobotCamera';
 import RobotStates from './components/RobotStates/RobotStates';
@@ -11,6 +13,7 @@ import RobotStates from './components/RobotStates/RobotStates';
 export default function Manipulator() {
     const { request } = useHttp();
     const { setJointsState } = useContext(JointsStateContext);
+    const { usbConnected, checkUsbConnection } = useUsbConnection(useHttp, useRouter);
 
     const trajectory = useRef(undefined);
     const gripperValueInRadians = useRef<undefined | number>(undefined);
@@ -21,6 +24,7 @@ export default function Manipulator() {
     const blocklyEnabled = useRef<boolean>(false);
 
     useEffect(() => {
+        checkUsbConnection().then();
         interval.current = setInterval(getJointsState, 500);
         return () => {
             clearInterval(interval.current);
@@ -30,7 +34,10 @@ export default function Manipulator() {
     const getJointsState = async () => {
         if (remoteControlEnabled.current) {
             const r = await request(API_ROUTES.GET_JOINT_TRAJECTORY);
-            if (!r) return;
+            if (!r) {
+                clearInterval(interval.current);
+                return;
+            }
 
             if (isSameTrajectory(r)) {
                 return;
@@ -78,7 +85,7 @@ export default function Manipulator() {
         });
     }, []);
 
-    return (
+    return usbConnected ? (
         <Grid container spacing={1} sx={{ pt: 1, pr: 1 }}>
             <Pose remoteControlEnabled={remoteControlEnabled} blocklyEnabled={blocklyEnabled} />
             <RobotCamera />
@@ -89,5 +96,5 @@ export default function Manipulator() {
                 blocklyEnabled={blocklyEnabled}
             />
         </Grid>
-    );
+    ) : null;
 }
