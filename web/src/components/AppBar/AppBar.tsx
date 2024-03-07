@@ -91,11 +91,13 @@ export default function MenuAppBar() {
 
     const handleUSBConnection = async () => {
         const res = await getUsbConnectionStatus();
-        console.log('getUsbConnectionStatus connection >>>', res.connection);
 
+        // FIXME: Refactor this later
         if (currentPath.current === 'manipulator' || currentPath.current === 'oqp') {
-            if (thereIsNoConnection(res) || !res.connection) {
-                router.push('/');
+            if (thereIsNoConnection(res) || !res?.connection) {
+                if (process.env.REACT_APP_ENVIRONMENT !== 'development') {
+                    router.push('/');
+                }
             }
         }
 
@@ -103,12 +105,12 @@ export default function MenuAppBar() {
             return;
         }
 
-        connectionStatus.current = res.connection;
+        connectionStatus.current = res?.connection;
         handleUSBNotification();
     };
 
     const isSameUSBStatus = (res: { connection: boolean }) => {
-        return res.connection === connectionStatus.current;
+        return res?.connection === connectionStatus.current;
     };
 
     const thereIsNoConnection = (res: { connection: boolean }) => {

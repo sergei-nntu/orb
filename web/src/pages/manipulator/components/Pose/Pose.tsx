@@ -1,11 +1,11 @@
 import { Grid } from '@mui/material';
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useRef } from 'react';
 
 import { API_ROUTES, INITIAL_POSE_STATE } from '../../../../constants';
-import { NotificationContext } from '../../../../contexts/NotificationContext/NotificationContext';
 import { PoseContext } from '../../../../contexts/PoseContext/PoseContext';
+import { UserConsoleMessagesContext } from '../../../../contexts/UserConsoleMessagesContext/UserConsoleMessagesContext';
 import useHttp from '../../../../hooks/Http/Http';
-import { IPose, NOTIFICATION, POSE } from '../../../../types/appTypes';
+import { CONSOLE_MESSAGE, IPose, POSE } from '../../../../types/appTypes';
 import EndEffectorState from '../RobotStates/EndEffectorState/EndEffectorState';
 import { Item } from '../StyledComponents/StyledComponents';
 import Orientation from './Orientation/Orientation';
@@ -19,12 +19,15 @@ export type PoseProps = {
 export default function Pose(props: PoseProps) {
     const { remoteControlEnabled, blocklyEnabled } = props;
     const { request } = useHttp();
-    const { dispatchNotification } = useContext(NotificationContext);
+    const { addUserConsoleMessage } = useContext(UserConsoleMessagesContext);
     const { state, dispatch } = useContext(PoseContext);
+    // This flag indicates whether the SET_PREV_STATE function worked. If it did we should exit the function and not make the same request again.
+    const previousMove = useRef<boolean | undefined>(undefined);
 
     const sendStateToServer = async (state: IPose) => {
         try {
-            if (state === INITIAL_POSE_STATE) {
+            if (state === INITIAL_POSE_STATE || previousMove.current) {
+                previousMove.current = false;
                 return;
             }
 
@@ -46,9 +49,10 @@ export default function Pose(props: PoseProps) {
             console.log('Current pose state from frontend:', state);
 
             if (execute) {
-                dispatchNotification({ type: NOTIFICATION.SUCCESS_PLANNING, open: false });
+                addUserConsoleMessage(CONSOLE_MESSAGE.SUCCESS_PLANNING);
             } else {
-                dispatchNotification({ type: NOTIFICATION.NO_MOVE_TO_POSITION, open: false });
+                addUserConsoleMessage(CONSOLE_MESSAGE.NO_MOVE_TO_POSITION);
+                previousMove.current = true;
                 dispatch({
                     type: POSE.SET_PREV_STATE,
                     prevState: {
