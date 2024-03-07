@@ -72,18 +72,12 @@ const reducer: Reducer<INotification, NotificationActionType> = function (state,
                 open: action.open,
                 severity: 'success',
                 message: 'USB Connector enabled successfully!',
-                console: {
-                    message: '',
-                },
             };
         case NOTIFICATION.USB_DISABLED:
             return {
                 open: action.open,
                 severity: 'error',
                 message: 'USB Connector disconnected!',
-                console: {
-                    message: '',
-                },
             };
         case NOTIFICATION.HIDE:
             return {
