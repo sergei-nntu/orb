@@ -1,23 +1,53 @@
 import { Box } from '@mui/material';
 import Paper from '@mui/material/Paper';
-import React, { useEffect, useRef } from 'react';
+import React, { useContext, useEffect, useRef } from 'react';
 
+import VideoErrorContext from '../../../../contexts/VideoErrorContext/VideoErrorContext';
 import { Item } from '../StyledComponents/StyledComponents';
 
 export default function RobotCamera() {
     const videoRef = useRef<HTMLImageElement>(null);
+    const videoErrorContext = useContext(VideoErrorContext);
 
     useEffect(() => {
         const videoElement = videoRef.current;
 
+        const handleVideoLoaded = () => {
+            console.log('Video is loaded and playing.');
+            videoErrorContext.setVideoError(false);
+        };
+
+        const handleVideoError = (event: Event) => {
+            console.error('Error loading video:', event);
+            videoErrorContext.setVideoError(true);
+        };
+
+        // const handleVideoEnded = () => {
+        //     console.log('Video has ended.');
+        //     videoElement.src = '';
+        // };
+
         const updateVideoStream = (): void => {
             if (videoElement) {
+                videoElement.addEventListener('loadeddata', handleVideoLoaded);
+                videoElement.addEventListener('error', handleVideoError);
                 videoElement.src = '/manipulator_video_feed';
             }
         };
 
         updateVideoStream();
+
+        return () => {
+            if (videoElement) {
+                videoElement.removeEventListener('loadeddata', handleVideoLoaded);
+                videoElement.removeEventListener('error', handleVideoError);
+            }
+        };
     }, []);
+
+    if (videoErrorContext.videoError) {
+        return null;
+    }
 
     return (
         <Box component="div" sx={{ flex: 1, ml: { xs: 1, md: 0 } }}>

@@ -11,6 +11,7 @@ import { BufferGeometry, Mesh, NormalBufferAttributes, Vector3 } from 'three';
 import { STLLoader } from 'three/examples/jsm/loaders/STLLoader';
 
 import { JointsStateContext } from '../../../../contexts/JointsStateContext/JointsStateContext';
+import VideoErrorContext from '../../../../contexts/VideoErrorContext/VideoErrorContext';
 import { Item } from '../StyledComponents/StyledComponents';
 
 const StyledPaper = styled(Paper)(({ theme }) => ({
@@ -19,6 +20,7 @@ const StyledPaper = styled(Paper)(({ theme }) => ({
 
 export default function RobotModel() {
     const { jointsState } = useContext(JointsStateContext);
+    const videoErrorContext = useContext(VideoErrorContext);
 
     function Loader() {
         const { progress } = useProgress();
@@ -80,13 +82,24 @@ export default function RobotModel() {
         );
     }
 
+    let minHeightValues = { md: '362px', sm: '25vh', xs: '35vh' };
+    let heightValue = '50px';
+
+    if (videoErrorContext.videoError) {
+        minHeightValues = { md: '725px', sm: '50vh', xs: '70vh' };
+        heightValue = '100px';
+    } else {
+        minHeightValues = { md: '362px', sm: '25vh', xs: '35vh' };
+        heightValue = '100px';
+    }
+
     return (
         <Box component="div" sx={{ flex: 1, ml: { xs: 1, md: 0 } }}>
             <StyledPaper elevation={1}>
                 <Item
                     sx={{
-                        minHeight: { md: '362px', sm: '25vh', xs: '35vh' },
-                        height: '50px',
+                        minHeight: minHeightValues,
+                        height: heightValue,
                         display: 'flex',
                         justifyContent: 'center',
                         alignItems: 'center',
