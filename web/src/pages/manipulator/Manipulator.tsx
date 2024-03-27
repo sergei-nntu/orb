@@ -89,7 +89,7 @@ export default function Manipulator() {
     return usbConnected ? (
         <Grid container spacing={1} sx={{ pt: 1, pr: 1 }}>
             <Pose remoteControlEnabled={remoteControlEnabled} blocklyEnabled={blocklyEnabled} />
-            <Grid item sm={12} md={4} lg={6} spacing={1}>
+            <Grid item sm={12} md={4} lg={6}>
                 <RobotModel />
                 <RobotCamera />
             </Grid>
