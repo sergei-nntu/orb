@@ -8,7 +8,7 @@ export const Item = styled(Box)(({ theme }) => ({
 }));
 
 export const StyledBox = styled(Box)(({ theme }) => ({
-    backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+    backgroundColor: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.08)' : '#fff',
     textAlign: 'center',
     padding: theme.spacing(1),
     border: theme.palette.mode === 'dark' ? '1px solid grey' : '1px solid #dcdee0',

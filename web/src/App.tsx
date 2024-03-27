@@ -8,6 +8,7 @@ import JointsStateProvider from './contexts/JointsStateContext/JointsStateProvid
 import NotificationProvider from './contexts/NotificationContext/NotificationProvider/NotificationProvider';
 import PoseProvider from './contexts/PoseContext/PoseProvider/PoseProvider';
 import UserConsoleMessagesProvider from './contexts/UserConsoleMessagesContext/UserConsoleMessagesProvider/UserConsoleMessagesProvider';
+import VideoErrorProvider from './contexts/VideoErrorContext/VideoErrorProvider/VideoErrorProvider';
 import Layout from './hoc/Layout/Layout';
 import DogMain from './pages/dog-page/DogMain';
 import ErrorPage from './pages/error-page/ErrorPage';
@@ -63,12 +64,14 @@ function App() {
         <NotificationProvider>
             <PoseProvider>
                 <UserConsoleMessagesProvider>
-                    <JointsStateProvider>
-                        <ThemeProvider theme={theme}>
-                            <CssBaseline enableColorScheme />
-                            <RouterProvider router={router} />
-                        </ThemeProvider>
-                    </JointsStateProvider>
+                    <VideoErrorProvider>
+                        <JointsStateProvider>
+                            <ThemeProvider theme={theme}>
+                                <CssBaseline enableColorScheme />
+                                <RouterProvider router={router} />
+                            </ThemeProvider>
+                        </JointsStateProvider>
+                    </VideoErrorProvider>
                 </UserConsoleMessagesProvider>
             </PoseProvider>
         </NotificationProvider>
