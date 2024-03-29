@@ -22,16 +22,12 @@ export default function RobotCamera() {
             videoErrorContext.setVideoError(true);
         };
 
-        // const handleVideoEnded = () => {
-        //     console.log('Video has ended.');
-        //     videoElement.src = '';
-        // };
-
         const updateVideoStream = (): void => {
             if (videoElement) {
-                videoElement.addEventListener('loadeddata', handleVideoLoaded);
+                videoElement.addEventListener('load', handleVideoLoaded);
                 videoElement.addEventListener('error', handleVideoError);
                 videoElement.src = '/manipulator_video_feed';
+                console.log(videoElement.src);
             }
         };
 
@@ -43,7 +39,7 @@ export default function RobotCamera() {
                 videoElement.removeEventListener('error', handleVideoError);
             }
         };
-    }, []);
+    }, [videoRef.current]);
 
     if (videoErrorContext.videoError) {
         return null;
