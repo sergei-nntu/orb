@@ -35,7 +35,7 @@ export default function RobotCamera() {
 
         return () => {
             if (videoElement) {
-                videoElement.removeEventListener('loadeddata', handleVideoLoaded);
+                videoElement.removeEventListener('load', handleVideoLoaded);
                 videoElement.removeEventListener('error', handleVideoError);
             }
         };
