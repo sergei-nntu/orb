@@ -8,6 +8,7 @@ import { useRouter } from '../../hooks/Router/Router';
 import { useUsbConnection } from '../../hooks/UsbConnection/UsbConnection';
 import Pose from './components/Pose/Pose';
 import RobotCamera from './components/RobotCamera/RobotCamera';
+import RobotModel from './components/RobotModel/RobotModel';
 import RobotStates from './components/RobotStates/RobotStates';
 
 export default function Manipulator() {
@@ -88,7 +89,10 @@ export default function Manipulator() {
     return usbConnected ? (
         <Grid container spacing={1} sx={{ pt: 1, pr: 1 }}>
             <Pose remoteControlEnabled={remoteControlEnabled} blocklyEnabled={blocklyEnabled} />
-            <RobotCamera />
+            <Grid item sm={12} md={4} lg={6}>
+                <RobotModel />
+                <RobotCamera />
+            </Grid>
             <RobotStates
                 remoteControlEnabled={remoteControlEnabled}
                 degreesJointValues={degreesJointValues}
