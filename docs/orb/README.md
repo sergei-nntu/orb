@@ -1,7 +1,3 @@
-# orb
+# orb 
 
----
-
-This section includes all documentation of the **orb** repository. orb - Open Robotic, the web interface for controlling robots.
-***Note:*** It's a prototype, and it's not supposed to be used in production.
-
+This directory contains all the documentation for the **orb** project (builds, system architecture, project structure, source code, and more).
