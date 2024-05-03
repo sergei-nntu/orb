@@ -1,6 +1,6 @@
 # IDEA config files
 /.idea
 
-**/orm/
+/docker/**/orm
 
 .DS_Store
