@@ -5,10 +5,10 @@ There are three methods for installing, configuring, and launching the orb infra
 2. Web interface (orb) 
 3. Full environment (orb, orm, orm-ros)
 
-# docker
+# Docker
 
 
-# orb
+# Web interface (orb)
 For this project, ensure that you download and install Node.js version 20 or later from the official Node.js website.
 
 1. Clone the repository from GitHub:
@@ -36,3 +36,5 @@ npm install
 ```
 npm run start
 ```
+
+# Full environment - orb, orm, orm-ros
