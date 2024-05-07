@@ -1,4 +1,4 @@
-# Web interface (orb)
+# orb
 For this project, ensure that you download and install Node.js version 20 or later from the official Node.js website.
 
 1. Clone the repository from GitHub:
