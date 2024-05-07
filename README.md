@@ -2,7 +2,7 @@
 
 ORB - Open Robotic Brain, which is a web interface for managing robots.
 
-***Note: This project is currently a prototype and is not intended for production use.***
+***note: this project is currently a prototype and is not intended for production use.***
 
 ## Introduction
 

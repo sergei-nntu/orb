@@ -12,6 +12,6 @@ The repository at the top level contains the following directories:
 
 If you would like more detailed information, please refer to the relevant file or directory for further details.
 
-# Installation and configuration
+## Installation and configuration
 
 To install and set up the repository orb - see the file [launch](launch.md) for detailed instructions.
