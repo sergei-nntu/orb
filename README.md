@@ -24,7 +24,7 @@ The orb project aims to provide a user-friendly web interface for controlling ro
 - **Install and configure orb, orm and orm-ros on Ubuntu 20.04**
 - **Or only use Docker by composing Docker images from the docker hub**
 
-<p>To set up orb locally, follow these steps:</p>
+<p>To set up orb locally without any server or robot connection, follow these steps:</p>
 
 1. Clone the repository:
 ```
