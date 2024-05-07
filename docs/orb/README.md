@@ -1,3 +1,17 @@
-# orb 
+# orb
 
-This directory contains all the documentation for the **orb** project (builds, system architecture, project structure, source code, and more).
+**ORB - Open Robotic Brain**
+
+## Project structure
+
+The repository at the top level contains the following directories:
+
+- `docker` - this directory stores Docker files.
+- `docs` - a repository for documentation.
+- `web` - source code.
+
+If you would like more detailed information, please refer to the relevant file or directory for further details.
+
+# Installation and configuration
+
+To install and set up the repository orb - see the file [launch](launch.md) for detailed instructions.

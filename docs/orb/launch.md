@@ -1,13 +1,3 @@
-# Installation, Configuration, and Launch
-There are three methods for installing, configuring, and launching the orb infrastructure:
-
-1. Docker (docker compose)
-2. Web interface (orb) 
-3. Full environment (orb, orm, orm-ros)
-
-# Docker
-
-
 # Web interface (orb)
 For this project, ensure that you download and install Node.js version 20 or later from the official Node.js website.
 
@@ -36,5 +26,3 @@ npm install
 ```
 npm run start
 ```
-
-# Full environment - orb, orm, orm-ros
