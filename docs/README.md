@@ -12,13 +12,13 @@ First of all, you need to configure and launch the repositories in that order:
 2) orm - server
 3) orb - client
 
-## - orm-ros
-Detailed instruction on how to install, configure, and launch the orm-ros - see this [launch.md](./orm-ros/launch.md)
+## orm-ros
+Detailed instruction on how to install, configure, and launch the orm-ros - see the [launch.md](./orm-ros/launch.md)
 
-## - orm
-Detailed instruction on how to install, configure, and launch the orm - see this [launch.md](./orm/launch.md)
+## orm
+Detailed instruction on how to install, configure, and launch the orm - see the [launch.md](./orm/launch.md)
 
-## - orb
-Detailed instruction on how to install, configure, and launch the orm - see this [launch.md](./orb/launch.md)
+## orb
+Detailed instruction on how to install, configure, and launch the orm - see the [launch.md](./orb/launch.md)
 
 # Docker
