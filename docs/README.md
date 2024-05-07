@@ -19,6 +19,6 @@ Detailed instruction on how to install, configure, and launch the orm-ros - see 
 Detailed instruction on how to install, configure, and launch the orm - see the [launch.md](./orm/launch.md)
 
 ## orb
-Detailed instruction on how to install, configure, and launch the orm - see the [launch.md](./orb/launch.md)
+Detailed instruction on how to install, configure, and launch the orb - see the [launch.md](./orb/launch.md)
 
 # Docker
