@@ -80,3 +80,43 @@ Install on Ubuntu 20.04 ROS Noetic
 ```
 sudo apt install ros-noetic-moveit
 ```
+
+## Catkin workspace
+The last thing you need to do is create a catkin workspace.
+You can do this by reading the provided documentation [here](https://wiki.ros.org/catkin/Tutorials/create_a_workspace) or following the instructions below.
+
+### Create a catkin workspace
+Create and build a catkin workspace:
+```
+mkdir -p ~/catkin_ws/src
+cd ~/catkin_ws/
+catkin_make
+```
+
+Before continuing source your new setup.*sh file:
+```
+source devel/setup.bash
+```
+
+### Install source code
+Next, git clone orm-ros repository in the catkin_ws/src directory:
+```
+cd ~/catkin_ws/src
+git clone https://github.com/sergei-nntu/orm-ros.git
+```
+
+**_note_: don't forget rename the orm-ros directory to we_r2_moveit_config**
+```
+mv orm-ros we_r2_moveit_config
+```
+
+Build the source code:
+```
+catkin_make
+```
+
+## Launch
+After completing all the steps above, launch the demo:
+```
+roslaunch we_r2_moveit_config demo.launch
+```
