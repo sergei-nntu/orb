@@ -24,8 +24,10 @@ whether it be a developer's laptop, a staging environment, or a production serve
 This containerization approach enables greater flexibility, 
 efficiency, and consistency in software development and deployment processes.
 
+**_note_: to install docker on your local machine, see [here](https://docs.docker.com/engine/install/)**
+
 ## Docker compose 
-On Docker Hub, there are already ready-to-use images that, when launched, create containers
+On the docker hub, there are already ready-to-use images that, when launched, create containers
 with pre-configured repositories, so there's no need to configure anything manually.
 Moreover, a single file can download all these images at once and run them in a single network - docker-compose.yml.
 
@@ -38,6 +40,15 @@ Here you can see the docker-compose.yml file.
 To run it, enter the command below:
 ```
 docker compose up
+```
+
+**_note_: if you don't have some of those images on your system, 
+then 'docker compose' pull these images from the docker hub, 
+else will be used already available images on your local machine.**
+
+Remember to remove containers after work:
+```
+docker compose down
 ```
 
 ## Docker images
