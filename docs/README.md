@@ -52,3 +52,46 @@ docker compose down
 ```
 
 ## Docker images
+
+You can build the images manually. 
+When Docker Compose is executed, it initially checks for the presence of the images on the local machine. 
+If they are not available locally, it fetches them from Docker Hub.
+
+### orb
+
+1. Navigate to the `web` directory:
+```
+cd orb/web
+```
+
+2. Execute the following command to create a Docker container from the Docker image:
+```
+docker build . -t telemetrybalkan/orb
+```
+
+### orm & orm-ros 
+1. Navigate to the `docker` directory:
+```
+cd orb/docker
+```
+2. Execute the following command to create a Docker container from the Docker image:
+```
+docker build . -t telemetrybalkan/ros
+```
+**_note:_ this command retrieves the source code from orm-ros and orm, 
+integrates it into a single Ubuntu container, and then runs it.**
+
+### Development
+If you intend to make modifications on the server side and test them while Docker is running, 
+you can clone the orm repository into the `dev` directory and make your changes there.
+To test your changes again, rebuild the image using:
+
+```
+docker build . -t telemetrybalkan/ros
+```
+
+### Docker compose
+Once the images are built, the final step is to launch the Docker Compose file located in the `docker` directory:
+```
+docker compose up
+```
