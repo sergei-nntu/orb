@@ -20,68 +20,119 @@ import ListItemText from '@mui/material/ListItemText';
 import { useTheme } from '@mui/material/styles';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import React, { useContext, useEffect } from 'react';
+import React, { useCallback, useContext, useEffect, useRef } from 'react';
 
-import { API_ROUTES, KEY } from '../../constants';
+import { API_ROUTES, DISABLED_TABS, KEY, TAB } from '../../constants';
 import { NotificationContext } from '../../contexts/NotificationContext/NotificationContext';
 import { PoseContext } from '../../contexts/PoseContext/PoseContext';
 import useHttp from '../../hooks/Http/Http';
 import { useRouter } from '../../hooks/Router/Router';
+import { useUsbConnection } from '../../hooks/UsbConnection/UsbConnection';
 import { NOTIFICATION, POSE } from '../../types/appTypes';
 import { AppBar, Drawer, DrawerHeader } from './StyledComponents/StyledComponents';
 
 const drawerData = [
     {
         icon: <NavigationIcon />,
-        text: 'Navigation',
+        tab: TAB.NAVIGATION,
     },
     {
         icon: <PrecisionManufacturingIcon />,
-        text: 'Manipulator',
+        tab: TAB.MANIPULATOR,
     },
     {
         icon: <NextPlanIcon />,
-        text: 'Planning',
+        tab: TAB.PLANNING,
     },
     {
         icon: <QrCode2Icon />,
-        text: 'QR',
+        tab: TAB.QR,
     },
     {
         icon: <SmartToyIcon />,
-        text: 'Dog',
+        tab: TAB.OQP,
     },
 ];
 
 export default function MenuAppBar() {
     const theme = useTheme();
+    const router = useRouter();
+
     const { request } = useHttp();
     const { dispatch } = useContext(PoseContext);
-    const router = useRouter();
     const { dispatchNotification } = useContext(NotificationContext);
+    const { getUsbConnectionStatus } = useUsbConnection(useHttp, useRouter);
+
     const [open, setOpen] = React.useState(false);
-    const [title, setTitle] = React.useState('Navigation');
+    const [title, setTitle] = React.useState(TAB.NAVIGATION);
+
+    const interval = useRef<string | number | NodeJS.Timeout | undefined>(undefined);
+    const connectionStatus = useRef<boolean | undefined>(undefined);
+    const currentPath = useRef<string | undefined>(undefined);
 
     useEffect(() => {
-        calculateTitle();
+        const currentTab = getCurrentTab();
+        setTitle(currentTab);
+    });
+
+    const getCurrentTab = () => {
+        const pathname = router.pathname.replace('/', '');
+        const foundTab = drawerData.find((item) => item.tab.toLowerCase() === pathname);
+        return foundTab ? foundTab.tab : TAB.NAVIGATION;
+    };
+
+    useEffect(() => {
+        getPose();
+        interval.current = setInterval(handleUSBConnection, 2000);
+        return () => {
+            clearInterval(interval.current);
+        };
     }, []);
 
+    const handleUSBConnection = async () => {
+        const res = await getUsbConnectionStatus();
+
+        // FIXME: Refactor this later
+        if (currentPath.current === 'manipulator' || currentPath.current === 'oqp') {
+            if (thereIsNoConnection(res) || !res?.connection) {
+                if (process.env.REACT_APP_ENVIRONMENT !== 'development') {
+                    router.push('/');
+                }
+            }
+        }
+
+        if (thereIsNoConnection(res) || isSameUSBStatus(res)) {
+            return;
+        }
+
+        connectionStatus.current = res?.connection;
+        handleUSBNotification();
+    };
+
+    const isSameUSBStatus = (res: { connection: boolean }) => {
+        return res?.connection === connectionStatus.current;
+    };
+
+    const thereIsNoConnection = (res: { connection: boolean }) => {
+        return res === undefined;
+    };
+
+    const handleUSBNotification = useCallback(() => {
+        const notificationType = connectionStatus.current ? NOTIFICATION.USB_ENABLED : NOTIFICATION.USB_DISABLED;
+        dispatchNotification({ type: notificationType, open: true });
+    }, [connectionStatus.current]);
+
+    // FIXME: it's not good way to define tab and path. Fix it
     const handleButtonClick = (event: React.MouseEvent<HTMLElement>) => {
-        const value = event.currentTarget.getAttribute('data-text') || '';
-        setTitle(value);
-        const path = calculatePath(value);
+        const tab = event.currentTarget.getAttribute('data-text') || '';
+        const path = calculatePath(tab);
+        currentPath.current = path;
         router.push(path);
         handleDrawerClose();
     };
 
-    const calculateTitle = () => {
-        if (router.pathname === '/') return;
-        const pathname = router.pathname.replace('/', '');
-        setTitle(pathname.charAt(0).toUpperCase() + pathname.slice(1));
-    };
-
-    const calculatePath = (value: string) => {
-        return value === 'Navigation' ? '/' : value.toLowerCase();
+    const calculatePath = (tab: string) => {
+        return tab === TAB.NAVIGATION ? '/' : tab.toLowerCase();
     };
 
     const handleDrawerOpen = () => {
@@ -175,15 +226,10 @@ export default function MenuAppBar() {
                         roll: res.data.roll,
                         yaw: res.data.yaw,
                     },
-                    gripper_state: 0.0,
                 },
             });
         });
     };
-
-    useEffect(() => {
-        getPose();
-    }, []);
 
     return (
         <>
@@ -205,7 +251,7 @@ export default function MenuAppBar() {
                     <Typography variant="h6" noWrap component="div">
                         {title}
                     </Typography>
-                    {router.pathname === '/planning' && (
+                    {title === TAB.PLANNING && (
                         <>
                             {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
                             {/*// @ts-ignore*/}
@@ -234,13 +280,27 @@ export default function MenuAppBar() {
                 <List>
                     {drawerData.map((item) => (
                         <ListItem
-                            key={item.text}
+                            key={item.tab}
                             disablePadding
                             sx={{ display: 'block' }}
-                            data-text={item.text}
-                            onClick={(event) => handleButtonClick(event)}
+                            data-text={item.tab}
+                            onClick={(event) => {
+                                if (
+                                    !connectionStatus.current &&
+                                    DISABLED_TABS.includes(item.tab) &&
+                                    process.env.REACT_APP_ENVIRONMENT !== 'development'
+                                ) {
+                                    return;
+                                }
+                                handleButtonClick(event);
+                            }}
                         >
                             <ListItemButton
+                                disabled={
+                                    !connectionStatus.current &&
+                                    DISABLED_TABS.includes(item.tab) &&
+                                    process.env.REACT_APP_ENVIRONMENT !== 'development'
+                                }
                                 sx={{
                                     minHeight: 48,
                                     justifyContent: open ? 'initial' : 'center',
@@ -256,7 +316,7 @@ export default function MenuAppBar() {
                                 >
                                     {item.icon}
                                 </ListItemIcon>
-                                <ListItemText primary={item.text} sx={{ opacity: open ? 1 : 0 }} />
+                                <ListItemText primary={item.tab} sx={{ opacity: open ? 1 : 0 }} />
                             </ListItemButton>
                         </ListItem>
                     ))}

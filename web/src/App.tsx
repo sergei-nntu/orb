@@ -5,9 +5,10 @@ import React from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import JointsStateProvider from './contexts/JointsStateContext/JointsStateProvider/JointsStateProvider';
-import MessagesProvider from './contexts/MessagesContext/MessagesProvider/MessagesProvider';
 import NotificationProvider from './contexts/NotificationContext/NotificationProvider/NotificationProvider';
 import PoseProvider from './contexts/PoseContext/PoseProvider/PoseProvider';
+import UserConsoleMessagesProvider from './contexts/UserConsoleMessagesContext/UserConsoleMessagesProvider/UserConsoleMessagesProvider';
+import VideoErrorProvider from './contexts/VideoErrorContext/VideoErrorProvider/VideoErrorProvider';
 import Layout from './hoc/Layout/Layout';
 import DogMain from './pages/dog-page/DogMain';
 import ErrorPage from './pages/error-page/ErrorPage';
@@ -39,7 +40,7 @@ const router = createBrowserRouter([
                 element: <QRPage />,
             },
             {
-                path: '/dog',
+                path: '/oqp',
                 element: <DogMain />,
             },
         ],
@@ -62,14 +63,16 @@ function App() {
     return (
         <NotificationProvider>
             <PoseProvider>
-                <MessagesProvider>
-                    <JointsStateProvider>
-                        <ThemeProvider theme={theme}>
-                            <CssBaseline enableColorScheme />
-                            <RouterProvider router={router} />
-                        </ThemeProvider>
-                    </JointsStateProvider>
-                </MessagesProvider>
+                <UserConsoleMessagesProvider>
+                    <VideoErrorProvider>
+                        <JointsStateProvider>
+                            <ThemeProvider theme={theme}>
+                                <CssBaseline enableColorScheme />
+                                <RouterProvider router={router} />
+                            </ThemeProvider>
+                        </JointsStateProvider>
+                    </VideoErrorProvider>
+                </UserConsoleMessagesProvider>
             </PoseProvider>
         </NotificationProvider>
     );

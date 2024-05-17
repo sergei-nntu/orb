@@ -1,9 +1,9 @@
 import { Typography } from '@mui/material';
 import React from 'react';
 
-import { CONSOLE_MESSAGE, MessageType } from '../../../../types/appTypes';
+import { CONSOLE_MESSAGE, UserConsoleMessage } from '../../../../types/appTypes';
 
-export default function Message({ index, text, time }: MessageType) {
+export default function Message({ index, text, time }: UserConsoleMessage) {
     const defineMessageColor = (text: string) => {
         const redColor =
             text === CONSOLE_MESSAGE.NO_MOVE_TO_POSITION || text === CONSOLE_MESSAGE.NO_CONNECTION_WITH_SERVER;

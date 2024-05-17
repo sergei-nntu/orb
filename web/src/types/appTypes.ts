@@ -27,7 +27,6 @@ export enum POSE {
     ORIENTATION_YAW_UP = 'ORIENTATION_YAW_UP',
     ORIENTATION_YAW_DOWN = 'ORIENTATION_YAW_DOWN',
     SET_PREV_STATE = 'SET_PREV_STATE',
-    RERENDER = 'RERENDER',
 }
 
 export type PoseActionType =
@@ -47,7 +46,7 @@ export type PoseActionType =
 
 export enum CONSOLE_MESSAGE {
     INITIALIZED = 'Initialized',
-    NO_MOVE_TO_POSITION = 'There is no move to this position. Previous state was returned',
+    NO_MOVE_TO_POSITION = 'There is no move to this position. Please try again',
     SUCCESS_PLANNING = 'Changed goal state',
     NO_CONNECTION_WITH_SERVER = 'Error with connection to the server',
 }
@@ -56,9 +55,6 @@ export interface INotification {
     severity: 'success' | 'info' | 'warning' | 'error';
     message: string;
     open: boolean;
-    console: {
-        message: string;
-    };
 }
 
 export enum NOTIFICATION {
@@ -73,6 +69,8 @@ export enum NOTIFICATION {
     BLOCKLY_IS_ALREADY_RUNNING = 'BLOCKLY_IS_ALREADY_RUNNING',
     BLOCKLY_IS_STOPPED = 'BLOCKLY_IS_STOPPED',
     GET_QR_CODE = 'GET_QR_CODE',
+    USB_ENABLED = 'USB_ENABLED',
+    USB_DISABLED = 'USB_DISABLED',
 }
 
 export type NotificationActionType =
@@ -86,6 +84,8 @@ export type NotificationActionType =
     | Action<NOTIFICATION.BLOCKLY_WITHOUT_SERVER, { open: boolean }>
     | Action<NOTIFICATION.BLOCKLY_IS_STOPPED, { open: boolean }>
     | Action<NOTIFICATION.GET_QR_CODE, { open: boolean }>
+    | Action<NOTIFICATION.USB_ENABLED, { open: boolean }>
+    | Action<NOTIFICATION.USB_DISABLED, { open: boolean }>
     | Action<NOTIFICATION.HIDE>
     | Action<POSE.SET_PREV_STATE, { prevState: IPose }>;
 
@@ -99,7 +99,7 @@ export interface IJointsState {
     claws: number;
 }
 
-export type MessageType = {
+export type UserConsoleMessage = {
     index: number;
     text: string;
     time: string;

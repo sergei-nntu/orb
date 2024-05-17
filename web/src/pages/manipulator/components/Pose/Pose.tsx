@@ -1,11 +1,11 @@
 import { Grid } from '@mui/material';
 import React, { useContext, useEffect, useRef } from 'react';
 
-import { API_ROUTES } from '../../../../constants';
-import { NotificationContext } from '../../../../contexts/NotificationContext/NotificationContext';
+import { API_ROUTES, INITIAL_POSE_STATE } from '../../../../constants';
 import { PoseContext } from '../../../../contexts/PoseContext/PoseContext';
+import { UserConsoleMessagesContext } from '../../../../contexts/UserConsoleMessagesContext/UserConsoleMessagesContext';
 import useHttp from '../../../../hooks/Http/Http';
-import { IPose, NOTIFICATION, POSE } from '../../../../types/appTypes';
+import { CONSOLE_MESSAGE, IPose, POSE } from '../../../../types/appTypes';
 import EndEffectorState from '../RobotStates/EndEffectorState/EndEffectorState';
 import { Item } from '../StyledComponents/StyledComponents';
 import Orientation from './Orientation/Orientation';
@@ -13,18 +13,24 @@ import Position from './Position/Position';
 
 export type PoseProps = {
     remoteControlEnabled: React.MutableRefObject<boolean>;
-    blocklyEnabled: React.MutableRefObject<boolean>;
+    disabledControlInterface: boolean;
 };
 
 export default function Pose(props: PoseProps) {
-    const { remoteControlEnabled, blocklyEnabled } = props;
+    const { remoteControlEnabled, disabledControlInterface } = props;
     const { request } = useHttp();
-    const { dispatchNotification } = useContext(NotificationContext);
+    const { addUserConsoleMessage } = useContext(UserConsoleMessagesContext);
     const { state, dispatch } = useContext(PoseContext);
-    const prevStateRef = useRef<IPose | null>(null);
+    // This flag indicates whether the SET_PREV_STATE function worked. If it did we should exit the function and not make the same request again.
+    const previousMove = useRef<boolean | undefined>(undefined);
 
     const sendStateToServer = async (state: IPose) => {
         try {
+            if (state === INITIAL_POSE_STATE || previousMove.current) {
+                previousMove.current = false;
+                return;
+            }
+
             const options = {
                 method: 'POST',
                 body: JSON.stringify({
@@ -37,16 +43,31 @@ export default function Pose(props: PoseProps) {
                 }),
             };
 
-            const { execute } = await request(API_ROUTES.CONVERT_POSE, options);
+            const { execute, data } = await request(API_ROUTES.CONVERT_POSE, options);
+
+            console.log('Current pose state from server:', data);
+            console.log('Current pose state from frontend:', state);
 
             if (execute) {
-                dispatchNotification({ type: NOTIFICATION.SUCCESS_PLANNING, open: false });
-                prevStateRef.current = { ...state };
-            } else if (!prevStateRef.current) {
-                dispatch({ type: POSE.RERENDER });
+                addUserConsoleMessage(CONSOLE_MESSAGE.SUCCESS_PLANNING);
             } else {
-                dispatchNotification({ type: NOTIFICATION.NO_MOVE_TO_POSITION, open: false });
-                dispatch({ type: POSE.SET_PREV_STATE, prevState: prevStateRef.current });
+                addUserConsoleMessage(CONSOLE_MESSAGE.NO_MOVE_TO_POSITION);
+                previousMove.current = true;
+                dispatch({
+                    type: POSE.SET_PREV_STATE,
+                    prevState: {
+                        position: {
+                            x: data.x,
+                            y: data.y,
+                            z: data.z,
+                        },
+                        orientation: {
+                            pitch: data.pitch,
+                            roll: data.roll,
+                            yaw: data.yaw,
+                        },
+                    },
+                });
             }
         } catch (error) {
             console.error('Error: ', error);
@@ -54,7 +75,11 @@ export default function Pose(props: PoseProps) {
     };
 
     useEffect(() => {
-        sendStateToServer(state).then((r) => console.log(r));
+        sendStateToServer(state).then((err) => {
+            if (err != undefined) {
+                console.log(err);
+            }
+        });
     }, [state]);
 
     return (
@@ -69,15 +94,21 @@ export default function Pose(props: PoseProps) {
                 }}
             >
                 <Grid item xs={4} sm={4} md={12}>
-                    <Position remoteControlEnabled={remoteControlEnabled} blocklyEnabled={blocklyEnabled} />
+                    <Position
+                        remoteControlEnabled={remoteControlEnabled}
+                        disabledControlInterface={disabledControlInterface}
+                    />
                 </Grid>
 
                 <Grid item xs={4} sm={4} md={12}>
-                    <Orientation remoteControlEnabled={remoteControlEnabled} blocklyEnabled={blocklyEnabled} />
+                    <Orientation
+                        remoteControlEnabled={remoteControlEnabled}
+                        disabledControlInterface={disabledControlInterface}
+                    />
                 </Grid>
 
                 <Grid item xs={4} sm={4} md={12}>
-                    <EndEffectorState blocklyEnabled={blocklyEnabled} />
+                    <EndEffectorState disabledControlInterface={disabledControlInterface} />
                 </Grid>
             </Item>
         </Grid>

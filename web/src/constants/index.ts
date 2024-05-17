@@ -21,9 +21,33 @@ export enum API_ROUTES {
     POST_JOINTS_STATE = '/post_joints_state',
     GET_BLOCKLY_STATE = '/get_blockly_state',
     GET_JOINT_TRAJECTORY = '/get_joint_trajectory',
+    GET_USB_CONNECTION_STATUS = '/get_usb_connection_status',
 }
 
 export enum KEY {
     BLOCKLY_CODE = 'BLOCKLY_CODE',
     BLOCKLY_STRUCTURE = 'BLOCKLY_STRUCTURE',
 }
+
+export enum TAB {
+    NAVIGATION = 'Navigation',
+    MANIPULATOR = 'Manipulator',
+    PLANNING = 'Planning',
+    QR = 'QR',
+    OQP = 'OQP',
+}
+
+export const DISABLED_TABS = [TAB.MANIPULATOR, TAB.OQP];
+
+export const INITIAL_POSE_STATE = {
+    position: {
+        x: 0.0,
+        y: 0.1,
+        z: 0.4,
+    },
+    orientation: {
+        pitch: 0.0,
+        roll: 0.0,
+        yaw: 0.0,
+    },
+};

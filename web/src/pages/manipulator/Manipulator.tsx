@@ -1,16 +1,22 @@
 import { Grid } from '@mui/material';
-import React, { useContext, useEffect, useRef } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 
 import { API_ROUTES, GRIPPER_SCALE_COEFFICIENT } from '../../constants';
+import { LoaderContext } from '../../contexts/JointsStateContext/LoaderContext';
 import { JointsStateContext } from '../../contexts/JointsStateContext/JointsStateContext';
 import useHttp from '../../hooks/Http/Http';
+import { useRouter } from '../../hooks/Router/Router';
+import { useUsbConnection } from '../../hooks/UsbConnection/UsbConnection';
 import Pose from './components/Pose/Pose';
 import RobotCamera from './components/RobotCamera/RobotCamera';
+import RobotModel from './components/RobotModel/RobotModel';
 import RobotStates from './components/RobotStates/RobotStates';
 
 export default function Manipulator() {
     const { request } = useHttp();
+
     const { setJointsState } = useContext(JointsStateContext);
+    const { usbConnected, checkUsbConnection } = useUsbConnection(useHttp, useRouter);
 
     const trajectory = useRef(undefined);
     const gripperValueInRadians = useRef<undefined | number>(undefined);
@@ -19,8 +25,11 @@ export default function Manipulator() {
 
     const remoteControlEnabled = useRef<boolean>(true);
     const blocklyEnabled = useRef<boolean>(false);
+    const [stateProgress, setStateProgress] = useState<boolean>(false);
+    const [disabledControlInterface, setDisabledControlInterface] = useState<boolean>(false);
 
     useEffect(() => {
+        checkUsbConnection().then();
         interval.current = setInterval(getJointsState, 500);
         return () => {
             clearInterval(interval.current);
@@ -30,7 +39,10 @@ export default function Manipulator() {
     const getJointsState = async () => {
         if (remoteControlEnabled.current) {
             const r = await request(API_ROUTES.GET_JOINT_TRAJECTORY);
-            if (!r) return;
+            if (!r) {
+                clearInterval(interval.current);
+                return;
+            }
 
             if (isSameTrajectory(r)) {
                 return;
@@ -78,16 +90,34 @@ export default function Manipulator() {
         });
     }, []);
 
-    return (
-        <Grid container spacing={1} sx={{ pt: 1, pr: 1 }}>
-            <Pose remoteControlEnabled={remoteControlEnabled} blocklyEnabled={blocklyEnabled} />
-            <RobotCamera />
-            <RobotStates
-                remoteControlEnabled={remoteControlEnabled}
-                degreesJointValues={degreesJointValues}
-                gripperValueInRadians={gripperValueInRadians}
-                blocklyEnabled={blocklyEnabled}
-            />
-        </Grid>
-    );
+    useEffect(() => {
+        if (!blocklyEnabled.current && stateProgress) {
+            setDisabledControlInterface(false);
+        } else {
+            setDisabledControlInterface(true);
+        }
+    }, [stateProgress, blocklyEnabled.current]);
+
+    return usbConnected ? (
+        <LoaderContext.Provider //in props
+            value={{
+                stateProgress,
+                setStateProgress,
+            }}
+        >
+            <Grid container spacing={1} sx={{ pt: 1, pr: 1 }}>
+                <Pose remoteControlEnabled={remoteControlEnabled} disabledControlInterface={disabledControlInterface} />
+                <Grid item sm={12} md={4} lg={6}>
+                    <RobotModel />
+                    <RobotCamera />
+                </Grid>
+                <RobotStates
+                    remoteControlEnabled={remoteControlEnabled}
+                    degreesJointValues={degreesJointValues}
+                    gripperValueInRadians={gripperValueInRadians}
+                    disabledControlInterface={disabledControlInterface}
+                />
+            </Grid>
+        </LoaderContext.Provider>
+    ) : null;
 }
