@@ -24,11 +24,11 @@ type GripperProps = {
     remoteControlEnabled: React.MutableRefObject<boolean>;
     degreesJointValues: React.MutableRefObject<number[]>;
     gripperValueInRadians: React.MutableRefObject<undefined | number>;
-    blocklyEnabled: React.MutableRefObject<boolean>;
+    disabledControlInterface: boolean;
 };
 
 export default function Gripper(props: GripperProps) {
-    const { blocklyEnabled, gripperValueInRadians } = props;
+    const { disabledControlInterface, gripperValueInRadians } = props;
 
     const { request } = useHttp();
     const [isDragging, setIsDragging] = useState(false);
@@ -52,7 +52,7 @@ export default function Gripper(props: GripperProps) {
     }, [isDragging, gripperState]);
 
     useEffect(() => {
-        if (!blocklyEnabled.current) return;
+        if (!disabledControlInterface) return;
         getGripperState();
     });
 
@@ -92,7 +92,7 @@ export default function Gripper(props: GripperProps) {
         >
             Gripper State
             <Slider
-                disabled={blocklyEnabled.current}
+                disabled={disabledControlInterface}
                 id="slider-gripper-state"
                 value={gripperState}
                 onChange={handleChangeValue}

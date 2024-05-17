@@ -37,12 +37,13 @@ export default function Dog() {
     const { progress } = useProgress();
 
     function LoaderSkeleton() {
-        const isProgress = progress < 100 && !progressLoader;
+        const isProgress = progress < 100;
         if (isProgress) {
             setProgressLoader(false);
         } else {
             setProgressLoader(true);
         }
+        console.log('DOG', progressLoader);
     }
 
     function Loader() {

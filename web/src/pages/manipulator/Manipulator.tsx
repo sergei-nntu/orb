@@ -1,7 +1,8 @@
 import { Grid } from '@mui/material';
-import React, { useContext, useEffect, useRef } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 
 import { API_ROUTES, GRIPPER_SCALE_COEFFICIENT } from '../../constants';
+import { LoaderContext } from '../../contexts/JointsStateContext/LoaderContext';
 import { JointsStateContext } from '../../contexts/JointsStateContext/JointsStateContext';
 import useHttp from '../../hooks/Http/Http';
 import { useRouter } from '../../hooks/Router/Router';
@@ -13,6 +14,7 @@ import RobotStates from './components/RobotStates/RobotStates';
 
 export default function Manipulator() {
     const { request } = useHttp();
+
     const { setJointsState } = useContext(JointsStateContext);
     const { usbConnected, checkUsbConnection } = useUsbConnection(useHttp, useRouter);
 
@@ -23,6 +25,8 @@ export default function Manipulator() {
 
     const remoteControlEnabled = useRef<boolean>(true);
     const blocklyEnabled = useRef<boolean>(false);
+    const [stateProgress, setStateProgress] = useState<boolean>(false);
+    const [disabledControlInterface, setDisabledControlInterface] = useState<boolean>(false);
 
     useEffect(() => {
         checkUsbConnection().then();
@@ -86,19 +90,34 @@ export default function Manipulator() {
         });
     }, []);
 
+    useEffect(() => {
+        if (!blocklyEnabled.current && stateProgress) {
+            setDisabledControlInterface(false);
+        } else {
+            setDisabledControlInterface(true);
+        }
+    }, [stateProgress, blocklyEnabled.current]);
+
     return usbConnected ? (
-        <Grid container spacing={1} sx={{ pt: 1, pr: 1 }}>
-            <Pose remoteControlEnabled={remoteControlEnabled} blocklyEnabled={blocklyEnabled} />
-            <Grid item sm={12} md={4} lg={6}>
-                <RobotModel />
-                <RobotCamera />
+        <LoaderContext.Provider //in props
+            value={{
+                stateProgress,
+                setStateProgress,
+            }}
+        >
+            <Grid container spacing={1} sx={{ pt: 1, pr: 1 }}>
+                <Pose remoteControlEnabled={remoteControlEnabled} disabledControlInterface={disabledControlInterface} />
+                <Grid item sm={12} md={4} lg={6}>
+                    <RobotModel />
+                    <RobotCamera />
+                </Grid>
+                <RobotStates
+                    remoteControlEnabled={remoteControlEnabled}
+                    degreesJointValues={degreesJointValues}
+                    gripperValueInRadians={gripperValueInRadians}
+                    disabledControlInterface={disabledControlInterface}
+                />
             </Grid>
-            <RobotStates
-                remoteControlEnabled={remoteControlEnabled}
-                degreesJointValues={degreesJointValues}
-                gripperValueInRadians={gripperValueInRadians}
-                blocklyEnabled={blocklyEnabled}
-            />
-        </Grid>
+        </LoaderContext.Provider>
     ) : null;
 }

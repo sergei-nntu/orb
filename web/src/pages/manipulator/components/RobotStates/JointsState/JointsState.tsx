@@ -30,13 +30,13 @@ type HandleBlurFunction = (value: SliderValue, setValue: React.Dispatch<React.Se
 export type JointsStateProps = {
     remoteControlEnabled: React.MutableRefObject<boolean>;
     degreesJointValues: React.MutableRefObject<number[]>;
-    blocklyEnabled: React.MutableRefObject<boolean>;
+    disabledControlInterface: boolean;
 };
 
 export default function JointsState(props: JointsStateProps) {
     const { request } = useHttp();
     const { setJointsState } = useContext(JointsStateContext);
-    const { remoteControlEnabled, degreesJointValues, blocklyEnabled } = props;
+    const { remoteControlEnabled, degreesJointValues, disabledControlInterface } = props;
 
     const initialJointValues = Array(6).fill(0);
     const [jointValues, setJointValues] = useState<SliderValue[]>(initialJointValues);
@@ -114,7 +114,6 @@ export default function JointsState(props: JointsStateProps) {
         };
         request(API_ROUTES.POST_JOINTS_STATE, options).then();
     }, [jointValues]);
-
     return (
         <StyledBox sx={{ width: '100%', ml: { xs: 1, md: 0 }, mt: { xs: 0, md: 1 }, minHeight: '280px' }}>
             Joints Position
@@ -129,7 +128,7 @@ export default function JointsState(props: JointsStateProps) {
                                 value={value}
                                 onChange={(_, newValue) => handleJointChange(index, newValue as SliderValue)}
                                 aria-labelledby={`input-slider-${index}`}
-                                disabled={blocklyEnabled.current}
+                                disabled={disabledControlInterface}
                                 id={`slider-joint-${index}`}
                                 min={-130}
                                 max={130}
@@ -141,7 +140,7 @@ export default function JointsState(props: JointsStateProps) {
                                 sx={{ minWidth: '50px' }}
                                 value={value}
                                 size="small"
-                                disabled={blocklyEnabled.current}
+                                disabled={disabledControlInterface}
                                 onChange={(e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
                                     handleInputChange(e, (newValue) => {
                                         const newValues = [...jointValues];
