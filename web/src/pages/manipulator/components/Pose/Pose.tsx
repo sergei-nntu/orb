@@ -13,11 +13,11 @@ import Position from './Position/Position';
 
 export type PoseProps = {
     remoteControlEnabled: React.MutableRefObject<boolean>;
-    blocklyEnabled: React.MutableRefObject<boolean>;
+    disabledControlInterface: boolean;
 };
 
 export default function Pose(props: PoseProps) {
-    const { remoteControlEnabled, blocklyEnabled } = props;
+    const { remoteControlEnabled, disabledControlInterface } = props;
     const { request } = useHttp();
     const { addUserConsoleMessage } = useContext(UserConsoleMessagesContext);
     const { state, dispatch } = useContext(PoseContext);
@@ -94,15 +94,21 @@ export default function Pose(props: PoseProps) {
                 }}
             >
                 <Grid item xs={4} sm={4} md={12}>
-                    <Position remoteControlEnabled={remoteControlEnabled} blocklyEnabled={blocklyEnabled} />
+                    <Position
+                        remoteControlEnabled={remoteControlEnabled}
+                        disabledControlInterface={disabledControlInterface}
+                    />
                 </Grid>
 
                 <Grid item xs={4} sm={4} md={12}>
-                    <Orientation remoteControlEnabled={remoteControlEnabled} blocklyEnabled={blocklyEnabled} />
+                    <Orientation
+                        remoteControlEnabled={remoteControlEnabled}
+                        disabledControlInterface={disabledControlInterface}
+                    />
                 </Grid>
 
                 <Grid item xs={4} sm={4} md={12}>
-                    <EndEffectorState blocklyEnabled={blocklyEnabled} />
+                    <EndEffectorState disabledControlInterface={disabledControlInterface} />
                 </Grid>
             </Item>
         </Grid>

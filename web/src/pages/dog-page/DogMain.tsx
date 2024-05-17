@@ -27,6 +27,8 @@ export default function DogMain() {
     const [joint10Value, setJoint10Value] = useState(-50);
     const [joint11Value, setJoint11Value] = useState(90);
 
+    const [progressLoader, setProgressLoader] = useState(false);
+
     useEffect(() => {
         const sendJointStateToServer = async () => {
             try {
@@ -113,7 +115,6 @@ export default function DogMain() {
         }
         fetchFunc().then((r) => console.log(r));
     }, []);
-
     return usbConnected ? (
         <JointStateContext.Provider
             value={{
@@ -141,6 +142,9 @@ export default function DogMain() {
                 setJoint10Value,
                 joint11Value,
                 setJoint11Value,
+
+                progressLoader,
+                setProgressLoader,
             }}
         >
             <Grid container spacing={1} sx={{ pt: 1, pr: 1 }}>

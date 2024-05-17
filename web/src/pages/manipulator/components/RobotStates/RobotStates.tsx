@@ -10,7 +10,7 @@ type RobotStatesProps = {
     remoteControlEnabled: React.MutableRefObject<boolean>;
     degreesJointValues: React.MutableRefObject<number[]>;
     gripperValueInRadians: React.MutableRefObject<undefined | number>;
-    blocklyEnabled: React.MutableRefObject<boolean>;
+    disabledControlInterface: boolean;
 };
 
 export default function RobotStates(props: RobotStatesProps) {

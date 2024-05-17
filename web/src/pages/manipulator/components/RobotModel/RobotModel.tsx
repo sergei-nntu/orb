@@ -11,6 +11,7 @@ import { BufferGeometry, Mesh, NormalBufferAttributes, Vector3 } from 'three';
 import { STLLoader } from 'three/examples/jsm/loaders/STLLoader';
 
 import { JointsStateContext } from '../../../../contexts/JointsStateContext/JointsStateContext';
+import { LoaderContext } from '../../../../contexts/JointsStateContext/LoaderContext';
 import VideoErrorContext from '../../../../contexts/VideoErrorContext/VideoErrorContext';
 import { Item } from '../StyledComponents/StyledComponents';
 
@@ -19,12 +20,22 @@ const StyledPaper = styled(Paper)(({ theme }) => ({
 }));
 
 export default function RobotModel() {
+    const { progress } = useProgress();
     const { jointsState } = useContext(JointsStateContext);
     const videoErrorContext = useContext(VideoErrorContext);
+    const { setStateProgress } = useContext(LoaderContext);
 
     function Loader() {
-        const { progress } = useProgress();
         return <Html center>{progress} % loaded</Html>;
+    }
+
+    function progressLoader() {
+        const isProgress = progress < 100;
+        if (isProgress) {
+            setStateProgress(false);
+        } else {
+            setStateProgress(true);
+        }
     }
 
     const Model = ({
@@ -52,6 +63,10 @@ export default function RobotModel() {
                 ref.current.rotateOnAxis(axis, theta); // rotate the OBJECT
             }
         }, [ref.current, theta, axis, point]);
+
+        useEffect(() => {
+            progressLoader();
+        }, [useProgress]);
 
         return (
             <>

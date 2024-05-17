@@ -9,18 +9,18 @@ import { IPose } from '../../../../../types/appTypes';
 import { StyledBox } from '../../StyledComponents/StyledComponents';
 
 type EndEffectorStateProps = {
-    blocklyEnabled: React.MutableRefObject<boolean>;
+    disabledControlInterface: boolean;
 };
 
 export default function EndEffectorState(props: EndEffectorStateProps) {
-    const { blocklyEnabled } = props;
+    const { disabledControlInterface } = props;
     const { request } = useHttp();
     const interval = useRef<string | number | NodeJS.Timeout | undefined>(undefined);
 
     const [endEffectorState, setEndEffectorState] = useState<IPose>(INITIAL_POSE_STATE);
 
     const StyledTag = styled('strong')(({ theme }) => ({
-        color: blocklyEnabled.current ? theme.palette.grey.A700 : theme.palette.primary.main,
+        color: disabledControlInterface ? theme.palette.grey.A700 : theme.palette.primary.main,
     }));
 
     useEffect(() => {
