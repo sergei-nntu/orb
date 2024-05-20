@@ -29,7 +29,7 @@ export default function Dog() {
         joint9Value,
         joint10Value,
         joint11Value,
-        setIsModelsLoaded,
+        setModelLoaded,
     } = useContext(JointStateContext);
 
     function Loader() {
@@ -64,7 +64,7 @@ export default function Dog() {
         }, [ref.current, theta, axis, point]);
 
         useEffect(() => {
-            setIsModelsLoaded(true);
+            setModelLoaded(true);
         }, []);
 
         return (

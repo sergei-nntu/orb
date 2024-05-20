@@ -27,7 +27,7 @@ export default function DogMain() {
     const [joint10Value, setJoint10Value] = useState(-50);
     const [joint11Value, setJoint11Value] = useState(90);
 
-    const [isModelsLoaded, setIsModelsLoaded] = useState(false);
+    const [modelLoaded, setModelLoaded] = useState(false);
 
     useEffect(() => {
         const sendJointStateToServer = async () => {
@@ -142,8 +142,8 @@ export default function DogMain() {
                 setJoint10Value,
                 joint11Value,
                 setJoint11Value,
-                isModelsLoaded,
-                setIsModelsLoaded,
+                modelLoaded,
+                setModelLoaded,
             }}
         >
             <Grid container spacing={1} sx={{ pt: 1, pr: 1 }}>
