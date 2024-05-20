@@ -8,8 +8,8 @@ test.beforeEach('Dog',async ({ page }) => {
     const bot = new Bot(page);
     await bot.tools.element.goto('http://localhost:3000',{ waitUntil: "networkidle" });
     await bot.tools._handledButtonByTestId('SmartToyIcon');
-    const locator = bot.tools.element.locator('//div[text()=\'Dog\']');
-    await expect(locator).toContainText('Dog');
+    const locator = bot.tools.element.locator('//div[text()=\'OQP\']');
+    await expect(locator).toContainText('OQP');
 });
 test.describe('Edit Front Left', () => {
 
