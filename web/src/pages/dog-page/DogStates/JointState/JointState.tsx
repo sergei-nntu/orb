@@ -1,3 +1,4 @@
+import { Skeleton } from '@mui/material';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import MuiInput from '@mui/material/Input';
@@ -8,7 +9,6 @@ import React, { ChangeEvent, useContext } from 'react';
 
 import { JointStateContext } from '../../../../contexts/OQPJointStateContext/JointStateContext';
 import { StyledBox } from '../../../manipulator/components/StyledComponents/StyledComponents';
-import { Skeleton } from '@mui/material';
 
 const Input = styled(MuiInput)`
     width: 42px;
@@ -51,9 +51,7 @@ export default function JointsState() {
         setJoint10Value,
         joint11Value,
         setJoint11Value,
-
-        progressLoader,
-        //setProgressLoader,
+        isModelsLoaded,
     } = useContext(JointStateContext);
 
     const handleJoint0Change: HandleChangeFunction = (event, newValue) => {
@@ -137,7 +135,7 @@ export default function JointsState() {
                             <Typography id="input-slider">Shoulder</Typography>
                         </Grid>
                         <Grid item xs>
-                            {progressLoader ? (
+                            {isModelsLoaded ? (
                                 <Slider
                                     value={joint0Value}
                                     onChange={handleJoint0Change}
@@ -150,7 +148,7 @@ export default function JointsState() {
                             )}
                         </Grid>
                         <Grid item>
-                            {progressLoader ? (
+                            {isModelsLoaded ? (
                                 <Input
                                     sx={{ minWidth: '50px' }}
                                     value={joint0Value}
@@ -177,7 +175,7 @@ export default function JointsState() {
                             <Typography id="input-slider">Reductor</Typography>
                         </Grid>
                         <Grid item xs>
-                            {progressLoader ? (
+                            {isModelsLoaded ? (
                                 <Slider
                                     value={joint1Value}
                                     onChange={handleJoint1Change}
@@ -190,7 +188,7 @@ export default function JointsState() {
                             )}
                         </Grid>
                         <Grid item>
-                            {progressLoader ? (
+                            {isModelsLoaded ? (
                                 <Input
                                     sx={{ minWidth: '50px' }}
                                     value={joint1Value}
@@ -217,7 +215,7 @@ export default function JointsState() {
                             <Typography id="input-slider">Knee</Typography>
                         </Grid>
                         <Grid item xs>
-                            {progressLoader ? (
+                            {isModelsLoaded ? (
                                 <Slider
                                     value={joint2Value}
                                     onChange={handleJoint2Change}
@@ -230,7 +228,7 @@ export default function JointsState() {
                             )}
                         </Grid>
                         <Grid item>
-                            {progressLoader ? (
+                            {isModelsLoaded ? (
                                 <Input
                                     sx={{ minWidth: '50px' }}
                                     value={joint2Value}
@@ -262,7 +260,7 @@ export default function JointsState() {
                             <Typography id="input-slider">Shoulder</Typography>
                         </Grid>
                         <Grid item xs>
-                            {progressLoader ? (
+                            {isModelsLoaded ? (
                                 <Slider
                                     value={joint3Value}
                                     onChange={handleJoint3Change}
@@ -275,7 +273,7 @@ export default function JointsState() {
                             )}
                         </Grid>
                         <Grid item>
-                            {progressLoader ? (
+                            {isModelsLoaded ? (
                                 <Input
                                     sx={{ minWidth: '50px' }}
                                     value={joint3Value}
@@ -302,7 +300,7 @@ export default function JointsState() {
                             <Typography id="input-slider">Reductor</Typography>
                         </Grid>
                         <Grid item xs>
-                            {progressLoader ? (
+                            {isModelsLoaded ? (
                                 <Slider
                                     value={joint4Value}
                                     onChange={handleJoint4Change}
@@ -315,7 +313,7 @@ export default function JointsState() {
                             )}
                         </Grid>
                         <Grid item>
-                            {progressLoader ? (
+                            {isModelsLoaded ? (
                                 <Input
                                     sx={{ minWidth: '50px' }}
                                     value={joint4Value}
@@ -342,7 +340,7 @@ export default function JointsState() {
                             <Typography id="input-slider">Knee</Typography>
                         </Grid>
                         <Grid item xs>
-                            {progressLoader ? (
+                            {isModelsLoaded ? (
                                 <Slider
                                     value={joint5Value}
                                     onChange={handleJoint5Change}
@@ -355,7 +353,7 @@ export default function JointsState() {
                             )}
                         </Grid>
                         <Grid item>
-                            {progressLoader ? (
+                            {isModelsLoaded ? (
                                 <Input
                                     sx={{ minWidth: '50px' }}
                                     value={joint5Value}
@@ -387,7 +385,7 @@ export default function JointsState() {
                             <Typography id="input-slider">Shoulder</Typography>
                         </Grid>
                         <Grid item xs>
-                            {progressLoader ? (
+                            {isModelsLoaded ? (
                                 <Slider
                                     value={joint6Value}
                                     onChange={handleJoint6Change}
@@ -400,7 +398,7 @@ export default function JointsState() {
                             )}
                         </Grid>
                         <Grid item>
-                            {progressLoader ? (
+                            {isModelsLoaded ? (
                                 <Input
                                     sx={{ minWidth: '50px' }}
                                     value={joint6Value}
@@ -427,7 +425,7 @@ export default function JointsState() {
                             <Typography id="input-slider">Reductor</Typography>
                         </Grid>
                         <Grid item xs>
-                            {progressLoader ? (
+                            {isModelsLoaded ? (
                                 <Slider
                                     value={joint7Value}
                                     onChange={handleJoint7Change}
@@ -440,7 +438,7 @@ export default function JointsState() {
                             )}
                         </Grid>
                         <Grid item>
-                            {progressLoader ? (
+                            {isModelsLoaded ? (
                                 <Input
                                     sx={{ minWidth: '50px' }}
                                     value={joint7Value}
@@ -467,7 +465,7 @@ export default function JointsState() {
                             <Typography id="input-slider">Knee</Typography>
                         </Grid>
                         <Grid item xs>
-                            {progressLoader ? (
+                            {isModelsLoaded ? (
                                 <Slider
                                     value={joint8Value}
                                     onChange={handleJoint8Change}
@@ -480,7 +478,7 @@ export default function JointsState() {
                             )}
                         </Grid>
                         <Grid item>
-                            {progressLoader ? (
+                            {isModelsLoaded ? (
                                 <Input
                                     sx={{ minWidth: '50px' }}
                                     value={joint8Value}
@@ -512,7 +510,7 @@ export default function JointsState() {
                             <Typography id="input-slider">Shoulder</Typography>
                         </Grid>
                         <Grid item xs>
-                            {progressLoader ? (
+                            {isModelsLoaded ? (
                                 <Slider
                                     value={joint9Value}
                                     onChange={handleJoint9Change}
@@ -525,7 +523,7 @@ export default function JointsState() {
                             )}
                         </Grid>
                         <Grid item>
-                            {progressLoader ? (
+                            {isModelsLoaded ? (
                                 <Input
                                     sx={{ minWidth: '50px' }}
                                     value={joint9Value}
@@ -552,7 +550,7 @@ export default function JointsState() {
                             <Typography id="input-slider">Reductor</Typography>
                         </Grid>
                         <Grid item xs>
-                            {progressLoader ? (
+                            {isModelsLoaded ? (
                                 <Slider
                                     value={joint10Value}
                                     onChange={handleJoint10Change}
@@ -565,7 +563,7 @@ export default function JointsState() {
                             )}
                         </Grid>
                         <Grid item>
-                            {progressLoader ? (
+                            {isModelsLoaded ? (
                                 <Input
                                     sx={{ minWidth: '50px' }}
                                     value={joint10Value}
@@ -592,7 +590,7 @@ export default function JointsState() {
                             <Typography id="input-slider">Knee</Typography>
                         </Grid>
                         <Grid item xs>
-                            {progressLoader ? (
+                            {isModelsLoaded ? (
                                 <Slider
                                     value={joint11Value}
                                     onChange={handleJoint11Change}
@@ -605,7 +603,7 @@ export default function JointsState() {
                             )}
                         </Grid>
                         <Grid item>
-                            {progressLoader ? (
+                            {isModelsLoaded ? (
                                 <Input
                                     sx={{ minWidth: '50px' }}
                                     value={joint11Value}

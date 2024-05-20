@@ -29,24 +29,11 @@ export default function Dog() {
         joint9Value,
         joint10Value,
         joint11Value,
-
-        progressLoader,
-        setProgressLoader,
+        setIsModelsLoaded,
     } = useContext(JointStateContext);
 
-    const { progress } = useProgress();
-
-    function LoaderSkeleton() {
-        const isProgress = progress < 100;
-        if (isProgress) {
-            setProgressLoader(false);
-        } else {
-            setProgressLoader(true);
-        }
-        console.log('DOG', progressLoader);
-    }
-
     function Loader() {
+        const { progress } = useProgress();
         return <Html center>{Math.floor(progress)} % loaded</Html>;
     }
 
@@ -77,8 +64,8 @@ export default function Dog() {
         }, [ref.current, theta, axis, point]);
 
         useEffect(() => {
-            LoaderSkeleton();
-        }, [useProgress]);
+            setIsModelsLoaded(true);
+        }, []);
 
         return (
             <>

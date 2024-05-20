@@ -2,8 +2,8 @@ import { Grid } from '@mui/material';
 import React, { useContext, useEffect, useRef, useState } from 'react';
 
 import { API_ROUTES, GRIPPER_SCALE_COEFFICIENT } from '../../constants';
-import { LoaderContext } from '../../contexts/JointsStateContext/LoaderContext';
 import { JointsStateContext } from '../../contexts/JointsStateContext/JointsStateContext';
+import { LoaderContext } from '../../contexts/JointsStateContext/LoaderContext';
 import useHttp from '../../hooks/Http/Http';
 import { useRouter } from '../../hooks/Router/Router';
 import { useUsbConnection } from '../../hooks/UsbConnection/UsbConnection';
