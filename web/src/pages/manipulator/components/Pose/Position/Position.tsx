@@ -18,9 +18,10 @@ export default function Position({ remoteControlEnabled, disabledControlInterfac
     });
 
     const keyDownInProgressRef = useRef<boolean>(false);
+    const stateDisabledControlInterface = useRef<boolean>(true);
 
     const handleKeyDown = (e: KeyboardEvent) => {
-        if (disabledControlInterface || keyDownInProgressRef.current) {
+        if (stateDisabledControlInterface.current || keyDownInProgressRef.current) {
             return;
         }
 
@@ -69,6 +70,10 @@ export default function Position({ remoteControlEnabled, disabledControlInterfac
             }));
         }
     };
+
+    useEffect(() => {
+        stateDisabledControlInterface.current = disabledControlInterface;
+    }, [handleKeyDown]);
 
     useEffect(() => {
         window.addEventListener('keydown', handleKeyDown);

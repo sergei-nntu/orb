@@ -21,6 +21,7 @@ export default function Orientation({ remoteControlEnabled, disabledControlInter
     });
 
     const keyDownInProgressRef = useRef<boolean>(false);
+    const stateDisabledControlInterface = useRef<boolean>(true);
 
     const handleArrowMouseDown = (key: string, action: string) => () => {
         if (disabledControlInterface) {
@@ -44,10 +45,9 @@ export default function Orientation({ remoteControlEnabled, disabledControlInter
     };
 
     const handleKeyDown = (e: KeyboardEvent) => {
-        if (disabledControlInterface || keyDownInProgressRef.current) {
+        if (stateDisabledControlInterface.current || keyDownInProgressRef.current) {
             return;
         }
-
         const key = e.key.toLowerCase();
         if (key in keyState) {
             keyDownInProgressRef.current = true;
@@ -93,6 +93,10 @@ export default function Orientation({ remoteControlEnabled, disabledControlInter
             }));
         }
     };
+
+    useEffect(() => {
+        stateDisabledControlInterface.current = disabledControlInterface;
+    }, [handleKeyDown]);
 
     useEffect(() => {
         window.addEventListener('keydown', handleKeyDown);
