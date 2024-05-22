@@ -78,7 +78,7 @@ export default function Position({ remoteControlEnabled, disabledControlInterfac
             window.removeEventListener('keydown', handleKeyDown);
             window.removeEventListener('keyup', handleKeyUp);
         };
-    }, []);
+    });
 
     const handleArrowMouseDown = (key: string, action: string) => () => {
         if (disabledControlInterface) {
