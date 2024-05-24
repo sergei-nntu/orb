@@ -2,7 +2,7 @@ name: Playwright Tests
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 3 * * 1"
+    - cron: "0 3 * * *"
   push:
     branches: [ playwright-tests ]
   pull_request:
@@ -32,15 +32,15 @@ jobs:
     - uses: actions/setup-node@v3
       with:
         node-version: 18
-    - name: Docker for web
-      run: docker build . -t telemetrybalkan/orb
-      working-directory: ./web
-    - name: Docker for ros
-      run: docker build . -t telemetrybalkan/ros
-      working-directory: ./docker
-    - name: Docker compose
-      run: docker compose up -d
-      working-directory: ./docker
+#    - name: Docker for web
+#      run: docker build . -t telemetrybalkan/orb
+#      working-directory: ./web
+#    - name: Docker for ros
+#      run: docker build . -t telemetrybalkan/ros
+#      working-directory: ./docker
+#    - name: Docker compose
+#      run: docker compose up -d
+#      working-directory: ./docker
     - name: Checkout to playwright-tests
       if: ((github.event.pull_request.merged == true) || (github.event_name == 'schedule'))
       uses: actions/checkout@v3
@@ -56,6 +56,9 @@ jobs:
         sudo apt-get install default-jre
         wget https://github.com/allure-framework/allure2/releases/download/2.18.1/allure_2.18.1-1_all.deb
         sudo dpkg -i allure_2.18.1-1_all.deb
+    - name: Run Server
+      run: bash run_test.sh
+      working-directory: ./playwright
     - name: Run Playwright tests
       run: npx playwright test
       working-directory: ./playwright
