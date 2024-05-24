@@ -6,7 +6,7 @@ cd ..
 DIR=$(pwd)
 
 cd "${DIR}/web"
-sed -i _prod 's/production/development/g' .env
+sed -i -e 's/production/development/g' .env
 
 docker build . -t telemetrybalkan/orb
 cd ..
