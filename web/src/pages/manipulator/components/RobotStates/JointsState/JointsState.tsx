@@ -91,51 +91,46 @@ export default function JointsState(props: JointsStateProps) {
     };
 
     const handleInputChange: HandleInputChangeFunction = (event, setValue) => {
-        const newValue = event.target.value === '' ? 0 : Number(event.target.value);
+        let newValue = event.target.value === '' ? 0 : Number(event.target.value);
+
+        if (newValue > 130) {
+            newValue = 130;
+        } else if (newValue < -130) {
+            newValue = -130;
+        }
+
         setValue(newValue);
 
         switch (indexInp.current) {
             case 0:
-                if (newValue >= -130 && newValue <= 130) {
-                    setJointsState((prev: IJointsState) => {
-                        return { ...prev, shoulder: +((Math.PI * newValue) / 180) };
-                    });
-                }
+                setJointsState((prev: IJointsState) => {
+                    return { ...prev, shoulder: +((Math.PI * newValue) / 180) };
+                });
                 break;
             case 1:
-                if (newValue >= -130 && newValue <= 130) {
-                    setJointsState((prev: IJointsState) => {
-                        return { ...prev, upperArm: +((Math.PI * newValue) / 180) };
-                    });
-                }
+                setJointsState((prev: IJointsState) => {
+                    return { ...prev, upperArm: +((Math.PI * newValue) / 180) };
+                });
                 break;
             case 2:
-                if (newValue >= -130 && newValue <= 130) {
-                    setJointsState((prev: IJointsState) => {
-                        return { ...prev, forearm: +((Math.PI * newValue) / 180) };
-                    });
-                }
+                setJointsState((prev: IJointsState) => {
+                    return { ...prev, forearm: +((Math.PI * newValue) / 180) };
+                });
                 break;
             case 3:
-                if (newValue >= -130 && newValue <= 130) {
-                    setJointsState((prev: IJointsState) => {
-                        return { ...prev, wrist1: +((Math.PI * newValue) / 180) };
-                    });
-                }
+                setJointsState((prev: IJointsState) => {
+                    return { ...prev, wrist1: +((Math.PI * newValue) / 180) };
+                });
                 break;
             case 4:
-                if (newValue >= -130 && newValue <= 130) {
-                    setJointsState((prev: IJointsState) => {
-                        return { ...prev, wrist2: +((Math.PI * newValue) / 180) };
-                    });
-                }
+                setJointsState((prev: IJointsState) => {
+                    return { ...prev, wrist2: +((Math.PI * newValue) / 180) };
+                });
                 break;
             case 5:
-                if (newValue >= -130 && newValue <= 130) {
-                    setJointsState((prev: IJointsState) => {
-                        return { ...prev, endEffectorLink: +((Math.PI * newValue) / 180) };
-                    });
-                }
+                setJointsState((prev: IJointsState) => {
+                    return { ...prev, endEffectorLink: +((Math.PI * newValue) / 180) };
+                });
                 break;
         }
 
