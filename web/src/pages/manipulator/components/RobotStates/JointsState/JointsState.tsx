@@ -4,7 +4,7 @@ import MuiInput from '@mui/material/Input';
 import Slider from '@mui/material/Slider';
 import { styled } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
-import React, { ChangeEvent, useContext, useEffect, useState } from 'react';
+import React, { ChangeEvent, useContext, useEffect, useRef, useState } from 'react';
 
 import { API_ROUTES } from '../../../../../constants';
 import { JointsStateContext } from '../../../../../contexts/JointsStateContext/JointsStateContext';
@@ -40,6 +40,9 @@ export default function JointsState(props: JointsStateProps) {
 
     const initialJointValues = Array(6).fill(0);
     const [jointValues, setJointValues] = useState<SliderValue[]>(initialJointValues);
+
+    const indexInp = useRef<number>();
+    const valueInp = useRef<number[]>();
 
     useEffect(() => {
         setJointValues(degreesJointValues.current);
@@ -88,8 +91,50 @@ export default function JointsState(props: JointsStateProps) {
     };
 
     const handleInputChange: HandleInputChangeFunction = (event, setValue) => {
-        const newValue = event.target.value === '' ? 0 : Number(event.target.value);
+        let newValue = event.target.value === '' ? 0 : Number(event.target.value);
+
+        if (newValue > 130) {
+            newValue = 130;
+        } else if (newValue < -130) {
+            newValue = -130;
+        }
+
         setValue(newValue);
+
+        switch (indexInp.current) {
+            case 0:
+                setJointsState((prev: IJointsState) => {
+                    return { ...prev, shoulder: +((Math.PI * newValue) / 180) };
+                });
+                break;
+            case 1:
+                setJointsState((prev: IJointsState) => {
+                    return { ...prev, upperArm: +((Math.PI * newValue) / 180) };
+                });
+                break;
+            case 2:
+                setJointsState((prev: IJointsState) => {
+                    return { ...prev, forearm: +((Math.PI * newValue) / 180) };
+                });
+                break;
+            case 3:
+                setJointsState((prev: IJointsState) => {
+                    return { ...prev, wrist1: +((Math.PI * newValue) / 180) };
+                });
+                break;
+            case 4:
+                setJointsState((prev: IJointsState) => {
+                    return { ...prev, wrist2: +((Math.PI * newValue) / 180) };
+                });
+                break;
+            case 5:
+                setJointsState((prev: IJointsState) => {
+                    return { ...prev, endEffectorLink: +((Math.PI * newValue) / 180) };
+                });
+                break;
+        }
+
+        remoteControlEnabled.current = false;
     };
 
     const handleBlur: HandleBlurFunction = (value, setValue) => {
@@ -148,6 +193,8 @@ export default function JointsState(props: JointsStateProps) {
                                         // @ts-expect-error
                                         newValues[index] = newValue;
                                         setJointValues(newValues);
+                                        indexInp.current = index;
+                                        valueInp.current = newValues;
                                     })
                                 }
                                 onBlur={() =>
