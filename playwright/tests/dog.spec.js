@@ -10,7 +10,7 @@ test.beforeEach('Dog',async ({ page }) => {
     // await bot.tools.element.goto('http://localhost:3000',{ waitUntil: "networkidle" });
     // await bot.tools._handledButtonByTestId('SmartToyIcon');
 
-    const responsePromise = bot.tools.element.waitForResponse(resp => resp.url().includes('post_oqp_joint_state') && resp.status() === 200);
+    const responsePromise = bot.tools.element.waitForResponse(resp => resp.url().includes('get_pose_state') && resp.status() === 200);
     await bot.tools.element.goto('http://localhost:3000/oqp');
     await responsePromise;
 
