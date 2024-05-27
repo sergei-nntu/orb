@@ -9,11 +9,15 @@ cd "${DIR}/web"
 sed -i -e 's/production/development/g' .env
 echo "$(<./.env)"
 
-docker build . -t telemetrybalkan/orb
-cd ..
-cd "${DIR}/docker"
-docker build . -t telemetrybalkan/ros
-docker compose up -d
+npm install
+npm run start
+
+#docker build . -t telemetrybalkan/orb
+#cd ..
+#cd "${DIR}/docker"
+#docker build . -t telemetrybalkan/ros
+#docker compose up -d
+
 #cd ..
 #cd playwright
 #npx playwright test
