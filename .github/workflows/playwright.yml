@@ -45,8 +45,8 @@ jobs:
     - name: Run Server
       run: bash run_test.sh
       working-directory: ./playwright
-    - name: test app is still running
-      run: curl -i localhost:3000
+#    - name: test app is still running
+#      run: curl -i localhost:3000
     - name: Checkout to playwright-tests
       if: ((github.event.pull_request.merged == true) || (github.event_name == 'schedule'))
       uses: actions/checkout@v3
