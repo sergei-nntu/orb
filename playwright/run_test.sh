@@ -19,6 +19,8 @@ docker build . -t telemetrybalkan/ros --no-cache
 docker-compose --version
 docker compose up -d
 
+sudo lsof -i
+
 #cd ..
 #cd playwright
 #npx playwright test
