@@ -21,12 +21,12 @@ jobs:
 #    runs-on: macos-latest
     runs-on: ubuntu-latest
     steps:
-    - uses: docker-practice/actions-setup-docker@master
-      timeout-minutes: 12
-    - run: |
-        set -x
-        docker version
-        docker run --rm hello-world
+#    - uses: docker-practice/actions-setup-docker@master
+#      timeout-minutes: 12
+#    - run: |
+#        set -x
+#        docker version
+#        docker run --rm hello-world
     - name: Pull request to develop branch or schedule
       if: ((github.event.pull_request.merged == true) || (github.event.review.state == 'approved') || (github.event_name == 'schedule'))
       uses: actions/checkout@v4
