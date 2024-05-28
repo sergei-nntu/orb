@@ -6,8 +6,8 @@ cd ..
 DIR=$(pwd)
 
 cd "${DIR}/web"
-sed -i -e 's/production/development/g' .env
-echo "$(<./.env)"
+#sed -i -e 's/production/development/g' .env
+#echo "$(<./.env)"
 
 #npm install
 #npm run start
