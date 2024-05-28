@@ -10,14 +10,14 @@ sed -i -e 's/production/development/g' .env
 echo "$(<./.env)"
 
 echo "CURRENT_DIRECTORY: $current_dir"
-npm install
-npm run start
+#npm install
+#npm run start
 
-#docker build . -t telemetrybalkan/orb
-#cd ..
-#cd "${DIR}/docker"
-#docker build . -t telemetrybalkan/ros
-#docker compose up -d
+docker build . -t telemetrybalkan/orb
+cd ..
+cd "${DIR}/docker"
+docker build . -t telemetrybalkan/ros
+docker compose up -d
 
 #cd ..
 #cd playwright
