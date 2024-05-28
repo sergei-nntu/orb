@@ -10,7 +10,7 @@ import PoseProvider from './contexts/PoseContext/PoseProvider/PoseProvider';
 import UserConsoleMessagesProvider from './contexts/UserConsoleMessagesContext/UserConsoleMessagesProvider/UserConsoleMessagesProvider';
 import VideoErrorProvider from './contexts/VideoErrorContext/VideoErrorProvider/VideoErrorProvider';
 import Layout from './hoc/Layout/Layout';
-import DogMain from './pages/dog-page/DogMain';
+import Oqp from './pages/oqp/Oqp';
 import ErrorPage from './pages/error-page/ErrorPage';
 import Manipulator from './pages/manipulator/Manipulator';
 import Navigation from './pages/navigation/Navigation';
@@ -41,7 +41,7 @@ const router = createBrowserRouter([
             },
             {
                 path: '/oqp',
-                element: <DogMain />,
+                element: <Oqp />,
             },
         ],
     },

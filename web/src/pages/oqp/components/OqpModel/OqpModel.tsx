@@ -8,14 +8,14 @@ import { BufferGeometry, Mesh, NormalBufferAttributes, Vector3 } from 'three';
 import * as THREE from 'three';
 import { STLLoader } from 'three/examples/jsm/loaders/STLLoader';
 
-import { JointStateContext } from '../../contexts/OQPJointStateContext/JointStateContext';
-import { Item } from '../manipulator/components/StyledComponents/StyledComponents';
+import { JointStateContext } from '../../../../contexts/OQPJointStateContext/JointStateContext';
+import { Item } from '../../../manipulator/components/StyledComponents/StyledComponents';
 
 const StyledPaper = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff5d4',
 }));
 
-export default function Dog() {
+export default function OqpModel() {
     const {
         joint0Value,
         joint1Value,

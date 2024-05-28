@@ -1,9 +1,9 @@
 import React from 'react';
 
-import { Item } from '../../manipulator/components/StyledComponents/StyledComponents';
+import { Item } from '../../../manipulator/components/StyledComponents/StyledComponents';
 import JointsState from './JointState/JointState';
 
-const DogStates = () => {
+const OqpStates = () => {
     return (
         <Item
             sx={{
@@ -18,4 +18,4 @@ const DogStates = () => {
     );
 };
 
-export default DogStates;
+export default OqpStates;

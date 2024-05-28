@@ -6,10 +6,10 @@ import { JointStateContext } from '../../contexts/OQPJointStateContext/JointStat
 import useHttp from '../../hooks/Http/Http';
 import { useRouter } from '../../hooks/Router/Router';
 import { useUsbConnection } from '../../hooks/UsbConnection/UsbConnection';
-import Dog from './Dog';
-import DogStates from './DogStates/DogStates';
+import OqpModel from './components/OqpModel/OqpModel';
+import OqpStates from './components/OqpStates/OqpStates';
 
-export default function DogMain() {
+export default function Oqp() {
     const { request } = useHttp();
     const { usbConnected, checkUsbConnection } = useUsbConnection(useHttp, useRouter);
 
@@ -148,10 +148,10 @@ export default function DogMain() {
         >
             <Grid container spacing={1} sx={{ pt: 1, pr: 1 }}>
                 <Grid item xs={6} sm={7} md={6} lg={8}>
-                    <Dog />
+                    <OqpModel />
                 </Grid>
                 <Grid item xs={6} sm={5} md={6} lg={4}>
-                    <DogStates />
+                    <OqpStates />
                 </Grid>
             </Grid>
         </JointStateContext.Provider>
