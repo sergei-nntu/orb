@@ -7,12 +7,12 @@ const kneeValue = "95";
 test.beforeEach('Dog',async ({ page }) => {
     const bot = new Bot(page);
 
-    // await bot.tools.element.goto('http://localhost:3000',{ waitUntil: "networkidle" });
-    // await bot.tools._handledButtonByTestId('SmartToyIcon');
+    await bot.tools.element.goto('http://localhost:3000',{ waitUntil: "networkidle" });
+    await bot.tools._handledButtonByTestId('SmartToyIcon');
 
-    const responsePromise = bot.tools.element.waitForResponse(resp => resp.url().includes('get_pose_state') && resp.status() === 200);
-    await bot.tools.element.goto('http://192.168.99.100:3000/oqp');
-    await responsePromise;
+    // const responsePromise = bot.tools.element.waitForResponse(resp => resp.url().includes('get_pose_state') && resp.status() === 200);
+    // await bot.tools.element.goto('http://localhost:3000/oqp');
+    // await responsePromise;
 
     const locator = bot.tools.element.locator('//div[text()=\'OQP\']');
     await expect(locator).toContainText('OQP');
