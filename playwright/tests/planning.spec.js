@@ -3,7 +3,7 @@ const Bot = require("./bot");
 
 test.beforeEach('Planning',async ({ page }) => {
     const bot = new Bot(page);
-    await bot.tools.element.goto('http://localhost:3000', {waitUntil: 'networkidle'});
+    await bot.tools.element.goto('http://localhost:3001', {waitUntil: 'networkidle'});
     await bot.tools._handledButtonByTestId('NextPlanIcon');
     const locator = bot.tools.element.locator('//div[text()=\'Planning\']');
     await expect(locator).toContainText('Planning');

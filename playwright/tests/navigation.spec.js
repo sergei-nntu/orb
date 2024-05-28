@@ -3,7 +3,7 @@ const Bot = require("./bot");
 
 test.beforeEach('Navigation',async ({ page }) => {
   const bot = new Bot(page);
-  await bot.tools.element.goto('http://localhost:3000');
+  await bot.tools.element.goto('http://localhost:3001');
 });
 
 test.describe('Navigation', () => {
