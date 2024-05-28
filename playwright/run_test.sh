@@ -9,7 +9,7 @@ cd "${DIR}/web"
 sed -i -e 's/production/development/g' .env
 echo "$(<./.env)"
 
-echo "CURRENT_DIRECTORY: $current_dir"
+echo "CURRENT_DIRECTORY: $DIR"
 #npm install
 #npm run start
 
