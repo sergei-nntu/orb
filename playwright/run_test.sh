@@ -1,7 +1,7 @@
 #! /bin/bash
 
 current_dir=""${PWD##*/}
-#echo "CURRENT_DIRECTORY: $current_dir"
+echo "CURRENT_DIRECTORY: $current_dir"
 cd ..
 DIR=$(pwd)
 
@@ -9,14 +9,13 @@ cd "${DIR}/web"
 sed -i -e 's/production/development/g' .env
 echo "$(<./.env)"
 
-echo "CURRENT_DIRECTORY: $DIR"
 #npm install
 #npm run start
 
-docker build . -t telemetrybalkan/orb
+docker build . -t telemetrybalkan/orb --no-cache
 cd ..
 cd "${DIR}/docker"
-docker build . -t telemetrybalkan/ros
+docker build . -t telemetrybalkan/ros --no-cache
 docker compose up -d
 
 #cd ..
