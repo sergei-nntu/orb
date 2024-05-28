@@ -8,7 +8,7 @@ test.beforeEach('Manipulator',async ({ page }) => {
   // await bot.tools._waitLoading();
 
   const responsePromise = bot.tools.element.waitForResponse(resp => resp.url().includes('convert_pose') && resp.status() === 200);
-  await bot.tools.element.goto('http://localhost:3001/manipulator');
+  await bot.tools.element.goto('http://localhost:3000/manipulator');
   await responsePromise;
 
   // await bot.tools._handledButtonByTestId('PrecisionManufacturingIcon');
