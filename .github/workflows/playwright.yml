@@ -17,7 +17,8 @@ on:
 jobs:
   test:
     timeout-minutes: 60
-    runs-on: ubuntu-18.04
+#    runs-on: ubuntu-18.04
+    runs-on: macos-latest
     steps:
     - name: Pull request to develop branch or schedule
       if: ((github.event.pull_request.merged == true) || (github.event.review.state == 'approved') || (github.event_name == 'schedule'))
