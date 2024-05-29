@@ -12,10 +12,10 @@ cd "${DIR}/web"
 #npm install
 #npm run start
 
-docker build . -t telemetrybalkan/orb --no-cache
+docker build . -t telemetrybalkan/orb
 cd ..
 cd "${DIR}/docker"
-docker build . -t telemetrybalkan/ros --no-cache
+docker build . -t telemetrybalkan/ros
 docker compose up -d
 
 sudo lsof -i

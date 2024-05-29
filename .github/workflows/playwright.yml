@@ -67,10 +67,6 @@ jobs:
     - name: Run Server
       run: bash run_test.sh
       working-directory: ./playwright
-    - name: Install ngrok
-      run: |
-        npm install ngrok -g
-        sudo ngrok http 3000
     - name: Install curl
       run: |
         sudo apt-get update; sudo apt-get install -y curl
