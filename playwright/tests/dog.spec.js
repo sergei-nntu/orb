@@ -14,7 +14,7 @@ test.beforeEach('Dog',async ({ page }) => {
     // await bot.tools._handledButtonByTestId('SmartToyIcon');
 
     const responsePromise = bot.tools.element.waitForResponse(resp => resp.url().includes('get_pose_state') && resp.status() === 200);
-    await bot.tools.element.goto('./oqp');
+    await bot.tools.element.goto('http://localhost:3000/oqp');
     await responsePromise;
 
     const locator = bot.tools.element.locator('//div[text()=\'OQP\']');
