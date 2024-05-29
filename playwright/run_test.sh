@@ -17,8 +17,8 @@ cd ..
 cd "${DIR}/docker"
 docker build . -t telemetrybalkan/ros
 docker compose up -d
-docker context ls
-yes | docker network prune
+sudo service docker stop
+sudo rm -f /var/lib/docker/network/files/local-kv.db
 
 sudo lsof -i
 
