@@ -17,10 +17,9 @@ cd ..
 cd "${DIR}/docker"
 docker build . -t telemetrybalkan/ros
 docker compose up -d
-sudo service docker stop
-sudo rm -f /var/lib/docker/network/files/local-kv.db
 
 sudo lsof -i
+sudo cat /etc/hosts
 
 #cd ..
 #cd playwright
