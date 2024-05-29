@@ -16,9 +16,7 @@ docker build . -t telemetrybalkan/orb --no-cache
 cd ..
 cd "${DIR}/docker"
 docker build . -t telemetrybalkan/ros --no-cache
-docker-compose --version
 docker compose up -d
-docker run -it -p 3000:3000 demo
 
 sudo lsof -i
 
