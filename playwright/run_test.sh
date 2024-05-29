@@ -17,6 +17,7 @@ cd ..
 cd "${DIR}/docker"
 docker build . -t telemetrybalkan/ros
 docker compose up -d
+docker context ls
 
 sudo lsof -i
 
