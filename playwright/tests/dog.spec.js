@@ -7,7 +7,10 @@ const kneeValue = "95";
 test.beforeEach('Dog',async ({ page }) => {
     const bot = new Bot(page);
 
-    await bot.tools.element.goto('http://localhost:3000',{ waitUntil: "networkidle" });
+    // await bot.tools.element.goto('http://localhost:3000',{ waitUntil: "networkidle" });
+
+    await bot.tools.element.goto('http://localhost:3000',{ timeout:5000 });
+
     await bot.tools._handledButtonByTestId('SmartToyIcon');
 
     // const responsePromise = bot.tools.element.waitForResponse(resp => resp.url().includes('get_pose_state') && resp.status() === 200);
