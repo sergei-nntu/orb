@@ -67,6 +67,12 @@ jobs:
     - name: Run Server
       run: bash run_test.sh
       working-directory: ./playwright
+    - name: Install curl
+      run: |
+        apt-get update; apt-get install -y curl
+    - name: Run curl
+      run: |
+        curl http://localhost:3000
     - name: Run Playwright tests
       run: npx playwright test
       working-directory: ./playwright
