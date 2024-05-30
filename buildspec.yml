@@ -5,6 +5,7 @@ phases:
      nodejs: 18
    commands:
      # install playwright and its dependencies
+     - cd playwright
      - npm ci
      - npx playwright install --with-deps
   #pre_build:
