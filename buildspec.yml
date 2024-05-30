@@ -1,0 +1,19 @@
+version: 0.2
+phases:
+ install:
+   runtime-versions:
+     nodejs: 18
+   commands:
+     # install playwright and its dependencies
+     - npm ci
+     - npx playwright install --with-deps
+  #pre_build:
+    #commands:
+      # - command
+      # - command
+ build:
+    commands:
+      - bash run_test.sh true
+# post_build:
+#    commands:
+#      - bash generate_report.sh $iamUserAccessKeyId $iamUserSecretAccessKey

@@ -21,7 +21,13 @@ docker compose up -d
 sudo lsof -i
 sudo cat /etc/hosts
 
-#cd ..
-#cd playwright
-#npx playwright test
+cd ..
+cd playwright
+
+set +e
+Xvfb :0 -screen 0 1024x768x24 +extension GLX +render -noreset >> xsession.log 2>&1 &
+export DISPLAY=:0
+
+npx playwright test
+
 exit 0
