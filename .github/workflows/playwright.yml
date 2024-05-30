@@ -20,6 +20,8 @@ jobs:
 #    runs-on: ubuntu-20.04
 #    runs-on: macos-latest
     runs-on: ubuntu-latest
+    env:
+      APP_URL: "http://127.0.0.1:3000"
     steps:
 #    - uses: docker-practice/actions-setup-docker@master
 #      timeout-minutes: 12
