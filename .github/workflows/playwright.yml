@@ -17,7 +17,7 @@ on:
 jobs:
   test:
     timeout-minutes: 60
-    runs-on: ubuntu-20.04
+    runs-on: macos-latest
     steps:
       - name: Pull request to develop branch or schedule
         if: ((github.event.pull_request.merged == true) || (github.event.review.state == 'approved') || (github.event_name == 'schedule'))
@@ -42,9 +42,13 @@ jobs:
 #          apt-cache policy docker-ce
 #          sudo apt install docker-ce
 #          sudo systemctl status docker
+#      - run: |
+#          sudo a2enmod ssl
+#          sudo service apache2 restart
       - run: |
-          sudo a2enmod ssl
-          sudo service apache2 restart
+          sudo ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+          sudo brew install caskroom/cask/brew-cask
+          sudo brew cask install docker-toolbox
       - name: Docker for web
         run: sudo docker build . -t telemetrybalkan/orb
         working-directory: ./web
