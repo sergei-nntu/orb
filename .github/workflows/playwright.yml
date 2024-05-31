@@ -53,7 +53,7 @@ jobs:
         working-directory: ./docker
       - name: Install curl
         run: |
-          sudo apt-get update; apt-get install -y curl
+          sudo apt-get update; sudo apt-get install -y curl
       - name: Run curl
         run: |
           sudo curl http://localhost:3000
