@@ -33,7 +33,7 @@ jobs:
         with:
           node-version: 18
       - name: Docker installation
-      - run: |
+        run: |
           sudo apt update
           sudo apt install apt-transport-https ca-certificates curl software-properties-common
           curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
