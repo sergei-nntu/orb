@@ -46,9 +46,9 @@ jobs:
 #          sudo a2enmod ssl
 #          sudo service apache2 restart
       - run: |
-          sudo ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-          sudo brew install caskroom/cask/brew-cask
-          sudo brew cask install docker-toolbox
+          ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+          brew install caskroom/cask/brew-cask
+          brew cask install docker-toolbox
       - name: Docker for web
         run: sudo docker build . -t telemetrybalkan/orb
         working-directory: ./web
