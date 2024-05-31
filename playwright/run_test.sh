@@ -17,7 +17,7 @@ cd ..
 cd "${DIR}/docker"
 docker build . -t telemetrybalkan/ros
 #docker compose up -d
-docker compose run --rm --service-ports --use-aliases web
+docker compose run --rm --service-ports --use-aliases
 
 #sudo lsof -i
 sudo cat /etc/hosts
