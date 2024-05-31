@@ -33,13 +33,13 @@ jobs:
         with:
           node-version: 18
       - name: Docker for web
-        run: docker build . -t telemetrybalkan/orb
+        run: sudo docker build . -t telemetrybalkan/orb
         working-directory: ./web
       - name: Docker for ros
-        run: docker build . -t telemetrybalkan/ros
+        run: sudo docker build . -t telemetrybalkan/ros
         working-directory: ./docker
       - name: Docker compose
-        run: docker compose up -d
+        run: sudo docker compose up -d
         working-directory: ./docker
       - name: Checkout to playwright-tests
         if: ((github.event.pull_request.merged == true) || (github.event_name == 'schedule'))

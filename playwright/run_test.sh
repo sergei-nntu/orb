@@ -12,11 +12,11 @@ cd "${DIR}/web"
 #npm install
 #npm run start
 
-docker build . -t telemetrybalkan/orb
+sudo docker build . -t telemetrybalkan/orb
 cd ..
 cd "${DIR}/docker"
-docker build . -t telemetrybalkan/ros
-docker compose up -d
+sudo docker build . -t telemetrybalkan/ros
+sudo docker compose up -d
 
 
 #sudo lsof -i
