@@ -48,9 +48,8 @@ jobs:
       - run: |
           /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
           brew install cask
-          brew install --cask docker
           brew install --HEAD colima
-          colima start
+          brew install docker colima
       - name: Docker for web
         run: sudo docker build . -t telemetrybalkan/orb
         working-directory: ./web
