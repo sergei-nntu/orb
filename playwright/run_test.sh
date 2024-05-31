@@ -21,6 +21,7 @@ sudo docker compose up -d
 
 #sudo lsof -i
 sudo cat /etc/hosts
+sudo curl icanhazip.com
 
 cd ..
 cd playwright
