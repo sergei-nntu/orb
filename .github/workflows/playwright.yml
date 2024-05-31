@@ -48,7 +48,7 @@ jobs:
       - run: |
           /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
           brew install cask
-          brew cask install docker-toolbox
+          brew install --cask docker-toolbox
       - name: Docker for web
         run: sudo docker build . -t telemetrybalkan/orb
         working-directory: ./web
