@@ -47,7 +47,7 @@ jobs:
 #          sudo service apache2 restart
       - run: |
           /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-          brew install caskroom/cask/brew-cask
+          brew install cask
           brew cask install docker-toolbox
       - name: Docker for web
         run: sudo docker build . -t telemetrybalkan/orb
