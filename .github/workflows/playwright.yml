@@ -39,8 +39,7 @@ jobs:
         run: docker build . -t telemetrybalkan/ros
         working-directory: ./docker
       - name: Docker compose
-#        run: docker compose up -d
-        run: docker compose run --rm --service-ports --use-aliases
+        run: docker compose up -d
         working-directory: ./docker
       - name: Checkout to playwright-tests
         if: ((github.event.pull_request.merged == true) || (github.event_name == 'schedule'))
