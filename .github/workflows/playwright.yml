@@ -53,10 +53,10 @@ jobs:
         working-directory: ./docker
       - name: Install curl
         run: |
-          apt-get update; apt-get install -y curl
+          sudo apt-get update; apt-get install -y curl
       - name: Run curl
         run: |
-          curl http://localhost:3000
+          sudo curl http://localhost:3000
       #      - name: Checkout to playwright-tests
 #        if: ((github.event.pull_request.merged == true) || (github.event_name == 'schedule'))
 #        uses: actions/checkout@v3
