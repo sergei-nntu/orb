@@ -54,10 +54,10 @@ jobs:
         with:
           docker_version: "20.10.7"
       - name: Docker for web
-        run: docker build . -t telemetrybalkan/orb
+        run: docker build app -t telemetrybalkan/orb
         working-directory: ./web
       - name: Docker for ros
-        run: docker build . -t telemetrybalkan/ros
+        run: docker build app -t telemetrybalkan/ros
         working-directory: ./docker
       - name: Docker compose
         run: docker compose up -d
