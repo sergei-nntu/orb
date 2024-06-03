@@ -49,6 +49,7 @@ jobs:
           brew services start colima
           sudo ln -sf $HOME/.colima/default/docker.sock /var/run/docker.sock
           docker context ls
+          docker context use default
           docker build . -t telemetrybalkan/orb
         working-directory: ./web
       - name: Docker for ros
