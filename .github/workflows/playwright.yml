@@ -45,10 +45,15 @@ jobs:
 #      - run: |
 #          sudo a2enmod ssl
 #          sudo service apache2 restart
+#      - run: |
+#          /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+#          brew install cask
+#          ls -l /var/run/docker.sock
+      - uses: docker-practice/actions-setup-docker@master
+        timeout-minutes: 12
       - run: |
-          /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-          brew install cask
-          open /Applications/Docker.app
+         set -x
+         docker version
       - name: Docker for web
         run: sudo docker build . -t telemetrybalkan/orb
         working-directory: ./web
