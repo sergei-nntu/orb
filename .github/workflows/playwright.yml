@@ -45,11 +45,19 @@ jobs:
 #      - run: |
 #          sudo a2enmod ssl
 #          sudo service apache2 restart
-      - run: |
-          /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-          brew install cask
-          brew install --HEAD colima
-          brew install docker colima
+#      - run: |
+#          /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+#          brew install cask
+#          brew install --HEAD colima
+#          brew install docker colima
+#          open /Applications/Docker.app
+      - name: Install docker
+        run: |
+          mkdir -p ~/.docker/machine/cache
+          curl -Lo ~/.docker/machine/cache/boot2docker.iso https://github.com/boot2docker/boot2docker/releases/download/v19.03.12/boot2docker.iso
+          brew install docker docker-machine
+          docker-machine create --driver virtualbox default
+          docker-machine env default
       - name: Docker for web
         run: sudo docker build . -t telemetrybalkan/orb
         working-directory: ./web
