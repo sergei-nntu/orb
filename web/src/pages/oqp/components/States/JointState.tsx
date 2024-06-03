@@ -5,9 +5,9 @@ import Slider from '@mui/material/Slider';
 import { styled } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 import React, { ChangeEvent, Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
-import { StyledBox } from '../../../manipulator/components/StyledComponents/StyledComponents';
+
 import { IJointsStateOqp } from '../../../../types/appTypes';
-import { Item } from '../../../manipulator/components/StyledComponents/StyledComponents';
+import { Item, StyledBox } from '../../../manipulator/components/StyledComponents/StyledComponents';
 
 const Input = styled(MuiInput)`
     width: 42px;
@@ -37,8 +37,7 @@ export default function JointsState(props: JointStateProps) {
 
     useEffect(() => {
         Object.keys(jointValue).forEach((_, __, array) => {
-            const quantity = [...array];
-            nameSlider.current = quantity;
+            nameSlider.current = [...array];
         });
         setValuesSlider([
             jointValue.Front_Left_Shoulder,
@@ -171,7 +170,7 @@ export default function JointsState(props: JointStateProps) {
                         }}
                     >
                         <Grid item sx={{ width: '100%' }}>
-                            JOINT STATE
+                            JOINTS STATE
                             {valuesSlider.map((value, index) => (
                                 <Grid container spacing={2} alignItems="center" key={''}>
                                     <Grid item key={value}>

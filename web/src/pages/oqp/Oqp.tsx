@@ -5,10 +5,10 @@ import { API_ROUTES } from '../../constants';
 import useHttp from '../../hooks/Http/Http';
 import { useRouter } from '../../hooks/Router/Router';
 import { useUsbConnection } from '../../hooks/UsbConnection/UsbConnection';
+import { IJointsStateOqp } from '../../types/appTypes';
+import { convertDeegreToRadian, convertRadianToDegree } from '../../utils';
 import Model from './components/Model/Model';
 import JointsState from './components/States/JointState';
-import { convertDeegreToRadian, convertRadianToDegree } from '../../utils';
-import { IJointsStateOqp } from '../../types/appTypes';
 
 export default function Oqp() {
     const { request } = useHttp();

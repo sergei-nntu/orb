@@ -7,9 +7,10 @@ import React, { Dispatch, ReactNode, SetStateAction, Suspense, useEffect, useRef
 import { BufferGeometry, Mesh, NormalBufferAttributes, Vector3 } from 'three';
 import * as THREE from 'three';
 import { STLLoader } from 'three/examples/jsm/loaders/STLLoader';
-import { Item } from '../../../manipulator/components/StyledComponents/StyledComponents';
-import { convertDeegreToRadian } from '../../../../utils';
+
 import { IJointsStateOqp } from '../../../../types/appTypes';
+import { convertDeegreToRadian } from '../../../../utils';
+import { Item } from '../../../manipulator/components/StyledComponents/StyledComponents';
 
 export type OqpModelProps = {
     jointValue: IJointsStateOqp;
