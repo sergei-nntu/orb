@@ -24,6 +24,7 @@ jobs:
       - name: Setup docker (missing on MacOS)
         run: |
           brew install docker
+          brew install --HEAD colima
           colima start
           sudo ln -sf $HOME/.colima/default/docker.sock /var/run/docker.sock
       - name: Pull request to develop branch or schedule
