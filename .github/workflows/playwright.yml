@@ -26,6 +26,7 @@ jobs:
           brew install docker
           brew install colima
           sudo ln -sf $HOME/.colima/default/docker.sock /var/run/docker.sock
+          brew services start colima
       - name: Pull request to develop branch or schedule
         if: ((github.event.pull_request.merged == true) || (github.event.review.state == 'approved') || (github.event_name == 'schedule'))
         uses: actions/checkout@v4
