@@ -21,14 +21,11 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Set Up Docker
-        uses: docker-practice/actions-setup-docker@master
-        with:
-          docker_version: "20.10.7"
-      - name: Build
-        uses: docker/build-push-action@v5
-        with:
-          context: .
+      - name: Setup docker (missing on MacOS)
+        run: |
+          brew install docker
+          colima start
+          sudo ln -sf $HOME/.colima/default/docker.sock /var/run/docker.sock
       - name: Pull request to develop branch or schedule
         if: ((github.event.pull_request.merged == true) || (github.event.review.state == 'approved') || (github.event_name == 'schedule'))
         uses: actions/checkout@v4
