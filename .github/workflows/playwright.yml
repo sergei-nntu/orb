@@ -43,7 +43,7 @@ jobs:
 #        with:
 #          context: .
       - run: |
-          brew install --head docke
+          brew install --head docker
           brew install --HEAD colima
           brew services start colima
           sudo ln -sf $HOME/.colima/default/docker.sock /var/run/docker.sock
