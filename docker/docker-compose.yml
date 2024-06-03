@@ -30,7 +30,9 @@ services:
         cd ../orm/src/python
         python3 orm_http_server.py &
         sleep 5
-        python3 orm_usb_controller.py
+        python3 orm_usb_controller.py &
+        sleep 5
+        python3 orm_http_server_publisher.py
     ports:
       - "5001:5001"
     networks:

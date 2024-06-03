@@ -3,34 +3,26 @@ import Paper from '@mui/material/Paper';
 import { styled } from '@mui/material/styles';
 import { CameraControls, Html, OrbitControls, useProgress } from '@react-three/drei';
 import { Canvas, useLoader } from '@react-three/fiber';
-import React, { ReactNode, Suspense, useContext, useEffect, useRef } from 'react';
+import React, { Dispatch, ReactNode, SetStateAction, Suspense, useEffect, useRef } from 'react';
 import { BufferGeometry, Mesh, NormalBufferAttributes, Vector3 } from 'three';
 import * as THREE from 'three';
 import { STLLoader } from 'three/examples/jsm/loaders/STLLoader';
 
-import { JointStateContext } from '../../contexts/OQPJointStateContext/JointStateContext';
-import { Item } from '../manipulator/components/StyledComponents/StyledComponents';
+import { IJointsStateOqp } from '../../../../types/appTypes';
+import { convertDeegreToRadian } from '../../../../utils';
+import { Item } from '../../../manipulator/components/StyledComponents/StyledComponents';
+
+export type OqpModelProps = {
+    jointValue: IJointsStateOqp;
+    setModelLoaded: Dispatch<SetStateAction<boolean>>;
+};
 
 const StyledPaper = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff5d4',
 }));
 
-export default function Dog() {
-    const {
-        joint0Value,
-        joint1Value,
-        joint2Value,
-        joint3Value,
-        joint4Value,
-        joint5Value,
-        joint6Value,
-        joint7Value,
-        joint8Value,
-        joint9Value,
-        joint10Value,
-        joint11Value,
-        setModelLoaded,
-    } = useContext(JointStateContext);
+export default function Model(props: OqpModelProps) {
+    const { jointValue, setModelLoaded } = props;
 
     function Loader() {
         const { progress } = useProgress();
@@ -113,15 +105,13 @@ export default function Dog() {
                                         url={'models/dog-modified-models/dog_body/dog_shoulder.stl'}
                                         point={new THREE.Vector3(0, 0, 0)}
                                         axis={new THREE.Vector3(0, 0, 1)}
-                                        theta={(Math.PI * joint0Value) / 180}
-                                        // theta={jointStates.shoulder1}
+                                        theta={convertDeegreToRadian(jointValue.Front_Left_Shoulder)}
                                     >
                                         <Model
                                             url={'models/dog-modified-models/leg_1/dog_leg_shoulder-2_1.stl'}
                                             point={new THREE.Vector3(0, 0, 17)}
                                             axis={new THREE.Vector3(1, 0, 0)}
-                                            theta={(Math.PI * joint1Value) / 180}
-                                            // theta={jointStates.reductor1}
+                                            theta={convertDeegreToRadian(jointValue.Front_Left_Reductor)}
                                         >
                                             <Model url={'models/dog-modified-models/leg_1/dog_leg_link_1.stl'}>
                                                 <Model url={'models/dog-modified-models/leg_1/dog_leg_leg_1.stl'}>
@@ -129,8 +119,7 @@ export default function Dog() {
                                                         url={'models/dog-modified-models/leg_1/dog_leg_knee_1.stl'}
                                                         point={new THREE.Vector3(0, -295, 18)}
                                                         axis={new THREE.Vector3(1, 0, 0)}
-                                                        theta={(Math.PI * joint2Value) / 180}
-                                                        // theta={jointStates.knee1}
+                                                        theta={convertDeegreToRadian(jointValue.Front_Left_Knee)}
                                                     >
                                                         <Model
                                                             url={'models/dog-modified-models/leg_1/dog_leg_shin_1.stl'}
@@ -150,15 +139,13 @@ export default function Dog() {
                                         url={'models/dog-modified-models/dog_body/dog_shoulder_2.stl'}
                                         point={new THREE.Vector3(186, 0, 0)}
                                         axis={new THREE.Vector3(0, 0, 1)}
-                                        theta={(Math.PI * joint3Value) / 180}
-                                        // theta={jointStates.shoulder2}
+                                        theta={convertDeegreToRadian(jointValue.Front_Right_Shoulder)}
                                     >
                                         <Model
                                             url={'models/dog-modified-models/leg_2/dog_leg_shoulder-2_2.stl'}
                                             point={new THREE.Vector3(0, 0, 17)}
                                             axis={new THREE.Vector3(1, 0, 0)}
-                                            theta={(Math.PI * joint4Value) / 180}
-                                            // theta={jointStates.reductor2}
+                                            theta={convertDeegreToRadian(jointValue.Front_Right_Reductor)}
                                         >
                                             <Model url={'models/dog-modified-models/leg_2/dog_leg_link_2.stl'}>
                                                 <Model url={'models/dog-modified-models/leg_2/dog_leg_leg_2.stl'}>
@@ -166,8 +153,7 @@ export default function Dog() {
                                                         url={'models/dog-modified-models/leg_2/dog_leg_knee_2.stl'}
                                                         point={new THREE.Vector3(0, -294, 18)}
                                                         axis={new THREE.Vector3(1, 0, 0)}
-                                                        theta={(Math.PI * joint5Value) / 180}
-                                                        // theta={jointStates.knee2}
+                                                        theta={convertDeegreToRadian(jointValue.Front_Right_Knee)}
                                                     >
                                                         <Model
                                                             url={'models/dog-modified-models/leg_2/dog_leg_shin_2.stl'}
@@ -198,15 +184,13 @@ export default function Dog() {
                                         url={'models/dog-modified-models/dog_body/dog_shoulder_4.stl'}
                                         point={new THREE.Vector3(186, 0, 0)}
                                         axis={new THREE.Vector3(0, 0, 1)}
-                                        theta={(Math.PI * joint9Value) / 180}
-                                        // theta={jointStates.shoulder4}
+                                        theta={convertDeegreToRadian(jointValue.Rear_Right_Shoulder)}
                                     >
                                         <Model
                                             url={'models/dog-modified-models/leg_4/dog_leg_shoulder-2_4.stl'}
                                             point={new THREE.Vector3(0, 0, 510)}
                                             axis={new THREE.Vector3(1, 0, 0)}
-                                            theta={(Math.PI * joint10Value) / 180}
-                                            // theta={jointStates.reductor4}
+                                            theta={convertDeegreToRadian(jointValue.Rear_Right_Reductor)}
                                         >
                                             <Model url={'models/dog-modified-models/leg_4/dog_leg_link_4.stl'}>
                                                 <Model url={'models/dog-modified-models/leg_4/dog_leg_leg_4.stl'}>
@@ -214,8 +198,7 @@ export default function Dog() {
                                                         url={'models/dog-modified-models/leg_4/dog_leg_knee_4.stl'}
                                                         point={new THREE.Vector3(0, -293, 509)}
                                                         axis={new THREE.Vector3(1, 0, 0)}
-                                                        theta={(Math.PI * joint11Value) / 180}
-                                                        // theta={jointStates.knee4}
+                                                        theta={convertDeegreToRadian(jointValue.Rear_Right_Knee)}
                                                     >
                                                         <Model
                                                             url={'models/dog-modified-models/leg_4/dog_leg_shin_4.stl'}
@@ -235,15 +218,13 @@ export default function Dog() {
                                         url={'models/dog-modified-models/dog_body/dog_shoulder_3.stl'}
                                         point={new THREE.Vector3(0, 0, 0)}
                                         axis={new THREE.Vector3(0, 0, 1)}
-                                        theta={(Math.PI * joint6Value) / 180}
-                                        // theta={jointStates.shoulder3}
+                                        theta={convertDeegreToRadian(jointValue.Rear_Left_Shoulder)}
                                     >
                                         <Model
                                             url={'models/dog-modified-models/leg_3/dog_leg_shoulder-2_3.stl'}
                                             point={new THREE.Vector3(0, 0, 510)}
                                             axis={new THREE.Vector3(1, 0, 0)}
-                                            theta={(Math.PI * joint7Value) / 180}
-                                            // theta={jointStates.reductor3}
+                                            theta={convertDeegreToRadian(jointValue.Rear_Left_Reductor)}
                                         >
                                             <Model url={'models/dog-modified-models/leg_3/dog_leg_link_3.stl'}>
                                                 <Model url={'models/dog-modified-models/leg_3/dog_leg_leg_3.stl'}>
@@ -251,8 +232,7 @@ export default function Dog() {
                                                         url={'models/dog-modified-models/leg_3/dog_leg_knee_3.stl'}
                                                         point={new THREE.Vector3(0, -294, 512)}
                                                         axis={new THREE.Vector3(1, 0, 0)}
-                                                        theta={(Math.PI * joint8Value) / 180}
-                                                        // theta={jointStates.knee3}
+                                                        theta={convertDeegreToRadian(jointValue.Rear_Left_Knee)}
                                                     >
                                                         <Model
                                                             url={'models/dog-modified-models/leg_3/dog_leg_shin_3.stl'}

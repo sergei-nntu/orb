@@ -89,6 +89,21 @@ export type NotificationActionType =
     | Action<NOTIFICATION.HIDE>
     | Action<POSE.SET_PREV_STATE, { prevState: IPose }>;
 
+export interface IJointsStateOqp {
+    Front_Left_Shoulder: number;
+    Front_Left_Reductor: number;
+    Front_Left_Knee: number;
+    Front_Right_Shoulder: number;
+    Front_Right_Reductor: number;
+    Front_Right_Knee: number;
+    Rear_Left_Shoulder: number;
+    Rear_Left_Reductor: number;
+    Rear_Left_Knee: number;
+    Rear_Right_Shoulder: number;
+    Rear_Right_Reductor: number;
+    Rear_Right_Knee: number;
+}
+
 export interface IJointsState {
     shoulder: number;
     upperArm: number;
