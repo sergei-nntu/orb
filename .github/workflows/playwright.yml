@@ -48,7 +48,6 @@ jobs:
           brew install colima
           brew services start colima
           sudo ln -sf $HOME/.colima/default/docker.sock /var/run/docker.sock
-          colima status
           docker context ls
           docker build . -t telemetrybalkan/orb
         working-directory: ./web
