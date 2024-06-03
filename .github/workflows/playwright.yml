@@ -42,8 +42,7 @@ jobs:
 #        uses: docker/build-push-action@v5
 #        with:
 #          context: .
-      - name: Docker for web
-        run: |
+      - run: |
           brew install docker
           brew install colima
           brew services start colima
@@ -51,7 +50,8 @@ jobs:
           stat /var/run/docker.sock
           docker context ls
           docker context use default
-          docker build . -t telemetrybalkan/orb
+      - name: Docker for web
+        run: docker build . -t telemetrybalkan/orb
         working-directory: ./web
       - name: Docker for ros
         run: docker build . -t telemetrybalkan/ros
