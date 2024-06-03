@@ -26,8 +26,6 @@ jobs:
           brew install docker
           brew install colima
           brew services start colima
-          sudo ln -sf $HOME/.colima/default/docker.sock /var/run/docker.sock
-          sudo rm docker.sock && sudo ln -s /mnt/wsl/shared-docker/docker.sock /var/run/docker.sock
       - name: Pull request to develop branch or schedule
         if: ((github.event.pull_request.merged == true) || (github.event.review.state == 'approved') || (github.event_name == 'schedule'))
         uses: actions/checkout@v4
@@ -50,7 +48,9 @@ jobs:
 #        with:
 #          context: .
       - name: Docker for web
-        run: docker build . -t telemetrybalkan/orb
+        run: |
+          sudo ln -sf $HOME/.colima/default/docker.sock /var/run/docker.sock  
+          docker build . -t telemetrybalkan/orb
         working-directory: ./web
       - name: Docker for ros
         run: docker build . -t telemetrybalkan/ros
