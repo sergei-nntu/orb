@@ -24,12 +24,8 @@ jobs:
       - name: Setup docker (missing on MacOS)
         run: |
           brew install docker
-          brew uninstall --zap qemu colima lima
-          brew upgrade
-          brew update
-          brew upgrade
           brew install colima
-          colima start debug
+          colima start --arch aarch64
           sudo ln -sf $HOME/.colima/default/docker.sock /var/run/docker.sock
       - name: Pull request to develop branch or schedule
         if: ((github.event.pull_request.merged == true) || (github.event.review.state == 'approved') || (github.event_name == 'schedule'))
