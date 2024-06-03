@@ -48,6 +48,8 @@ jobs:
           brew services start colima
           sudo ln -sf $HOME/.colima/default/docker.sock /var/run/docker.sock
           stat /var/run/docker.sock
+          sudo service docker restart
+          sudo docker info
           docker context ls
           docker context use default
       - name: Docker for web
