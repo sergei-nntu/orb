@@ -21,15 +21,15 @@ jobs:
     steps:
       - name: Pull request to develop branch or schedule
         if: ((github.event.pull_request.merged == true) || (github.event.review.state == 'approved') || (github.event_name == 'schedule'))
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           ref: develop
       - name: Push to playwright-tests branch or workflow_dispatch
         if: ((github.event_name == 'push' && github.ref == 'refs/heads/playwright-tests') || github.event_name == 'workflow_dispatch')
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           ref: playwright-tests
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v4
         with:
           node-version: 18
 #      - name: Docker installation
@@ -49,11 +49,10 @@ jobs:
 #          /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 #          brew install cask
 #          ls -l /var/run/docker.sock
-      - uses: docker-practice/actions-setup-docker@master
-        timeout-minutes: 12
-#      - run: |
-#         set -x
-#         docker version
+      - name: Set Up Docker
+        uses: docker-practice/actions-setup-docker@master
+        with:
+          docker_version: "20.10.7"
       - name: Docker for web
         run: sudo docker build . -t telemetrybalkan/orb
         working-directory: ./web
