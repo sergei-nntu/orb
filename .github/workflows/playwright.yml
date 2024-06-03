@@ -51,9 +51,9 @@ jobs:
 #          ls -l /var/run/docker.sock
       - uses: docker-practice/actions-setup-docker@master
         timeout-minutes: 12
-      - run: |
-         set -x
-         docker version
+#      - run: |
+#         set -x
+#         docker version
       - name: Docker for web
         run: sudo docker build . -t telemetrybalkan/orb
         working-directory: ./web
