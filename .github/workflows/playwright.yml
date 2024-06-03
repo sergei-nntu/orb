@@ -48,7 +48,6 @@ jobs:
           brew services start colima
           sudo ln -sf $HOME/.colima/default/docker.sock /var/run/docker.sock
           sudo stat /var/run/docker.sock
-          sudo systemctl restart docker
           docker info
           docker context ls
           docker context use default
