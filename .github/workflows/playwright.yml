@@ -46,9 +46,10 @@ jobs:
           brew install docker
           brew install colima
           brew services start colima
-          sudo ln -sf $HOME/.colima/default/docker.sock /var/run/docker.sock
-          stat /var/run/docker.sock
-          sudo docker info
+          sudo ls -l /var/run/docker.sock
+          sudo stat /var/run/docker.sock
+          sudo systemctl restart docker
+          docker info
           docker context ls
           docker context use default
       - name: Docker for web
