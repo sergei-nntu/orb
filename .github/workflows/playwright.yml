@@ -19,6 +19,12 @@ jobs:
     timeout-minutes: 60
     runs-on: macos-latest
     steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
       - name: Pull request to develop branch or schedule
         if: ((github.event.pull_request.merged == true) || (github.event.review.state == 'approved') || (github.event_name == 'schedule'))
         uses: actions/checkout@v4
@@ -32,32 +38,19 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 18
-#      - name: Docker installation
-#        run: |
-#          sudo apt update
-#          sudo apt install apt-transport-https ca-certificates curl software-properties-common
-#          curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-#          sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
-#          sudo apt update
-#          apt-cache policy docker-ce
-#          sudo apt install docker-ce
-#          sudo systemctl status docker
-#      - run: |
-#          sudo a2enmod ssl
-#          sudo service apache2 restart
-#      - run: |
-#          /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-#          brew install cask
-#          ls -l /var/run/docker.sock
-      - name: Set Up Docker
-        uses: docker-practice/actions-setup-docker@master
-        with:
-          docker_version: "20.10.7"
+#      - name: Set up Docker Buildx
+#        uses: docker/setup-buildx-action@v3
+#        with:
+#          buildkitd-flags: --debug
+#      - name: Build
+#        uses: docker/build-push-action@v5
+#        with:
+#          context: .
       - name: Docker for web
-        run: docker build app -t telemetrybalkan/orb
+        run: docker build . -t telemetrybalkan/orb
         working-directory: ./web
       - name: Docker for ros
-        run: docker build app -t telemetrybalkan/ros
+        run: docker build . -t telemetrybalkan/ros
         working-directory: ./docker
       - name: Docker compose
         run: docker compose up -d
