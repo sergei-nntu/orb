@@ -2,32 +2,32 @@ import { Grid } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 
 import { API_ROUTES } from '../../constants';
-import { JointStateContext } from '../../contexts/OQPJointStateContext/JointStateContext';
 import useHttp from '../../hooks/Http/Http';
 import { useRouter } from '../../hooks/Router/Router';
 import { useUsbConnection } from '../../hooks/UsbConnection/UsbConnection';
-import OqpModel from './components/OqpModel/OqpModel';
-import OqpStates from './components/OqpStates/OqpStates';
+import Model from './components/Model/Model';
+import JointsState from './components/States/JointState';
+import { convertDeegreToRadian, convertRadianToDegree } from '../../utils';
+import { IJointsStateOqp } from '../../types/appTypes';
 
 export default function Oqp() {
     const { request } = useHttp();
     const { usbConnected, checkUsbConnection } = useUsbConnection(useHttp, useRouter);
-
-    // FIXME: It's necessary to replace all these states with one
-    const [joint0Value, setJoint0Value] = useState(0);
-    const [joint1Value, setJoint1Value] = useState(-50);
-    const [joint2Value, setJoint2Value] = useState(90);
-    const [joint3Value, setJoint3Value] = useState(0);
-    const [joint4Value, setJoint4Value] = useState(-50);
-    const [joint5Value, setJoint5Value] = useState(90);
-    const [joint6Value, setJoint6Value] = useState(0);
-    const [joint7Value, setJoint7Value] = useState(-50);
-    const [joint8Value, setJoint8Value] = useState(90);
-    const [joint9Value, setJoint9Value] = useState(0);
-    const [joint10Value, setJoint10Value] = useState(-50);
-    const [joint11Value, setJoint11Value] = useState(90);
-
-    const [modelLoaded, setModelLoaded] = useState(false);
+    const [modelLoaded, setModelLoaded] = useState<boolean>(false);
+    const [jointValue, setJointValue] = useState<IJointsStateOqp>({
+        Front_Left_Shoulder: 0,
+        Front_Left_Reductor: -50,
+        Front_Left_Knee: 90,
+        Front_Right_Shoulder: 0,
+        Front_Right_Reductor: -50,
+        Front_Right_Knee: 90,
+        Rear_Left_Shoulder: 0,
+        Rear_Left_Reductor: -50,
+        Rear_Left_Knee: 90,
+        Rear_Right_Shoulder: 0,
+        Rear_Right_Reductor: -50,
+        Rear_Right_Knee: 90,
+    });
 
     useEffect(() => {
         const sendJointStateToServer = async () => {
@@ -36,21 +36,34 @@ export default function Oqp() {
                     return;
                 }
 
+                const Front_Left_Shoulder = convertDeegreToRadian(jointValue.Front_Left_Shoulder);
+                const Front_Left_Reductor = convertDeegreToRadian(jointValue.Front_Left_Reductor);
+                const Front_Left_Knee = convertDeegreToRadian(jointValue.Front_Left_Knee);
+                const Front_Right_Shoulder = convertDeegreToRadian(jointValue.Front_Right_Shoulder);
+                const Front_Right_Reductor = convertDeegreToRadian(jointValue.Front_Right_Reductor);
+                const Front_Right_Knee = convertDeegreToRadian(jointValue.Front_Right_Knee);
+                const Rear_Left_Shoulder = convertDeegreToRadian(jointValue.Rear_Left_Shoulder);
+                const Rear_Left_Reductor = convertDeegreToRadian(jointValue.Rear_Left_Reductor);
+                const Rear_Left_Knee = convertDeegreToRadian(jointValue.Rear_Left_Knee);
+                const Rear_Right_Shoulder = convertDeegreToRadian(jointValue.Rear_Right_Shoulder);
+                const Rear_Right_Reductor = convertDeegreToRadian(jointValue.Rear_Right_Reductor);
+                const Rear_Right_Knee = convertDeegreToRadian(jointValue.Rear_Right_Knee);
+
                 const options = {
                     method: 'POST',
                     body: JSON.stringify({
-                        shoulder1: (joint0Value * Math.PI) / 180,
-                        reductor1: (joint1Value * Math.PI) / 180,
-                        knee1: (joint2Value * Math.PI) / 180,
-                        shoulder2: (joint3Value * Math.PI) / 180,
-                        reductor2: (joint4Value * Math.PI) / 180,
-                        knee2: (joint5Value * Math.PI) / 180,
-                        shoulder3: (joint6Value * Math.PI) / 180,
-                        reductor3: (joint7Value * Math.PI) / 180,
-                        knee3: (joint8Value * Math.PI) / 180,
-                        shoulder4: (joint9Value * Math.PI) / 180,
-                        reductor4: (joint10Value * Math.PI) / 180,
-                        knee4: (joint11Value * Math.PI) / 180,
+                        Front_Left_Shoulder,
+                        Front_Left_Reductor,
+                        Front_Left_Knee,
+                        Front_Right_Shoulder,
+                        Front_Right_Reductor,
+                        Front_Right_Knee,
+                        Rear_Left_Shoulder,
+                        Rear_Left_Reductor,
+                        Rear_Left_Knee,
+                        Rear_Right_Shoulder,
+                        Rear_Right_Reductor,
+                        Rear_Right_Knee,
                     }),
                 };
 
@@ -60,35 +73,22 @@ export default function Oqp() {
             }
         };
         sendJointStateToServer().then();
-    }, [
-        joint0Value,
-        joint1Value,
-        joint2Value,
-        joint3Value,
-        joint4Value,
-        joint5Value,
-        joint6Value,
-        joint7Value,
-        joint8Value,
-        joint9Value,
-        joint10Value,
-        joint11Value,
-    ]);
+    }, [jointValue]);
 
     const isInitialState = () => {
         return (
-            joint0Value === 0 &&
-            joint1Value === -50 &&
-            joint2Value === 90 &&
-            joint3Value === 0 &&
-            joint4Value === -50 &&
-            joint5Value === 90 &&
-            joint6Value === 0 &&
-            joint7Value === -50 &&
-            joint8Value === 90 &&
-            joint9Value === 0 &&
-            joint10Value === -50 &&
-            joint11Value === 90
+            jointValue.Front_Left_Shoulder === 0 &&
+            jointValue.Front_Left_Reductor === -50 &&
+            jointValue.Front_Left_Knee === 90 &&
+            jointValue.Front_Right_Shoulder === 0 &&
+            jointValue.Front_Right_Reductor === -50 &&
+            jointValue.Front_Right_Knee === 90 &&
+            jointValue.Rear_Left_Shoulder === 0 &&
+            jointValue.Rear_Left_Reductor === -50 &&
+            jointValue.Rear_Left_Knee === 90 &&
+            jointValue.Rear_Right_Shoulder === 0 &&
+            jointValue.Rear_Right_Reductor === -50 &&
+            jointValue.Rear_Right_Knee === 90
         );
     };
 
@@ -97,18 +97,34 @@ export default function Oqp() {
         async function fetchFunc() {
             try {
                 const response = await request(API_ROUTES.GET_OQP_JOINT_STATE);
-                setJoint0Value(+((response.shoulder1 * 180) / Math.PI).toFixed(0));
-                setJoint1Value(+((response.reductor1 * 180) / Math.PI).toFixed(0));
-                setJoint2Value(+((response.knee1 * 180) / Math.PI).toFixed(0));
-                setJoint3Value(+((response.shoulder2 * 180) / Math.PI).toFixed(0));
-                setJoint4Value(+((response.reductor2 * 180) / Math.PI).toFixed(0));
-                setJoint5Value(+((response.knee2 * 180) / Math.PI).toFixed(0));
-                setJoint6Value(+((response.shoulder3 * 180) / Math.PI).toFixed(0));
-                setJoint7Value(+((response.reductor3 * 180) / Math.PI).toFixed(0));
-                setJoint8Value(+((response.knee3 * 180) / Math.PI).toFixed(0));
-                setJoint9Value(+((response.shoulder4 * 180) / Math.PI).toFixed(0));
-                setJoint10Value(+((response.reductor4 * 180) / Math.PI).toFixed(0));
-                setJoint11Value(+((response.knee4 * 180) / Math.PI).toFixed(0));
+
+                const Front_Left_Shoulder = convertRadianToDegree(response.shoulder1);
+                const Front_Left_Reductor = convertRadianToDegree(response.reductor1);
+                const Front_Left_Knee = convertRadianToDegree(response.knee1);
+                const Front_Right_Shoulder = convertRadianToDegree(response.shoulder2);
+                const Front_Right_Reductor = convertRadianToDegree(response.reductor2);
+                const Front_Right_Knee = convertRadianToDegree(response.knee2);
+                const Rear_Left_Shoulder = convertRadianToDegree(response.shoulder3);
+                const Rear_Left_Reductor = convertRadianToDegree(response.reductor3);
+                const Rear_Left_Knee = convertRadianToDegree(response.knee3);
+                const Rear_Right_Shoulder = convertRadianToDegree(response.shoulder4);
+                const Rear_Right_Reductor = convertRadianToDegree(response.reductor4);
+                const Rear_Right_Knee = convertRadianToDegree(response.knee4);
+
+                setJointValue({
+                    Front_Left_Shoulder,
+                    Front_Left_Reductor,
+                    Front_Left_Knee,
+                    Front_Right_Shoulder,
+                    Front_Right_Reductor,
+                    Front_Right_Knee,
+                    Rear_Left_Shoulder,
+                    Rear_Left_Reductor,
+                    Rear_Left_Knee,
+                    Rear_Right_Shoulder,
+                    Rear_Right_Reductor,
+                    Rear_Right_Knee,
+                });
             } catch (error) {
                 console.error(error);
             }
@@ -116,44 +132,13 @@ export default function Oqp() {
         fetchFunc().then((r) => console.log(r));
     }, []);
     return usbConnected ? (
-        <JointStateContext.Provider
-            value={{
-                joint0Value,
-                setJoint0Value,
-                joint1Value,
-                setJoint1Value,
-                joint2Value,
-                setJoint2Value,
-                joint3Value,
-                setJoint3Value,
-                joint4Value,
-                setJoint4Value,
-                joint5Value,
-                setJoint5Value,
-                joint6Value,
-                setJoint6Value,
-                joint7Value,
-                setJoint7Value,
-                joint8Value,
-                setJoint8Value,
-                joint9Value,
-                setJoint9Value,
-                joint10Value,
-                setJoint10Value,
-                joint11Value,
-                setJoint11Value,
-                modelLoaded,
-                setModelLoaded,
-            }}
-        >
-            <Grid container spacing={1} sx={{ pt: 1, pr: 1 }}>
-                <Grid item xs={6} sm={7} md={6} lg={8}>
-                    <OqpModel />
-                </Grid>
-                <Grid item xs={6} sm={5} md={6} lg={4}>
-                    <OqpStates />
-                </Grid>
+        <Grid container spacing={1} sx={{ pt: 1, pr: 1 }}>
+            <Grid item xs={6} sm={7} md={6} lg={8}>
+                <Model jointValue={jointValue} setModelLoaded={setModelLoaded} />
             </Grid>
-        </JointStateContext.Provider>
+            <Grid item xs={6} sm={5} md={6} lg={4}>
+                <JointsState jointValue={jointValue} setJointValue={setJointValue} modelLoaded={modelLoaded} />
+            </Grid>
+        </Grid>
     ) : null;
 }
