@@ -37,6 +37,7 @@ jobs:
       - name: Set up Docker
         run: |
           brew install docker
+          brew install colima
           colima start
       - name: Docker for web
         run: docker build . -t telemetrybalkan/orb
