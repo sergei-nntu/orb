@@ -46,6 +46,7 @@ jobs:
           brew install docker
           sudo ln -s ~/.docker/run/docker.sock /var/run/docker.sock
           sudo stat /var/run/docker.sock
+          sudo chown $USER /var/run/docker.sock
       - name: Docker for web
         run: docker build . -t telemetrybalkan/orb
         working-directory: ./web
