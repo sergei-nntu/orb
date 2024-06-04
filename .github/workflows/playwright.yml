@@ -46,7 +46,7 @@ jobs:
         run: docker build . -t telemetrybalkan/ros
         working-directory: ./docker
       - name: Docker compose
-        run: docker-compose up -d
+        run: docker compose up
         working-directory: ./docker
       - name: Install curl
         run: |
