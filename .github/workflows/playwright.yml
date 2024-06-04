@@ -39,6 +39,9 @@ jobs:
           brew install docker
           brew install colima
           colima start
+          brew install docker-compose
+          mkdir -p ~/.docker/cli-plugins
+          ln -sfn /opt/homebrew/opt/docker-compose/bin/docker-compose ~/.docker/cli-plugins/docker-compose
       - name: Docker for web
         run: docker build . -t telemetrybalkan/orb
         working-directory: ./web
@@ -46,7 +49,7 @@ jobs:
         run: docker build . -t telemetrybalkan/ros
         working-directory: ./docker
       - name: Docker compose
-        run: docker compose up
+        run: docker-compose up -d
         working-directory: ./docker
       - name: Install curl
         run: |
