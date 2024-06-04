@@ -43,13 +43,12 @@ jobs:
 #        with:
 #          context: .
       - run: |
-          brew install --head docker
-          brew install --HEAD colima
-          brew services start colima
-          sudo ln -sf $HOME/.colima/default/docker.sock /var/run/docker.sock
+          brew install docker
+#          brew install colima
+#          brew services start colima
+#          sudo ln -sf $HOME/.colima/default/docker.sock /var/run/docker.sock
+          sudo ln -s ~/.docker/run/docker.sock /var/run/docker.sock
           sudo stat /var/run/docker.sock
-          docker context ls
-          docker context use colima
       - name: Docker for web
         run: docker build . -t telemetrybalkan/orb
         working-directory: ./web
