@@ -44,9 +44,6 @@ jobs:
 #          context: .
       - run: |
           brew install docker
-#          brew install colima
-#          brew services start colima
-#          sudo ln -sf $HOME/.colima/default/docker.sock /var/run/docker.sock
           sudo ln -s ~/.docker/run/docker.sock /var/run/docker.sock
           sudo stat /var/run/docker.sock
       - name: Docker for web
