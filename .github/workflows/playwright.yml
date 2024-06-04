@@ -53,7 +53,7 @@ jobs:
         working-directory: ./docker
 #      - name: Install curl
 #        run: |
-#          sudo brew update; sudo brew install -y curl
+#          brew update; brew install -y curl
 #      - name: Run curl
 #        run: |
 #          sudo curl http://localhost:3000
@@ -68,16 +68,16 @@ jobs:
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
         working-directory: ./playwright
+      - name: Run Playwright tests
+        run: npx playwright test
+        working-directory: ./playwright
       - run: |
-          sudo brew install default-jre
+          brew install default-jre
           wget https://github.com/allure-framework/allure2/releases/download/2.18.1/allure_2.18.1-1_all.deb
           sudo dpkg -i allure_2.18.1-1_all.deb
 #      - name: Run Server
 #        run: bash run_test.sh
 #        working-directory: ./playwright
-      - name: Run Playwright tests
-        run: npx playwright test
-        working-directory: ./playwright
       - uses: actions/upload-artifact@v4
         id: artifact-upload-playwright-report-step
         if: always()
@@ -113,7 +113,7 @@ jobs:
         if: always()
         run: echo 'https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}/artifacts/${{ steps.artifact-upload-allure-report-step.outputs.artifact-id }}'
       - run: |
-          sudo brew install jq
+          brew install jq
           jq '.base.reportLink = "https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}/artifacts/${{ steps.artifact-upload-allure-report-step.outputs.artifact-id }}"' notifications/config.json > notifications/config.json.tmp
           mv notifications/config.json.tmp notifications/config.json
         if: always()
