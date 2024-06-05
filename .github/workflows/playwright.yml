@@ -51,12 +51,12 @@ jobs:
       - name: Docker compose
         run: docker-compose up -d
         working-directory: ./docker
-#      - name: Install curl
-#        run: |
-#          brew update; brew install -y curl
-#      - name: Run curl
-#        run: |
-#          sudo curl http://localhost:3000
+      - name: Install curl
+        run: |
+          brew update; brew install -y curl
+      - name: Run curl
+        run: |
+          sudo curl http://localhost:3000
       - name: Checkout to playwright-tests
         if: ((github.event.pull_request.merged == true) || (github.event_name == 'schedule'))
         uses: actions/checkout@v3
@@ -75,6 +75,7 @@ jobs:
           brew install default-jre
           wget https://github.com/allure-framework/allure2/releases/download/2.18.1/allure_2.18.1-1_all.deb
           sudo dpkg -i allure_2.18.1-1_all.deb
+        if: always()
 #      - name: Run Server
 #        run: bash run_test.sh
 #        working-directory: ./playwright
