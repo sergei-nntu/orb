@@ -63,8 +63,6 @@ jobs:
       - run: |
           sudo ufw disable
           sudo ufw status
-          sudo systemctl stop firewalld
-          sudo systemctl status firewalld
       - run: |
           docker ps
           netstat -tlpen | grep 3000
