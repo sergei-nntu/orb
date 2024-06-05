@@ -56,11 +56,12 @@ jobs:
 #      - name: Run Server
 #        run: bash run_test.sh
 #        working-directory: ./playwright
-      - name: Install curl
-      - if: startsWith(matrix.os, 'macOS')
+      - name: Install curl  - macOS
+        if: startsWith(matrix.os, 'macOS')
         run: |
           brew install curl
-      - if: startsWith(matrix.os,'ubuntu')
+      - name: Install curl - ubuntu
+        if: startsWith(matrix.os,'ubuntu')
         run: |
          sudo apt-get update; sudo apt-get install -y curl
       - name: Run curl
