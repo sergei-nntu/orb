@@ -121,15 +121,11 @@ jobs:
       - name: artifact URL
         if: always()
         run: echo 'https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}/artifacts/${{ steps.artifact-upload-allure-report-step.outputs.artifact-id }}'
-      - if: |
-          startsWith(matrix.os, 'macOS')
-          always()
+      - if: startsWith(matrix.os, 'macOS') && always()
         run: |
           brew install jq
         working-directory: ./playwright
-      - if: |
-          startsWith(matrix.os,'ubuntu')
-          always()
+      - if: startsWith(matrix.os,'ubuntu') && always()
         run: |
           sudo apt-get install jq
       - run: |
