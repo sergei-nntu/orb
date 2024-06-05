@@ -63,9 +63,11 @@ jobs:
       - run: |
           sudo ufw disable
           sudo ufw status
-      - run: |
-          docker ps
-          netstat -tlpen | grep 3000
+          fly ssh console -a api
+          netstat -lntp
+#      - run: |
+#          docker ps
+#          netstat -tlpen | grep 3000
       - name: Install curl  - macOS
         if: matrix.os =='macos-11'
         run: |
