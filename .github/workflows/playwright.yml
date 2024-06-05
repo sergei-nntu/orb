@@ -17,11 +17,10 @@ on:
 jobs:
   test:
     timeout-minutes: 60
-    example_matrix:
-      strategy:
-        matrix:
-          os:
-            - ubuntu-latest
+    strategy:
+      matrix:
+        os:
+          - ubuntu-latest
 #    runs-on: macos-11
     runs-on: ${{ matrix.os }}
     steps:
