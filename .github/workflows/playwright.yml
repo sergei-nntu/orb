@@ -49,7 +49,7 @@ jobs:
           brew install colima
           colima start
       - name: Docker for web
-        run: docker build . -t telemetrybalkan/orb
+        run: docker build . -t 3000:3000 telemetrybalkan/orb
         working-directory: ./web
       - name: Docker for ros
         run: docker build . -t telemetrybalkan/ros
