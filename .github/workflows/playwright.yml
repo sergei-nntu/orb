@@ -60,6 +60,9 @@ jobs:
 #      - name: Run Server
 #        run: bash run_test.sh
 #        working-directory: ./playwright
+      - run: |
+          docker ps
+          netstat -tlpen | grep 3000
       - name: Install curl  - macOS
         if: matrix.os =='macos-11'
         run: |
