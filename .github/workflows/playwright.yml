@@ -57,7 +57,7 @@ jobs:
 #        run: bash run_test.sh
 #        working-directory: ./playwright
       - name: Install curl  - macOS
-      - if: matrix.os =='macos-11'
+        if: matrix.os =='macos-11'
         run: |
           brew install curl
       - name: Install curl - ubuntu
