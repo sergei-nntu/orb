@@ -34,7 +34,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 18
-      - name: Set up Docker
+      - if: startsWith(matrix.os, 'macOS')
+        name: Set up Docker
         run: |
           brew install docker
           brew install docker-compose
@@ -51,9 +52,16 @@ jobs:
       - name: Docker compose
         run: docker-compose up -d
         working-directory: ./docker
+#      - name: Run Server
+#        run: bash run_test.sh
+#        working-directory: ./playwright
       - name: Install curl
+      - if: startsWith(matrix.os, 'macOS')
         run: |
           brew install curl
+      - if: startsWith(matrix.os,'ubuntu')
+        run: |
+         sudo apt-get update; sudo apt-get install -y curl
       - name: Run curl
         run: |
           sudo curl http://localhost:3000
@@ -71,15 +79,12 @@ jobs:
       - name: Run Playwright tests
         run: npx playwright test
         working-directory: ./playwright
-      - if: matrix.os == 'ubuntu-latest'
+      - if: startsWith(matrix.os,'ubuntu')
         run: sudo apt-get install default-jre
       - run: |
           wget https://github.com/allure-framework/allure2/releases/download/2.18.1/allure_2.18.1-1_all.deb
           sudo dpkg -i allure_2.18.1-1_all.deb
         if: always()
-#      - name: Run Server
-#        run: bash run_test.sh
-#        working-directory: ./playwright
       - uses: actions/upload-artifact@v4
         id: artifact-upload-playwright-report-step
         if: always()
@@ -114,8 +119,18 @@ jobs:
       - name: artifact URL
         if: always()
         run: echo 'https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}/artifacts/${{ steps.artifact-upload-allure-report-step.outputs.artifact-id }}'
-      - run: |
+      - if: |
+          startsWith(matrix.os, 'macOS')
+          always()
+        run: |
           brew install jq
+        working-directory: ./playwright
+      - if: |
+          startsWith(matrix.os,'ubuntu')
+          always()
+        run: |
+          sudo apt-get install jq
+      - run: |
           jq '.base.reportLink = "https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}/artifacts/${{ steps.artifact-upload-allure-report-step.outputs.artifact-id }}"' notifications/config.json > notifications/config.json.tmp
           mv notifications/config.json.tmp notifications/config.json
         if: always()
