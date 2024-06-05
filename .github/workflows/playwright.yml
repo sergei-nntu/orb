@@ -53,7 +53,7 @@ jobs:
         working-directory: ./docker
       - name: Install curl
         run: |
-          brew update; brew install -y curl
+          brew update; brew install curl
       - name: Run curl
         run: |
           sudo curl http://localhost:3000
