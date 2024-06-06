@@ -18,6 +18,7 @@ export default function Manipulator() {
     const { setJointsState } = useContext(JointsStateContext);
     const { usbConnected, checkUsbConnection } = useUsbConnection(useHttp, useRouter);
 
+    const trackingChangeModel = useRef<boolean>(true);
     const trajectory = useRef(undefined);
     const gripperValueInRadians = useRef<undefined | number>(undefined);
     const degreesJointValues = useRef([0, 0, 0, 0, 0, 0]);
@@ -72,7 +73,10 @@ export default function Manipulator() {
 
             for (let i = 0; i < r.length; i++) {
                 await processJointState(r[i]);
+
+                trackingChangeModel.current = true;
             }
+            trackingChangeModel.current = false;
         }
     };
 
@@ -103,6 +107,9 @@ export default function Manipulator() {
             value={{
                 stateProgress,
                 setStateProgress,
+
+                trackingChangeModel,
+                blocklyEnabled,
             }}
         >
             <Grid container spacing={1} sx={{ pt: 1, pr: 1 }}>
