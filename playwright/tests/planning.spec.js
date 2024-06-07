@@ -23,6 +23,10 @@ test.describe('Planning', () => {
             await bot.tools.element.locator('//div[contains(text(),\'Delete\')]').click();
             console.log("Saving changes");
             await bot.tools._handledButton("//button[text()=\'SAVE\']");
+            const usbConnector = await bot.tools.element.locator('//div[contains(text(),\'USB Connector disconnected!\')]').isVisible();
+            if(usbConnector){
+                await bot.tools._handledButtonByTestId('CloseIcon');
+            }
             await bot.tools._waitFor('//div[contains(text(),\'The program state has been saved!\')]', 'visible');
         }
     });

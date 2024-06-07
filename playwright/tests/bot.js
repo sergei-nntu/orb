@@ -32,16 +32,16 @@ module.exports = class Bot {
         const currentValue = await this.tools._handledInputValue(selector);
         console.log("value_current = ", currentValue);
 
-        // await expect(nextValue).toBe(currentValue);
-        //
-        // await this.tools._handledTextInput(selector,oldValue);
-        //
-        // await this.tools._reload();
-        //
-        // const defValue = await this.tools._handledInputValue(selector);
-        // console.log("defValue = ",defValue);
-        //
-        // await expect(defValue).toBe(oldValue);
+        await expect(nextValue).toBe(currentValue);
+
+        await this.tools._handledTextInput(selector,oldValue);
+
+        await this.tools._reload();
+
+        const defValue = await this.tools._handledInputValue(selector);
+        console.log("defValue = ",defValue);
+
+        await expect(defValue).toBe(oldValue);
     }
 
     async _handledEditValueByClick(selector, button = [], key=false) {
