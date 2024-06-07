@@ -75,9 +75,9 @@ jobs:
         if: matrix.os == 'ubuntu-latest'
         run: |
          sudo apt-get update; sudo apt-get install -y curl
-      - name: Run curl
-        run: |
-          sudo curl http://127.0.0.1:3000
+#      - name: Run curl
+#        run: |
+#          sudo curl http://localhost:3000
       - name: Checkout to playwright-tests
         if: ((github.event.pull_request.merged == true) || (github.event_name == 'schedule'))
         uses: actions/checkout@v3
