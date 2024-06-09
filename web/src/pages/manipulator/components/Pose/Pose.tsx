@@ -1,5 +1,5 @@
 import { Grid } from '@mui/material';
-import React, { useContext, useEffect, useRef, useState } from 'react';
+import React, { Dispatch, SetStateAction, useContext, useEffect, useRef } from 'react';
 
 import { API_ROUTES, INITIAL_POSE_STATE } from '../../../../constants';
 import { PoseContext } from '../../../../contexts/PoseContext/PoseContext';
@@ -12,18 +12,20 @@ import Orientation from './Orientation/Orientation';
 import Position from './Position/Position';
 
 export type PoseProps = {
+    blocklyEnabled: React.MutableRefObject<boolean>;
     remoteControlEnabled: React.MutableRefObject<boolean>;
     disabledControlInterface: boolean;
+    setDisabledControlInterface: Dispatch<SetStateAction<boolean>>;
 };
 
 export default function Pose(props: PoseProps) {
-    const { remoteControlEnabled, disabledControlInterface } = props;
+    const { blocklyEnabled, remoteControlEnabled, disabledControlInterface, setDisabledControlInterface } = props;
     const { request } = useHttp();
     const { addUserConsoleMessage } = useContext(UserConsoleMessagesContext);
     const { state, dispatch } = useContext(PoseContext);
+
     const previousMove = useRef<boolean | undefined>(undefined);
     const noMoveToPositionFlag = useRef<boolean>(false);
-    const [stateBeforeRequest, setStateBeforeRequest] = useState<IPose>(INITIAL_POSE_STATE);
 
     const sendStateToServer = async (state: IPose) => {
         try {
@@ -43,20 +45,6 @@ export default function Pose(props: PoseProps) {
                     yaw: state.orientation.yaw,
                 }),
             };
-            // stateBeforeRequest.current = state.position.x;
-
-            setStateBeforeRequest({
-                position: {
-                    x: state.position.x,
-                    y: state.position.y,
-                    z: state.position.z,
-                },
-                orientation: {
-                    pitch: state.orientation.pitch,
-                    roll: state.orientation.roll,
-                    yaw: state.orientation.yaw,
-                },
-            });
 
             const { execute, data } = await request(API_ROUTES.CONVERT_POSE, options);
 
@@ -109,23 +97,28 @@ export default function Pose(props: PoseProps) {
             >
                 <Grid item xs={4} sm={4} md={12}>
                     <Position
+                        blocklyEnabled={blocklyEnabled}
                         remoteControlEnabled={remoteControlEnabled}
                         disabledControlInterface={disabledControlInterface}
+                        setDisabledControlInterface={setDisabledControlInterface}
                     />
                 </Grid>
 
                 <Grid item xs={4} sm={4} md={12}>
                     <Orientation
+                        blocklyEnabled={blocklyEnabled}
                         remoteControlEnabled={remoteControlEnabled}
                         disabledControlInterface={disabledControlInterface}
+                        setDisabledControlInterface={setDisabledControlInterface}
                     />
                 </Grid>
 
                 <Grid item xs={4} sm={4} md={12}>
                     <EndEffectorState
+                        blocklyEnabled={blocklyEnabled}
                         disabledControlInterface={disabledControlInterface}
+                        setDisabledControlInterface={setDisabledControlInterface}
                         noMoveToPositionFlag={noMoveToPositionFlag}
-                        stateBeforeRequest={stateBeforeRequest}
                     />
                 </Grid>
             </Item>
