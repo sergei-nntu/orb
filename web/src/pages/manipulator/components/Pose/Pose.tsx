@@ -1,5 +1,5 @@
 import { Grid } from '@mui/material';
-import React, { useContext, useEffect, useRef } from 'react';
+import React, { Dispatch, SetStateAction, useContext, useEffect, useRef } from 'react';
 
 import { API_ROUTES, INITIAL_POSE_STATE } from '../../../../constants';
 import { PoseContext } from '../../../../contexts/PoseContext/PoseContext';
@@ -12,17 +12,27 @@ import Orientation from './Orientation/Orientation';
 import Position from './Position/Position';
 
 export type PoseProps = {
+    blocklyEnabled: React.MutableRefObject<boolean>;
     remoteControlEnabled: React.MutableRefObject<boolean>;
     disabledControlInterface: boolean;
+    setDisabledControlInterface: Dispatch<SetStateAction<boolean>>;
+    flagControlDisableInterface?: React.MutableRefObject<boolean> | undefined;
 };
 
 export default function Pose(props: PoseProps) {
-    const { remoteControlEnabled, disabledControlInterface } = props;
+    const {
+        blocklyEnabled,
+        remoteControlEnabled,
+        disabledControlInterface,
+        setDisabledControlInterface,
+        flagControlDisableInterface,
+    } = props;
     const { request } = useHttp();
     const { addUserConsoleMessage } = useContext(UserConsoleMessagesContext);
     const { state, dispatch } = useContext(PoseContext);
-    // This flag indicates whether the SET_PREV_STATE function worked. If it did we should exit the function and not make the same request again.
+
     const previousMove = useRef<boolean | undefined>(undefined);
+    const noMoveToPositionFlag = useRef<boolean>(false);
 
     const sendStateToServer = async (state: IPose) => {
         try {
@@ -45,13 +55,12 @@ export default function Pose(props: PoseProps) {
 
             const { execute, data } = await request(API_ROUTES.CONVERT_POSE, options);
 
-            console.log('Current pose state from server:', data);
-            console.log('Current pose state from frontend:', state);
-
             if (execute) {
                 addUserConsoleMessage(CONSOLE_MESSAGE.SUCCESS_PLANNING);
+                noMoveToPositionFlag.current = false;
             } else {
                 addUserConsoleMessage(CONSOLE_MESSAGE.NO_MOVE_TO_POSITION);
+                noMoveToPositionFlag.current = true;
                 previousMove.current = true;
                 dispatch({
                     type: POSE.SET_PREV_STATE,
@@ -95,20 +104,30 @@ export default function Pose(props: PoseProps) {
             >
                 <Grid item xs={4} sm={4} md={12}>
                     <Position
+                        blocklyEnabled={blocklyEnabled}
                         remoteControlEnabled={remoteControlEnabled}
                         disabledControlInterface={disabledControlInterface}
+                        setDisabledControlInterface={setDisabledControlInterface}
                     />
                 </Grid>
 
                 <Grid item xs={4} sm={4} md={12}>
                     <Orientation
+                        blocklyEnabled={blocklyEnabled}
                         remoteControlEnabled={remoteControlEnabled}
                         disabledControlInterface={disabledControlInterface}
+                        setDisabledControlInterface={setDisabledControlInterface}
                     />
                 </Grid>
 
                 <Grid item xs={4} sm={4} md={12}>
-                    <EndEffectorState disabledControlInterface={disabledControlInterface} />
+                    <EndEffectorState
+                        blocklyEnabled={blocklyEnabled}
+                        disabledControlInterface={disabledControlInterface}
+                        setDisabledControlInterface={setDisabledControlInterface}
+                        noMoveToPositionFlag={noMoveToPositionFlag}
+                        flagControlDisableInterface={flagControlDisableInterface}
+                    />
                 </Grid>
             </Item>
         </Grid>
