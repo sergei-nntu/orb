@@ -2,7 +2,7 @@ name: Playwright Tests
 on:
   workflow_dispatch:
   schedule:
-     - cron: "0 3 * * 1"
+     - cron: "0 3 * * *"
   push:
     branches: [ playwright-tests ]
   pull_request:
@@ -17,7 +17,7 @@ on:
 jobs:
   test:
     timeout-minutes: 60
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     steps:
     - name: Pull request to develop branch or schedule
       if: ((github.event.pull_request.merged == true) || (github.event.review.state == 'approved') || (github.event_name == 'schedule'))
