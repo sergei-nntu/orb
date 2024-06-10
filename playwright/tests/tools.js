@@ -19,7 +19,8 @@ module.exports = class Tools {
     }
     async _handledButton(selector, wait = false) {
         await this.element.locator(selector).click();
-        await this.element.waitForTimeout(2000);
+        await this.element.locator('role=progressbar').waitFor({state:'hidden'});
+        // await this.element.waitForTimeout(2000);
         if (wait) await this._waitLoading();
     }
 
