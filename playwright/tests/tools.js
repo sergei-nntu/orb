@@ -24,6 +24,11 @@ module.exports = class Tools {
         if (wait) await this._waitLoading();
     }
 
+    async _handledSystemButton(selector, wait = false) {
+        await this.element.locator(selector).click();
+        if (wait) await this._waitLoading();
+    }
+
     async _handledButtonByTestId(selector){
         await this.element.getByTestId(selector).click();
     }
@@ -31,7 +36,8 @@ module.exports = class Tools {
     async _handledKeyButton( button){
         await this.element.keyboard.down(button);
         await this.element.keyboard.up(button);
-        await this.element.waitForTimeout(2000);
+        await this.element.locator('role=progressbar').waitFor({state:'hidden'});
+        // await this.element.waitForTimeout(2000);
     }
 
     async _waitFor(selector, state){

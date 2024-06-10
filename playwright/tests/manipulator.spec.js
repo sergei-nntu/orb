@@ -21,7 +21,7 @@ test.describe('Position', () => {
     const bot = new Bot(page);
     await bot._handledEditValueByClick( 'div:nth-child(1) > div > div:nth-child(1) > h6',["x"]);
   });
-  test.skip('Edit X coordinate with keyboard buttons', async ({ page }) => {
+  test('Edit X coordinate with keyboard buttons', async ({ page }) => {
     const bot = new Bot(page);
     await bot._handledEditValueByClick( 'div:nth-child(1) > div > div:nth-child(1) > h6',["D","A"], true);
   });
@@ -29,7 +29,7 @@ test.describe('Position', () => {
     const bot = new Bot(page);
     await bot._handledEditValueByClick( 'div:nth-child(1) > div > div:nth-child(2) > h6',["y"]);
   });
-  test.skip('Edit Y coordinate with keyboard buttons', async ({ page }) => {
+  test('Edit Y coordinate with keyboard buttons', async ({ page }) => {
     const bot = new Bot(page);
     await bot._handledEditValueByClick( 'div:nth-child(1) > div > div:nth-child(2) > h6',["W","S"], true);
   });
@@ -37,7 +37,7 @@ test.describe('Position', () => {
     const bot = new Bot(page);
     await bot._handledEditValueByClick( 'div:nth-child(1) > div > div:nth-child(3) > h6',["z"]);
   });
-  test.skip('Edit Z coordinate with keyboard buttons', async ({ page }) => {
+  test('Edit Z coordinate with keyboard buttons', async ({ page }) => {
     const bot = new Bot(page);
     await bot._handledEditValueByClick( 'div:nth-child(1) > div > div:nth-child(3) > h6',["E","Q"], true);
   });

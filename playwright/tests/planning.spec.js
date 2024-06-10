@@ -22,7 +22,7 @@ test.describe('Planning', () => {
             });
             await bot.tools.element.locator('//div[contains(text(),\'Delete\')]').click();
             console.log("Saving changes");
-            await bot.tools._handledButton("//button[text()=\'SAVE\']");
+            await bot.tools._handledSystemButton("//button[text()=\'SAVE\']");
             const usbConnector = await bot.tools.element.locator('//div[contains(text(),\'USB Connector disconnected!\')]').isVisible();
             if(usbConnector){
                 await bot.tools._handledButtonByTestId('CloseIcon');
@@ -71,40 +71,40 @@ test.describe('Planning', () => {
         // await source8.dragTo(target, {
         //     targetPosition: { x: 660, y: 320 }
         // });
-        await bot.tools._handledButton("//button[text()=\'SAVE\']");
+        await bot.tools._handledSystemButton("//button[text()=\'SAVE\']");
         await bot.tools._waitFor('//div[contains(text(),\'The program state has been saved!\')]', 'visible');
     });
     test('Editing block values', async ({ page }) => {
         console.log("Editing block values");
         const bot = new Bot(page);
-        await bot.tools._handledButton('g:nth-child(5) > g:nth-child(6)');
+        await bot.tools._handledSystemButton('g:nth-child(5) > g:nth-child(6)');
         await bot.tools._handledTextInput('div.blocklyWidgetDiv.geras-renderer.classic-theme > input', '0.1');
 
-        await bot.tools._handledButton('g:nth-child(8) > g:nth-child(8)');
+        await bot.tools._handledSystemButton('g:nth-child(8) > g:nth-child(8)');
         await bot.tools._handledTextInput('div.blocklyWidgetDiv.geras-renderer.classic-theme > input', '0.2');
 
-        await bot.tools._handledButton('g:nth-child(8) > g:nth-child(10)');
+        await bot.tools._handledSystemButton('g:nth-child(8) > g:nth-child(10)');
         await bot.tools._handledTextInput('div.blocklyWidgetDiv.geras-renderer.classic-theme > input', '0.1');
 
-        await bot.tools._handledButton('g:nth-child(8) > g:nth-child(12)');
+        await bot.tools._handledSystemButton('g:nth-child(8) > g:nth-child(12)');
         await bot.tools._handledTextInput('div.blocklyWidgetDiv.geras-renderer.classic-theme > input', '0.1');
 
-        await bot.tools._handledButton('g:nth-child(8) > g:nth-child(14)');
+        await bot.tools._handledSystemButton('g:nth-child(8) > g:nth-child(14)');
         await bot.tools._handledTextInput('div.blocklyWidgetDiv.geras-renderer.classic-theme > input', '0.1');
 
-        await bot.tools._handledButton('g:nth-child(8) > g:nth-child(16)');
+        await bot.tools._handledSystemButton('g:nth-child(8) > g:nth-child(16)');
         await bot.tools._handledTextInput('div.blocklyWidgetDiv.geras-renderer.classic-theme > input', '0.2');
 
-        await bot.tools._handledButton('g:nth-child(8) > g.blocklyDraggable > g.blocklyDraggable > g.blocklyEditableText');
+        await bot.tools._handledSystemButton('g:nth-child(8) > g.blocklyDraggable > g.blocklyDraggable > g.blocklyEditableText');
         await bot.tools._handledTextInput('div.blocklyWidgetDiv.geras-renderer.classic-theme > input', '20');
 
-        await bot.tools._handledButton("//button[text()=\'SAVE\']");
+        await bot.tools._handledSystemButton("//button[text()=\'SAVE\']");
         await bot.tools._waitFor('//div[contains(text(),\'The program state has been saved!\')]', 'visible');
     });
     test('Running the program', async ({ page }) => {
         console.log("Running the program");
         const bot = new Bot(page);
-        await bot.tools._handledButton('g:nth-child(5) > g.blocklyDraggable > g.blocklyDraggable');
+        await bot.tools._handledSystemButton('g:nth-child(5) > g.blocklyDraggable > g.blocklyDraggable');
         await bot.tools._handledButtonByTestId('PlayArrowIcon');
         await bot.tools._waitFor('div > div.MuiAlert-message', 'visible');
         let message;
@@ -149,12 +149,12 @@ test.describe('Planning', () => {
     test('Saving changes', async ({ page }) => {
         console.log("Saving changes");
         const bot = new Bot(page);
-        await bot.tools._handledButton("//button[text()=\'SAVE\']");
+        await bot.tools._handledSystemButton("//button[text()=\'SAVE\']");
         await bot.tools._waitFor('//div[contains(text(),\'The program state has been saved!\')]', 'visible');
     });
     test('Automatic position and orientation changes', async ({page}) => {
         const bot = new Bot(page);
-        await bot.tools._handledButton('g:nth-child(5) > g.blocklyDraggable > g.blocklyDraggable');
+        await bot.tools._handledSystemButton('g:nth-child(5) > g.blocklyDraggable > g.blocklyDraggable');
         await bot.tools._handledButtonByTestId('PlayArrowIcon');
         await bot.tools._waitFor('div > div.MuiAlert-message', 'visible');
         let message;
