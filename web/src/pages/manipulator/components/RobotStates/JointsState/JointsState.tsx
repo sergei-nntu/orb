@@ -159,6 +159,7 @@ export default function JointsState(props: JointsStateProps) {
         };
         request(API_ROUTES.POST_JOINTS_STATE, options).then();
     }, [jointValues]);
+
     return (
         <StyledBox sx={{ width: '100%', ml: { xs: 1, md: 0 }, mt: { xs: 0, md: 1 }, minHeight: '280px' }}>
             Joints Position

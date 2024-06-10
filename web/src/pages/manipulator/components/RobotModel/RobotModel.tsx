@@ -4,26 +4,30 @@ import { styled } from '@mui/material/styles';
 import { CameraControls, Html, OrbitControls, useProgress } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
 import { useLoader } from '@react-three/fiber';
-import React, { ReactNode, useContext, useEffect, useRef } from 'react';
+import React, { Dispatch, ReactNode, SetStateAction, useContext, useEffect, useRef } from 'react';
 import { Suspense } from 'react';
 import * as THREE from 'three';
 import { BufferGeometry, Mesh, NormalBufferAttributes, Vector3 } from 'three';
 import { STLLoader } from 'three/examples/jsm/loaders/STLLoader';
 
 import { JointsStateContext } from '../../../../contexts/JointsStateContext/JointsStateContext';
-import { LoaderContext } from '../../../../contexts/JointsStateContext/LoaderContext';
 import VideoErrorContext from '../../../../contexts/VideoErrorContext/VideoErrorContext';
 import { Item } from '../StyledComponents/StyledComponents';
+
+type RobotModel = {
+    setStateProgress: Dispatch<SetStateAction<boolean>>;
+};
 
 const StyledPaper = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff5d4',
 }));
 
-export default function RobotModel() {
+export default function RobotModel(props: RobotModel) {
+    const { setStateProgress } = props;
+
     const { progress } = useProgress();
     const { jointsState } = useContext(JointsStateContext);
     const videoErrorContext = useContext(VideoErrorContext);
-    const { setStateProgress } = useContext(LoaderContext);
 
     function Loader() {
         return <Html center>{progress} % loaded</Html>;
