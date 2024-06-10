@@ -67,14 +67,14 @@ jobs:
           docker ps
           netstat -ln | grep 3000
           sudo netstat -tulpn
-      - name: Install curl  - macOS
-        if: matrix.os =='macos-11'
-        run: |
-          brew install curl
-      - name: Install curl - ubuntu
-        if: matrix.os == 'ubuntu-20.04'
-        run: |
-         sudo apt-get update; sudo apt-get install -y curl
+#      - name: Install curl  - macOS
+#        if: matrix.os =='macos-11'
+#        run: |
+#          brew install curl
+#      - name: Install curl - ubuntu
+#        if: matrix.os == 'ubuntu-20.04'
+#        run: |
+#         sudo apt-get update; sudo apt-get install -y curl
 #      - name: Run curl
 #        run: |
 #          sudo curl http://localhost:3000
