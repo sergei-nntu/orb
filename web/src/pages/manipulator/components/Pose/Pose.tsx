@@ -16,10 +16,17 @@ export type PoseProps = {
     remoteControlEnabled: React.MutableRefObject<boolean>;
     disabledControlInterface: boolean;
     setDisabledControlInterface: Dispatch<SetStateAction<boolean>>;
+    flagControlDisableInterface?: React.MutableRefObject<boolean> | undefined;
 };
 
 export default function Pose(props: PoseProps) {
-    const { blocklyEnabled, remoteControlEnabled, disabledControlInterface, setDisabledControlInterface } = props;
+    const {
+        blocklyEnabled,
+        remoteControlEnabled,
+        disabledControlInterface,
+        setDisabledControlInterface,
+        flagControlDisableInterface,
+    } = props;
     const { request } = useHttp();
     const { addUserConsoleMessage } = useContext(UserConsoleMessagesContext);
     const { state, dispatch } = useContext(PoseContext);
@@ -119,6 +126,7 @@ export default function Pose(props: PoseProps) {
                         disabledControlInterface={disabledControlInterface}
                         setDisabledControlInterface={setDisabledControlInterface}
                         noMoveToPositionFlag={noMoveToPositionFlag}
+                        flagControlDisableInterface={flagControlDisableInterface}
                     />
                 </Grid>
             </Item>

@@ -24,6 +24,7 @@ export default function Manipulator() {
 
     const remoteControlEnabled = useRef<boolean>(true);
     const blocklyEnabled = useRef<boolean>(false);
+    const flagControlDisableInterface = useRef<boolean>(false);
 
     const [stateProgress, setStateProgress] = useState<boolean>(false);
     const [disabledControlInterface, setDisabledControlInterface] = useState<boolean>(false);
@@ -93,11 +94,11 @@ export default function Manipulator() {
     useEffect(() => {
         if (!blocklyEnabled.current && stateProgress) {
             setDisabledControlInterface(false);
+            flagControlDisableInterface.current = true;
         } else {
             setDisabledControlInterface(true);
         }
     }, [stateProgress, blocklyEnabled.current]);
-
     return usbConnected ? (
         <Grid container spacing={1} sx={{ pt: 1, pr: 1 }}>
             <Pose
@@ -105,6 +106,7 @@ export default function Manipulator() {
                 remoteControlEnabled={remoteControlEnabled}
                 disabledControlInterface={disabledControlInterface}
                 setDisabledControlInterface={setDisabledControlInterface}
+                flagControlDisableInterface={flagControlDisableInterface}
             />
             <Grid item sm={12} md={4} lg={6}>
                 <RobotModel setStateProgress={setStateProgress} />

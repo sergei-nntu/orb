@@ -14,12 +14,21 @@ type EndEffectorStateProps = {
     noMoveToPositionFlag: React.MutableRefObject<boolean>;
     disabledControlInterface: boolean;
     setDisabledControlInterface: Dispatch<SetStateAction<boolean>>;
+    flagControlDisableInterface: React.MutableRefObject<boolean> | undefined;
 };
 
 export default function EndEffectorState(props: EndEffectorStateProps) {
-    const { blocklyEnabled, setDisabledControlInterface, disabledControlInterface, noMoveToPositionFlag } = props;
+    const {
+        blocklyEnabled,
+        setDisabledControlInterface,
+        disabledControlInterface,
+        noMoveToPositionFlag,
+        flagControlDisableInterface,
+    } = props;
 
     const { request } = useHttp();
+
+    const { state } = useContext(PoseContext);
 
     const interval = useRef<string | number | NodeJS.Timeout | undefined>(undefined);
     const [endEffectorState, setEndEffectorState] = useState<IPose>(INITIAL_POSE_STATE);
@@ -27,14 +36,18 @@ export default function EndEffectorState(props: EndEffectorStateProps) {
     const [endEffectorStateInResponse, setEndEffectorStateInResponse] = useState<IPose>(INITIAL_POSE_STATE);
     const [endEffectorStateBeforeRequest, setEndEffectorStateBeforeRequest] = useState<IPose>(INITIAL_POSE_STATE);
 
-    const { state } = useContext(PoseContext);
-
-    const flagLoadingX = useRef<boolean>(true);
-    const flagLoadingY = useRef<boolean>(true);
-    const flagLoadingZ = useRef<boolean>(true);
-    const flagLoadingPitch = useRef<boolean>(true);
-    const flagLoadingRoll = useRef<boolean>(true);
-    const flagLoadingYaw = useRef<boolean>(true);
+    const flagsLoading = useRef({
+        position: {
+            flagLoadingX: true,
+            flagLoadingY: true,
+            flagLoadingZ: true,
+        },
+        orientation: {
+            flagLoadingPitch: true,
+            flagLoadingRoll: true,
+            flagLoadingYaw: true,
+        },
+    });
 
     const StyledTag = styled('strong')(({ theme }) => ({
         color: disabledControlInterface ? theme.palette.grey.A700 : theme.palette.primary.main,
@@ -69,12 +82,18 @@ export default function EndEffectorState(props: EndEffectorStateProps) {
     };
 
     useEffect(() => {
-        flagLoadingX.current = false;
-        flagLoadingY.current = false;
-        flagLoadingZ.current = false;
-        flagLoadingPitch.current = false;
-        flagLoadingRoll.current = false;
-        flagLoadingYaw.current = false;
+        flagsLoading.current = {
+            position: {
+                flagLoadingX: false,
+                flagLoadingY: false,
+                flagLoadingZ: false,
+            },
+            orientation: {
+                flagLoadingPitch: false,
+                flagLoadingRoll: false,
+                flagLoadingYaw: false,
+            },
+        };
         noMoveToPositionFlag.current = false;
         setDisabledControlInterface(false);
     }, [noMoveToPositionFlag.current]);
@@ -84,71 +103,70 @@ export default function EndEffectorState(props: EndEffectorStateProps) {
             if (endEffectorStateBeforeRequest.position.x !== state.position.x) {
                 setDisabledControlInterface(true);
                 setEndEffectorStateBeforeRequest(state);
-                flagLoadingX.current = true;
+                flagsLoading.current.position.flagLoadingX = true;
             }
             if (endEffectorStateBeforeRequest.position.y !== state.position.y) {
                 setDisabledControlInterface(true);
                 setEndEffectorStateBeforeRequest(state);
-                flagLoadingY.current = true;
+                flagsLoading.current.position.flagLoadingY = true;
             }
             if (endEffectorStateBeforeRequest.position.z !== state.position.z) {
                 setDisabledControlInterface(true);
                 setEndEffectorStateBeforeRequest(state);
-                flagLoadingZ.current = true;
+                flagsLoading.current.position.flagLoadingZ = true;
             }
             if (endEffectorStateBeforeRequest.orientation.pitch !== state.orientation.pitch) {
                 setDisabledControlInterface(true);
                 setEndEffectorStateBeforeRequest(state);
-                flagLoadingPitch.current = true;
+                flagsLoading.current.orientation.flagLoadingPitch = true;
             }
             if (endEffectorStateBeforeRequest.orientation.roll !== state.orientation.roll) {
                 setDisabledControlInterface(true);
                 setEndEffectorStateBeforeRequest(state);
-                flagLoadingRoll.current = true;
+                flagsLoading.current.orientation.flagLoadingRoll = true;
             }
             if (endEffectorStateBeforeRequest.orientation.yaw !== state.orientation.yaw) {
                 setDisabledControlInterface(true);
                 setEndEffectorStateBeforeRequest(state);
-                flagLoadingYaw.current = true;
+                flagsLoading.current.orientation.flagLoadingYaw = true;
             }
         }
     }, [state]);
 
     useEffect(() => {
-        if (!blocklyEnabled.current) {
+        if (!blocklyEnabled.current && flagControlDisableInterface!.current) {
             if (endEffectorStateInResponse.position.x !== endEffectorState.position.x) {
                 setDisabledControlInterface(false);
                 setEndEffectorStateInResponse(endEffectorState);
-                flagLoadingX.current = false;
+                flagsLoading.current.position.flagLoadingX = false;
             }
             if (endEffectorStateInResponse.position.y !== endEffectorState.position.y) {
                 setDisabledControlInterface(false);
                 setEndEffectorStateInResponse(endEffectorState);
-                flagLoadingY.current = false;
+                flagsLoading.current.position.flagLoadingY = false;
             }
             if (endEffectorStateInResponse.position.z !== endEffectorState.position.z) {
                 setDisabledControlInterface(false);
                 setEndEffectorStateInResponse(endEffectorState);
-                flagLoadingZ.current = false;
+                flagsLoading.current.position.flagLoadingZ = false;
             }
             if (endEffectorStateInResponse.orientation.pitch !== endEffectorState.orientation.pitch) {
                 setDisabledControlInterface(false);
                 setEndEffectorStateInResponse(endEffectorState);
-                flagLoadingPitch.current = false;
+                flagsLoading.current.orientation.flagLoadingPitch = false;
             }
             if (endEffectorStateInResponse.orientation.roll !== endEffectorState.orientation.roll) {
                 setDisabledControlInterface(false);
                 setEndEffectorStateInResponse(endEffectorState);
-                flagLoadingRoll.current = false;
+                flagsLoading.current.orientation.flagLoadingRoll = false;
             }
             if (endEffectorStateInResponse.orientation.yaw !== endEffectorState.orientation.yaw) {
                 setDisabledControlInterface(false);
                 setEndEffectorStateInResponse(endEffectorState);
-                flagLoadingYaw.current = false;
+                flagsLoading.current.orientation.flagLoadingYaw = false;
             }
         }
     }, [getEndEffectorState]);
-
     return (
         <StyledBox sx={{ mt: { md: 1, sm: 0 }, height: { md: '150px', xs: '280px' } }}>
             End-Effector State
@@ -156,12 +174,13 @@ export default function EndEffectorState(props: EndEffectorStateProps) {
                 <Grid item xs={10} md={10} lg={10} style={{ width: '150px', textAlign: 'right', flex: '0 0 auto' }}>
                     <Grid container direction="column" alignItems="flex-start">
                         <Grid item>
-                            <Typography noWrap variant="h6" sx={{ display: 'flex' }}>
+                            <Typography noWrap variant="h6" sx={{ display: 'flex', flexDirection: 'row' }}>
                                 <StyledTag>x: </StyledTag>
-                                {/* {endEffectorState.position.x.toFixed(2) || '0'} */}
-                                {flagLoadingX.current ? (
-                                    //  <Skeleton variant="rectangular" width={47} height={28} />
-                                    <CircularProgress sx={{ marginLeft: 1 }} size={20}></CircularProgress>
+                                {flagsLoading.current.position.flagLoadingX ? (
+                                    <CircularProgress
+                                        sx={{ marginLeft: '10px', marginTop: '7px' }}
+                                        size={20}
+                                    ></CircularProgress>
                                 ) : (
                                     endEffectorState.position.x.toFixed(2) || '0'
                                 )}
@@ -170,10 +189,11 @@ export default function EndEffectorState(props: EndEffectorStateProps) {
                         <Grid item>
                             <Typography noWrap variant="h6" sx={{ display: 'flex' }}>
                                 <StyledTag>y: </StyledTag>
-                                {/* {endEffectorState.position.x.toFixed(2) || '0'} */}
-                                {flagLoadingY.current ? (
-                                    // <Skeleton variant="rectangular" width={47} height={28} />
-                                    <CircularProgress sx={{ marginLeft: 1 }} size={20}></CircularProgress>
+                                {flagsLoading.current.position.flagLoadingY ? (
+                                    <CircularProgress
+                                        sx={{ marginLeft: '10px', marginTop: '7px' }}
+                                        size={20}
+                                    ></CircularProgress>
                                 ) : (
                                     endEffectorState.position.y.toFixed(2) || '0'
                                 )}
@@ -182,10 +202,11 @@ export default function EndEffectorState(props: EndEffectorStateProps) {
                         <Grid item>
                             <Typography noWrap variant="h6" sx={{ display: 'flex' }}>
                                 <StyledTag>z: </StyledTag>
-                                {/* {endEffectorState.position.x.toFixed(2) || '0'} */}
-                                {flagLoadingZ.current ? (
-                                    // <Skeleton variant="rectangular" width={47} height={28} />
-                                    <CircularProgress sx={{ marginLeft: 1 }} size={20}></CircularProgress>
+                                {flagsLoading.current.position.flagLoadingZ ? (
+                                    <CircularProgress
+                                        sx={{ marginLeft: '10px', marginTop: '7px' }}
+                                        size={20}
+                                    ></CircularProgress>
                                 ) : (
                                     endEffectorState.position.z.toFixed(2) || '0'
                                 )}
@@ -198,10 +219,11 @@ export default function EndEffectorState(props: EndEffectorStateProps) {
                         <Grid item>
                             <Typography noWrap variant="h6" sx={{ display: 'flex' }}>
                                 <StyledTag>pitch: </StyledTag>
-                                {/* {endEffectorState.position.x.toFixed(2) || '0'} */}
-                                {flagLoadingPitch.current ? (
-                                    // <Skeleton variant="rectangular" width={47} height={28} />
-                                    <CircularProgress sx={{ marginLeft: 1 }} size={20}></CircularProgress>
+                                {flagsLoading.current.orientation.flagLoadingPitch ? (
+                                    <CircularProgress
+                                        sx={{ marginLeft: '10px', marginTop: '7px' }}
+                                        size={20}
+                                    ></CircularProgress>
                                 ) : (
                                     endEffectorState.orientation.pitch.toFixed(2) || '0'
                                 )}
@@ -210,10 +232,11 @@ export default function EndEffectorState(props: EndEffectorStateProps) {
                         <Grid item>
                             <Typography noWrap variant="h6" sx={{ display: 'flex' }}>
                                 <StyledTag>roll: </StyledTag>
-                                {/* {endEffectorState.position.x.toFixed(2) || '0'} */}
-                                {flagLoadingRoll.current ? (
-                                    // <Skeleton variant="rectangular" width={47} height={28} />
-                                    <CircularProgress sx={{ marginLeft: 1 }} size={20}></CircularProgress>
+                                {flagsLoading.current.orientation.flagLoadingRoll ? (
+                                    <CircularProgress
+                                        sx={{ marginLeft: '10px', marginTop: '7px' }}
+                                        size={20}
+                                    ></CircularProgress>
                                 ) : (
                                     endEffectorState.orientation.roll.toFixed(2) || '0'
                                 )}
@@ -222,11 +245,12 @@ export default function EndEffectorState(props: EndEffectorStateProps) {
                         <Grid item>
                             <Typography noWrap variant="h6" sx={{ display: 'flex' }}>
                                 <StyledTag>yaw: </StyledTag>
-                                {/* {endEffectorState.position.x.toFixed(2) || '0'} */}
-                                {flagLoadingYaw.current ? (
-                                    <CircularProgress sx={{ marginLeft: 1 }} size={20}></CircularProgress>
+                                {flagsLoading.current.orientation.flagLoadingYaw ? (
+                                    <CircularProgress
+                                        sx={{ marginLeft: '10px', marginTop: '7px' }}
+                                        size={20}
+                                    ></CircularProgress>
                                 ) : (
-                                    // <Skeleton variant="rectangular" width={47} height={28} />
                                     endEffectorState.orientation.yaw.toFixed(2) || '0'
                                 )}
                             </Typography>
