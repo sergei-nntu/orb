@@ -137,7 +137,7 @@ export default function Oqp() {
                 <Model jointValue={jointValue} setModelLoaded={setModelLoaded} />
             </Grid>
             <Grid item xs={6} sm={5} md={6} lg={4}>
-                <JointsState jointValue={jointValue} setJointValue={setJointValue} modelLoaded={modelLoaded} />
+                <JointsState setJointValue={setJointValue} modelLoaded={modelLoaded} />
             </Grid>
         </Grid>
     ) : null;

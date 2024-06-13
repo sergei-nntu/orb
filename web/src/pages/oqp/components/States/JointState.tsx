@@ -1,10 +1,9 @@
-import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import MuiInput from '@mui/material/Input';
 import Slider from '@mui/material/Slider';
 import { styled } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
-import React, { ChangeEvent, Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
+import React, { ChangeEvent, Dispatch, SetStateAction, useRef, useState } from 'react';
 
 import { IJointsStateOqp } from '../../../../types/appTypes';
 import { Item, StyledBox } from '../../../manipulator/components/StyledComponents/StyledComponents';
@@ -13,7 +12,6 @@ const Input = styled(MuiInput)`
     width: 42px;
 `;
 type JointStateProps = {
-    jointValue: IJointsStateOqp;
     setJointValue: Dispatch<SetStateAction<IJointsStateOqp>>;
     modelLoaded: boolean;
 };
@@ -26,34 +24,27 @@ type HandleInputChangeFunction = (
 type HandleBlurFunction = (value: SliderValue, setValue: React.Dispatch<React.SetStateAction<SliderValue>>) => void;
 
 export default function JointsState(props: JointStateProps) {
-    const { jointValue, setJointValue, modelLoaded } = props;
+    const { setJointValue, modelLoaded } = props;
 
-    const nameSlider = useRef<string | string[]>([]);
+    const nameSlider = useRef<string | string[]>([
+        'Front Left Shoulder',
+        'Front Left Reductor',
+        'Front Left Knee',
+        'Front Right Shoulder',
+        'Front Right Reductor',
+        'Front Right Knee',
+        'Rear Left Shoulder',
+        'Rear Left Reductor',
+        'Rear Left Knee',
+        'Rear Right Shoulder',
+        'Rear Right Reductor',
+        'Rear Right Knee',
+    ]);
     const indexInp = useRef<number>();
     const valueInp = useRef<number[]>();
 
     const initialJointValues = Array(12).fill(0);
     const [valuesSlider, setValuesSlider] = useState<SliderValue[]>(initialJointValues); //
-
-    useEffect(() => {
-        Object.keys(jointValue).forEach((_, __, array) => {
-            nameSlider.current = [...array];
-        });
-        setValuesSlider([
-            jointValue.Front_Left_Shoulder,
-            jointValue.Front_Left_Reductor,
-            jointValue.Front_Left_Knee,
-            jointValue.Front_Right_Shoulder,
-            jointValue.Front_Right_Reductor,
-            jointValue.Front_Right_Knee,
-            jointValue.Rear_Left_Shoulder,
-            jointValue.Rear_Left_Reductor,
-            jointValue.Rear_Left_Knee,
-            jointValue.Rear_Right_Shoulder,
-            jointValue.Rear_Right_Reductor,
-            jointValue.Rear_Right_Knee,
-        ]);
-    }, []);
 
     const handleJointChange: HandleChangeFunction = (index, newValue) => {
         const newValues = [...valuesSlider];
@@ -162,73 +153,119 @@ export default function JointsState(props: JointStateProps) {
             }}
         >
             <StyledBox sx={{ width: '100%' }}>
-                <StyledBox sx={{ width: '100%' }}>
-                    <Box
-                        component="div"
-                        sx={{
-                            width: '100%',
-                        }}
-                    >
-                        <Grid item sx={{ width: '100%' }}>
-                            JOINTS STATE
-                            {valuesSlider.map((value, index) => (
-                                <Grid container spacing={2} alignItems="center" key={''}>
-                                    <Grid item key={value}>
-                                        <Typography id="input-slider">{nameSlider.current[index]}</Typography>
-                                    </Grid>
-                                    <Grid item xs>
-                                        <Slider
-                                            value={value}
-                                            onChange={(_, newValue) =>
-                                                handleJointChange(index, newValue as SliderValue)
-                                            }
-                                            aria-labelledby={`input-slider-${index}`}
-                                            disabled={!modelLoaded}
-                                            id={`slider-joint-${index}`}
-                                            min={-90}
-                                            max={90}
-                                        />
-                                    </Grid>
-                                    <Grid item>
-                                        <Input
-                                            sx={{ minWidth: '50px' }}
-                                            value={value}
-                                            size="small"
-                                            disabled={!modelLoaded}
-                                            onChange={(e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
-                                                handleInputChange(e, (newValue) => {
-                                                    const newValues = [...valuesSlider];
-                                                    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                                                    // @ts-expect-error
-                                                    newValues[index] = newValue;
-                                                    setValuesSlider(newValues);
-                                                    indexInp.current = index;
-                                                    valueInp.current = newValues;
-                                                })
-                                            }
-                                            onBlur={() =>
-                                                handleBlur(value, (newValue) => {
-                                                    const newValues = [...valuesSlider];
-                                                    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                                                    // @ts-expect-error
-                                                    newValues[index] = newValue;
-                                                    setValuesSlider(newValues);
-                                                })
-                                            }
-                                            inputProps={{
-                                                step: 1,
-                                                min: -90,
-                                                max: 90,
-                                                type: 'number',
-                                                'aria-labelledby': 'input-slider-${index}',
-                                            }}
-                                        />
-                                    </Grid>
-                                </Grid>
-                            ))}
+                <Grid item sx={{ width: '100%' }}>
+                    <Grid sx={{ display: 'flex', justifyContent: 'center', marginTop: '30px' }}>JOINTS STATE</Grid>
+                    {valuesSlider.map((value, index) => (
+                        <Grid
+                            sx={{ display: 'flex', marginTop: '2px' }}
+                            container
+                            spacing={2}
+                            alignItems="center"
+                            key={''}
+                        >
+                            <Grid item key={value}>
+                                {nameSlider.current[index] === 'Front Left Shoulder' && (
+                                    <Typography id="input-slider">{nameSlider.current[index]}</Typography>
+                                )}
+                                {nameSlider.current[index] === 'Front Left Reductor' && (
+                                    <Typography id="input-slider">{nameSlider.current[index]}</Typography>
+                                )}
+                                {nameSlider.current[index] === 'Front Left Knee' && (
+                                    <Typography id="input-slider" sx={{ marginRight: '27px' }}>
+                                        {nameSlider.current[index]}
+                                    </Typography>
+                                )}
+                                {nameSlider.current[index] === 'Front Right Shoulder' && (
+                                    <Typography id="input-slider" sx={{ marginRight: '-12px' }}>
+                                        {nameSlider.current[index]}
+                                    </Typography>
+                                )}
+                                {nameSlider.current[index] === 'Front Right Reductor' && (
+                                    <Typography id="input-slider" sx={{ marginRight: '-12px' }}>
+                                        {nameSlider.current[index]}
+                                    </Typography>
+                                )}
+                                {nameSlider.current[index] === 'Front Right Knee' && (
+                                    <Typography id="input-slider" sx={{ marginRight: '15px' }}>
+                                        {nameSlider.current[index]}
+                                    </Typography>
+                                )}
+                                {nameSlider.current[index] === 'Rear Left Shoulder' && (
+                                    <Typography id="input-slider">{nameSlider.current[index]}</Typography>
+                                )}
+                                {nameSlider.current[index] === 'Rear Left Reductor' && (
+                                    <Typography id="input-slider">{nameSlider.current[index]}</Typography>
+                                )}
+                                {nameSlider.current[index] === 'Rear Left Knee' && (
+                                    <Typography id="input-slider" sx={{ marginRight: '30px' }}>
+                                        {nameSlider.current[index]}
+                                    </Typography>
+                                )}
+                                {nameSlider.current[index] === 'Rear Right Shoulder' && (
+                                    <Typography id="input-slider" sx={{ marginRight: '-10px' }}>
+                                        {nameSlider.current[index]}
+                                    </Typography>
+                                )}
+                                {nameSlider.current[index] === 'Rear Right Reductor' && (
+                                    <Typography id="input-slider" sx={{ marginRight: '-10px' }}>
+                                        {nameSlider.current[index]}
+                                    </Typography>
+                                )}
+                                {nameSlider.current[index] === 'Rear Right Knee' && (
+                                    <Typography id="input-slider" sx={{ marginRight: '17px' }}>
+                                        {nameSlider.current[index]}
+                                    </Typography>
+                                )}
+                            </Grid>
+                            <Grid item xs>
+                                <Slider
+                                    value={value}
+                                    onChange={(_, newValue) => handleJointChange(index, newValue as SliderValue)}
+                                    aria-labelledby={`input-slider-${index}`}
+                                    disabled={!modelLoaded}
+                                    id={`slider-joint-${index}`}
+                                    min={-90}
+                                    max={90}
+                                />
+                            </Grid>
+                            <Grid item>
+                                <Input
+                                    sx={{ minWidth: '50px' }}
+                                    value={value}
+                                    size="small"
+                                    disabled={!modelLoaded}
+                                    onChange={(e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+                                        handleInputChange(e, (newValue) => {
+                                            const newValues = [...valuesSlider];
+                                            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                                            // @ts-expect-error
+                                            newValues[index] = newValue;
+                                            setValuesSlider(newValues);
+                                            indexInp.current = index;
+                                            valueInp.current = newValues;
+                                        })
+                                    }
+                                    onBlur={() =>
+                                        handleBlur(value, (newValue) => {
+                                            const newValues = [...valuesSlider];
+                                            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                                            // @ts-expect-error
+                                            newValues[index] = newValue;
+                                            setValuesSlider(newValues);
+                                        })
+                                    }
+                                    inputProps={{
+                                        step: 1,
+                                        min: -90,
+                                        max: 90,
+                                        type: 'number',
+                                        'aria-labelledby': 'input-slider-${index}',
+                                    }}
+                                />
+                            </Grid>
                         </Grid>
-                    </Box>
-                </StyledBox>
+                    ))}
+                </Grid>
             </StyledBox>
         </Item>
     );
