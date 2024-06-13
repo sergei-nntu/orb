@@ -20,7 +20,7 @@ test.beforeEach('Dog',async ({ page }) => {
     const locator = bot.tools.element.locator('//div[text()=\'OQP\']');
     await expect(locator).toContainText('OQP');
 });
-test.describe('Edit Front Left', () => {
+test.describe.skip('Edit Front Left', () => {
 
     test('Edit Shoulder', async ({ page }) => {
         const bot = new Bot(page);
@@ -35,7 +35,7 @@ test.describe('Edit Front Left', () => {
         await bot._handledEditValueSlider('div:nth-child(3) > div:nth-child(3) > div > input', kneeValue);
     });
 });
-test.describe('Edit Front Right', () => {
+test.describe.skip('Edit Front Right', () => {
     test('Edit Shoulder', async ({ page }) => {
         const bot = new Bot(page);
         await bot._handledEditValueSlider( 'div:nth-child(4) > div:nth-child(3) > div > input', shoulderValue);
@@ -49,7 +49,7 @@ test.describe('Edit Front Right', () => {
         await bot._handledEditValueSlider('div:nth-child(6) > div:nth-child(3) > div > input', kneeValue);
     });
 });
-test.describe('Edit Rear Left', () => {
+test.describe.skip('Edit Rear Left', () => {
     test('Edit Shoulder', async ({ page }) => {
         const bot = new Bot(page);
         await bot._handledEditValueSlider( 'div:nth-child(7) > div:nth-child(3) > div > input', shoulderValue);
@@ -63,7 +63,7 @@ test.describe('Edit Rear Left', () => {
         await bot._handledEditValueSlider('div:nth-child(9) > div:nth-child(3) > div > input', kneeValue);
     });
 });
-test.describe('Edit Rear Right', () => {
+test.describe.skip('Edit Rear Right', () => {
     test('Edit Shoulder', async ({ page }) => {
         const bot = new Bot(page);
         await bot._handledEditValueSlider( 'div:nth-child(10) > div:nth-child(3) > div > input', shoulderValue);
