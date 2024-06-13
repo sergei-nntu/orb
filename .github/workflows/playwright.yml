@@ -36,6 +36,11 @@ jobs:
         uses: actions/checkout@v4
         with:
           ref: playwright-tests
+      - name: Checkout to playwright-tests
+        if: ((github.event.pull_request.merged == true) || (github.event_name == 'schedule'))
+        uses: actions/checkout@v3
+        with:
+          ref: playwright-tests
       - uses: actions/setup-node@v4
         with:
           node-version: 18
@@ -78,11 +83,6 @@ jobs:
 #      - name: Run curl
 #        run: |
 #          sudo curl http://localhost:3000
-      - name: Checkout to playwright-tests
-        if: ((github.event.pull_request.merged == true) || (github.event_name == 'schedule'))
-        uses: actions/checkout@v3
-        with:
-          ref: playwright-tests
       - name: Install dependencies
         run: npm ci
         working-directory: ./playwright
