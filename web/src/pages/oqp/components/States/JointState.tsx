@@ -26,7 +26,13 @@ type HandleBlurFunction = (value: SliderValue, setValue: React.Dispatch<React.Se
 export default function JointsState(props: JointStateProps) {
     const { setJointValue, modelLoaded } = props;
 
-    const nameSlider = useRef<string | string[]>([
+    const indexInp = useRef<number>();
+    const valueInp = useRef<number[]>();
+
+    const initialJointValues = Array(12).fill(0);
+    const [valuesSlider, setValuesSlider] = useState<SliderValue[]>(initialJointValues);
+
+    const nameSlider: string[] = [
         'Front Left Shoulder',
         'Front Left Reductor',
         'Front Left Knee',
@@ -39,12 +45,7 @@ export default function JointsState(props: JointStateProps) {
         'Rear Right Shoulder',
         'Rear Right Reductor',
         'Rear Right Knee',
-    ]);
-    const indexInp = useRef<number>();
-    const valueInp = useRef<number[]>();
-
-    const initialJointValues = Array(12).fill(0);
-    const [valuesSlider, setValuesSlider] = useState<SliderValue[]>(initialJointValues); //
+    ];
 
     const handleJointChange: HandleChangeFunction = (index, newValue) => {
         const newValues = [...valuesSlider];
@@ -152,72 +153,15 @@ export default function JointsState(props: JointStateProps) {
                 mt: 1,
             }}
         >
-            <StyledBox sx={{ width: '100%' }}>
+            <StyledBox sx={{ width: '100%', display: 'flex' }} id="wrapp-slider">
                 <Grid item sx={{ width: '100%' }}>
-                    <Grid sx={{ display: 'flex', justifyContent: 'center', marginTop: '30px' }}>JOINTS STATE</Grid>
+                    <Grid sx={{ display: 'flex', justifyContent: 'center' }}>JOINTS STATE</Grid>
                     {valuesSlider.map((value, index) => (
-                        <Grid
-                            sx={{ display: 'flex', marginTop: '2px' }}
-                            container
-                            spacing={2}
-                            alignItems="center"
-                            key={''}
-                        >
-                            <Grid item key={value}>
-                                {nameSlider.current[index] === 'Front Left Shoulder' && (
-                                    <Typography id="input-slider">{nameSlider.current[index]}</Typography>
-                                )}
-                                {nameSlider.current[index] === 'Front Left Reductor' && (
-                                    <Typography id="input-slider">{nameSlider.current[index]}</Typography>
-                                )}
-                                {nameSlider.current[index] === 'Front Left Knee' && (
-                                    <Typography id="input-slider" sx={{ marginRight: '27px' }}>
-                                        {nameSlider.current[index]}
-                                    </Typography>
-                                )}
-                                {nameSlider.current[index] === 'Front Right Shoulder' && (
-                                    <Typography id="input-slider" sx={{ marginRight: '-12px' }}>
-                                        {nameSlider.current[index]}
-                                    </Typography>
-                                )}
-                                {nameSlider.current[index] === 'Front Right Reductor' && (
-                                    <Typography id="input-slider" sx={{ marginRight: '-12px' }}>
-                                        {nameSlider.current[index]}
-                                    </Typography>
-                                )}
-                                {nameSlider.current[index] === 'Front Right Knee' && (
-                                    <Typography id="input-slider" sx={{ marginRight: '15px' }}>
-                                        {nameSlider.current[index]}
-                                    </Typography>
-                                )}
-                                {nameSlider.current[index] === 'Rear Left Shoulder' && (
-                                    <Typography id="input-slider">{nameSlider.current[index]}</Typography>
-                                )}
-                                {nameSlider.current[index] === 'Rear Left Reductor' && (
-                                    <Typography id="input-slider">{nameSlider.current[index]}</Typography>
-                                )}
-                                {nameSlider.current[index] === 'Rear Left Knee' && (
-                                    <Typography id="input-slider" sx={{ marginRight: '30px' }}>
-                                        {nameSlider.current[index]}
-                                    </Typography>
-                                )}
-                                {nameSlider.current[index] === 'Rear Right Shoulder' && (
-                                    <Typography id="input-slider" sx={{ marginRight: '-10px' }}>
-                                        {nameSlider.current[index]}
-                                    </Typography>
-                                )}
-                                {nameSlider.current[index] === 'Rear Right Reductor' && (
-                                    <Typography id="input-slider" sx={{ marginRight: '-10px' }}>
-                                        {nameSlider.current[index]}
-                                    </Typography>
-                                )}
-                                {nameSlider.current[index] === 'Rear Right Knee' && (
-                                    <Typography id="input-slider" sx={{ marginRight: '17px' }}>
-                                        {nameSlider.current[index]}
-                                    </Typography>
-                                )}
+                        <Grid container sx={{ display: 'flex', marginTop: '5px' }} spacing={2} key={''} id="sliders">
+                            <Grid item xs sx={{ display: 'flex' }}>
+                                <Typography id="input-slider">{nameSlider[index]}</Typography>
                             </Grid>
-                            <Grid item xs>
+                            <Grid item xs={7}>
                                 <Slider
                                     value={value}
                                     onChange={(_, newValue) => handleJointChange(index, newValue as SliderValue)}
@@ -230,7 +174,7 @@ export default function JointsState(props: JointStateProps) {
                             </Grid>
                             <Grid item>
                                 <Input
-                                    sx={{ minWidth: '50px' }}
+                                    sx={{ minWidth: '20px' }}
                                     value={value}
                                     size="small"
                                     disabled={!modelLoaded}
