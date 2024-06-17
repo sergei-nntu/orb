@@ -177,20 +177,18 @@ export default function EndEffectorState(props: EndEffectorStateProps) {
                             <Typography noWrap variant="h6" sx={{ display: 'flex', flexDirection: 'row' }}>
                                 <Grid container sx={{ display: 'flex' }}>
                                     <Grid item sx={{ marginRight: 1 }}>
-                                        <StyledTag id="axis-name-X">x: </StyledTag>
+                                        <StyledTag>x: </StyledTag>
                                     </Grid>
                                     {flagsLoading.current.position.flagLoadingX ? (
                                         <Grid item>
                                             <CircularProgress
                                                 sx={{ display: 'flex', marginLeft: '10px', marginTop: '7px' }}
                                                 size={20}
-                                                id="progress-bar-X"
+                                                id="progress-bar-x"
                                             ></CircularProgress>
                                         </Grid>
                                     ) : (
-                                        <Grid item id="value-X">
-                                            {endEffectorState.position.x.toFixed(2) || '0'}
-                                        </Grid>
+                                        <Grid item>{endEffectorState.position.x.toFixed(2) || '0'}</Grid>
                                     )}
                                 </Grid>
                             </Typography>
@@ -199,20 +197,18 @@ export default function EndEffectorState(props: EndEffectorStateProps) {
                             <Typography noWrap variant="h6" sx={{ display: 'flex', flexDirection: 'row' }}>
                                 <Grid container sx={{ display: 'flex' }}>
                                     <Grid item sx={{ marginRight: 1 }}>
-                                        <StyledTag id="axis-name-Y">y: </StyledTag>
+                                        <StyledTag>y: </StyledTag>
                                     </Grid>
                                     {flagsLoading.current.position.flagLoadingY ? (
                                         <Grid item>
                                             <CircularProgress
                                                 sx={{ display: 'flex', marginLeft: '10px', marginTop: '7px' }}
                                                 size={20}
-                                                id="progress-bar-Y"
+                                                id="progress-bar-y"
                                             ></CircularProgress>
                                         </Grid>
                                     ) : (
-                                        <Grid item id="value-Y">
-                                            {endEffectorState.position.y.toFixed(2) || '0'}
-                                        </Grid>
+                                        <Grid item>{endEffectorState.position.y.toFixed(2) || '0'}</Grid>
                                     )}
                                 </Grid>
                             </Typography>
@@ -221,20 +217,18 @@ export default function EndEffectorState(props: EndEffectorStateProps) {
                             <Typography noWrap variant="h6" sx={{ display: 'flex', flexDirection: 'row' }}>
                                 <Grid container sx={{ display: 'flex' }}>
                                     <Grid item sx={{ marginRight: 1 }}>
-                                        <StyledTag id="axis-name-Z">z: </StyledTag>
+                                        <StyledTag>z: </StyledTag>
                                     </Grid>
                                     {flagsLoading.current.position.flagLoadingZ ? (
                                         <Grid item>
                                             <CircularProgress
                                                 sx={{ display: 'flex', marginLeft: '10px', marginTop: '7px' }}
                                                 size={20}
-                                                id="progress-bar-Z"
+                                                id="progress-bar-z"
                                             ></CircularProgress>
                                         </Grid>
                                     ) : (
-                                        <Grid item id="value-Z">
-                                            {endEffectorState.position.z.toFixed(2) || '0'}
-                                        </Grid>
+                                        <Grid item>{endEffectorState.position.z.toFixed(2) || '0'}</Grid>
                                     )}
                                 </Grid>
                             </Typography>
@@ -247,7 +241,7 @@ export default function EndEffectorState(props: EndEffectorStateProps) {
                             <Typography noWrap variant="h6" sx={{ display: 'flex' }}>
                                 <Grid container sx={{ display: 'flex' }}>
                                     <Grid item sx={{ marginRight: '9px' }}>
-                                        <StyledTag id="axis-name-pitch">pitch: </StyledTag>
+                                        <StyledTag>pitch: </StyledTag>
                                     </Grid>
                                     {flagsLoading.current.orientation.flagLoadingPitch ? (
                                         <Grid item>
@@ -258,9 +252,7 @@ export default function EndEffectorState(props: EndEffectorStateProps) {
                                             ></CircularProgress>
                                         </Grid>
                                     ) : (
-                                        <Grid item id="value-pitch">
-                                            {endEffectorState.orientation.pitch.toFixed(2) || '0'}
-                                        </Grid>
+                                        <Grid item>{endEffectorState.orientation.pitch.toFixed(2) || '0'}</Grid>
                                     )}
                                 </Grid>
                             </Typography>
@@ -269,7 +261,7 @@ export default function EndEffectorState(props: EndEffectorStateProps) {
                             <Typography noWrap variant="h6" sx={{ display: 'flex' }}>
                                 <Grid container sx={{ display: 'flex' }}>
                                     <Grid item sx={{ marginRight: '25px' }}>
-                                        <StyledTag id="axis-name-roll">roll: </StyledTag>
+                                        <StyledTag>roll: </StyledTag>
                                     </Grid>
                                     {flagsLoading.current.orientation.flagLoadingRoll ? (
                                         <Grid item>
@@ -280,9 +272,7 @@ export default function EndEffectorState(props: EndEffectorStateProps) {
                                             ></CircularProgress>
                                         </Grid>
                                     ) : (
-                                        <Grid item id="value-roll">
-                                            {endEffectorState.orientation.roll.toFixed(2) || '0'}
-                                        </Grid>
+                                        <Grid item>{endEffectorState.orientation.roll.toFixed(2) || '0'}</Grid>
                                     )}
                                 </Grid>
                             </Typography>
@@ -291,7 +281,7 @@ export default function EndEffectorState(props: EndEffectorStateProps) {
                             <Typography noWrap variant="h6" sx={{ display: 'flex' }}>
                                 <Grid container sx={{ display: 'flex' }}>
                                     <Grid item sx={{ marginRight: '19px' }}>
-                                        <StyledTag id="axis-name-yaw">yaw: </StyledTag>
+                                        <StyledTag>yaw: </StyledTag>
                                     </Grid>
                                     {flagsLoading.current.orientation.flagLoadingYaw ? (
                                         <Grid item>
@@ -302,9 +292,7 @@ export default function EndEffectorState(props: EndEffectorStateProps) {
                                             ></CircularProgress>
                                         </Grid>
                                     ) : (
-                                        <Grid item id="value-yaw">
-                                            {endEffectorState.orientation.yaw.toFixed(2) || '0'}
-                                        </Grid>
+                                        <Grid item>{endEffectorState.orientation.yaw.toFixed(2) || '0'}</Grid>
                                     )}
                                 </Grid>
                             </Typography>
