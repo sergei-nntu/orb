@@ -38,9 +38,10 @@ jobs:
           ref: playwright-tests
       - name: Checkout to playwright-tests
         if: ((github.event.pull_request.merged == true) || (github.event.review.state == 'approved') || (github.event_name == 'schedule'))
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
         with:
           ref: playwright-tests
+          fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
           node-version: 18
