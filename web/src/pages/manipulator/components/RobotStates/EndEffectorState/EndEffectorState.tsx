@@ -171,88 +171,181 @@ export default function EndEffectorState(props: EndEffectorStateProps) {
         <StyledBox sx={{ mt: { md: 1, sm: 0 }, height: { md: '150px', xs: '280px' } }}>
             End-Effector State
             <Grid container justifyContent="center" sx={{ mt: { md: 0, xs: 7 }, mb: 1 }}>
-                <Grid item xs={10} md={10} lg={10} style={{ width: '150px', textAlign: 'right', flex: '0 0 auto' }}>
-                    <Grid container direction="column" alignItems="flex-start">
+                <Grid item xs={10} md={10} lg={10} style={{ width: '65px', textAlign: 'left', flex: '0 0 auto' }}>
+                    <Grid container direction="column" alignItems="space-between">
                         <Grid item>
-                            <Typography noWrap variant="h6" sx={{ display: 'flex', flexDirection: 'row' }}>
-                                <StyledTag>x: </StyledTag>
-                                {flagsLoading.current.position.flagLoadingX ? (
-                                    <CircularProgress
-                                        sx={{ marginLeft: '10px', marginTop: '7px' }}
-                                        size={20}
-                                    ></CircularProgress>
-                                ) : (
-                                    endEffectorState.position.x.toFixed(2) || '0'
-                                )}
+                            <Typography noWrap variant="h6" sx={{ display: 'flex' }}>
+                                <Grid container sx={{ display: 'flex' }}>
+                                    <Grid item sx={{ display: 'flex' }}>
+                                        <StyledTag>x: </StyledTag>
+                                    </Grid>
+                                    {flagsLoading.current.position.flagLoadingX ? (
+                                        <Grid
+                                            item
+                                            xs
+                                            sx={{
+                                                display: 'flex',
+                                                justifyContent: 'flex-end',
+                                                flexDirection: 'row',
+                                                marginTop: '5px',
+                                                marginRight: '10px',
+                                            }}
+                                        >
+                                            <CircularProgress size={20} id="progress-bar-x"></CircularProgress>
+                                        </Grid>
+                                    ) : (
+                                        <Grid item xs sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+                                            {endEffectorState.position.x.toFixed(2) || '0'}
+                                        </Grid>
+                                    )}
+                                </Grid>
                             </Typography>
                         </Grid>
                         <Grid item>
                             <Typography noWrap variant="h6" sx={{ display: 'flex' }}>
-                                <StyledTag>y: </StyledTag>
-                                {flagsLoading.current.position.flagLoadingY ? (
-                                    <CircularProgress
-                                        sx={{ marginLeft: '10px', marginTop: '7px' }}
-                                        size={20}
-                                    ></CircularProgress>
-                                ) : (
-                                    endEffectorState.position.y.toFixed(2) || '0'
-                                )}
+                                <Grid container sx={{ display: 'flex' }}>
+                                    <Grid item sx={{ display: 'flex' }}>
+                                        <StyledTag>y: </StyledTag>
+                                    </Grid>
+                                    {flagsLoading.current.position.flagLoadingY ? (
+                                        <Grid
+                                            item
+                                            xs
+                                            sx={{
+                                                display: 'flex',
+                                                justifyContent: 'flex-end',
+                                                flexDirection: 'row',
+                                                marginTop: '5px',
+                                                marginRight: '10px',
+                                            }}
+                                        >
+                                            <CircularProgress size={20} id="progress-bar-y"></CircularProgress>
+                                        </Grid>
+                                    ) : (
+                                        <Grid item xs sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+                                            {endEffectorState.position.y.toFixed(2) || '0'}
+                                        </Grid>
+                                    )}
+                                </Grid>
                             </Typography>
                         </Grid>
                         <Grid item>
                             <Typography noWrap variant="h6" sx={{ display: 'flex' }}>
-                                <StyledTag>z: </StyledTag>
-                                {flagsLoading.current.position.flagLoadingZ ? (
-                                    <CircularProgress
-                                        sx={{ marginLeft: '10px', marginTop: '7px' }}
-                                        size={20}
-                                    ></CircularProgress>
-                                ) : (
-                                    endEffectorState.position.z.toFixed(2) || '0'
-                                )}
+                                <Grid container sx={{ display: 'flex' }}>
+                                    <Grid item sx={{ display: 'flex' }}>
+                                        <StyledTag>z: </StyledTag>
+                                    </Grid>
+                                    {flagsLoading.current.position.flagLoadingZ ? (
+                                        <Grid
+                                            item
+                                            xs
+                                            sx={{
+                                                display: 'flex',
+                                                justifyContent: 'flex-end',
+                                                flexDirection: 'row',
+                                                marginTop: '5px',
+                                                marginRight: '10px',
+                                            }}
+                                        >
+                                            <CircularProgress size={20} id="progress-bar-z"></CircularProgress>
+                                        </Grid>
+                                    ) : (
+                                        <Grid item xs sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+                                            {endEffectorState.position.z.toFixed(2) || '0'}
+                                        </Grid>
+                                    )}
+                                </Grid>
                             </Typography>
                         </Grid>
                     </Grid>
                 </Grid>
-                <Grid item xs={10} md={10} lg={10} style={{ width: '100px', textAlign: 'left', flex: '0 0 auto' }}>
-                    <Grid container direction="column" alignItems="flex-start">
+                {/* <Grid item>
+                    <></>
+                </Grid> */}
+                <Grid item xs={10} md={10} lg={10} style={{ width: '102px', textAlign: 'left', flex: '0 0 auto' }}>
+                    <Grid container direction="column" alignItems="space-between" marginLeft={2}>
                         <Grid item>
                             <Typography noWrap variant="h6" sx={{ display: 'flex' }}>
-                                <StyledTag>pitch: </StyledTag>
-                                {flagsLoading.current.orientation.flagLoadingPitch ? (
-                                    <CircularProgress
-                                        sx={{ marginLeft: '10px', marginTop: '7px' }}
-                                        size={20}
-                                    ></CircularProgress>
-                                ) : (
-                                    endEffectorState.orientation.pitch.toFixed(2) || '0'
-                                )}
+                                <Grid container sx={{ display: 'flex' }}>
+                                    <Grid item sx={{ display: 'flex' }}>
+                                        <StyledTag>pitch: </StyledTag>
+                                    </Grid>
+                                    {flagsLoading.current.orientation.flagLoadingPitch ? (
+                                        <Grid
+                                            item
+                                            xs
+                                            sx={{
+                                                display: 'flex',
+                                                justifyContent: 'flex-end',
+                                                flexDirection: 'row',
+                                                marginTop: '5px',
+                                                marginRight: '10px',
+                                            }}
+                                        >
+                                            <CircularProgress size={20} id="progress-bar-pitch"></CircularProgress>
+                                        </Grid>
+                                    ) : (
+                                        <Grid item xs sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+                                            {endEffectorState.orientation.pitch.toFixed(2) || '0'}
+                                        </Grid>
+                                    )}
+                                </Grid>
                             </Typography>
                         </Grid>
                         <Grid item>
                             <Typography noWrap variant="h6" sx={{ display: 'flex' }}>
-                                <StyledTag>roll: </StyledTag>
-                                {flagsLoading.current.orientation.flagLoadingRoll ? (
-                                    <CircularProgress
-                                        sx={{ marginLeft: '10px', marginTop: '7px' }}
-                                        size={20}
-                                    ></CircularProgress>
-                                ) : (
-                                    endEffectorState.orientation.roll.toFixed(2) || '0'
-                                )}
+                                <Grid container sx={{ display: 'flex' }}>
+                                    <Grid item sx={{ display: 'flex' }}>
+                                        <StyledTag>roll: </StyledTag>
+                                    </Grid>
+                                    {flagsLoading.current.orientation.flagLoadingRoll ? (
+                                        <Grid
+                                            item
+                                            xs
+                                            sx={{
+                                                display: 'flex',
+                                                justifyContent: 'flex-end',
+                                                flexDirection: 'row',
+                                                marginTop: '5px',
+                                                marginRight: '10px',
+                                            }}
+                                        >
+                                            <CircularProgress size={20} id="progress-bar-roll"></CircularProgress>
+                                        </Grid>
+                                    ) : (
+                                        <Grid item xs sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+                                            {endEffectorState.orientation.roll.toFixed(2) || '0'}
+                                        </Grid>
+                                    )}
+                                </Grid>
                             </Typography>
                         </Grid>
                         <Grid item>
                             <Typography noWrap variant="h6" sx={{ display: 'flex' }}>
-                                <StyledTag>yaw: </StyledTag>
-                                {flagsLoading.current.orientation.flagLoadingYaw ? (
-                                    <CircularProgress
-                                        sx={{ marginLeft: '10px', marginTop: '7px' }}
-                                        size={20}
-                                    ></CircularProgress>
-                                ) : (
-                                    endEffectorState.orientation.yaw.toFixed(2) || '0'
-                                )}
+                                <Grid container sx={{ display: 'flex' }}>
+                                    <Grid item sx={{ display: 'flex' }}>
+                                        <StyledTag>yaw: </StyledTag>
+                                    </Grid>
+                                    {flagsLoading.current.orientation.flagLoadingYaw ? (
+                                        <Grid
+                                            item
+                                            xs
+                                            sx={{
+                                                display: 'flex',
+                                                justifyContent: 'flex-end',
+                                                flexDirection: 'row',
+                                                marginTop: '5px',
+                                                marginRight: '10px',
+                                            }}
+                                        >
+                                            <CircularProgress size={20} id="progress-bar-yaw"></CircularProgress>
+                                        </Grid>
+                                    ) : (
+                                        <Grid item xs sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+                                            {endEffectorState.orientation.yaw.toFixed(2) || '0'}
+                                        </Grid>
+                                    )}
+                                </Grid>
                             </Typography>
                         </Grid>
                     </Grid>
