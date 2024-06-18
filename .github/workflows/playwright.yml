@@ -81,6 +81,8 @@ jobs:
         working-directory: ./playwright
       - name: Run Server
         run: |
+         git status
+         git fetch origin
          git pull origin develop
          bash run_test.sh
         working-directory: ./playwright
