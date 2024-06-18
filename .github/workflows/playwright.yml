@@ -62,13 +62,6 @@ jobs:
 #      - name: Docker compose
 #        run: docker-compose up -d
 #        working-directory: ./docker
-      - run: |
-          sudo ufw disable
-          sudo ufw status
-      - run: |
-          docker ps
-          netstat -ln | grep 3000
-          sudo netstat -tulpn
 #      - name: Install curl  - macOS
 #        if: matrix.os =='macos-11'
 #        run: |
@@ -91,6 +84,13 @@ jobs:
          git pull origin develop
          bash run_test.sh
         working-directory: ./playwright
+      - run: |
+          sudo ufw disable
+          sudo ufw status
+      - run: |
+          docker ps
+          netstat -ln | grep 3000
+          sudo netstat -tulpn
 #      - name: Run Playwright tests
 #        run: npx playwright test
 #        working-directory: ./playwright
