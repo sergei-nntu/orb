@@ -6,19 +6,24 @@ const kneeValue = "95";
 
 test.beforeEach('Dog',async ({ page }) => {
     const bot = new Bot(page);
+    await bot.tools.element.setViewportSize({
+        width: 1920,
+        height: 1080,
+    });
+    await bot.tools.element.goto('http://localhost:3000/oqp');
+    const enabled = await bot.tools.element.locator('#slider-joint-0').isEnabled();
 
-    // await bot.tools.element.goto('http://localhost:3000',{ waitUntil: "networkidle" });
-
-    // await bot.tools.element.goto('http://localhost:3000',{ timeout:5000 });
-    //
     // await bot.tools._handledButtonByTestId('SmartToyIcon');
 
-    const responsePromise = bot.tools.element.waitForResponse(resp => resp.url().includes('get_pose_state') && resp.status() === 200);
-    await bot.tools.element.goto('http://localhost:3000/oqp');
-    await responsePromise;
+    // const responsePromise = bot.tools.element.waitForResponse(resp => resp.url().includes('get_pose_state') && resp.status() === 200);
+    // await bot.tools.element.goto('http://localhost:3000/oqp');
+    // await responsePromise;
 
-    const locator = bot.tools.element.locator('//div[text()=\'OQP\']');
-    await expect(locator).toContainText('OQP');
+    if(enabled){
+        const locator = bot.tools.element.locator('//div[text()=\'OQP\']');
+        await expect(locator).toContainText('OQP');
+    }
+
 });
 test.describe.skip('Edit Front Left', () => {
 

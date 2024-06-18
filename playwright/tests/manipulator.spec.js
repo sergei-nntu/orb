@@ -4,6 +4,10 @@ const jointValue = "20";
 
 test.beforeEach('Manipulator',async ({ page }) => {
   const bot = new Bot(page);
+  await bot.tools.element.setViewportSize({
+    width: 1920,
+    height: 1080,
+  });
   await bot.tools.element.goto('http://localhost:3000/manipulator');
   const enabled = await bot.tools.element.locator('#button-down-z').isEnabled();
   // await bot.tools._waitLoading();
@@ -51,40 +55,40 @@ test.describe('Changing the path of movement of the manipulator', () => {
   test.describe.configure({ mode: 'serial' });
   test('Changing the path of movement of the manipulator along the X coordinate',async ({ page }) => {
     const bot = new Bot(page);
-    await bot.tools.element.waitForTimeout(1000);
-    await bot._handledEditTrajectory('#button-up-x');
-    await bot._handledEditTrajectory('#button-down-x');
+    // await bot.tools.element.waitForTimeout(1000);
+    await bot._handledEditTrajectory('#button-up-x', "x");
+    await bot._handledEditTrajectory('#button-down-x', "x");
   });
   test('Changing the path of movement of the manipulator along the Y coordinate',async ({ page }) => {
     const bot = new Bot(page);
-    await bot.tools.element.waitForTimeout(1000);
-    await bot._handledEditTrajectory('#button-up-y');
-    await bot._handledEditTrajectory('#button-down-y');
+    // await bot.tools.element.waitForTimeout(1000);
+    await bot._handledEditTrajectory('#button-up-y', "y");
+    await bot._handledEditTrajectory('#button-down-y', "y");
   });
   test('Changing the path of movement of the manipulator along the Z coordinate',async ({ page }) => {
     const bot = new Bot(page);
-    await bot.tools.element.waitForTimeout(1000);
-    await bot._handledEditTrajectory('#button-up-z');
-    await bot._handledEditTrajectory('#button-down-z');
+    // await bot.tools.element.waitForTimeout(1000);
+    await bot._handledEditTrajectory('#button-up-z', "z");
+    await bot._handledEditTrajectory('#button-down-z', "z");
   });
   test('Changing the trajectory of the manipulator when changing the pitch',async ({ page }) => {
     const bot = new Bot(page);
-    await bot.tools.element.waitForTimeout(1000);
-    await bot._handledEditTrajectory('#button-up-pitch');
-    await bot._handledEditTrajectory('#button-down-pitch');
+    // await bot.tools.element.waitForTimeout(1000);
+    await bot._handledEditTrajectory('#button-up-pitch', "pitch");
+    await bot._handledEditTrajectory('#button-down-pitch', "pitch");
 
   });
   test('Changing the trajectory of the manipulator when changing the roll',async ({ page }) => {
     const bot = new Bot(page);
-    await bot.tools.element.waitForTimeout(1000);
-    await bot._handledEditTrajectory('#button-up-roll');
-    await bot._handledEditTrajectory('#button-down-roll');
+    // await bot.tools.element.waitForTimeout(1000);
+    await bot._handledEditTrajectory('#button-up-roll', "roll");
+    await bot._handledEditTrajectory('#button-down-roll', "roll");
   });
   test('Changing the trajectory of the manipulator when changing yaw',async ({ page }) => {
     const bot = new Bot(page);
-    await bot.tools.element.waitForTimeout(1000);
-    await bot._handledEditTrajectory('#button-up-yaw');
-    await bot._handledEditTrajectory('#button-down-yaw');
+    // await bot.tools.element.waitForTimeout(1000);
+    await bot._handledEditTrajectory('#button-up-yaw', "yaw");
+    await bot._handledEditTrajectory('#button-down-yaw', "yaw");
   });
 });
 test.describe('Orientation', () => {

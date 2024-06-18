@@ -55,7 +55,7 @@ module.exports = class Bot {
             await this.tools._handledKeyButton(button[0]);
 
         } else {
-            await this.tools._handledButton(`#button-up-${button[0]}`);
+            await this.tools._handledButton(`#button-up-${button[0]}`, false, button[0] );
         }
 
         const nextCoordinate = await this.tools._handledInnerText(selector);
@@ -69,7 +69,7 @@ module.exports = class Bot {
             await this.tools._handledKeyButton(button[1]);
 
         }else{
-            await this.tools._handledButton(`#button-down-${button[0]}`);
+            await this.tools._handledButton(`#button-down-${button[0]}`, false, button[0]);
         }
 
         const backCoordinate =  await this.tools._handledInnerText(selector);
@@ -99,10 +99,10 @@ module.exports = class Bot {
         return elements;
     }
 
-    async _handledEditTrajectory(selector) {
+    async _handledEditTrajectory(selector, button) {
         const joints_def = await this._getListValues('input[id*= input-joint]');
         const responsePromise = this.tools.element.waitForResponse(resp => resp.url().includes('post_joints_state'));
-        await this.tools._handledButton( selector);
+        await this.tools._handledButton( selector, false, button);
         await responsePromise;
         await this.tools._waitFor('//div[text()=\'Changed goal state\']','visible');
         // const message =  await this.tools._handledInnerText('#user-message');
