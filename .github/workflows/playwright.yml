@@ -81,7 +81,6 @@ jobs:
         working-directory: ./playwright
       - name: Run Server
         run: |
-         git pull origin develop --allow-unrelated-histories
          bash run_test.sh
         working-directory: ./playwright
       - run: |
