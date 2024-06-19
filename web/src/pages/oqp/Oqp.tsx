@@ -14,8 +14,8 @@ export default function Oqp() {
     const { request } = useHttp();
     const { usbConnected, checkUsbConnection } = useUsbConnection(useHttp, useRouter);
 
-    const responseFetchFunc = useRef();
-    const stateFirstStart = useRef(false);
+    const responseFromServer = useRef();
+    const checkingChangeOnSlider = useRef(false);
 
     const [modelLoaded, setModelLoaded] = useState<boolean>(false);
     const [jointValue, setJointValue] = useState<IJointsStateOqp>({
@@ -36,10 +36,10 @@ export default function Oqp() {
     useEffect(() => {
         const sendJointStateToServer = async () => {
             try {
-                if (responseFetchFunc.current === undefined && !stateFirstStart.current && isInitialState()) {
+                if (responseFromServer.current === undefined && !checkingChangeOnSlider.current && isInitialState()) {
                     return;
                 }
-                stateFirstStart.current = true;
+                checkingChangeOnSlider.current = true;
 
                 const Front_Left_Shoulder = convertDeegreToRadian(jointValue.Front_Left_Shoulder);
                 const Front_Left_Reductor = convertDeegreToRadian(jointValue.Front_Left_Reductor);
@@ -102,7 +102,7 @@ export default function Oqp() {
         async function fetchFunc() {
             try {
                 const response = await request(API_ROUTES.GET_OQP_JOINT_STATE);
-                responseFetchFunc.current = response;
+                responseFromServer.current = response;
 
                 const Front_Left_Shoulder = convertRadianToDegree(response.shoulder1);
                 const Front_Left_Reductor = convertRadianToDegree(response.reductor1);
