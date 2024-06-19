@@ -37,8 +37,7 @@ module.exports = defineConfig({
     }
   },
   webServer: {
-    command: 'ng s',
-    url: 'http://localhost:3000/',
+    url: 'http://localhost:3000',
     reuseExistingServer: true
   },
 
