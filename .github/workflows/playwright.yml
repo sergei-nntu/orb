@@ -83,16 +83,16 @@ jobs:
         run: |
          bash run_test.sh
         working-directory: ./playwright
-      - run: |
-          sudo ufw disable
-          sudo ufw status
-      - run: |
-          docker ps
-          netstat -ln | grep 3000
-          sudo netstat -tulpn
-#      - name: Run Playwright tests
-#        run: npx playwright test
-#        working-directory: ./playwright
+#      - run: |
+#          sudo ufw disable
+#          sudo ufw status
+#      - run: |
+#          docker ps
+#          netstat -ln | grep 3000
+#          sudo netstat -tulpn
+      - name: Run Playwright tests
+        run: npx playwright test
+        working-directory: ./playwright
       - if: matrix.os == 'ubuntu-20.04'
         run: sudo apt-get install default-jre
       - run: |
