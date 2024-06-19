@@ -24,10 +24,15 @@ cd "${DIR}/docker"
 docker build . -t telemetrybalkan/ros
 docker-compose up -d
 
+sudo apt-get install ufw
+
 sudo ufw disable
 sudo ufw status
 
 docker ps
+
+sudo apt update && sudo apt install net-tools
+
 netstat -ln | grep 3000
 sudo netstat -tulpn
 
