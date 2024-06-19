@@ -36,6 +36,11 @@ module.exports = defineConfig({
       size: { width: 640, height: 480 }
     }
   },
+  webServer: {
+    command: 'ng s',
+    url: 'http://localhost:3000/',
+    reuseExistingServer: true
+  },
 
   /* Configure projects for major browsers */
   projects: [

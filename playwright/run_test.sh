@@ -35,6 +35,6 @@ set +e
 Xvfb :0 -screen 0 1024x768x24 +extension GLX +render -noreset >> xsession.log 2>&1 &
 export DISPLAY=:0
 
-CI=$1 npx playwright test
+CI=true npx playwright test
 
 exit 0
