@@ -6,12 +6,15 @@ on:
   push:
     branches: [ playwright-tests ]
   pull_request:
+    branches: [ develop ]
     types:
       - closed
   pull_request_review:
+    branches: [ develop ]
     types:
       - submitted
   pull_request_target:
+    branches: [ develop ]
     types:
       - closed
 jobs:
@@ -27,7 +30,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Pull request to develop branch or schedule
-        if: ((github.event.pull_request.merged == true) || (github.event.review.state == 'approved') || (github.event_name == 'schedule'))
+        if: ((github.event.pull_request.merged == true) || (github.event.review.state == 'approved') || (github.event.action == 'closed')|| (github.event_name == 'schedule'))
         uses: actions/checkout@v4
         with:
           ref: develop
@@ -37,7 +40,7 @@ jobs:
         with:
           ref: playwright-tests
       - name: Checkout to playwright-tests
-        if: ((github.event.pull_request.merged == true) || (github.event.review.state == 'approved') || (github.event_name == 'schedule'))
+        if: ((github.event.pull_request.merged == true) || (github.event.review.state == 'approved') || (github.event.action == 'closed') || (github.event_name == 'schedule'))
         uses: actions/checkout@v4
         with:
           ref: playwright-tests
