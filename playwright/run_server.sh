@@ -18,11 +18,11 @@ if [ "$REACT_APP_ENVIRONMENT" == "production" ]; then
     sed -i.bak 's/^REACT_APP_ENVIRONMENT=production/REACT_APP_ENVIRONMENT=development/' "$VARIABLES_FILE"
 fi
 
-sudo docker build . -t telemetrybalkan/orb
+docker build . -t telemetrybalkan/orb
 cd ..
 cd "${DIR}/docker"
-sudo docker build . -t telemetrybalkan/ros
-sudo docker compose up -d
+docker build . -t telemetrybalkan/ros
+docker-compose up -d
 
 sudo ufw disable
 sudo ufw status
