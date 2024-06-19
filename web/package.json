@@ -4,8 +4,8 @@
   "private": true,
   "scripts": {
     "preinstall": "npx npm-force-resolutions",
-    "start": "REACT_APP_HOST=$(ifconfig | sed -En 's/127.0.0.1//;s/.*inet (addr:)?(([0-9]*\\.){3}[0-9]*).*/\\2/p') react-scripts start",
-    "build": "REACT_APP_HOST=$(ifconfig | sed -En 's/127.0.0.1//;s/.*inet (addr:)?(([0-9]*\\.){3}[0-9]*).*/\\2/p') react-scripts build",
+    "start": "REACT_APP_HOST=$(ip addr show eth0 | grep 'inet ' | awk '{print $2}' | cut -d/ -f1) react-scripts start",
+    "build": "REACT_APP_HOST=$(ip addr show eth0 | grep 'inet ' | awk '{print $2}' | cut -d/ -f1) react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -13,6 +13,8 @@
     "react-error-overlay": "6.0.9"
   },
   "dependencies": {
+    "ajv": "^6.12.6",
+    "ajv-keywords": "^3.5.2",
     "@blockly/theme-dark": "^6.0.1",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
