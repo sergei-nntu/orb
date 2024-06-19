@@ -61,11 +61,15 @@ module.exports = class Tools {
     }
 
     async _reloadManipulator() {
-        const responsePromise = this.element.waitForResponse(resp => resp.url().includes('convert_pose') && resp.status() === 200);
+        // const responsePromise = this.element.waitForResponse(resp => resp.url().includes('convert_pose') && resp.status() === 200);
         await this.element.reload();
-        await responsePromise;
+        // await responsePromise;
 
-        await this._waitLoading();
+        const enabled = await this.element.locator('#button-down-z').isEnabled();
+
+        if(enabled){
+            await this._waitLoading();
+        }
     }
 
     async _reload() {
