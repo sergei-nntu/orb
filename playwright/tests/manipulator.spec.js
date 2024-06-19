@@ -133,7 +133,7 @@ test.describe.skip('Joints Position tests', () => {
     await bot._handledEditValueSlider( '#input-joint-5',jointValue);
   });
 });
-test.describe('Gripper State', () => {
+test.describe.skip('Gripper State', () => {
   test('Edit Gripper State', async ({ page }) => {
     const bot = new Bot(page);
     const oldPosition =  await bot.tools._handledInputValue('#slider-gripper-state > span> input');

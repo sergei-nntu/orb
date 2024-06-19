@@ -62,17 +62,6 @@ jobs:
 #      - name: Docker compose
 #        run: docker-compose up -d
 #        working-directory: ./docker
-#      - name: Install curl  - macOS
-#        if: matrix.os =='macos-11'
-#        run: |
-#          brew install curl
-#      - name: Install curl - ubuntu
-#        if: matrix.os == 'ubuntu-20.04'
-#        run: |
-#         sudo apt-get update; sudo apt-get install -y curl
-#      - name: Run curl
-#        run: |
-#          sudo curl http://localhost:3000
       - name: Install dependencies
         run: npm ci
         working-directory: ./playwright
@@ -81,15 +70,8 @@ jobs:
         working-directory: ./playwright
       - name: Run Server
         run: |
-         bash run_test.sh
+         bash run_server.sh
         working-directory: ./playwright
-#      - run: |
-#          sudo ufw disable
-#          sudo ufw status
-#      - run: |
-#          docker ps
-#          netstat -ln | grep 3000
-#          sudo netstat -tulpn
       - name: Run Playwright tests
         run: npx playwright test
         working-directory: ./playwright

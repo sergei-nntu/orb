@@ -14,7 +14,8 @@ phases:
       # - command
  build:
     commands:
-      - bash run_test.sh true
+      - bash run_server.sh true
+      - bash run_tests.sh true
 # post_build:
 #    commands:
 #      - bash generate_report.sh $iamUserAccessKeyId $iamUserSecretAccessKey
