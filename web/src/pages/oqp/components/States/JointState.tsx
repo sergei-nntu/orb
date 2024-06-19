@@ -3,7 +3,7 @@ import MuiInput from '@mui/material/Input';
 import Slider from '@mui/material/Slider';
 import { styled } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
-import React, { ChangeEvent, Dispatch, SetStateAction, useRef, useState } from 'react';
+import React, { ChangeEvent, Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
 
 import { IJointsStateOqp } from '../../../../types/appTypes';
 import { Item, StyledBox } from '../../../manipulator/components/StyledComponents/StyledComponents';
@@ -13,6 +13,7 @@ const Input = styled(MuiInput)`
 `;
 type JointStateProps = {
     setJointValue: Dispatch<SetStateAction<IJointsStateOqp>>;
+    jointValue: IJointsStateOqp;
     modelLoaded: boolean;
 };
 type SliderValue = number;
@@ -24,7 +25,7 @@ type HandleInputChangeFunction = (
 type HandleBlurFunction = (value: SliderValue, setValue: React.Dispatch<React.SetStateAction<SliderValue>>) => void;
 
 export default function JointsState(props: JointStateProps) {
-    const { setJointValue, modelLoaded } = props;
+    const { setJointValue, jointValue, modelLoaded } = props;
 
     const indexInp = useRef<number>();
     const valueInp = useRef<number[]>();
@@ -46,6 +47,11 @@ export default function JointsState(props: JointStateProps) {
         'Rear Right Reductor',
         'Rear Right Knee',
     ];
+
+    useEffect(() => {
+        const obj = Object.values(jointValue);
+        setValuesSlider(obj);
+    }, [jointValue]);
 
     const handleJointChange: HandleChangeFunction = (index, newValue) => {
         const newValues = [...valuesSlider];
@@ -153,64 +159,72 @@ export default function JointsState(props: JointStateProps) {
                 mt: 1,
             }}
         >
-            <StyledBox sx={{ width: '100%', display: 'flex' }} id="wrapp-slider">
-                <Grid item sx={{ width: '100%' }}>
-                    <Grid sx={{ display: 'flex', justifyContent: 'center' }}>JOINTS STATE</Grid>
-                    {valuesSlider.map((value, index) => (
-                        <Grid container sx={{ display: 'flex', marginTop: '5px' }} spacing={2} key={''} id="sliders">
-                            <Grid item xs sx={{ display: 'flex' }}>
-                                <Typography id="input-slider">{nameSlider[index]}</Typography>
+            <Grid container style={{ width: '570px', textAlign: 'left', flex: '0 0 auto' }} id="wrapp-slider">
+                <StyledBox sx={{ width: '100%', display: 'flex' }}>
+                    <Grid item sx={{ width: '100%' }}>
+                        <Grid sx={{ display: 'flex', justifyContent: 'center' }}>JOINTS STATE</Grid>
+                        {valuesSlider.map((value, index) => (
+                            <Grid
+                                container
+                                sx={{ display: 'flex', marginTop: '5px' }}
+                                spacing={2}
+                                key={index}
+                                id="sliders"
+                            >
+                                <Grid item xs sx={{ display: 'flex' }}>
+                                    <Typography id="input-slider">{nameSlider[index]}</Typography>
+                                </Grid>
+                                <Grid item xs={7}>
+                                    <Slider
+                                        value={value}
+                                        onChange={(_, newValue) => handleJointChange(index, newValue as SliderValue)}
+                                        aria-labelledby={`input-slider-${index}`}
+                                        disabled={!modelLoaded}
+                                        id={`slider-joint-${index}`}
+                                        min={-90}
+                                        max={90}
+                                    />
+                                </Grid>
+                                <Grid item>
+                                    <Input
+                                        sx={{ minWidth: '20px' }}
+                                        value={value}
+                                        size="small"
+                                        disabled={!modelLoaded}
+                                        onChange={(e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+                                            handleInputChange(e, (newValue) => {
+                                                const newValues = [...valuesSlider];
+                                                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                                                // @ts-expect-error
+                                                newValues[index] = newValue;
+                                                setValuesSlider(newValues);
+                                                indexInp.current = index;
+                                                valueInp.current = newValues;
+                                            })
+                                        }
+                                        onBlur={() =>
+                                            handleBlur(value, (newValue) => {
+                                                const newValues = [...valuesSlider];
+                                                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                                                // @ts-expect-error
+                                                newValues[index] = newValue;
+                                                setValuesSlider(newValues);
+                                            })
+                                        }
+                                        inputProps={{
+                                            step: 1,
+                                            min: -90,
+                                            max: 90,
+                                            type: 'number',
+                                            'aria-labelledby': 'input-slider-${index}',
+                                        }}
+                                    />
+                                </Grid>
                             </Grid>
-                            <Grid item xs={7}>
-                                <Slider
-                                    value={value}
-                                    onChange={(_, newValue) => handleJointChange(index, newValue as SliderValue)}
-                                    aria-labelledby={`input-slider-${index}`}
-                                    disabled={!modelLoaded}
-                                    id={`slider-joint-${index}`}
-                                    min={-90}
-                                    max={90}
-                                />
-                            </Grid>
-                            <Grid item>
-                                <Input
-                                    sx={{ minWidth: '20px' }}
-                                    value={value}
-                                    size="small"
-                                    disabled={!modelLoaded}
-                                    onChange={(e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
-                                        handleInputChange(e, (newValue) => {
-                                            const newValues = [...valuesSlider];
-                                            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                                            // @ts-expect-error
-                                            newValues[index] = newValue;
-                                            setValuesSlider(newValues);
-                                            indexInp.current = index;
-                                            valueInp.current = newValues;
-                                        })
-                                    }
-                                    onBlur={() =>
-                                        handleBlur(value, (newValue) => {
-                                            const newValues = [...valuesSlider];
-                                            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                                            // @ts-expect-error
-                                            newValues[index] = newValue;
-                                            setValuesSlider(newValues);
-                                        })
-                                    }
-                                    inputProps={{
-                                        step: 1,
-                                        min: -90,
-                                        max: 90,
-                                        type: 'number',
-                                        'aria-labelledby': 'input-slider-${index}',
-                                    }}
-                                />
-                            </Grid>
-                        </Grid>
-                    ))}
-                </Grid>
-            </StyledBox>
+                        ))}
+                    </Grid>
+                </StyledBox>
+            </Grid>
         </Item>
     );
 }
