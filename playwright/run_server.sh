@@ -27,6 +27,7 @@ docker-compose up -d
 sudo apt-get update
 sudo apt-get install ufw
 sudo ufw version
+sudo ufw status
 
 sudo ufw disable
 sudo ufw status
