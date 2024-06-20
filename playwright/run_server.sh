@@ -24,10 +24,10 @@ cd "${DIR}/docker"
 docker build . -t telemetrybalkan/ros
 docker-compose up -d
 
-sudo apt-get update
-sudo apt-get install ufw
+sudo apt update
+sudo apt install ufw
+
 sudo ufw version
-sudo update-alternatives --set iptables /usr/sbin/iptables-legacy
 sudo ufw status
 
 sudo ufw disable
