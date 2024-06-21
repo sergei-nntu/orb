@@ -74,6 +74,9 @@ module.exports = class Tools {
 
     async _reload() {
         await this.element.reload();
-        await this._waitLoading();
+        const enabled = await this.element.locator('#slider-joint-0').isEnabled();
+        if(enabled){
+            await this._waitLoading();
+        }
     }
 };
