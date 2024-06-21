@@ -191,6 +191,7 @@ export default function JointsState(props: JointStateProps) {
                                         value={value}
                                         size="small"
                                         disabled={!modelLoaded}
+                                        id={`input-joint-${index}`}
                                         onChange={(e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
                                             handleInputChange(e, (newValue) => {
                                                 const newValues = [...valuesSlider];
