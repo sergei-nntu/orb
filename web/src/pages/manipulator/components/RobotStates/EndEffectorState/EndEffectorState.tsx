@@ -36,7 +36,7 @@ export default function EndEffectorState(props: EndEffectorStateProps) {
     const [endEffectorStateInResponse, setEndEffectorStateInResponse] = useState<IPose>(INITIAL_POSE_STATE);
     const [endEffectorStateBeforeRequest, setEndEffectorStateBeforeRequest] = useState<IPose>(INITIAL_POSE_STATE);
 
-    const flagsLoading = useRef({
+    const [flagsLoading, setFlagsLoading] = useState({
         position: {
             flagLoadingX: false,
             flagLoadingY: false,
@@ -86,9 +86,21 @@ export default function EndEffectorState(props: EndEffectorStateProps) {
             if (endEffectorStateBeforeRequest.position.x !== state.position.x) {
                 setDisabledControlInterface(true);
                 setEndEffectorStateBeforeRequest(state);
-                flagsLoading.current.position.flagLoadingX = true;
+                setFlagsLoading((prev) => ({
+                    ...prev,
+                    position: {
+                        ...prev.position,
+                        flagLoadingX: true,
+                    },
+                }));
                 if (noMoveToPositionFlag.current) {
-                    flagsLoading.current.position.flagLoadingX = false; //
+                    setFlagsLoading((prev) => ({
+                        ...prev,
+                        position: {
+                            ...prev.position,
+                            flagLoadingX: false,
+                        },
+                    }));
                     setDisabledControlInterface(false);
                     noMoveToPositionFlag.current = false;
                 }
@@ -96,9 +108,21 @@ export default function EndEffectorState(props: EndEffectorStateProps) {
             if (endEffectorStateBeforeRequest.position.y !== state.position.y) {
                 setDisabledControlInterface(true);
                 setEndEffectorStateBeforeRequest(state);
-                flagsLoading.current.position.flagLoadingY = true;
+                setFlagsLoading((prev) => ({
+                    ...prev,
+                    position: {
+                        ...prev.position,
+                        flagLoadingY: true,
+                    },
+                }));
                 if (noMoveToPositionFlag.current) {
-                    flagsLoading.current.position.flagLoadingY = false;
+                    setFlagsLoading((prev) => ({
+                        ...prev,
+                        position: {
+                            ...prev.position,
+                            flagLoadingY: false,
+                        },
+                    }));
                     setDisabledControlInterface(false);
                     noMoveToPositionFlag.current = false;
                 }
@@ -106,9 +130,21 @@ export default function EndEffectorState(props: EndEffectorStateProps) {
             if (endEffectorStateBeforeRequest.position.z !== state.position.z) {
                 setDisabledControlInterface(true);
                 setEndEffectorStateBeforeRequest(state);
-                flagsLoading.current.position.flagLoadingZ = true;
+                setFlagsLoading((prev) => ({
+                    ...prev,
+                    position: {
+                        ...prev.position,
+                        flagLoadingZ: true,
+                    },
+                }));
                 if (noMoveToPositionFlag.current) {
-                    flagsLoading.current.position.flagLoadingZ = false;
+                    setFlagsLoading((prev) => ({
+                        ...prev,
+                        position: {
+                            ...prev.position,
+                            flagLoadingZ: false,
+                        },
+                    }));
                     setDisabledControlInterface(false);
                     noMoveToPositionFlag.current = false;
                 }
@@ -116,9 +152,21 @@ export default function EndEffectorState(props: EndEffectorStateProps) {
             if (endEffectorStateBeforeRequest.orientation.pitch !== state.orientation.pitch) {
                 setDisabledControlInterface(true);
                 setEndEffectorStateBeforeRequest(state);
-                flagsLoading.current.orientation.flagLoadingPitch = true;
+                setFlagsLoading((prev) => ({
+                    ...prev,
+                    orientation: {
+                        ...prev.orientation,
+                        flagLoadingPitch: true,
+                    },
+                }));
                 if (noMoveToPositionFlag.current) {
-                    flagsLoading.current.orientation.flagLoadingPitch = false;
+                    setFlagsLoading((prev) => ({
+                        ...prev,
+                        orientation: {
+                            ...prev.orientation,
+                            flagLoadingPitch: false,
+                        },
+                    }));
                     setDisabledControlInterface(false);
                     noMoveToPositionFlag.current = false;
                 }
@@ -126,9 +174,21 @@ export default function EndEffectorState(props: EndEffectorStateProps) {
             if (endEffectorStateBeforeRequest.orientation.roll !== state.orientation.roll) {
                 setDisabledControlInterface(true);
                 setEndEffectorStateBeforeRequest(state);
-                flagsLoading.current.orientation.flagLoadingRoll = true;
+                setFlagsLoading((prev) => ({
+                    ...prev,
+                    orientation: {
+                        ...prev.orientation,
+                        flagLoadingRoll: true,
+                    },
+                }));
                 if (noMoveToPositionFlag.current) {
-                    flagsLoading.current.orientation.flagLoadingRoll = false;
+                    setFlagsLoading((prev) => ({
+                        ...prev,
+                        orientation: {
+                            ...prev.orientation,
+                            flagLoadingRoll: false,
+                        },
+                    }));
                     setDisabledControlInterface(false);
                     noMoveToPositionFlag.current = false;
                 }
@@ -136,9 +196,21 @@ export default function EndEffectorState(props: EndEffectorStateProps) {
             if (endEffectorStateBeforeRequest.orientation.yaw !== state.orientation.yaw) {
                 setDisabledControlInterface(true);
                 setEndEffectorStateBeforeRequest(state);
-                flagsLoading.current.orientation.flagLoadingYaw = true;
+                setFlagsLoading((prev) => ({
+                    ...prev,
+                    orientation: {
+                        ...prev.orientation,
+                        flagLoadingYaw: true,
+                    },
+                }));
                 if (noMoveToPositionFlag.current) {
-                    flagsLoading.current.orientation.flagLoadingYaw = false;
+                    setFlagsLoading((prev) => ({
+                        ...prev,
+                        orientation: {
+                            ...prev.orientation,
+                            flagLoadingYaw: true,
+                        },
+                    }));
                     setDisabledControlInterface(false);
                     noMoveToPositionFlag.current = false;
                 }
@@ -151,32 +223,68 @@ export default function EndEffectorState(props: EndEffectorStateProps) {
             if (endEffectorStateInResponse.position.x !== endEffectorState.position.x) {
                 setDisabledControlInterface(false);
                 setEndEffectorStateInResponse(endEffectorState);
-                flagsLoading.current.position.flagLoadingX = false;
+                setFlagsLoading((prev) => ({
+                    ...prev,
+                    position: {
+                        ...prev.position,
+                        flagLoadingX: false,
+                    },
+                }));
             }
             if (endEffectorStateInResponse.position.y !== endEffectorState.position.y) {
                 setDisabledControlInterface(false);
                 setEndEffectorStateInResponse(endEffectorState);
-                flagsLoading.current.position.flagLoadingY = false;
+                setFlagsLoading((prev) => ({
+                    ...prev,
+                    position: {
+                        ...prev.position,
+                        flagLoadingY: false,
+                    },
+                }));
             }
             if (endEffectorStateInResponse.position.z !== endEffectorState.position.z) {
                 setDisabledControlInterface(false);
                 setEndEffectorStateInResponse(endEffectorState);
-                flagsLoading.current.position.flagLoadingZ = false;
+                setFlagsLoading((prev) => ({
+                    ...prev,
+                    position: {
+                        ...prev.position,
+                        flagLoadingZ: false,
+                    },
+                }));
             }
             if (endEffectorStateInResponse.orientation.pitch !== endEffectorState.orientation.pitch) {
                 setDisabledControlInterface(false);
                 setEndEffectorStateInResponse(endEffectorState);
-                flagsLoading.current.orientation.flagLoadingPitch = false;
+                setFlagsLoading((prev) => ({
+                    ...prev,
+                    orientation: {
+                        ...prev.orientation,
+                        flagLoadingPitch: false,
+                    },
+                }));
             }
             if (endEffectorStateInResponse.orientation.roll !== endEffectorState.orientation.roll) {
                 setDisabledControlInterface(false);
                 setEndEffectorStateInResponse(endEffectorState);
-                flagsLoading.current.orientation.flagLoadingRoll = false;
+                setFlagsLoading((prev) => ({
+                    ...prev,
+                    orientation: {
+                        ...prev.orientation,
+                        flagLoadingRoll: false,
+                    },
+                }));
             }
             if (endEffectorStateInResponse.orientation.yaw !== endEffectorState.orientation.yaw) {
                 setDisabledControlInterface(false);
                 setEndEffectorStateInResponse(endEffectorState);
-                flagsLoading.current.orientation.flagLoadingYaw = false;
+                setFlagsLoading((prev) => ({
+                    ...prev,
+                    orientation: {
+                        ...prev.orientation,
+                        flagLoadingYaw: false,
+                    },
+                }));
             }
         }
     }, [getEndEffectorState]);
@@ -193,7 +301,7 @@ export default function EndEffectorState(props: EndEffectorStateProps) {
                                     <Grid item sx={{ display: 'flex' }}>
                                         <StyledTag>x: </StyledTag>
                                     </Grid>
-                                    {flagsLoading.current.position.flagLoadingX ? (
+                                    {flagsLoading.position.flagLoadingX ? (
                                         <Grid
                                             item
                                             xs
@@ -221,7 +329,7 @@ export default function EndEffectorState(props: EndEffectorStateProps) {
                                     <Grid item sx={{ display: 'flex' }}>
                                         <StyledTag>y: </StyledTag>
                                     </Grid>
-                                    {flagsLoading.current.position.flagLoadingY ? (
+                                    {flagsLoading.position.flagLoadingY ? (
                                         <Grid
                                             item
                                             xs
@@ -249,7 +357,7 @@ export default function EndEffectorState(props: EndEffectorStateProps) {
                                     <Grid item sx={{ display: 'flex' }}>
                                         <StyledTag>z: </StyledTag>
                                     </Grid>
-                                    {flagsLoading.current.position.flagLoadingZ ? (
+                                    {flagsLoading.position.flagLoadingZ ? (
                                         <Grid
                                             item
                                             xs
@@ -284,7 +392,7 @@ export default function EndEffectorState(props: EndEffectorStateProps) {
                                     <Grid item sx={{ display: 'flex' }}>
                                         <StyledTag>pitch: </StyledTag>
                                     </Grid>
-                                    {flagsLoading.current.orientation.flagLoadingPitch ? (
+                                    {flagsLoading.orientation.flagLoadingPitch ? (
                                         <Grid
                                             item
                                             xs
@@ -312,7 +420,7 @@ export default function EndEffectorState(props: EndEffectorStateProps) {
                                     <Grid item sx={{ display: 'flex' }}>
                                         <StyledTag>roll: </StyledTag>
                                     </Grid>
-                                    {flagsLoading.current.orientation.flagLoadingRoll ? (
+                                    {flagsLoading.orientation.flagLoadingRoll ? (
                                         <Grid
                                             item
                                             xs
@@ -340,7 +448,7 @@ export default function EndEffectorState(props: EndEffectorStateProps) {
                                     <Grid item sx={{ display: 'flex' }}>
                                         <StyledTag>yaw: </StyledTag>
                                     </Grid>
-                                    {flagsLoading.current.orientation.flagLoadingYaw ? (
+                                    {flagsLoading.orientation.flagLoadingYaw ? (
                                         <Grid
                                             item
                                             xs
