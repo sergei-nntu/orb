@@ -81,26 +81,34 @@ export default function EndEffectorState(props: EndEffectorStateProps) {
         });
     };
 
+    const updateFlagsLoadingPosition = (axis: string, value: boolean) => {
+        setFlagsLoading((prev) => ({
+            ...prev,
+            position: {
+                ...prev.position,
+                [`flagLoading${axis.toUpperCase()}`]: value,
+            },
+        }));
+    };
+    const updateFlagsLoadingOrientation = (axis: string, value: boolean) => {
+        setFlagsLoading((prev) => ({
+            ...prev,
+            orientation: {
+                ...prev.orientation,
+                [`flagLoading${axis}`]: value,
+            },
+        }));
+    };
+
     useEffect(() => {
         if (!blocklyEnabled.current) {
             if (endEffectorStateBeforeRequest.position.x !== state.position.x) {
                 setDisabledControlInterface(true);
                 setEndEffectorStateBeforeRequest(state);
-                setFlagsLoading((prev) => ({
-                    ...prev,
-                    position: {
-                        ...prev.position,
-                        flagLoadingX: true,
-                    },
-                }));
+                updateFlagsLoadingPosition('x', true);
+
                 if (noMoveToPositionFlag.current) {
-                    setFlagsLoading((prev) => ({
-                        ...prev,
-                        position: {
-                            ...prev.position,
-                            flagLoadingX: false,
-                        },
-                    }));
+                    updateFlagsLoadingPosition('x', false);
                     setDisabledControlInterface(false);
                     noMoveToPositionFlag.current = false;
                 }
@@ -108,21 +116,9 @@ export default function EndEffectorState(props: EndEffectorStateProps) {
             if (endEffectorStateBeforeRequest.position.y !== state.position.y) {
                 setDisabledControlInterface(true);
                 setEndEffectorStateBeforeRequest(state);
-                setFlagsLoading((prev) => ({
-                    ...prev,
-                    position: {
-                        ...prev.position,
-                        flagLoadingY: true,
-                    },
-                }));
+                updateFlagsLoadingPosition('y', true);
                 if (noMoveToPositionFlag.current) {
-                    setFlagsLoading((prev) => ({
-                        ...prev,
-                        position: {
-                            ...prev.position,
-                            flagLoadingY: false,
-                        },
-                    }));
+                    updateFlagsLoadingPosition('y', false);
                     setDisabledControlInterface(false);
                     noMoveToPositionFlag.current = false;
                 }
@@ -130,21 +126,9 @@ export default function EndEffectorState(props: EndEffectorStateProps) {
             if (endEffectorStateBeforeRequest.position.z !== state.position.z) {
                 setDisabledControlInterface(true);
                 setEndEffectorStateBeforeRequest(state);
-                setFlagsLoading((prev) => ({
-                    ...prev,
-                    position: {
-                        ...prev.position,
-                        flagLoadingZ: true,
-                    },
-                }));
+                updateFlagsLoadingPosition('z', true);
                 if (noMoveToPositionFlag.current) {
-                    setFlagsLoading((prev) => ({
-                        ...prev,
-                        position: {
-                            ...prev.position,
-                            flagLoadingZ: false,
-                        },
-                    }));
+                    updateFlagsLoadingPosition('z', false);
                     setDisabledControlInterface(false);
                     noMoveToPositionFlag.current = false;
                 }
@@ -152,21 +136,9 @@ export default function EndEffectorState(props: EndEffectorStateProps) {
             if (endEffectorStateBeforeRequest.orientation.pitch !== state.orientation.pitch) {
                 setDisabledControlInterface(true);
                 setEndEffectorStateBeforeRequest(state);
-                setFlagsLoading((prev) => ({
-                    ...prev,
-                    orientation: {
-                        ...prev.orientation,
-                        flagLoadingPitch: true,
-                    },
-                }));
+                updateFlagsLoadingOrientation('Pitch', true);
                 if (noMoveToPositionFlag.current) {
-                    setFlagsLoading((prev) => ({
-                        ...prev,
-                        orientation: {
-                            ...prev.orientation,
-                            flagLoadingPitch: false,
-                        },
-                    }));
+                    updateFlagsLoadingOrientation('Pitch', false);
                     setDisabledControlInterface(false);
                     noMoveToPositionFlag.current = false;
                 }
@@ -174,21 +146,9 @@ export default function EndEffectorState(props: EndEffectorStateProps) {
             if (endEffectorStateBeforeRequest.orientation.roll !== state.orientation.roll) {
                 setDisabledControlInterface(true);
                 setEndEffectorStateBeforeRequest(state);
-                setFlagsLoading((prev) => ({
-                    ...prev,
-                    orientation: {
-                        ...prev.orientation,
-                        flagLoadingRoll: true,
-                    },
-                }));
+                updateFlagsLoadingOrientation('Roll', true);
                 if (noMoveToPositionFlag.current) {
-                    setFlagsLoading((prev) => ({
-                        ...prev,
-                        orientation: {
-                            ...prev.orientation,
-                            flagLoadingRoll: false,
-                        },
-                    }));
+                    updateFlagsLoadingOrientation('Roll', false);
                     setDisabledControlInterface(false);
                     noMoveToPositionFlag.current = false;
                 }
@@ -196,25 +156,20 @@ export default function EndEffectorState(props: EndEffectorStateProps) {
             if (endEffectorStateBeforeRequest.orientation.yaw !== state.orientation.yaw) {
                 setDisabledControlInterface(true);
                 setEndEffectorStateBeforeRequest(state);
-                setFlagsLoading((prev) => ({
-                    ...prev,
-                    orientation: {
-                        ...prev.orientation,
-                        flagLoadingYaw: true,
-                    },
-                }));
+                updateFlagsLoadingOrientation('Yaw', true);
                 if (noMoveToPositionFlag.current) {
-                    setFlagsLoading((prev) => ({
-                        ...prev,
-                        orientation: {
-                            ...prev.orientation,
-                            flagLoadingYaw: true,
-                        },
-                    }));
+                    updateFlagsLoadingOrientation('Yaw', false);
                     setDisabledControlInterface(false);
                     noMoveToPositionFlag.current = false;
                 }
             }
+        } else if (blocklyEnabled.current) {
+            updateFlagsLoadingPosition('x', false);
+            updateFlagsLoadingPosition('y', false);
+            updateFlagsLoadingPosition('z', false);
+            updateFlagsLoadingPosition('Pitch', false);
+            updateFlagsLoadingPosition('Roll', false);
+            updateFlagsLoadingPosition('Yaw', false);
         }
     }, [state]);
 
@@ -223,68 +178,32 @@ export default function EndEffectorState(props: EndEffectorStateProps) {
             if (endEffectorStateInResponse.position.x !== endEffectorState.position.x) {
                 setDisabledControlInterface(false);
                 setEndEffectorStateInResponse(endEffectorState);
-                setFlagsLoading((prev) => ({
-                    ...prev,
-                    position: {
-                        ...prev.position,
-                        flagLoadingX: false,
-                    },
-                }));
+                updateFlagsLoadingPosition('x', false);
             }
             if (endEffectorStateInResponse.position.y !== endEffectorState.position.y) {
                 setDisabledControlInterface(false);
                 setEndEffectorStateInResponse(endEffectorState);
-                setFlagsLoading((prev) => ({
-                    ...prev,
-                    position: {
-                        ...prev.position,
-                        flagLoadingY: false,
-                    },
-                }));
+                updateFlagsLoadingPosition('y', false);
             }
             if (endEffectorStateInResponse.position.z !== endEffectorState.position.z) {
                 setDisabledControlInterface(false);
                 setEndEffectorStateInResponse(endEffectorState);
-                setFlagsLoading((prev) => ({
-                    ...prev,
-                    position: {
-                        ...prev.position,
-                        flagLoadingZ: false,
-                    },
-                }));
+                updateFlagsLoadingPosition('z', false);
             }
             if (endEffectorStateInResponse.orientation.pitch !== endEffectorState.orientation.pitch) {
                 setDisabledControlInterface(false);
                 setEndEffectorStateInResponse(endEffectorState);
-                setFlagsLoading((prev) => ({
-                    ...prev,
-                    orientation: {
-                        ...prev.orientation,
-                        flagLoadingPitch: false,
-                    },
-                }));
+                updateFlagsLoadingOrientation('Pitch', false);
             }
             if (endEffectorStateInResponse.orientation.roll !== endEffectorState.orientation.roll) {
                 setDisabledControlInterface(false);
                 setEndEffectorStateInResponse(endEffectorState);
-                setFlagsLoading((prev) => ({
-                    ...prev,
-                    orientation: {
-                        ...prev.orientation,
-                        flagLoadingRoll: false,
-                    },
-                }));
+                updateFlagsLoadingOrientation('Roll', false);
             }
             if (endEffectorStateInResponse.orientation.yaw !== endEffectorState.orientation.yaw) {
                 setDisabledControlInterface(false);
                 setEndEffectorStateInResponse(endEffectorState);
-                setFlagsLoading((prev) => ({
-                    ...prev,
-                    orientation: {
-                        ...prev.orientation,
-                        flagLoadingYaw: false,
-                    },
-                }));
+                updateFlagsLoadingOrientation('Yaw', false);
             }
         }
     }, [getEndEffectorState]);
