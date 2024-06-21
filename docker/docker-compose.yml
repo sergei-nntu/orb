@@ -1,4 +1,4 @@
-version: '3'
+version: "3"
 
 services:
   orb:
@@ -16,7 +16,7 @@ services:
       - /dev:/dev
     # Working only on linux
     # devices:
-      # - /dev/ttyUSB0:/dev/ttyUSB0
+    # - /dev/ttyUSB0:/dev/ttyUSB0
     command:
       - /bin/bash
       - -c
@@ -30,9 +30,7 @@ services:
         cd ../orm/src/python
         python3 orm_http_server.py &
         sleep 5
-        python3 orm_usb_controller.py &
-        sleep 5
-        python3 orm_http_server_publisher.py
+        python3 orm_usb_controller.py
     ports:
       - "5001:5001"
     networks:
