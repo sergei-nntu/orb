@@ -74,7 +74,7 @@ module.exports = class Tools {
 
     async _reload() {
         await this.element.reload();
-        const enabled = await this.element.locator('#slider-joint-0').isEnabled();
+        const enabled = await this.element.locator('#input-joint-0').isEnabled();
         if(enabled){
             await this._waitLoading();
         }
