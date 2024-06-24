@@ -11,7 +11,7 @@ test.beforeEach('Dog',async ({ page }) => {
         height: 1080,
     });
     await bot.tools.element.goto('http://localhost:3000/oqp');
-    const enabled = await bot.tools.element.locator('#slider-joint-0').isEnabled();
+    const enabled = await bot.tools.element.locator('#input-joint-0').isEnabled();
 
     // await bot.tools._handledButtonByTestId('SmartToyIcon');
 
