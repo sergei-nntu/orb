@@ -2,7 +2,7 @@ const { test, expect } = require('@playwright/test');
 const Bot = require("./bot");
 const shoulderValue = "-5";
 const reductorValue = "-45";
-const kneeValue = "85";
+const kneeValue = "80";
 
 test.beforeEach('Dog',async ({ page }) => {
     const bot = new Bot(page);
@@ -11,7 +11,9 @@ test.beforeEach('Dog',async ({ page }) => {
         height: 1080,
     });
     await bot.tools.element.goto('http://localhost:3000/oqp');
-    const enabled = await bot.tools.element.locator('#input-joint-0').isEnabled();
+    // const enabled = await bot.tools.element.locator('#input-joint-0').isEnabled();
+
+    await bot.element.locator('span[class*= disabled]').last().waitFor({state:'hidden'});
 
     // await bot.tools._handledButtonByTestId('SmartToyIcon');
 
@@ -19,10 +21,10 @@ test.beforeEach('Dog',async ({ page }) => {
     // await bot.tools.element.goto('http://localhost:3000/oqp');
     // await responsePromise;
 
-    if(enabled){
-        const locator = bot.tools.element.locator('//div[text()=\'OQP\']');
-        await expect(locator).toContainText('OQP');
-    }
+    // if(enabled){
+    const locator = bot.tools.element.locator('//div[text()=\'OQP\']');
+    await expect(locator).toContainText('OQP');
+    // }
 
 });
 test.describe('Edit Front Left', () => {

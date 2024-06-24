@@ -9,7 +9,9 @@ test.beforeEach('Manipulator',async ({ page }) => {
     height: 1080,
   });
   await bot.tools.element.goto('http://localhost:3000/manipulator');
-  const enabled = await bot.tools.element.locator('#button-down-z').isEnabled();
+  // const enabled = await bot.tools.element.locator('#button-down-z').isEnabled();
+
+  await bot.element.locator('svg[class*= Disabled]').last().waitFor({state:'hidden'});
   // await bot.tools._waitLoading();
 
   // const responsePromise = bot.tools.element.waitForResponse(resp => resp.url().includes('convert_pose') && resp.status() === 200);
@@ -18,10 +20,10 @@ test.beforeEach('Manipulator',async ({ page }) => {
 
   // await bot.tools._handledButtonByTestId('PrecisionManufacturingIcon');
 
-  if(enabled){
-    const locator = bot.tools.element.locator('//div[text()=\'Manipulator\']');
-    await expect(locator).toContainText('Manipulator');
-  }
+  // if(enabled){
+  const locator = bot.tools.element.locator('//div[text()=\'Manipulator\']');
+  await expect(locator).toContainText('Manipulator');
+  // }
 
 });
 test.describe('Position', () => {
