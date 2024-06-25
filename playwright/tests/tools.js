@@ -19,8 +19,8 @@ module.exports = class Tools {
     }
     async _handledButton(selector, wait = false, button) {
         await this.element.locator(selector).click();
+        await this.element.waitForTimeout(2000);
         await this.element.locator(`#progress-bar-${button}`).waitFor({state:'hidden'});
-        // await this.element.waitForTimeout(2000);
         if (wait) await this._waitLoading();
     }
 
@@ -36,8 +36,9 @@ module.exports = class Tools {
     async _handledKeyButton( button){
         await this.element.keyboard.down(button);
         await this.element.keyboard.up(button);
+        await this.element.waitForTimeout(2000);
         await this.element.locator('span[id*= progress-bar]').last().waitFor({state:'hidden'});
-        // await this.element.waitForTimeout(2000);
+
     }
 
     async _waitFor(selector, state){
@@ -67,20 +68,18 @@ module.exports = class Tools {
 
         // const enabled = await this.element.locator('#button-down-z').isEnabled();
 
-        await this.element.locator('svg[class*= Disabled]').last().waitFor({state:'hidden'});
-
         // if(enabled){
         await this._waitLoading();
+        await this.element.locator('svg[class*= Disabled]').last().waitFor({state:'hidden'});
         // }
     }
 
     async _reload() {
         await this.element.reload();
         // const enabled = await this.element.locator('#input-joint-0').isEnabled();
-
-        await this.element.locator('span[class*= disabled]').last().waitFor({state:'hidden'});
         // if(enabled){
         await this._waitLoading();
+        await this.element.locator('span[class*= disabled]').last().waitFor({state:'hidden'});
         // }
     }
 };
