@@ -6,7 +6,12 @@ import { POSE } from '../../../../../types/appTypes';
 import { StyledBox } from '../../StyledComponents/StyledComponents';
 import { PoseProps } from '../Pose';
 
-export default function Position({ remoteControlEnabled, disabledControlInterface }: PoseProps) {
+export default function Position({
+    remoteControlEnabled,
+    disabledControlInterface,
+    setDisabledControlInterface,
+    flagsLoading,
+}: PoseProps) {
     const { dispatch } = useContext(PoseContext);
     const [keyState, setKeyState] = useState({
         w: false,
@@ -23,6 +28,19 @@ export default function Position({ remoteControlEnabled, disabledControlInterfac
     const handleKeyDown = (e: KeyboardEvent) => {
         if (stateDisabledControlInterface.current || keyDownInProgressRef.current) {
             return;
+        }
+
+        if (e.key.toLowerCase() === 'w' || e.key.toLowerCase() === 's') {
+            setDisabledControlInterface(true);
+            flagsLoading.current.flagLoadingY = true;
+        }
+        if (e.key.toLowerCase() === 'a' || e.key.toLowerCase() === 'd') {
+            setDisabledControlInterface(true);
+            flagsLoading.current.flagLoadingX = true;
+        }
+        if (e.key.toLowerCase() === 'q' || e.key.toLowerCase() === 'e') {
+            setDisabledControlInterface(true);
+            flagsLoading.current.flagLoadingZ = true;
         }
 
         const key = e.key.toLowerCase();
@@ -95,6 +113,19 @@ export default function Position({ remoteControlEnabled, disabledControlInterfac
             [key]: true,
         }));
 
+        if (key === 'w' || key === 's') {
+            setDisabledControlInterface(true);
+            flagsLoading.current.flagLoadingY = true;
+        }
+        if (key === 'a' || key === 'd') {
+            setDisabledControlInterface(true);
+            flagsLoading.current.flagLoadingX = true;
+        }
+        if (key === 'q' || key === 'e') {
+            setDisabledControlInterface(true);
+            flagsLoading.current.flagLoadingZ = true;
+        }
+
         remoteControlEnabled.current = true;
         dispatch({ type: action });
     };
@@ -105,7 +136,6 @@ export default function Position({ remoteControlEnabled, disabledControlInterfac
             [key]: false,
         }));
     };
-
     return (
         <StyledBox sx={{ mr: { md: 0, xs: 1 }, height: { xs: '280px' } }}>
             Position

@@ -6,6 +6,7 @@ import { JointsStateContext } from '../../contexts/JointsStateContext/JointsStat
 import useHttp from '../../hooks/Http/Http';
 import { useRouter } from '../../hooks/Router/Router';
 import { useUsbConnection } from '../../hooks/UsbConnection/UsbConnection';
+import { FlagsLoaders } from '../../types/appTypes';
 import Pose from './components/Pose/Pose';
 import RobotCamera from './components/RobotCamera/RobotCamera';
 import RobotModel from './components/RobotModel/RobotModel';
@@ -28,6 +29,15 @@ export default function Manipulator() {
 
     const [stateProgress, setStateProgress] = useState<boolean>(false);
     const [disabledControlInterface, setDisabledControlInterface] = useState<boolean>(false);
+
+    const flagsLoading = useRef<FlagsLoaders>({
+        flagLoadingX: false,
+        flagLoadingY: false,
+        flagLoadingZ: false,
+        flagLoadingPitch: false,
+        flagLoadingRoll: false,
+        flagLoadingYaw: false,
+    });
 
     useEffect(() => {
         checkUsbConnection().then();
@@ -107,6 +117,7 @@ export default function Manipulator() {
                 disabledControlInterface={disabledControlInterface}
                 setDisabledControlInterface={setDisabledControlInterface}
                 flagControlDisableInterface={flagControlDisableInterface}
+                flagsLoading={flagsLoading}
             />
             <Grid item sm={12} md={4} lg={6}>
                 <RobotModel setStateProgress={setStateProgress} />

@@ -119,3 +119,12 @@ export type UserConsoleMessage = {
     text: string;
     time: string;
 };
+
+export interface FlagsLoaders {
+    flagLoadingX: boolean;
+    flagLoadingY: boolean;
+    flagLoadingZ: boolean;
+    flagLoadingPitch: boolean;
+    flagLoadingRoll: boolean;
+    flagLoadingYaw: boolean;
+}

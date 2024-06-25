@@ -9,7 +9,12 @@ import { POSE } from '../../../../../types/appTypes';
 import { StyledBox } from '../../StyledComponents/StyledComponents';
 import { PoseProps } from '../Pose';
 
-export default function Orientation({ remoteControlEnabled, disabledControlInterface }: PoseProps) {
+export default function Orientation({
+    remoteControlEnabled,
+    disabledControlInterface,
+    setDisabledControlInterface,
+    flagsLoading,
+}: PoseProps) {
     const { dispatch } = useContext(PoseContext);
     const [keyState, setKeyState] = useState({
         1: false,
@@ -33,6 +38,19 @@ export default function Orientation({ remoteControlEnabled, disabledControlInter
             [key]: true,
         }));
 
+        if (key === '1' || key === 'z') {
+            setDisabledControlInterface(true);
+            flagsLoading.current.flagLoadingPitch = true;
+        }
+        if (key === '2' || key === 'x') {
+            setDisabledControlInterface(true);
+            flagsLoading.current.flagLoadingRoll = true;
+        }
+        if (key === '3' || key === 'c') {
+            setDisabledControlInterface(true);
+            flagsLoading.current.flagLoadingYaw = true;
+        }
+
         remoteControlEnabled.current = true;
         dispatch({ type: action });
     };
@@ -48,6 +66,20 @@ export default function Orientation({ remoteControlEnabled, disabledControlInter
         if (stateDisabledControlInterface.current || keyDownInProgressRef.current) {
             return;
         }
+
+        if (e.key.toLowerCase() === '1' || e.key.toLowerCase() === 'z') {
+            setDisabledControlInterface(true);
+            flagsLoading.current.flagLoadingPitch = true;
+        }
+        if (e.key.toLowerCase() === '2' || e.key.toLowerCase() === 'x') {
+            setDisabledControlInterface(true);
+            flagsLoading.current.flagLoadingRoll = true;
+        }
+        if (e.key.toLowerCase() === '3' || e.key.toLowerCase() === 'c') {
+            setDisabledControlInterface(true);
+            flagsLoading.current.flagLoadingYaw = true;
+        }
+
         const key = e.key.toLowerCase();
         if (key in keyState) {
             keyDownInProgressRef.current = true;

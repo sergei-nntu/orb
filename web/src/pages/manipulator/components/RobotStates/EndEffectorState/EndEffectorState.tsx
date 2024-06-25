@@ -1,12 +1,12 @@
 import { CircularProgress, Grid } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
-import React, { Dispatch, SetStateAction, useContext, useEffect, useRef, useState } from 'react';
+import React, { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
 
 import { API_ROUTES, INITIAL_POSE_STATE } from '../../../../../constants';
-import { PoseContext } from '../../../../../contexts/PoseContext/PoseContext';
+// import { PoseContext } from '../../../../../contexts/PoseContext/PoseContext';
 import useHttp from '../../../../../hooks/Http/Http';
-import { IPose } from '../../../../../types/appTypes';
+import { FlagsLoaders, IPose } from '../../../../../types/appTypes';
 import { StyledBox } from '../../StyledComponents/StyledComponents';
 
 type EndEffectorStateProps = {
@@ -15,39 +15,25 @@ type EndEffectorStateProps = {
     disabledControlInterface: boolean;
     setDisabledControlInterface: Dispatch<SetStateAction<boolean>>;
     flagControlDisableInterface: React.MutableRefObject<boolean> | undefined;
+    flagsLoading: React.MutableRefObject<FlagsLoaders>;
 };
 
 export default function EndEffectorState(props: EndEffectorStateProps) {
     const {
-        blocklyEnabled,
+        // blocklyEnabled,
         setDisabledControlInterface,
         disabledControlInterface,
         noMoveToPositionFlag,
         flagControlDisableInterface,
+        flagsLoading,
     } = props;
 
     const { request } = useHttp();
 
-    const { state } = useContext(PoseContext);
-
     const interval = useRef<string | number | NodeJS.Timeout | undefined>(undefined);
     const [endEffectorState, setEndEffectorState] = useState<IPose>(INITIAL_POSE_STATE);
 
-    const [endEffectorStateInResponse, setEndEffectorStateInResponse] = useState<IPose>(INITIAL_POSE_STATE);
-    const [endEffectorStateBeforeRequest, setEndEffectorStateBeforeRequest] = useState<IPose>(INITIAL_POSE_STATE);
-
-    const [flagsLoading, setFlagsLoading] = useState({
-        position: {
-            flagLoadingX: false,
-            flagLoadingY: false,
-            flagLoadingZ: false,
-        },
-        orientation: {
-            flagLoadingPitch: false,
-            flagLoadingRoll: false,
-            flagLoadingYaw: false,
-        },
-    });
+    // const endEffectorState = useRef<IPose>(INITIAL_POSE_STATE);
 
     const StyledTag = styled('strong')(({ theme }) => ({
         color: disabledControlInterface ? theme.palette.grey.A700 : theme.palette.primary.main,
@@ -81,85 +67,55 @@ export default function EndEffectorState(props: EndEffectorStateProps) {
         });
     };
 
-    const updateFlagsLoading = (axis: string, value: boolean, type: 'position' | 'orientation') => {
-        setFlagsLoading((prev) => ({
-            ...prev,
-            [type]: {
-                ...prev[type],
-                [type === 'position' ? `flagLoading${axis.toUpperCase()}` : `flagLoading${axis}`]: value,
-            },
-        }));
-    };
-
-    const stateBeeforeRequest = (axis: string, compareState: boolean, type: 'position' | 'orientation') => {
-        if (!blocklyEnabled.current) {
-            if (compareState) {
-                setDisabledControlInterface(true);
-                setEndEffectorStateBeforeRequest(state);
-                updateFlagsLoading(axis, true, type);
-
-                if (noMoveToPositionFlag.current) {
-                    updateFlagsLoading(axis, false, type);
-                    setDisabledControlInterface(false);
-                    noMoveToPositionFlag.current = false;
-                }
-            } else if (blocklyEnabled.current) {
-                const flags = ['x', 'y', 'z', 'Pitch', 'Roll', 'Yaw'];
-                flags.forEach((flag) =>
-                    updateFlagsLoading(flag, false, flag.length === 1 ? 'position' : 'orientation'),
-                );
-            }
-        }
-    };
-
-    const stateInResponse = (axis: string, compareState: boolean, type: 'position' | 'orientation') => {
-        if (!blocklyEnabled.current && flagControlDisableInterface!.current) {
-            if (compareState) {
+    useEffect(() => {
+        switch (true) {
+            case flagsLoading.current.flagLoadingX:
+                flagsLoading.current.flagLoadingX = false;
                 setDisabledControlInterface(false);
-                setEndEffectorStateInResponse(endEffectorState);
-                updateFlagsLoading(axis, false, type);
-            }
+                break;
+            case flagsLoading.current.flagLoadingY:
+                flagsLoading.current.flagLoadingY = false;
+                setDisabledControlInterface(false);
+                break;
+            case flagsLoading.current.flagLoadingZ:
+                flagsLoading.current.flagLoadingZ = false;
+                setDisabledControlInterface(false);
+                break;
+            case flagsLoading.current.flagLoadingPitch:
+                flagsLoading.current.flagLoadingPitch = false;
+                setDisabledControlInterface(false);
+                break;
+            case flagsLoading.current.flagLoadingRoll:
+                flagsLoading.current.flagLoadingRoll = false;
+                setDisabledControlInterface(false);
+                break;
+            case flagsLoading.current.flagLoadingYaw:
+                flagsLoading.current.flagLoadingYaw = false;
+                setDisabledControlInterface(false);
+                break;
         }
-    };
+        console.log('THI(S');
+    }, [
+        endEffectorState.position.x,
+        endEffectorState.position.y,
+        endEffectorState.position.z,
+        endEffectorState.orientation.pitch,
+        endEffectorState.orientation.roll,
+        endEffectorState.orientation.yaw,
+    ]);
 
     useEffect(() => {
-        stateBeeforeRequest('x', endEffectorStateBeforeRequest.position.x !== state.position.x, 'position');
-        stateBeeforeRequest('y', endEffectorStateBeforeRequest.position.y !== state.position.y, 'position');
-        stateBeeforeRequest('z', endEffectorStateBeforeRequest.position.z !== state.position.z, 'position');
-        stateBeeforeRequest(
-            'Pitch',
-            endEffectorStateBeforeRequest.orientation.pitch !== state.orientation.pitch,
-            'orientation',
-        );
-        stateBeeforeRequest(
-            'Roll',
-            endEffectorStateBeforeRequest.orientation.roll !== state.orientation.roll,
-            'orientation',
-        );
-        stateBeeforeRequest(
-            'Yaw',
-            endEffectorStateBeforeRequest.orientation.yaw !== state.orientation.yaw,
-            'orientation',
-        );
-        stateInResponse('x', endEffectorStateInResponse.position.x !== endEffectorState.position.x, 'position');
-        stateInResponse('y', endEffectorStateInResponse.position.y !== endEffectorState.position.y, 'position');
-        stateInResponse('z', endEffectorStateInResponse.position.z !== endEffectorState.position.z, 'position');
-        stateInResponse(
-            'Pitch',
-            endEffectorStateInResponse.orientation.pitch !== endEffectorState.orientation.pitch,
-            'orientation',
-        );
-        stateInResponse(
-            'Roll',
-            endEffectorStateInResponse.orientation.roll !== endEffectorState.orientation.roll,
-            'orientation',
-        );
-        stateInResponse(
-            'Yaw',
-            endEffectorStateInResponse.orientation.yaw !== endEffectorState.orientation.yaw,
-            'orientation',
-        );
-    }, [state, getEndEffectorState]);
+        flagsLoading.current.flagLoadingX = false;
+        flagsLoading.current.flagLoadingY = false;
+        flagsLoading.current.flagLoadingZ = false;
+        flagsLoading.current.flagLoadingPitch = false;
+        flagsLoading.current.flagLoadingRoll = false;
+        flagsLoading.current.flagLoadingYaw = false;
+        noMoveToPositionFlag.current = false;
+        if (flagControlDisableInterface?.current) {
+            setDisabledControlInterface(false);
+        }
+    }, [noMoveToPositionFlag.current]);
 
     return (
         <StyledBox sx={{ mt: { md: 1, sm: 0 }, height: { md: '150px', xs: '280px' } }}>
@@ -173,7 +129,7 @@ export default function EndEffectorState(props: EndEffectorStateProps) {
                                     <Grid item sx={{ display: 'flex' }}>
                                         <StyledTag>x: </StyledTag>
                                     </Grid>
-                                    {flagsLoading.position.flagLoadingX ? (
+                                    {flagsLoading.current.flagLoadingX ? (
                                         <Grid
                                             item
                                             xs
@@ -201,7 +157,7 @@ export default function EndEffectorState(props: EndEffectorStateProps) {
                                     <Grid item sx={{ display: 'flex' }}>
                                         <StyledTag>y: </StyledTag>
                                     </Grid>
-                                    {flagsLoading.position.flagLoadingY ? (
+                                    {flagsLoading.current.flagLoadingY ? (
                                         <Grid
                                             item
                                             xs
@@ -229,7 +185,7 @@ export default function EndEffectorState(props: EndEffectorStateProps) {
                                     <Grid item sx={{ display: 'flex' }}>
                                         <StyledTag>z: </StyledTag>
                                     </Grid>
-                                    {flagsLoading.position.flagLoadingZ ? (
+                                    {flagsLoading.current.flagLoadingZ ? (
                                         <Grid
                                             item
                                             xs
@@ -264,7 +220,7 @@ export default function EndEffectorState(props: EndEffectorStateProps) {
                                     <Grid item sx={{ display: 'flex' }}>
                                         <StyledTag>pitch: </StyledTag>
                                     </Grid>
-                                    {flagsLoading.orientation.flagLoadingPitch ? (
+                                    {flagsLoading.current.flagLoadingPitch ? (
                                         <Grid
                                             item
                                             xs
@@ -292,7 +248,7 @@ export default function EndEffectorState(props: EndEffectorStateProps) {
                                     <Grid item sx={{ display: 'flex' }}>
                                         <StyledTag>roll: </StyledTag>
                                     </Grid>
-                                    {flagsLoading.orientation.flagLoadingRoll ? (
+                                    {flagsLoading.current.flagLoadingRoll ? (
                                         <Grid
                                             item
                                             xs
@@ -320,7 +276,7 @@ export default function EndEffectorState(props: EndEffectorStateProps) {
                                     <Grid item sx={{ display: 'flex' }}>
                                         <StyledTag>yaw: </StyledTag>
                                     </Grid>
-                                    {flagsLoading.orientation.flagLoadingYaw ? (
+                                    {flagsLoading.current.flagLoadingYaw ? (
                                         <Grid
                                             item
                                             xs
