@@ -13,7 +13,7 @@ test.beforeEach('Dog',async ({ page }) => {
     await bot.tools.element.goto('http://localhost:3000/oqp');
     // const enabled = await bot.tools.element.locator('#input-joint-0').isEnabled();
 
-    await bot.element.locator('span[class*= disabled]').last().waitFor({state:'hidden'});
+    await bot.tools.element.locator('span[class*= disabled]').last().waitFor({state:'hidden'});
 
     // await bot.tools._handledButtonByTestId('SmartToyIcon');
 

@@ -11,7 +11,7 @@ test.beforeEach('Manipulator',async ({ page }) => {
   await bot.tools.element.goto('http://localhost:3000/manipulator');
   // const enabled = await bot.tools.element.locator('#button-down-z').isEnabled();
 
-  await bot.element.locator('svg[class*= Disabled]').last().waitFor({state:'hidden'});
+  await bot.tools.element.locator('svg[class*= Disabled]').last().waitFor({state:'hidden'});
   // await bot.tools._waitLoading();
 
   // const responsePromise = bot.tools.element.waitForResponse(resp => resp.url().includes('convert_pose') && resp.status() === 200);
