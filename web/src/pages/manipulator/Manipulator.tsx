@@ -26,6 +26,7 @@ export default function Manipulator() {
     const remoteControlEnabled = useRef<boolean>(true);
     const blocklyEnabled = useRef<boolean>(false);
     const flagControlDisableInterface = useRef<boolean>(false);
+    const seconds = useRef(0);
 
     const [stateProgress, setStateProgress] = useState<boolean>(false);
     const [disabledControlInterface, setDisabledControlInterface] = useState<boolean>(false);
@@ -103,8 +104,17 @@ export default function Manipulator() {
 
     useEffect(() => {
         if (!blocklyEnabled.current && stateProgress) {
-            setDisabledControlInterface(false);
-            flagControlDisableInterface.current = true;
+            interval.current = setInterval(() => {
+                seconds.current++;
+                if (seconds.current === 15) {
+                    clearInterval(interval.current);
+                    seconds.current = 0;
+
+                    setDisabledControlInterface(false);
+                    flagControlDisableInterface.current = true;
+                    return;
+                }
+            }, 100);
         } else {
             setDisabledControlInterface(true);
         }

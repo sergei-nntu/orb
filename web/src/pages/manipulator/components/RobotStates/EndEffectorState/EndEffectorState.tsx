@@ -4,7 +4,6 @@ import Typography from '@mui/material/Typography';
 import React, { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
 
 import { API_ROUTES, INITIAL_POSE_STATE } from '../../../../../constants';
-// import { PoseContext } from '../../../../../contexts/PoseContext/PoseContext';
 import useHttp from '../../../../../hooks/Http/Http';
 import { FlagsLoaders, IPose } from '../../../../../types/appTypes';
 import { StyledBox } from '../../StyledComponents/StyledComponents';
@@ -20,7 +19,6 @@ type EndEffectorStateProps = {
 
 export default function EndEffectorState(props: EndEffectorStateProps) {
     const {
-        // blocklyEnabled,
         setDisabledControlInterface,
         disabledControlInterface,
         noMoveToPositionFlag,
@@ -32,8 +30,6 @@ export default function EndEffectorState(props: EndEffectorStateProps) {
 
     const interval = useRef<string | number | NodeJS.Timeout | undefined>(undefined);
     const [endEffectorState, setEndEffectorState] = useState<IPose>(INITIAL_POSE_STATE);
-
-    // const endEffectorState = useRef<IPose>(INITIAL_POSE_STATE);
 
     const StyledTag = styled('strong')(({ theme }) => ({
         color: disabledControlInterface ? theme.palette.grey.A700 : theme.palette.primary.main,
@@ -68,33 +64,34 @@ export default function EndEffectorState(props: EndEffectorStateProps) {
     };
 
     useEffect(() => {
-        switch (true) {
-            case flagsLoading.current.flagLoadingX:
-                flagsLoading.current.flagLoadingX = false;
-                setDisabledControlInterface(false);
-                break;
-            case flagsLoading.current.flagLoadingY:
-                flagsLoading.current.flagLoadingY = false;
-                setDisabledControlInterface(false);
-                break;
-            case flagsLoading.current.flagLoadingZ:
-                flagsLoading.current.flagLoadingZ = false;
-                setDisabledControlInterface(false);
-                break;
-            case flagsLoading.current.flagLoadingPitch:
-                flagsLoading.current.flagLoadingPitch = false;
-                setDisabledControlInterface(false);
-                break;
-            case flagsLoading.current.flagLoadingRoll:
-                flagsLoading.current.flagLoadingRoll = false;
-                setDisabledControlInterface(false);
-                break;
-            case flagsLoading.current.flagLoadingYaw:
-                flagsLoading.current.flagLoadingYaw = false;
-                setDisabledControlInterface(false);
-                break;
+        if (flagControlDisableInterface?.current) {
+            switch (true) {
+                case flagsLoading.current.flagLoadingX:
+                    flagsLoading.current.flagLoadingX = false;
+                    setDisabledControlInterface(false);
+                    break;
+                case flagsLoading.current.flagLoadingY:
+                    flagsLoading.current.flagLoadingY = false;
+                    setDisabledControlInterface(false);
+                    break;
+                case flagsLoading.current.flagLoadingZ:
+                    flagsLoading.current.flagLoadingZ = false;
+                    setDisabledControlInterface(false);
+                    break;
+                case flagsLoading.current.flagLoadingPitch:
+                    flagsLoading.current.flagLoadingPitch = false;
+                    setDisabledControlInterface(false);
+                    break;
+                case flagsLoading.current.flagLoadingRoll:
+                    flagsLoading.current.flagLoadingRoll = false;
+                    setDisabledControlInterface(false);
+                    break;
+                case flagsLoading.current.flagLoadingYaw:
+                    flagsLoading.current.flagLoadingYaw = false;
+                    setDisabledControlInterface(false);
+                    break;
+            }
         }
-        console.log('THI(S');
     }, [
         endEffectorState.position.x,
         endEffectorState.position.y,
