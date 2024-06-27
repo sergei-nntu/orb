@@ -120,11 +120,11 @@ export type UserConsoleMessage = {
     time: string;
 };
 
-export interface FlagsLoaders {
-    flagLoadingX: boolean;
-    flagLoadingY: boolean;
-    flagLoadingZ: boolean;
-    flagLoadingPitch: boolean;
-    flagLoadingRoll: boolean;
-    flagLoadingYaw: boolean;
+export interface Loaders {
+    loaderX: boolean;
+    loaderY: boolean;
+    loaderZ: boolean;
+    loaderPitch: boolean;
+    loaderRoll: boolean;
+    loaderYaw: boolean;
 }

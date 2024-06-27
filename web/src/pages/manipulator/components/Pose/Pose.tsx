@@ -5,7 +5,7 @@ import { API_ROUTES, INITIAL_POSE_STATE } from '../../../../constants';
 import { PoseContext } from '../../../../contexts/PoseContext/PoseContext';
 import { UserConsoleMessagesContext } from '../../../../contexts/UserConsoleMessagesContext/UserConsoleMessagesContext';
 import useHttp from '../../../../hooks/Http/Http';
-import { CONSOLE_MESSAGE, FlagsLoaders, IPose, POSE } from '../../../../types/appTypes';
+import { CONSOLE_MESSAGE, IPose, Loaders, POSE } from '../../../../types/appTypes';
 import EndEffectorState from '../RobotStates/EndEffectorState/EndEffectorState';
 import { Item } from '../StyledComponents/StyledComponents';
 import Orientation from './Orientation/Orientation';
@@ -17,7 +17,7 @@ export type PoseProps = {
     disabledControlInterface: boolean;
     setDisabledControlInterface: Dispatch<SetStateAction<boolean>>;
     flagControlDisableInterface?: React.MutableRefObject<boolean> | undefined;
-    flagsLoading: React.MutableRefObject<FlagsLoaders>;
+    loaders: React.MutableRefObject<Loaders>;
 };
 
 export default function Pose(props: PoseProps) {
@@ -27,7 +27,7 @@ export default function Pose(props: PoseProps) {
         disabledControlInterface,
         setDisabledControlInterface,
         flagControlDisableInterface,
-        flagsLoading,
+        loaders,
     } = props;
     const { request } = useHttp();
     const { addUserConsoleMessage } = useContext(UserConsoleMessagesContext);
@@ -110,7 +110,7 @@ export default function Pose(props: PoseProps) {
                         remoteControlEnabled={remoteControlEnabled}
                         disabledControlInterface={disabledControlInterface}
                         setDisabledControlInterface={setDisabledControlInterface}
-                        flagsLoading={flagsLoading}
+                        loaders={loaders}
                     />
                 </Grid>
 
@@ -120,7 +120,7 @@ export default function Pose(props: PoseProps) {
                         remoteControlEnabled={remoteControlEnabled}
                         disabledControlInterface={disabledControlInterface}
                         setDisabledControlInterface={setDisabledControlInterface}
-                        flagsLoading={flagsLoading}
+                        loaders={loaders}
                     />
                 </Grid>
 
@@ -131,7 +131,7 @@ export default function Pose(props: PoseProps) {
                         setDisabledControlInterface={setDisabledControlInterface}
                         noMoveToPositionFlag={noMoveToPositionFlag}
                         flagControlDisableInterface={flagControlDisableInterface}
-                        flagsLoading={flagsLoading}
+                        loaders={loaders}
                     />
                 </Grid>
             </Item>

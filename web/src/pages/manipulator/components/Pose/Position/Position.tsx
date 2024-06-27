@@ -10,7 +10,7 @@ export default function Position({
     remoteControlEnabled,
     disabledControlInterface,
     setDisabledControlInterface,
-    flagsLoading,
+    loaders,
 }: PoseProps) {
     const { dispatch } = useContext(PoseContext);
     const [keyState, setKeyState] = useState({
@@ -32,15 +32,15 @@ export default function Position({
 
         if (e.key.toLowerCase() === 'w' || e.key.toLowerCase() === 's') {
             setDisabledControlInterface(true);
-            flagsLoading.current.flagLoadingY = true;
+            loaders.current.loaderY = true;
         }
         if (e.key.toLowerCase() === 'a' || e.key.toLowerCase() === 'd') {
             setDisabledControlInterface(true);
-            flagsLoading.current.flagLoadingX = true;
+            loaders.current.loaderX = true;
         }
         if (e.key.toLowerCase() === 'q' || e.key.toLowerCase() === 'e') {
             setDisabledControlInterface(true);
-            flagsLoading.current.flagLoadingZ = true;
+            loaders.current.loaderZ = true;
         }
 
         const key = e.key.toLowerCase();
@@ -115,15 +115,15 @@ export default function Position({
 
         if (key === 'w' || key === 's') {
             setDisabledControlInterface(true);
-            flagsLoading.current.flagLoadingY = true;
+            loaders.current.loaderY = true;
         }
         if (key === 'a' || key === 'd') {
             setDisabledControlInterface(true);
-            flagsLoading.current.flagLoadingX = true;
+            loaders.current.loaderX = true;
         }
         if (key === 'q' || key === 'e') {
             setDisabledControlInterface(true);
-            flagsLoading.current.flagLoadingZ = true;
+            loaders.current.loaderZ = true;
         }
 
         remoteControlEnabled.current = true;

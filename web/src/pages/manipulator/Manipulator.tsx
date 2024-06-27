@@ -6,7 +6,7 @@ import { JointsStateContext } from '../../contexts/JointsStateContext/JointsStat
 import useHttp from '../../hooks/Http/Http';
 import { useRouter } from '../../hooks/Router/Router';
 import { useUsbConnection } from '../../hooks/UsbConnection/UsbConnection';
-import { FlagsLoaders } from '../../types/appTypes';
+import { Loaders } from '../../types/appTypes';
 import Pose from './components/Pose/Pose';
 import RobotCamera from './components/RobotCamera/RobotCamera';
 import RobotModel from './components/RobotModel/RobotModel';
@@ -26,18 +26,18 @@ export default function Manipulator() {
     const remoteControlEnabled = useRef<boolean>(true);
     const blocklyEnabled = useRef<boolean>(false);
     const flagControlDisableInterface = useRef<boolean>(false);
-    const seconds = useRef(0);
+    const counterSeconds = useRef(0);
 
     const [stateProgress, setStateProgress] = useState<boolean>(false);
     const [disabledControlInterface, setDisabledControlInterface] = useState<boolean>(false);
 
-    const flagsLoading = useRef<FlagsLoaders>({
-        flagLoadingX: false,
-        flagLoadingY: false,
-        flagLoadingZ: false,
-        flagLoadingPitch: false,
-        flagLoadingRoll: false,
-        flagLoadingYaw: false,
+    const loaders = useRef<Loaders>({
+        loaderX: true,
+        loaderY: true,
+        loaderZ: true,
+        loaderPitch: true,
+        loaderRoll: true,
+        loaderYaw: true,
     });
 
     useEffect(() => {
@@ -105,10 +105,20 @@ export default function Manipulator() {
     useEffect(() => {
         if (!blocklyEnabled.current && stateProgress) {
             interval.current = setInterval(() => {
-                seconds.current++;
-                if (seconds.current === 15) {
+                counterSeconds.current++;
+                if (counterSeconds.current === 15) {
                     clearInterval(interval.current);
-                    seconds.current = 0;
+                    counterSeconds.current = 0;
+
+                    loaders.current = {
+                        ...loaders.current,
+                        loaderX: false,
+                        loaderY: false,
+                        loaderZ: false,
+                        loaderPitch: false,
+                        loaderRoll: false,
+                        loaderYaw: false,
+                    };
 
                     setDisabledControlInterface(false);
                     flagControlDisableInterface.current = true;
@@ -127,7 +137,7 @@ export default function Manipulator() {
                 disabledControlInterface={disabledControlInterface}
                 setDisabledControlInterface={setDisabledControlInterface}
                 flagControlDisableInterface={flagControlDisableInterface}
-                flagsLoading={flagsLoading}
+                loaders={loaders}
             />
             <Grid item sm={12} md={4} lg={6}>
                 <RobotModel setStateProgress={setStateProgress} />

@@ -5,7 +5,7 @@ import React, { Dispatch, SetStateAction, useEffect, useRef, useState } from 're
 
 import { API_ROUTES, INITIAL_POSE_STATE } from '../../../../../constants';
 import useHttp from '../../../../../hooks/Http/Http';
-import { FlagsLoaders, IPose } from '../../../../../types/appTypes';
+import { IPose, Loaders } from '../../../../../types/appTypes';
 import { StyledBox } from '../../StyledComponents/StyledComponents';
 
 type EndEffectorStateProps = {
@@ -14,16 +14,17 @@ type EndEffectorStateProps = {
     disabledControlInterface: boolean;
     setDisabledControlInterface: Dispatch<SetStateAction<boolean>>;
     flagControlDisableInterface: React.MutableRefObject<boolean> | undefined;
-    flagsLoading: React.MutableRefObject<FlagsLoaders>;
+    loaders: React.MutableRefObject<Loaders>;
 };
 
 export default function EndEffectorState(props: EndEffectorStateProps) {
     const {
+        blocklyEnabled,
         setDisabledControlInterface,
         disabledControlInterface,
         noMoveToPositionFlag,
         flagControlDisableInterface,
-        flagsLoading,
+        loaders,
     } = props;
 
     const { request } = useHttp();
@@ -66,28 +67,28 @@ export default function EndEffectorState(props: EndEffectorStateProps) {
     useEffect(() => {
         if (flagControlDisableInterface?.current) {
             switch (true) {
-                case flagsLoading.current.flagLoadingX:
-                    flagsLoading.current.flagLoadingX = false;
+                case loaders.current.loaderX:
+                    loaders.current.loaderX = false;
                     setDisabledControlInterface(false);
                     break;
-                case flagsLoading.current.flagLoadingY:
-                    flagsLoading.current.flagLoadingY = false;
+                case loaders.current.loaderY:
+                    loaders.current.loaderY = false;
                     setDisabledControlInterface(false);
                     break;
-                case flagsLoading.current.flagLoadingZ:
-                    flagsLoading.current.flagLoadingZ = false;
+                case loaders.current.loaderZ:
+                    loaders.current.loaderZ = false;
                     setDisabledControlInterface(false);
                     break;
-                case flagsLoading.current.flagLoadingPitch:
-                    flagsLoading.current.flagLoadingPitch = false;
+                case loaders.current.loaderPitch:
+                    loaders.current.loaderPitch = false;
                     setDisabledControlInterface(false);
                     break;
-                case flagsLoading.current.flagLoadingRoll:
-                    flagsLoading.current.flagLoadingRoll = false;
+                case loaders.current.loaderRoll:
+                    loaders.current.loaderRoll = false;
                     setDisabledControlInterface(false);
                     break;
-                case flagsLoading.current.flagLoadingYaw:
-                    flagsLoading.current.flagLoadingYaw = false;
+                case loaders.current.loaderYaw:
+                    loaders.current.loaderYaw = false;
                     setDisabledControlInterface(false);
                     break;
             }
@@ -104,16 +105,32 @@ export default function EndEffectorState(props: EndEffectorStateProps) {
     useEffect(() => {
         if (flagControlDisableInterface?.current && noMoveToPositionFlag.current) {
             noMoveToPositionFlag.current = false;
-            flagsLoading.current.flagLoadingX = false;
-            flagsLoading.current.flagLoadingY = false;
-            flagsLoading.current.flagLoadingZ = false;
-            flagsLoading.current.flagLoadingPitch = false;
-            flagsLoading.current.flagLoadingRoll = false;
-            flagsLoading.current.flagLoadingYaw = false;
+            loaders.current = {
+                ...loaders.current,
+                loaderX: false,
+                loaderY: false,
+                loaderZ: false,
+                loaderPitch: false,
+                loaderRoll: false,
+                loaderYaw: false,
+            };
             setDisabledControlInterface(false);
         }
     }, [noMoveToPositionFlag.current]);
 
+    useEffect(() => {
+        if (blocklyEnabled.current) {
+            loaders.current = {
+                ...loaders.current,
+                loaderX: false,
+                loaderY: false,
+                loaderZ: false,
+                loaderPitch: false,
+                loaderRoll: false,
+                loaderYaw: false,
+            };
+        }
+    }, [blocklyEnabled.current]);
     return (
         <StyledBox sx={{ mt: { md: 1, sm: 0 }, height: { md: '150px', xs: '280px' } }}>
             End-Effector State
@@ -126,7 +143,7 @@ export default function EndEffectorState(props: EndEffectorStateProps) {
                                     <Grid item sx={{ display: 'flex' }}>
                                         <StyledTag>x: </StyledTag>
                                     </Grid>
-                                    {flagsLoading.current.flagLoadingX ? (
+                                    {loaders.current.loaderX ? (
                                         <Grid
                                             item
                                             xs
@@ -154,7 +171,7 @@ export default function EndEffectorState(props: EndEffectorStateProps) {
                                     <Grid item sx={{ display: 'flex' }}>
                                         <StyledTag>y: </StyledTag>
                                     </Grid>
-                                    {flagsLoading.current.flagLoadingY ? (
+                                    {loaders.current.loaderY ? (
                                         <Grid
                                             item
                                             xs
@@ -182,7 +199,7 @@ export default function EndEffectorState(props: EndEffectorStateProps) {
                                     <Grid item sx={{ display: 'flex' }}>
                                         <StyledTag>z: </StyledTag>
                                     </Grid>
-                                    {flagsLoading.current.flagLoadingZ ? (
+                                    {loaders.current.loaderZ ? (
                                         <Grid
                                             item
                                             xs
@@ -217,7 +234,7 @@ export default function EndEffectorState(props: EndEffectorStateProps) {
                                     <Grid item sx={{ display: 'flex' }}>
                                         <StyledTag>pitch: </StyledTag>
                                     </Grid>
-                                    {flagsLoading.current.flagLoadingPitch ? (
+                                    {loaders.current.loaderPitch ? (
                                         <Grid
                                             item
                                             xs
@@ -245,7 +262,7 @@ export default function EndEffectorState(props: EndEffectorStateProps) {
                                     <Grid item sx={{ display: 'flex' }}>
                                         <StyledTag>roll: </StyledTag>
                                     </Grid>
-                                    {flagsLoading.current.flagLoadingRoll ? (
+                                    {loaders.current.loaderRoll ? (
                                         <Grid
                                             item
                                             xs
@@ -273,7 +290,7 @@ export default function EndEffectorState(props: EndEffectorStateProps) {
                                     <Grid item sx={{ display: 'flex' }}>
                                         <StyledTag>yaw: </StyledTag>
                                     </Grid>
-                                    {flagsLoading.current.flagLoadingYaw ? (
+                                    {loaders.current.loaderYaw ? (
                                         <Grid
                                             item
                                             xs

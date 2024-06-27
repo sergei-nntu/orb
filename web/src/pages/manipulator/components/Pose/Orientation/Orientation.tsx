@@ -13,7 +13,7 @@ export default function Orientation({
     remoteControlEnabled,
     disabledControlInterface,
     setDisabledControlInterface,
-    flagsLoading,
+    loaders,
 }: PoseProps) {
     const { dispatch } = useContext(PoseContext);
     const [keyState, setKeyState] = useState({
@@ -40,15 +40,15 @@ export default function Orientation({
 
         if (key === '1' || key === 'z') {
             setDisabledControlInterface(true);
-            flagsLoading.current.flagLoadingPitch = true;
+            loaders.current.loaderPitch = true;
         }
         if (key === '2' || key === 'x') {
             setDisabledControlInterface(true);
-            flagsLoading.current.flagLoadingRoll = true;
+            loaders.current.loaderRoll = true;
         }
         if (key === '3' || key === 'c') {
             setDisabledControlInterface(true);
-            flagsLoading.current.flagLoadingYaw = true;
+            loaders.current.loaderYaw = true;
         }
 
         remoteControlEnabled.current = true;
@@ -69,15 +69,15 @@ export default function Orientation({
 
         if (e.key.toLowerCase() === '1' || e.key.toLowerCase() === 'z') {
             setDisabledControlInterface(true);
-            flagsLoading.current.flagLoadingPitch = true;
+            loaders.current.loaderPitch = true;
         }
         if (e.key.toLowerCase() === '2' || e.key.toLowerCase() === 'x') {
             setDisabledControlInterface(true);
-            flagsLoading.current.flagLoadingRoll = true;
+            loaders.current.loaderRoll = true;
         }
         if (e.key.toLowerCase() === '3' || e.key.toLowerCase() === 'c') {
             setDisabledControlInterface(true);
-            flagsLoading.current.flagLoadingYaw = true;
+            loaders.current.loaderYaw = true;
         }
 
         const key = e.key.toLowerCase();
