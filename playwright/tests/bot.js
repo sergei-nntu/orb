@@ -38,7 +38,7 @@ module.exports = class Bot {
 
         await this.tools._handledTextInput(selector,oldValue);
 
-        await this.tools._reload();
+        // await this.tools._reload();
 
         const defValue = await this.tools._handledInputValue(selector);
         console.log("defValue = ",defValue);
