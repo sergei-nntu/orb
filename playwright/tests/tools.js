@@ -77,10 +77,6 @@ module.exports = class Tools {
         await this.element.reload();
         await this._waitLoading();
 
-        // const enabled = await this.element.locator('#input-joint-0').isDisabled();
-        // console.log("enabled = ", enabled)
-
-        // if(enabled)
         await this.element.locator('//*[(contains(@class,\'disabled\'))] //*[(contains(@id,\'input-joint\'))]').last().waitFor({state:'hidden'});
     }
 };

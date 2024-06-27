@@ -20,11 +20,7 @@ module.exports = class Bot {
         const oldValue = await this.tools._handledInputValue(selector);
         console.log("value_def = ", oldValue);
 
-        // const enabled = await this.element.locator('#input-joint-0').isDisabled();
-        // console.log("enabled = ", enabled)
-
-        // if(enabled)
-        await this.element.locator('//*[(contains(@class,\'disabled\'))] //*[(contains(@id,\'input-joint\'))]').last().waitFor({state:'hidden'});
+        // await this.element.locator('//*[(contains(@class,\'disabled\'))] //*[(contains(@id,\'input-joint\'))]').last().waitFor({state:'hidden'});
 
         await this.tools._handledTextInput(selector,value);
 
