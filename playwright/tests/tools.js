@@ -63,7 +63,7 @@ module.exports = class Tools {
 
     async _reloadManipulator() {
         // const responsePromise = this.element.waitForResponse(resp => resp.url().includes('convert_pose') && resp.status() === 200);
-        await this.element.reload();
+        await this.element.reload({ waitUntil: "networkidle" });
         await this._waitLoading();
         // await responsePromise;
 
@@ -74,12 +74,13 @@ module.exports = class Tools {
     }
 
     async _reload() {
-        await this.element.reload();
+        await this.element.reload({ waitUntil: "networkidle" });
         await this._waitLoading();
 
-        const enabled = await this.element.locator('#input-joint-0').isDisabled();
-        console.log("enabled = ", enabled)
+        // const enabled = await this.element.locator('#input-joint-0').isDisabled();
+        // console.log("enabled = ", enabled)
 
-        if(enabled) await this.element.locator('*[class*= disabled]').last().waitFor({state:'hidden'});
+        // if(enabled)
+        await this.element.locator('//*[(contains(@class,\'disabled\'))] //*[(contains(@id,\'input-joint\'))]').last().waitFor({state:'hidden'});
     }
 };
