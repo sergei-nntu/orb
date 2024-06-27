@@ -102,14 +102,14 @@ export default function EndEffectorState(props: EndEffectorStateProps) {
     ]);
 
     useEffect(() => {
-        flagsLoading.current.flagLoadingX = false;
-        flagsLoading.current.flagLoadingY = false;
-        flagsLoading.current.flagLoadingZ = false;
-        flagsLoading.current.flagLoadingPitch = false;
-        flagsLoading.current.flagLoadingRoll = false;
-        flagsLoading.current.flagLoadingYaw = false;
-        noMoveToPositionFlag.current = false;
-        if (flagControlDisableInterface?.current) {
+        if (flagControlDisableInterface?.current && noMoveToPositionFlag.current) {
+            noMoveToPositionFlag.current = false;
+            flagsLoading.current.flagLoadingX = false;
+            flagsLoading.current.flagLoadingY = false;
+            flagsLoading.current.flagLoadingZ = false;
+            flagsLoading.current.flagLoadingPitch = false;
+            flagsLoading.current.flagLoadingRoll = false;
+            flagsLoading.current.flagLoadingYaw = false;
             setDisabledControlInterface(false);
         }
     }, [noMoveToPositionFlag.current]);
