@@ -67,19 +67,19 @@ module.exports = class Tools {
         await this._waitLoading();
         // await responsePromise;
 
-        const enabled = await this.element.locator('#button-down-z').isEnabled();
+        const enabled = await this.element.locator('#button-down-z').isDisabled();
         console.log("enabled = ", enabled)
 
-        if(!enabled) await this.element.locator('svg[class*= Disabled]').last().waitFor({state:'hidden'});
+        if(enabled) await this.element.locator('svg[class*= Disabled]').last().waitFor({state:'hidden'});
     }
 
     async _reload() {
         await this.element.reload();
         await this._waitLoading();
 
-        const enabled = await this.element.locator('#input-joint-0').isEnabled();
+        const enabled = await this.element.locator('#input-joint-0').isDisabled();
         console.log("enabled = ", enabled)
 
-        if(!enabled) await this.element.locator('input[class*= disabled]').last().waitFor({state:'hidden'});
+        if(enabled) await this.element.locator('*[class*= disabled]').last().waitFor({state:'hidden'});
     }
 };
