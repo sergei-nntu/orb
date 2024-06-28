@@ -80,8 +80,8 @@ module.exports = class Tools {
         await this.element.reload();
         await this._waitLoading();
 
-        // await this.element.waitForTimeout(2000);
+        await this.element.waitForTimeout(3000);
 
-        await this.element.locator('//*[(contains(@class,\'disabled\'))] //*[(contains(@id,\'input-joint\'))]').last().waitFor({state:'hidden'});
+        // await this.element.locator('//*[(contains(@class,\'disabled\'))] //*[(contains(@id,\'input-joint\'))]').last().waitFor({state:'hidden'});
     }
 };
