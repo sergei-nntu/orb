@@ -19,7 +19,7 @@ module.exports = class Tools {
     }
     async _handledButton(selector, wait = false, button) {
         await this.element.locator(selector).click();
-        await this.element.waitForTimeout(2000);
+        // await this.element.waitForTimeout(2000);
         await this.element.locator(`#progress-bar-${button}`).waitFor({state:'hidden'});
         if (wait) await this._waitLoading();
     }
@@ -36,7 +36,7 @@ module.exports = class Tools {
     async _handledKeyButton( button){
         await this.element.keyboard.down(button);
         await this.element.keyboard.up(button);
-        await this.element.waitForTimeout(2000);
+        // await this.element.waitForTimeout(2000);
         await this.element.locator('span[id*= progress-bar]').last().waitFor({state:'hidden'});
 
     }
@@ -65,20 +65,23 @@ module.exports = class Tools {
         // const responsePromise = this.element.waitForResponse(resp => resp.url().includes('convert_pose') && resp.status() === 200);
         await this.element.reload();
         await this._waitLoading();
+
+        await this.element.locator('*[id*=progress-bar]').last().waitFor({state:'hidden'});
+
         // await responsePromise;
 
-        const enabled = await this.element.locator('#button-down-z').isDisabled();
-        console.log("enabled = ", enabled)
-
-        if(enabled) await this.element.locator('svg[class*= Disabled]').last().waitFor({state:'hidden'});
+        // const enabled = await this.element.locator('#button-down-z').isDisabled();
+        // console.log("enabled = ", enabled)
+        //
+        // if(enabled) await this.element.locator('svg[class*= Disabled]').last().waitFor({state:'hidden'});
     }
 
     async _reload() {
         await this.element.reload();
         await this._waitLoading();
 
-        await this.element.waitForTimeout(2000);
+        // await this.element.waitForTimeout(2000);
 
-        // await this.element.locator('//*[(contains(@class,\'disabled\'))] //*[(contains(@id,\'input-joint\'))]').last().waitFor({state:'hidden'});
+        await this.element.locator('//*[(contains(@class,\'disabled\'))] //*[(contains(@id,\'input-joint\'))]').last().waitFor({state:'hidden'});
     }
 };

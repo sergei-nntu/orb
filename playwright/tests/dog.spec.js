@@ -31,68 +31,68 @@ test.describe('Edit Front Left', () => {
 
     test('Edit Shoulder', async ({ page }) => {
         const bot = new Bot(page);
-        await bot.tools.element.waitForTimeout(3000);
+        await bot.tools.element.waitForTimeout(2000);
         await bot._handledEditValueSlider('#input-joint-0', shoulderValue);
     });
     test('Edit Reductor', async ({ page }) => {
         const bot = new Bot(page);
-        await bot.tools.element.waitForTimeout(3000);
+        await bot.tools.element.waitForTimeout(2000);
         await bot._handledEditValueSlider('#input-joint-1', reductorValue);
     });
     test('Edit Knee', async ({ page }) => {
         const bot = new Bot(page);
-        await bot.tools.element.waitForTimeout(3000);
+        await bot.tools.element.waitForTimeout(2000);
         await bot._handledEditValueSlider('#input-joint-2', kneeValue);
     });
 });
 test.describe('Edit Front Right', () => {
     test('Edit Shoulder', async ({ page }) => {
         const bot = new Bot(page);
-        await bot.tools.element.waitForTimeout(3000);
+        await bot.tools.element.waitForTimeout(2000);
         await bot._handledEditValueSlider( '#input-joint-3', shoulderValue);
     });
     test('Edit Reductor', async ({ page }) => {
         const bot = new Bot(page);
-        await bot.tools.element.waitForTimeout(3000);
+        await bot.tools.element.waitForTimeout(2000);
         await bot._handledEditValueSlider( '#input-joint-4', reductorValue);
     });
     test('Edit Knee', async ({ page }) => {
         const bot = new Bot(page);
-        await bot.tools.element.waitForTimeout(3000);
+        await bot.tools.element.waitForTimeout(2000);
         await bot._handledEditValueSlider('#input-joint-5', kneeValue);
     });
 });
 test.describe('Edit Rear Left', () => {
     test('Edit Shoulder', async ({ page }) => {
         const bot = new Bot(page);
-        await bot.tools.element.waitForTimeout(3000);
+        await bot.tools.element.waitForTimeout(2000);
         await bot._handledEditValueSlider( '#input-joint-6', shoulderValue);
     });
     test('Edit Reductor', async ({ page }) => {
         const bot = new Bot(page);
-        await bot.tools.element.waitForTimeout(3000);
+        await bot.tools.element.waitForTimeout(2000);
         await bot._handledEditValueSlider('#input-joint-7', reductorValue);
     });
     test('Edit Knee', async ({ page }) => {
         const bot = new Bot(page);
-        await bot.tools.element.waitForTimeout(3000);
+        await bot.tools.element.waitForTimeout(2000);
         await bot._handledEditValueSlider('#input-joint-8', kneeValue);
     });
 });
 test.describe('Edit Rear Right', () => {
     test('Edit Shoulder', async ({ page }) => {
         const bot = new Bot(page);
-        await bot.tools.element.waitForTimeout(3000);
+        await bot.tools.element.waitForTimeout(2000);
         await bot._handledEditValueSlider( '#input-joint-9', shoulderValue);
     });
     test('Edit Reductor', async ({ page }) => {
         const bot = new Bot(page);
-        await bot.tools.element.waitForTimeout(3000);
+        await bot.tools.element.waitForTimeout(2000);
         await bot._handledEditValueSlider( '#input-joint-10', reductorValue);
     });
     test('Edit Knee', async ({ page }) => {
         const bot = new Bot(page);
-        await bot.tools.element.waitForTimeout(3000);
+        await bot.tools.element.waitForTimeout(2000);
         await bot._handledEditValueSlider( '#input-joint-11', kneeValue);
     });
 });

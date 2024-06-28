@@ -11,7 +11,7 @@ test.beforeEach('Manipulator',async ({ page }) => {
   await bot.tools.element.goto('http://localhost:3000/manipulator');
   // const enabled = await bot.tools.element.locator('#button-down-z').isEnabled();
 
-  await bot.tools.element.locator('svg[class*= Disabled]').last().waitFor({state:'hidden'});
+  await bot.tools.element.locator('*[class*= Disabled]').last().waitFor({state:'hidden'});
   // await bot.tools._waitLoading();
 
   // const responsePromise = bot.tools.element.waitForResponse(resp => resp.url().includes('convert_pose') && resp.status() === 200);
@@ -30,26 +30,32 @@ test.describe('Position', () => {
   test.describe.configure({ mode: 'serial' });
   test('Edit X coordinate', async ({ page }) => {
     const bot = new Bot(page);
+    await bot.tools.element.waitForTimeout(3000);
     await bot._handledEditValueByClick( 'div:nth-child(1) > div > div:nth-child(1) > h6',["x"]);
   });
   test('Edit X coordinate with keyboard buttons', async ({ page }) => {
     const bot = new Bot(page);
+    await bot.tools.element.waitForTimeout(3000);
     await bot._handledEditValueByClick( 'div:nth-child(1) > div > div:nth-child(1) > h6',["D","A"], true);
   });
   test('Edit Y coordinate', async ({ page }) => {
     const bot = new Bot(page);
+    await bot.tools.element.waitForTimeout(3000);
     await bot._handledEditValueByClick( 'div:nth-child(1) > div > div:nth-child(2) > h6',["y"]);
   });
   test('Edit Y coordinate with keyboard buttons', async ({ page }) => {
     const bot = new Bot(page);
+    await bot.tools.element.waitForTimeout(3000);
     await bot._handledEditValueByClick( 'div:nth-child(1) > div > div:nth-child(2) > h6',["W","S"], true);
   });
   test('Edit Z coordinate', async ({ page }) => {
     const bot = new Bot(page);
+    await bot.tools.element.waitForTimeout(3000);
     await bot._handledEditValueByClick( 'div:nth-child(1) > div > div:nth-child(3) > h6',["z"]);
   });
   test('Edit Z coordinate with keyboard buttons', async ({ page }) => {
     const bot = new Bot(page);
+    await bot.tools.element.waitForTimeout(3000);
     await bot._handledEditValueByClick( 'div:nth-child(1) > div > div:nth-child(3) > h6',["E","Q"], true);
   });
 });
@@ -57,38 +63,38 @@ test.describe('Changing the path of movement of the manipulator', () => {
   test.describe.configure({ mode: 'serial' });
   test('Changing the path of movement of the manipulator along the X coordinate',async ({ page }) => {
     const bot = new Bot(page);
-    // await bot.tools.element.waitForTimeout(1000);
+    await bot.tools.element.waitForTimeout(3000);
     await bot._handledEditTrajectory('#button-up-x', "x");
     await bot._handledEditTrajectory('#button-down-x', "x");
   });
   test('Changing the path of movement of the manipulator along the Y coordinate',async ({ page }) => {
     const bot = new Bot(page);
-    // await bot.tools.element.waitForTimeout(1000);
+    await bot.tools.element.waitForTimeout(3000);
     await bot._handledEditTrajectory('#button-up-y', "y");
     await bot._handledEditTrajectory('#button-down-y', "y");
   });
   test('Changing the path of movement of the manipulator along the Z coordinate',async ({ page }) => {
     const bot = new Bot(page);
-    // await bot.tools.element.waitForTimeout(1000);
+    await bot.tools.element.waitForTimeout(3000);
     await bot._handledEditTrajectory('#button-up-z', "z");
     await bot._handledEditTrajectory('#button-down-z', "z");
   });
   test('Changing the trajectory of the manipulator when changing the pitch',async ({ page }) => {
     const bot = new Bot(page);
-    // await bot.tools.element.waitForTimeout(1000);
+    await bot.tools.element.waitForTimeout(3000);
     await bot._handledEditTrajectory('#button-up-pitch', "pitch");
     await bot._handledEditTrajectory('#button-down-pitch', "pitch");
 
   });
   test('Changing the trajectory of the manipulator when changing the roll',async ({ page }) => {
     const bot = new Bot(page);
-    // await bot.tools.element.waitForTimeout(1000);
+    await bot.tools.element.waitForTimeout(3000);
     await bot._handledEditTrajectory('#button-up-roll', "roll");
     await bot._handledEditTrajectory('#button-down-roll', "roll");
   });
   test('Changing the trajectory of the manipulator when changing yaw',async ({ page }) => {
     const bot = new Bot(page);
-    // await bot.tools.element.waitForTimeout(1000);
+    await bot.tools.element.waitForTimeout(3000);
     await bot._handledEditTrajectory('#button-up-yaw', "yaw");
     await bot._handledEditTrajectory('#button-down-yaw', "yaw");
   });
@@ -97,14 +103,17 @@ test.describe('Orientation', () => {
   test.describe.configure({ mode: 'serial' });
   test('Edit pitch value', async ({ page }) => {
     const bot = new Bot(page);
+    await bot.tools.element.waitForTimeout(3000);
     await bot._handledEditValueByClick('div:nth-child(2) > div > div:nth-child(1) > h6',["pitch"]);
   });
   test('Edit roll value', async ({ page }) => {
     const bot = new Bot(page);
+    await bot.tools.element.waitForTimeout(3000);
     await bot._handledEditValueByClick('div:nth-child(3) > div > div > div:nth-child(2) > div > div:nth-child(2) > h6',["roll"]);
   });
   test('Edit yaw value', async ({ page }) => {
     const bot = new Bot(page);
+    await bot.tools.element.waitForTimeout(3000);
     await bot._handledEditValueByClick( 'div:nth-child(2) > div > div:nth-child(3) > h6',["yaw"]);
   });
 });
@@ -112,32 +121,39 @@ test.describe.skip('Joints Position tests', () => {
   test.describe.configure({ mode: 'serial' });
   test('Edit Joint0', async ({ page }) => {
     const bot = new Bot(page);
+    await bot.tools.element.waitForTimeout(3000);
     await bot._handledEditValueSlider( '#input-joint-0',jointValue);
   });
   test('Edit Joint1', async ({ page }) => {
     const bot = new Bot(page);
+    await bot.tools.element.waitForTimeout(3000);
     await bot._handledEditValueSlider( '#input-joint-1',jointValue);
   });
   test('Edit Joint2', async ({ page }) => {
     const bot = new Bot(page);
+    await bot.tools.element.waitForTimeout(3000);
     await bot._handledEditValueSlider( '#input-joint-2',jointValue);
   });
   test('Edit Joint3', async ({ page }) => {
     const bot = new Bot(page);
+    await bot.tools.element.waitForTimeout(3000);
     await bot._handledEditValueSlider( '#input-joint-3',jointValue);
   });
   test('Edit Joint4', async ({ page }) => {
     const bot = new Bot(page);
+    await bot.tools.element.waitForTimeout(3000);
     await bot._handledEditValueSlider( '#input-joint-4',jointValue);
   });
   test('Edit Joint5', async ({ page }) => {
     const bot = new Bot(page);
+    await bot.tools.element.waitForTimeout(3000);
     await bot._handledEditValueSlider( '#input-joint-5',jointValue);
   });
 });
 test.describe.skip('Gripper State', () => {
   test('Edit Gripper State', async ({ page }) => {
     const bot = new Bot(page);
+    await bot.tools.element.waitForTimeout(3000);
     const oldPosition =  await bot.tools._handledInputValue('#slider-gripper-state > span> input');
     console.log("position_0 = ", oldPosition);
 
