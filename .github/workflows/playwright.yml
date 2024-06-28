@@ -60,14 +60,14 @@ jobs:
 #      - name: Docker compose
 #        run: docker-compose up -d
 #        working-directory: ./docker
-      - name: Run Server
-        run: |
-         bash run_server.sh
       - name: Checkout to playwright-tests
-        if: ((github.event.pull_request.merged == true) || (github.event.review.state == 'approved') || (github.event.action == 'closed') || (github.event_name == 'schedule'))
         uses: actions/checkout@v4
         with:
           ref: playwright-tests
+      - name: Run Server
+        run: |
+         bash run_server.sh
+        working-directory: ./playwright
       - name: Install dependencies
         run: npm ci
         working-directory: ./playwright
