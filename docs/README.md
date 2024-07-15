@@ -6,6 +6,8 @@ There are two methods for installing, configuring, and launching the whole infra
 
 # Locally
 
+***note: you must have ubuntu 20.04 as an operating system to use it locally***
+
 Detailed instructions on how to install, configure, and launch the services:
 
 - orm-ros - [launch.md](./orm-ros/launch.md)
