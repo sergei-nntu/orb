@@ -16,6 +16,7 @@ The repository at the top level contains the following directories:
 - [Moveit](https://moveit.ros.org/install/)
 - [Python 3](https://www.python.org/downloads/)
 - [Flask 3](https://flask.palletsprojects.com/en/3.0.x/installation/)
+- [Pyserial](https://pyserial.readthedocs.io/en/latest/pyserial.html)
 
 ## Installation and configuration
 

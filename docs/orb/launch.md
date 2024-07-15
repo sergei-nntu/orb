@@ -12,14 +12,14 @@ git clone https://github.com/sergei-nntu/orb.git
 cd orb/web
 ```
 
-3. Change the proxy by entering **localhost** instead of **ros** in the package.json:
-```
-"proxy": "http://localhost:5001"
-```
-
-4. Install dependencies:
+3. Install dependencies:
 ```
 npm install
+```
+
+4. Change the proxy by entering **localhost** instead of **ros** in the package.json:
+```
+"proxy": "http://localhost:5001"
 ```
 
 5. Start the development server:
