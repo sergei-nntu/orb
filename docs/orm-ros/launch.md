@@ -110,7 +110,14 @@ git clone https://github.com/sergei-nntu/orm-ros.git
 mv orm-ros we_r2_moveit_config
 ```
 
-Build the source code:
+### Build the source code:
+
+Move to `catkin_ws` directory and before running any ros command in the project, 
+enter this util:
+```
+source devel/setup.bash
+```
+Then, build source code of ros directory by using the command below:
 ```
 catkin_make
 ```
