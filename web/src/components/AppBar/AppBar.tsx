@@ -52,6 +52,10 @@ const drawerData = [
         icon: <SmartToyIcon />,
         tab: TAB.OQP,
     },
+    {
+        icon: <NavigationIcon />,
+        tab: TAB.SREERING,
+    },
 ];
 
 export default function MenuAppBar() {
@@ -284,7 +288,7 @@ export default function MenuAppBar() {
                             disablePadding
                             sx={{ display: 'block' }}
                             data-text={item.tab}
-                            onClick={(event) => {
+                            onClick={(event: React.MouseEvent<HTMLElement, MouseEvent>) => {
                                 if (
                                     !connectionStatus.current &&
                                     DISABLED_TABS.includes(item.tab) &&

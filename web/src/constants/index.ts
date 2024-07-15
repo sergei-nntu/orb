@@ -22,6 +22,7 @@ export enum API_ROUTES {
     GET_BLOCKLY_STATE = '/get_blockly_state',
     GET_JOINT_TRAJECTORY = '/get_joint_trajectory',
     GET_USB_CONNECTION_STATUS = '/get_usb_connection_status',
+    POST_STEERING = '/post_steering',
 }
 
 export enum KEY {
@@ -35,6 +36,7 @@ export enum TAB {
     PLANNING = 'Planning',
     QR = 'QR',
     OQP = 'OQP',
+    SREERING = 'Steering',
 }
 
 export const DISABLED_TABS = [TAB.MANIPULATOR, TAB.OQP];

@@ -16,6 +16,7 @@ import Navigation from './pages/navigation/Navigation';
 import Oqp from './pages/oqp/Oqp';
 import Planning from './pages/planning/Planning';
 import QRPage from './pages/qr-page/QRPage';
+import Steering from './pages/steering/Steering';
 
 const router = createBrowserRouter([
     {
@@ -42,6 +43,10 @@ const router = createBrowserRouter([
             {
                 path: '/oqp',
                 element: <Oqp />,
+            },
+            {
+                path: '/steering',
+                element: <Steering />,
             },
         ],
     },
