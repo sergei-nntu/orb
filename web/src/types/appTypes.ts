@@ -29,17 +29,19 @@ export enum POSE {
     SET_PREV_STATE = 'SET_PREV_STATE',
 }
 // TODO: use in the future or remove
-// export enum STEERING {
-//     FORWARD_STEERING = 'FORWARD_STEERING',
-//     BACK_STEERING = 'BACK_STEERING',
-//     LEFT_STEERING = 'LEFT_STEERING',
-//     RIGHT_STEERING = 'RIGHT_STEERING',
-// }
-// export type SteeringActionType =
-//     | Action<STEERING.FORWARD_STEERING>
-//     | Action<STEERING.BACK_STEERING>
-//     | Action<STEERING.LEFT_STEERING>
-//     | Action<STEERING.RIGHT_STEERING>;
+export enum STEERING {
+    FORWARD_STEERING = 'FORWARD_STEERING',
+    BACK_STEERING = 'BACK_STEERING',
+    LEFT_STEERING = 'LEFT_STEERING',
+    RIGHT_STEERING = 'RIGHT_STEERING',
+}
+
+export type SteeringActionType =
+    | Action<STEERING.FORWARD_STEERING>
+    | Action<STEERING.BACK_STEERING>
+    | Action<STEERING.LEFT_STEERING>
+    | Action<STEERING.RIGHT_STEERING>;
+//
 
 export type PoseActionType =
     | Action<POSE.POSITION_X_UP>

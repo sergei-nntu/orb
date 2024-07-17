@@ -5,8 +5,12 @@ import { API_ROUTES } from '../../constants';
 import useHttp from '../../hooks/Http/Http';
 import { IkeySteering } from '../../types/appTypes';
 import { StyledBox } from '../manipulator/components/StyledComponents/StyledComponents';
+import ButtonEnable from './components/Buttons/ButtonEnable';
+// import ButtonEnable from './components/Buttons/ButtonEnable';
 
 export default function Steering() {
+    // const "error"ary';
+    // const buttonName = 'enable stepper';
     const { request } = useHttp();
     const [keySteering, setKeySteering] = useState<IkeySteering>({
         ArrowUp: false,
@@ -44,6 +48,22 @@ export default function Steering() {
         return;
     };
 
+    const handleMouseDownSteering = (key: string) => () => {
+        setKeySteering((prev) => ({
+            ...prev,
+            [key]: true,
+        }));
+        return;
+    };
+
+    const handleMouseUpSteering = (key: string) => () => {
+        setKeySteering((prev) => ({
+            ...prev,
+            [key]: false,
+        }));
+        return;
+    };
+
     useEffect(() => {
         window.addEventListener('keydown', handleKeyDownSteering);
         window.addEventListener('keyup', handleKeyUpSteering);
@@ -56,7 +76,6 @@ export default function Steering() {
 
     const setdSteeringToServer = async () => {
         try {
-            console.log(keySteering);
             const options = {
                 method: 'POST',
                 body: JSON.stringify({
@@ -74,7 +93,6 @@ export default function Steering() {
     };
 
     useEffect(() => {
-        // console.log(keySteering);
         setdSteeringToServer().then((err) => {
             if (err != undefined) {
                 console.log(err);
@@ -112,7 +130,10 @@ export default function Steering() {
                         left: 'calc(50% - 24px)',
                         top: '0',
                     }}
-                    color={'primary'}
+                    color={keySteering.ArrowUp ? 'error' : 'primary'}
+                    onMouseDown={handleMouseDownSteering('ArrowUp')}
+                    onMouseUp={handleMouseUpSteering('ArrowUp')}
+                    onMouseLeave={handleMouseUpSteering('ArrowUp')}
                 >
                     <path
                         d="M7.41 15.41 12 10.83l4.59 4.58L18 14l-6-6-6 6 1.41 1.41z"
@@ -130,7 +151,10 @@ export default function Steering() {
                         left: 'calc(50% - 24px)',
                         bottom: '0',
                     }}
-                    color={'primary'}
+                    color={keySteering.ArrowDown ? 'error' : 'primary'}
+                    onMouseDown={handleMouseDownSteering('ArrowDown')}
+                    onMouseUp={handleMouseUpSteering('ArrowDown')}
+                    onMouseLeave={handleMouseUpSteering('ArrowDown')}
                 >
                     <path
                         d="M7.41 8.59 12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"
@@ -148,7 +172,10 @@ export default function Steering() {
                         left: '0',
                         top: 'calc(50% - 24px)',
                     }}
-                    color={'primary'}
+                    color={keySteering.ArrowLeft ? 'error' : 'primary'}
+                    onMouseDown={handleMouseDownSteering('ArrowLeft')}
+                    onMouseUp={handleMouseUpSteering('ArrowLeft')}
+                    onMouseLeave={handleMouseUpSteering('ArrowLeft')}
                 >
                     <path
                         d="M15.41 16.59 10.83 12l4.58-4.59L14 6l-6 6 6 6 1.41-1.41z"
@@ -166,7 +193,10 @@ export default function Steering() {
                         right: '0',
                         top: 'calc(50% - 24px)',
                     }}
-                    color={'primary'}
+                    color={keySteering.ArrowRight ? 'error' : 'primary'}
+                    onMouseDown={handleMouseDownSteering('ArrowRight')}
+                    onMouseUp={handleMouseUpSteering('ArrowRight')}
+                    onMouseLeave={handleMouseUpSteering('ArrowRight')}
                 >
                     <path
                         d="M8.59 16.59 13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"
@@ -174,6 +204,7 @@ export default function Steering() {
                     ></path>
                 </SvgIcon>
             </Box>
+            <ButtonEnable />
         </StyledBox>
     );
 }
