@@ -5,6 +5,7 @@ import { API_ROUTES } from '../../constants';
 import useHttp from '../../hooks/Http/Http';
 import { IkeySteering } from '../../types/appTypes';
 import { StyledBox } from '../manipulator/components/StyledComponents/StyledComponents';
+import RobotCamera from '../manipulator/components/RobotCamera/RobotCamera';
 
 export default function Steering() {
     const { request } = useHttp();
@@ -174,6 +175,8 @@ export default function Steering() {
                     ></path>
                 </SvgIcon>
             </Box>
+
+            <RobotCamera />
         </StyledBox>
     );
 }

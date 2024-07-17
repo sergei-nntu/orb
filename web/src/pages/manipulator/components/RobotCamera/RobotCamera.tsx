@@ -26,7 +26,7 @@ export default function RobotCamera() {
             if (videoElement) {
                 videoElement.addEventListener('load', handleVideoLoaded);
                 videoElement.addEventListener('error', handleVideoError);
-                videoElement.src = '/manipulator_video_feed';
+                videoElement.src = 'http://127.0.0.1:5001/video_feed';
                 console.log(videoElement.src);
             }
         };
@@ -57,7 +57,7 @@ export default function RobotCamera() {
                         alignItems: 'center',
                     }}
                 >
-                    <img ref={videoRef} alt="Manipulator Camera" style={{ width: '100%' }} />
+                    <img ref={videoRef} alt="Manipulator Camera" style={{ width: '640px', height: '480px' }} />
                 </Item>
             </Paper>
         </Box>
