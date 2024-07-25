@@ -6,17 +6,14 @@ import useHttp from '../../hooks/Http/Http';
 import { IkeySteering } from '../../types/appTypes';
 import { StyledBox } from '../manipulator/components/StyledComponents/StyledComponents';
 import ButtonEnable from './components/Buttons/ButtonEnable';
-// import ButtonEnable from './components/Buttons/ButtonEnable';
 
 export default function Steering() {
-    // const "error"ary';
-    // const buttonName = 'enable stepper';
     const { request } = useHttp();
     const [keySteering, setKeySteering] = useState<IkeySteering>({
-        ArrowUp: false,
-        ArrowDown: false,
-        ArrowLeft: false,
-        ArrowRight: false,
+        ArrowUp: ' ',
+        ArrowDown: ' ',
+        ArrowLeft: ' ',
+        ArrowRight: ' ',
     });
     const keyDownInProgressSteering = useRef<boolean>(false); //protected from long presses
 
@@ -31,7 +28,7 @@ export default function Steering() {
         if (key in keySteering) {
             setKeySteering((prev) => ({
                 ...prev,
-                [key]: true,
+                [key]: key,
             }));
         }
     };
@@ -41,7 +38,7 @@ export default function Steering() {
         if (key in keySteering) {
             setKeySteering((prev) => ({
                 ...prev,
-                [key]: false,
+                [key]: ' ',
             }));
         }
         keyDownInProgressSteering.current = false;
@@ -51,7 +48,7 @@ export default function Steering() {
     const handleMouseDownSteering = (key: string) => () => {
         setKeySteering((prev) => ({
             ...prev,
-            [key]: true,
+            [key]: key,
         }));
         return;
     };
@@ -59,7 +56,7 @@ export default function Steering() {
     const handleMouseUpSteering = (key: string) => () => {
         setKeySteering((prev) => ({
             ...prev,
-            [key]: false,
+            [key]: ' ',
         }));
         return;
     };
@@ -85,8 +82,9 @@ export default function Steering() {
                     ArrowRight: keySteering.ArrowRight,
                 }),
             };
-            const resp = await request(API_ROUTES.POST_STEERING, options);
-            console.log('RESP', resp);
+            await request(API_ROUTES.POST_STEERING, options);
+            // const resp = await request(API_ROUTES.POST_STEERING, options);
+            // console.log('RESP', resp);
         } catch (error) {
             console.error('Error: ', error);
         }
@@ -130,7 +128,7 @@ export default function Steering() {
                         left: 'calc(50% - 24px)',
                         top: '0',
                     }}
-                    color={keySteering.ArrowUp ? 'error' : 'primary'}
+                    color={keySteering.ArrowUp == ' ' ? 'primary' : 'error'}
                     onMouseDown={handleMouseDownSteering('ArrowUp')}
                     onMouseUp={handleMouseUpSteering('ArrowUp')}
                     onMouseLeave={handleMouseUpSteering('ArrowUp')}
@@ -151,7 +149,7 @@ export default function Steering() {
                         left: 'calc(50% - 24px)',
                         bottom: '0',
                     }}
-                    color={keySteering.ArrowDown ? 'error' : 'primary'}
+                    color={keySteering.ArrowDown == ' ' ? 'primary' : 'error'}
                     onMouseDown={handleMouseDownSteering('ArrowDown')}
                     onMouseUp={handleMouseUpSteering('ArrowDown')}
                     onMouseLeave={handleMouseUpSteering('ArrowDown')}
@@ -172,7 +170,7 @@ export default function Steering() {
                         left: '0',
                         top: 'calc(50% - 24px)',
                     }}
-                    color={keySteering.ArrowLeft ? 'error' : 'primary'}
+                    color={keySteering.ArrowLeft == ' ' ? 'primary' : 'error'}
                     onMouseDown={handleMouseDownSteering('ArrowLeft')}
                     onMouseUp={handleMouseUpSteering('ArrowLeft')}
                     onMouseLeave={handleMouseUpSteering('ArrowLeft')}
@@ -193,7 +191,7 @@ export default function Steering() {
                         right: '0',
                         top: 'calc(50% - 24px)',
                     }}
-                    color={keySteering.ArrowRight ? 'error' : 'primary'}
+                    color={keySteering.ArrowRight == ' ' ? 'primary' : 'error'}
                     onMouseDown={handleMouseDownSteering('ArrowRight')}
                     onMouseUp={handleMouseUpSteering('ArrowRight')}
                     onMouseLeave={handleMouseUpSteering('ArrowRight')}

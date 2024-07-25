@@ -135,8 +135,8 @@ export type UserConsoleMessage = {
 };
 
 export type IkeySteering = {
-    ArrowUp: boolean;
-    ArrowDown: boolean;
-    ArrowLeft: boolean;
-    ArrowRight: boolean;
+    ArrowUp: string;
+    ArrowDown: string;
+    ArrowLeft: string;
+    ArrowRight: string;
 };
