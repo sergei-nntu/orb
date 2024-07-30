@@ -11,8 +11,8 @@ export default function CheckBoxEnable() {
     const handleChangeCheckBox = (event: React.ChangeEvent<HTMLInputElement>) => {
         setChecked([event.target.checked]);
         const isChecked = event.target.checked;
-        const numberCheks = isChecked ? 1 : 0;
-        setChecked(numberCheks);
+        const numberChecks = isChecked ? 1 : 0;
+        setChecked(numberChecks);
         return;
     };
 

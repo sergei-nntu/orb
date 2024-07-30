@@ -4,7 +4,9 @@ import React, { useEffect, useState } from 'react';
 import { API_ROUTES } from '../../constants';
 import useHttp from '../../hooks/Http/Http';
 import { IkeySteering } from '../../types/appTypes';
+import RobotCamera from '../manipulator/components/RobotCamera/RobotCamera';
 import { StyledBox } from '../manipulator/components/StyledComponents/StyledComponents';
+import CheckBoxEnable from './components/CheckBox/CheckBoxEnable';
 
 export default function Steering() {
     const { request } = useHttp();
@@ -196,6 +198,8 @@ export default function Steering() {
                     ></path>
                 </SvgIcon>
             </Box>
+
+            <RobotCamera />
         </StyledBox>
     );
 }
