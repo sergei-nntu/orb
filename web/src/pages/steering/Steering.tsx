@@ -5,8 +5,6 @@ import { API_ROUTES } from '../../constants';
 import useHttp from '../../hooks/Http/Http';
 import { IkeySteering } from '../../types/appTypes';
 import { StyledBox } from '../manipulator/components/StyledComponents/StyledComponents';
-import ButtonOnOffSteppers from './components/Buttons/ButtonOnOffStepper';
-import CheckBoxEnable from './components/ChekBox/ChekBoxEnable';
 
 export default function Steering() {
     const { request } = useHttp();
@@ -198,7 +196,6 @@ export default function Steering() {
                     ></path>
                 </SvgIcon>
             </Box>
-            <ButtonOnOffSteppers />
         </StyledBox>
     );
 }
