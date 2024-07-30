@@ -1,11 +1,12 @@
 import { Box, SvgIcon } from '@mui/material';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { API_ROUTES } from '../../constants';
 import useHttp from '../../hooks/Http/Http';
 import { IkeySteering } from '../../types/appTypes';
 import { StyledBox } from '../manipulator/components/StyledComponents/StyledComponents';
-import ButtonEnable from './components/Buttons/ButtonEnable';
+import ButtonOnOffSteppers from './components/Buttons/ButtonOnOffStepper';
+import CheckBoxEnable from './components/ChekBox/ChekBoxEnable';
 
 export default function Steering() {
     const { request } = useHttp();
@@ -15,15 +16,8 @@ export default function Steering() {
         ArrowLeft: ' ',
         ArrowRight: ' ',
     });
-    const keyDownInProgressSteering = useRef<boolean>(false); //protected from long presses
 
     const handleKeyDownSteering = (event: KeyboardEvent) => {
-        if (keyDownInProgressSteering.current) {
-            return;
-        } else {
-            keyDownInProgressSteering.current = true;
-        }
-
         const key = event.key;
         if (key in keySteering) {
             setKeySteering((prev) => ({
@@ -41,7 +35,6 @@ export default function Steering() {
                 [key]: ' ',
             }));
         }
-        keyDownInProgressSteering.current = false;
         return;
     };
 
@@ -71,7 +64,7 @@ export default function Steering() {
         };
     }, []);
 
-    const setdSteeringToServer = async () => {
+    const sendSteeringToServer = async () => {
         try {
             const options = {
                 method: 'POST',
@@ -91,7 +84,7 @@ export default function Steering() {
     };
 
     useEffect(() => {
-        setdSteeringToServer().then((err) => {
+        sendSteeringToServer().then((err) => {
             if (err != undefined) {
                 console.log(err);
             }
@@ -101,6 +94,9 @@ export default function Steering() {
     return (
         <StyledBox>
             <h1>Steering</h1>
+            <Box component="div" sx={{ display: 'flex', justifyContent: 'Center' }}>
+                <CheckBoxEnable />
+            </Box>
             <Box
                 component="div"
                 sx={{
@@ -202,7 +198,7 @@ export default function Steering() {
                     ></path>
                 </SvgIcon>
             </Box>
-            <ButtonEnable />
+            <ButtonOnOffSteppers />
         </StyledBox>
     );
 }

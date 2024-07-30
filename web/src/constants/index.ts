@@ -23,6 +23,7 @@ export enum API_ROUTES {
     GET_JOINT_TRAJECTORY = '/get_joint_trajectory',
     GET_USB_CONNECTION_STATUS = '/get_usb_connection_status',
     POST_STEERING = '/post_steering',
+    POST_ENABLE_STEPPER_MOTORS = '/post_enable_stepper_motors',
 }
 
 export enum KEY {
