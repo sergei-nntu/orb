@@ -140,3 +140,10 @@ export type IkeySteering = {
     ArrowLeft: string;
     ArrowRight: string;
 };
+
+export type ILimitSwitchInfo = {
+    front: number;
+    rear: number;
+    left: number;
+    right: number;
+};

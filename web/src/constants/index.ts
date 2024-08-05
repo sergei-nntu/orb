@@ -24,6 +24,7 @@ export enum API_ROUTES {
     GET_USB_CONNECTION_STATUS = '/get_usb_connection_status',
     POST_STEERING = '/post_steering',
     POST_ENABLE_STEPPER_MOTORS = '/post_enable_stepper_motors',
+    GET_LIMIT_SWITCHER_STATE = '/get_limit_switchers_state',
 }
 
 export enum KEY {
